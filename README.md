@@ -9,7 +9,7 @@ Também é necessário ter o [Git](https://git-scm.com) instalado para clonar o 
 
 Clonar o repositório:
 
-`git clone https://github.com/fga-eps-mds/2019.2-Acacia`
+`git clone https://github.com/fga-eps-mds/2019.2-Acacia-Frontend`
 
 Execução do conteiner:
 
