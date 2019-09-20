@@ -8,9 +8,7 @@ Este repositório tem como objetivo o desenvolvimento, a manutenção e a evolu�
 
   
 
-## Como contribuir - Front-End
-
-  
+## Como contribuir
 
 Para contribuir com este projeto basta seguir:
 
