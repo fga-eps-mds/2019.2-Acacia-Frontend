@@ -8,9 +8,7 @@ Este repositório tem como objetivo o desenvolvimento, a manutenção e a evolu�
 
   
 
-## Como contribuir - Front-End
-
-  
+## Como contribuir
 
 Para contribuir com este projeto basta seguir:
 
@@ -43,4 +41,4 @@ Execução do conteiner:
 
 `docker-compose up`
 
-Após esses passos a aplicação deverá estar acessível em [localhost:8000](localhost:8000)
+Após esses passos a aplicação deverá estar acessível em [localhost:8080](localhost:8080)
