@@ -1,4 +1,4 @@
-<p align="center">  <img src="img/wordmark_1.svg" width="400"></p>
+<p align="center">  <img src="docs/wordmark_1.svg" width="400"></p>
 
 ## Visão geral
 
@@ -29,14 +29,6 @@ Para contribuir com este projeto basta seguir:
   
 
 ## Guia de Instalação
-  
-
-Essa aplicação tem seu ambiente configurado através de conteiners [Docker](https://www.docker.com), portanto, tem como pré-requisitos a instalação do [Docker](https://www.docker.com/get-started) e [Docker-compose](https://docs.docker.com/compose/install/).
-
-Também é necessário ter o [Git](https://git-scm.com) instalado para clonar o repositório.
-
-
-### Instalação
 
 Essa aplicação tem seu ambiente configurado através de conteiners [Docker](https://www.docker.com), portanto, tem como pré-requisitos a instalação do [Docker](https://www.docker.com/get-started) e [Docker-compose](https://docs.docker.com/compose/install/).
 Também é necessário ter o [Git](https://git-scm.com) instalado para clonar o repositório.
