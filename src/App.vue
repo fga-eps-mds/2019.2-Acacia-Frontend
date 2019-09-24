@@ -12,11 +12,9 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./assets/stylesheets/colors.scss"
-</style>
-
-<style>
-@import "./assets/stylesheets/fonts.css"
+@import "./assets/stylesheets/colors.scss";
+@import "./assets/stylesheets/typography.scss";
+@import "./assets/stylesheets/helpers.scss";
 </style>
 
 <style>

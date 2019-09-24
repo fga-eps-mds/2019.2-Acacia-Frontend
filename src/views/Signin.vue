@@ -1,9 +1,22 @@
 <template>
   <div class="signin gradient">
 		<div class="col"></div>
-		<h1 class="raleway-bold text-azul-clarin">This is an sign in page</h1>
+		<h1 class="raleway-bold ">This is an sign in page</h1>
+		<TextField :placeholder="'email'" class="mt-5"/>
+		<TextField :placeholder="'password'" class="mt-5" :password="true"/>
+		<TextField :label="'Email'" class="mt-5" />
+		<TextField :label="'Password'" class="mt-5" :password="true"/>
   </div>
 </template>
+
+<script>
+import TextField from '../components/input/TextField'
+export default {
+	components: {
+		TextField
+	}
+}
+</script>
 
 <style scoped>
 .signin {
