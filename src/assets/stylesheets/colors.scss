@@ -1,21 +1,81 @@
-/* Essas são as cores utilizadas no projeto */
-/* Cores disponiveis: 
+/* Colors used in project */
+/* Available colors: 
 
-Estão disponíveis tanto para background quanto pra cor de texto
+Charcoal
+Queen Blue (primary color)
+Cadet Blue (secundary color)
+Sandstorm
+Infra Red  (accent color)
+White ice
 
-Branco clarin (#F7F8FC):
-	bg-branco-clarin
-	text-branco-clarin
 */
 
-$azul-clarin: #F7F8FC;
-$cor-aleatoria: #CECEDF;
+// Colors
 
-.bg-azul-clarin {
-	background-color: $azul-clarin
+$color-primary: #376996;
+$color-primary-dark: #364259;
+$color-secundary:  #56a3a6;
+$color-accent: #ef476f;
+$color-accent-secundary: #ffd131;
+
+$color-primary-text-title: #376996;
+$color-secundary-text-title: #56a3a6;
+$color-default-text: #ffffff;
+$color-primary-text: #3B3D48;
+$color-secundary-text: #949090;
+
+$color-ice-background: #f7f8fc;
+
+
+// Class
+
+// Class Background
+
+.bg-color-default {
+	background-color: $color-ice-background
 }
 
-.text-azul-clarin {
-	color: $azul-clarin
+.bg-color-primary {
+	background-color: $color-primary
 }
 
+.bg-color-secundary {
+	background-color: $color-secundary
+}
+
+.bg-color-primary-dark {
+	background-color: $color-primary-dark
+}
+
+.bg-color-accent {
+	background-color: $color-accent
+}
+
+.bg-color-accent-secundary {
+	background-color: $color-accent-secundary
+}
+
+
+
+
+// Class Text
+
+.text-color-primary-title {
+	color: $color-primary-text-title;
+}
+
+.text-color-secundary-title {
+	color: $color-secundary-text-title;
+}
+
+.text-color-primary {
+	color: $color-primary-text;
+}
+
+.text-color-default {
+	color: $color-default-text;
+}
+
+.text-color-secundary {
+	color: $color-secundary-text;
+}
