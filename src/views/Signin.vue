@@ -1,7 +1,7 @@
 <template>
   <div class="signin gradient">
 		<div class="col"></div>
-		<h1 class="raleway-bold">This is an sign in page</h1>
+		<h1 class="raleway-bold text-azul-clarin">This is an sign in page</h1>
   </div>
 </template>
 

@@ -1,0 +1,85 @@
+/* Essas são as fontes utilizadas no projeto */
+/* Fontes disponiveis: 
+Raleway:
+	raleway-bold
+	raleway-medium
+	raleway-regular
+	raleway-light
+	raleway-thin		
+Roboto:
+	roboto-bold
+	roboto-medium
+	roboto-regular
+	roboto-light
+	roboto-thin
+*/
+@font-face {
+	font-family: Raleway-Bold;
+	src: url('../fonts/Raleway-Bold.ttf');
+}
+.raleway-bold {
+	font-family: Raleway-Bold;
+}
+@font-face {
+	font-family: Raleway-Medium;
+	src: url('../fonts/Raleway-Medium.ttf');
+}
+.raleway-medium {
+	font-family: Raleway-Medium;
+}
+@font-face {
+	font-family: Raleway-Regular;
+	src: url('../fonts/Raleway-Regular.ttf');
+}
+.raleway-regular {
+	font-family: Raleway-Regular;
+}
+@font-face {
+	font-family: Raleway-Light;
+	src: url('../fonts/Raleway-Light.ttf');
+}
+.raleway-light {
+	font-family: Raleway-Light;
+}
+@font-face {
+	font-family: Raleway-Thin;
+	src: url('../fonts/Raleway-Thin.ttf');
+}
+.raleway-thin {
+	font-family: Raleway-Thin;
+}
+@font-face {
+	font-family: Roboto-Bold;
+	src: url('../fonts/Roboto-Bold.ttf');
+}
+.roboto-bold {
+	font-family: Roboto-Bold;
+}
+@font-face {
+	font-family: Roboto-Medium;
+	src: url('../fonts/Roboto-Medium.ttf');
+}
+.roboto-medium {
+	font-family: Roboto-Medium;
+}
+@font-face {
+	font-family: Roboto-Regular;
+	src: url('../fonts/Roboto-Regular.ttf');
+}
+.roboto-regular {
+	font-family: Roboto-Regular;
+}
+@font-face {
+	font-family: Roboto-Light;
+	src: url('../fonts/Roboto-Light.ttf');
+}
+.roboto-light {
+	font-family: Roboto-Light;
+}
+@font-face {
+	font-family: Roboto-Thin;
+	src: url('../fonts/Roboto-Thin.ttf');
+}
+.roboto-thin {
+	font-family: Roboto-Thin;
+}

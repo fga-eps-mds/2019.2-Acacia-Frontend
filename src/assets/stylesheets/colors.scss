@@ -1,0 +1,21 @@
+/* Essas são as cores utilizadas no projeto */
+/* Cores disponiveis: 
+
+Estão disponíveis tanto para background quanto pra cor de texto
+
+Branco clarin (#F7F8FC):
+	bg-branco-clarin
+	text-branco-clarin
+*/
+
+$azul-clarin: #F7F8FC;
+$cor-aleatoria: #CECEDF;
+
+.bg-azul-clarin {
+	background-color: $azul-clarin
+}
+
+.text-azul-clarin {
+	color: $azul-clarin
+}
+
