@@ -2,9 +2,9 @@
 	<div id="textfield" class="container">
 		<div class="row ml-1 mr-1 centralize-div">
 			<div v-if="label" class="text-left col-12 p-0 text-color-default">{{ label }}</div>
-			<input v-model="variableLocal" v-if="!icon" :type="getFieldType()" class="text-input col-12" :placeholder="placeholder">
+			<input v-model="variableLocal" v-if="!texticon" :type="getFieldType()" class="text-input col-12" :placeholder="placeholder">
 			<div v-else class="w-100 col p-0">
-				<i :class="'fas fa-' + icon" style="color:white"></i>
+				<font-awesome-icon :icon="texticon" style="color:white"/>
 				<input v-model="variableLocal" :type="getFieldType()" class=" ml-3 text-input col-12" style="border:none" :placeholder="placeholder">
 				<div class="text-field-border"></div>
 			</div>
@@ -27,7 +27,7 @@ export default {
 			default: false,
 			type: Boolean
 		},
-		icon: {
+		texticon: {
 			default: '',
 			type: String
 		},

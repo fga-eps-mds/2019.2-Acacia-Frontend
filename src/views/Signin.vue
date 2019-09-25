@@ -2,8 +2,8 @@
   <div class="signin gradient">
 		<div class="col"></div>
 		<h1 class="raleway-bold ">This is an sign in page</h1>
-		<TextField v-model="username" :placeholder="'email'" class="mt-5" :icon="'user'"/>
-		<TextField v-model="password" :placeholder="'password'" class="mt-5" :icon="'lock'" :password="true"/>
+		<TextField v-model="username" :placeholder="'email'" class="mt-5" :texticon="'user'"/>
+		<TextField v-model="password" :placeholder="'password'" class="mt-5" :texticon="'lock'" :password="true"/>
 		<SimpleButton :label="'Criar Conta'" class="mt-5"/>
 		<div class="bg-dark text-white"><p> Username: {{ username }} </p> <p> Password: {{ password }} </p> </div>
   </div>
