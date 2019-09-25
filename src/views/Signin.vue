@@ -6,12 +6,9 @@
 		<TextField :placeholder="'password'" class="mt-5" :password="true"/>
 		<TextField :label="'Email'" class="mt-5" />
 		<TextField :label="'Password'" class="mt-5" :password="true"/>
-<<<<<<< HEAD
 		<TextField :placeholder="'email'" class="mt-5" :icon="'user'"/>
-=======
 		<SimpleButton :label="'Criar Conta'"></SimpleButton>
 		<font-awesome-icon icon="arrow-left"/>
->>>>>>> d0d0b92e8a01425444147f4a3854b8f3549be555
   </div>
 </template>
 
