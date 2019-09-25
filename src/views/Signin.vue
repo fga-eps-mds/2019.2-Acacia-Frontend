@@ -6,6 +6,7 @@
 		<TextField :placeholder="'password'" class="mt-5" :password="true"/>
 		<TextField :label="'Email'" class="mt-5" />
 		<TextField :label="'Password'" class="mt-5" :password="true"/>
+		<TextField :placeholder="'email'" class="mt-5" :icon="'user'"/>
   </div>
 </template>
 

@@ -1,10 +1,13 @@
 <template>
 	<div id="textfield" class="container">
 		<div class="row ml-1 mr-1 centralize-div">
-			<div class="text-left col-12 p-0 text-color-default">
-				{{ label }}
+			<div v-if="label" class="text-left col-12 p-0 text-color-default">{{ label }}</div>
+			<input  v-if="!icon" :type="getFieldType()" class="text-input col-12" :placeholder="placeholder">
+			<div v-else class="w-100 col p-0">
+				<i :class="'fas fa-' + icon" style="color:white"></i>
+				<input :type="getFieldType()" class=" ml-3 text-input col-12" style="border:none" :placeholder="placeholder">
+				<div class="text-field-border"></div>
 			</div>
-			<input :type="getFieldType()" class="text-input col-12" :placeholder="placeholder">
 		</div>
 	</div>
 </template>
@@ -24,6 +27,10 @@ export default {
 			default: false,
 			type: Boolean
 		},
+		icon: {
+			default: '',
+			type: String
+		}
 	},
 	data() {
 		return {
@@ -50,11 +57,12 @@ export default {
 	border-left: 0;
 	border-right: 0;
 	border-bottom: 2;
-	border-bottom-color: '#bbbbbb';
+	border-bottom-color: #eeeeee;
 	width: 80%;
 	padding: 1%;
 	color: $color-default-text;
 }
+
 ::placeholder {
 	color: $color-default-text;
 }
@@ -62,5 +70,11 @@ export default {
 .text-input:focus {
 	outline: none;
 	border-bottom-color: $color-default-text;
+}
+
+.text-field-border {
+	height: 2px;
+	width: 100%;
+	background-color: #eeeeee;
 }
 </style>
