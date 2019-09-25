@@ -6,27 +6,32 @@
 		<TextField :placeholder="'password'" class="mt-5" :password="true"/>
 		<TextField :label="'Email'" class="mt-5" />
 		<TextField :label="'Password'" class="mt-5" :password="true"/>
+		<SimpleButton :label="'Criar Conta'"></SimpleButton>
+		<font-awesome-icon icon="arrow-left"/>
   </div>
 </template>
 
 <script>
-import TextField from '../components/input/TextField'
-export default {
-	components: {
-		TextField
+	import TextField from '../components/input/TextField'
+	import SimpleButton from '../components/input/SimpleButton'
+
+	export default {
+		components: {
+			TextField,
+			SimpleButton
+		}
 	}
-}
 </script>
 
 <style scoped>
-.signin {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	margin-top: 0;
-	text-align: center;
-}
-.gradient {
-	background-image: linear-gradient(180deg, rgba(86, 163, 166, 1), rgba(55, 105, 150, 200));
-}
+	.signin {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		margin-top: 0;
+		text-align: center;
+	}
+	.gradient {
+		background-image: linear-gradient(180deg, rgba(86, 163, 166, 1), rgba(55, 105, 150, 200));
+	}
 </style>

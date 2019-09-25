@@ -4,6 +4,7 @@
 			<div class="text-left col-12 p-0 text-color-default">
 				{{ label }}
 			</div>
+
 			<input :type="getFieldType()" class="text-input col-12" :placeholder="placeholder">
 		</div>
 	</div>
@@ -19,15 +20,11 @@ export default {
 		placeholder: {
 			default: '',
 			type: String
-		}, 
+		},
 		password: {
 			default: false,
 			type: Boolean
 		},
-	},
-	data() {
-		return {
-		}
 	},
 	methods: {
 		getFieldType() {
@@ -49,7 +46,7 @@ export default {
 	border-top: 0;
 	border-left: 0;
 	border-right: 0;
-	border-bottom: 2;
+	border-bottom: 1 !important; 
 	border-bottom-color: '#bbbbbb';
 	width: 80%;
 	padding: 1%;
