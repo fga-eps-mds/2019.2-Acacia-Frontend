@@ -2,13 +2,10 @@
   <div class="signin gradient">
 		<div class="col"></div>
 		<h1 class="raleway-bold ">This is an sign in page</h1>
-		<TextField :placeholder="'email'" class="mt-5"/>
-		<TextField :placeholder="'password'" class="mt-5" :password="true"/>
-		<TextField :label="'Email'" class="mt-5" />
-		<TextField :label="'Password'" class="mt-5" :password="true"/>
-		<TextField :placeholder="'email'" class="mt-5" :icon="'user'"/>
-		<SimpleButton :label="'Criar Conta'"></SimpleButton>
-		<font-awesome-icon icon="arrow-left"/>
+		<TextField v-model="username" :placeholder="'email'" class="mt-5" :icon="'user'"/>
+		<TextField v-model="password" :placeholder="'password'" class="mt-5" :icon="'lock'" :password="true"/>
+		<SimpleButton :label="'Criar Conta'" class="mt-5"/>
+		<div class="bg-dark text-white"><p> Username: {{ username }} </p> <p> Password: {{ password }} </p> </div>
   </div>
 </template>
 
@@ -20,7 +17,13 @@
 		components: {
 			TextField,
 			SimpleButton
-		}
+		},
+		data() {
+			return {
+				username: 'joaocleber',
+				password: 'batata'
+			}
+		},
 	}
 </script>
 

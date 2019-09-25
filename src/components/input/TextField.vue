@@ -2,10 +2,10 @@
 	<div id="textfield" class="container">
 		<div class="row ml-1 mr-1 centralize-div">
 			<div v-if="label" class="text-left col-12 p-0 text-color-default">{{ label }}</div>
-			<input  v-if="!icon" :type="getFieldType()" class="text-input col-12" :placeholder="placeholder">
+			<input v-model="variableLocal" v-if="!icon" :type="getFieldType()" class="text-input col-12" :placeholder="placeholder">
 			<div v-else class="w-100 col p-0">
 				<i :class="'fas fa-' + icon" style="color:white"></i>
-				<input :type="getFieldType()" class=" ml-3 text-input col-12" style="border:none" :placeholder="placeholder">
+				<input v-model="variableLocal" :type="getFieldType()" class=" ml-3 text-input col-12" style="border:none" :placeholder="placeholder">
 				<div class="text-field-border"></div>
 			</div>
 		</div>
@@ -30,6 +30,23 @@ export default {
 		icon: {
 			default: '',
 			type: String
+		},
+		variable: {
+			type: String
+		},
+	},
+	model: {
+		prop: 'variable',
+		event: 'textfield-change'
+	},
+	computed: {
+		variableLocal: {
+				get: function() {
+					return this.variable
+			},
+			set: function(value) {
+					this.$emit('textfield-change', value)
+			}
 		}
 	},
 	methods: {
@@ -39,7 +56,7 @@ export default {
 			} else {
 				return 'text'
 			}
-		}
+		},
 	}
 }
 </script>
@@ -71,6 +88,6 @@ export default {
 .text-field-border {
 	height: 2px;
 	width: 100%;
-	background-color: #eeeeee;
+	background-color: #ffffff;
 }
 </style>
