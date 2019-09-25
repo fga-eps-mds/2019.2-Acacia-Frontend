@@ -8,6 +8,11 @@
 				<input :type="getFieldType()" class=" ml-3 text-input col-12" style="border:none" :placeholder="placeholder">
 				<div class="text-field-border"></div>
 			</div>
+<<<<<<< HEAD
+=======
+
+			<input :type="getFieldType()" class="text-input col-12" :placeholder="placeholder">
+>>>>>>> d0d0b92e8a01425444147f4a3854b8f3549be555
 		</div>
 	</div>
 </template>
@@ -22,7 +27,7 @@ export default {
 		placeholder: {
 			default: '',
 			type: String
-		}, 
+		},
 		password: {
 			default: false,
 			type: Boolean
@@ -30,10 +35,6 @@ export default {
 		icon: {
 			default: '',
 			type: String
-		}
-	},
-	data() {
-		return {
 		}
 	},
 	methods: {
