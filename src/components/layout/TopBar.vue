@@ -1,7 +1,7 @@
 <template>
 	<div id="topbar" class="navbar fixed-top">
-        <font-awesome-icon :icon="iconleft" @click="selectLeft()"> </font-awesome-icon>
-        <font-awesome-icon :icon="iconright" @click="selectRight()"> </font-awesome-icon>
+        <font-awesome-icon :icon="iconleft" @click="selectLeft()" style="color: white;"> </font-awesome-icon>
+        <font-awesome-icon :icon="iconright" @click="selectRight()" style="color: white;"> </font-awesome-icon>
     </div>
 </template>
 
@@ -41,5 +41,8 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped>    
+    #topbar {
+        padding: 15px;
+    }
 </style>

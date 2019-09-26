@@ -1,8 +1,8 @@
 <template>
   <div class="signin gradient">
 		<div class="col"></div>
-		<h1 class="raleway-bold ">This is an sign in page</h1>
 		<TopBar :iconleft="'chevron-left'" :iconright="'plus'"></TopBar>
+		<h1 class="raleway-bold ">This is an sign in page</h1>
 		<TextField v-model="username" :placeholder="'email'" class="mt-5" :texticon="'user'"/>
 		<TextField v-model="password" :placeholder="'password'" class="mt-5" :texticon="'lock'" :password="true"/>
 		<SignButton :label="'Criar Conta'" class="mt-5 simplebutton"/>
