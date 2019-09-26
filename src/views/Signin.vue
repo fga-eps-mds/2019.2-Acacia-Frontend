@@ -5,20 +5,20 @@
 		<TopBar :iconleft="'chevron-left'" :iconright="'plus'"></TopBar>
 		<TextField v-model="username" :placeholder="'email'" class="mt-5" :texticon="'user'"/>
 		<TextField v-model="password" :placeholder="'password'" class="mt-5" :texticon="'lock'" :password="true"/>
-		<SimpleButton :label="'Criar Conta'" class="mt-5"/>
+		<SignButton :label="'Criar Conta'" class="mt-5 simplebutton"/>
 		<div class="bg-dark text-white"><p> Username: {{ username }} </p> <p> Password: {{ password }} </p> </div>
   </div>
 </template>
 
 <script>
 	import TextField from '../components/input/TextField'
-	import SimpleButton from '../components/input/SimpleButton'
+	import SignButton from '../components/input/SignButton'
 	import TopBar from '../components/layout/TopBar'
 
 	export default {
 		components: {
 			TextField,
-			SimpleButton,
+			SignButton,
 			TopBar,
 		},
 		data() {
