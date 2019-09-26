@@ -30,7 +30,7 @@ export default {
 		margin: 0;
 	}
 	#app {
-		font-family: Roboto-Regular;
+		font-family: RobotoRegular;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		text-align: center;
