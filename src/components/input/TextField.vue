@@ -62,58 +62,58 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/stylesheets/colors.scss";
+	@import "../../assets/stylesheets/colors.scss";
 
-.text-input {
-	background-color: rgba(7, 37, 37,0 );
-	border-top: 0;
-	border-left: 0;
-	border-right: 0;
-	border-bottom: 1 !important; 
-	border-bottom-color: '#bbbbbb';
-	width: 80%;
-	padding: 1%;
-	color: $color-default-text;
-}
+	.text-input {
+		background-color: rgba(7, 37, 37,0 );
+		border-top: 0;
+		border-left: 0;
+		border-right: 0;
+		border-bottom: 1 !important; 
+		border-bottom-color: '#bbbbbb';
+		width: 80%;
+		padding: 1%;
+		color: $color-default-text;
+	}
 
-.text-input:focus {
-	outline: none;
-	border-bottom-color: $color-default-text;
-}
+	.text-input:focus {
+		outline: none;
+		border-bottom-color: $color-default-text;
+	}
 
-.text-field-border {
-	height: 2px;
-	width: 100%;
-	background-color: #ffffff;
-}
+	.text-field-border {
+		height: 1px;
+		width: 80%;
+		background-color: #ffffff;
+	}
 
-/* Hidden placeholder when focus */
-input::-webkit-input-placeholder {
-    color: #ffffff;
-}
-input:focus::-webkit-input-placeholder {
-    color: rgba(0,0,0,0);
-}
-/* Firefox < 19 */
-input:-moz-placeholder {
-    color: #ffffff;
-}
-input:focus:-moz-placeholder {
-    color: rgba(0,0,0,0);
-}
-/* Firefox > 19 */
-input::-moz-placeholder {
-    color: #ffffff;
-}
-input:focus::-moz-placeholder {
-    color: rgba(0,0,0,0);
-}
+	/* Hidden placeholder when focus */
+	input::-webkit-input-placeholder {
+		color: #ffffff;
+	}
+	input:focus::-webkit-input-placeholder {
+		color: rgba(0,0,0,0);
+	}
+	/* Firefox < 19 */
+	input:-moz-placeholder {
+		color: #ffffff;
+	}
+	input:focus:-moz-placeholder {
+		color: rgba(0,0,0,0);
+	}
+	/* Firefox > 19 */
+	input::-moz-placeholder {
+		color: #ffffff;
+	}
+	input:focus::-moz-placeholder {
+		color: rgba(0,0,0,0);
+	}
 
-/* Internet Explorer 10 */
-input:-ms-input-placeholder {
-    color: #ffffff;
-}
-input:focus:-ms-input-placeholder {
-    color: rgba(0,0,0,0);
-}
+	/* Internet Explorer 10 */
+	input:-ms-input-placeholder {
+		color: #ffffff;
+	}
+	input:focus:-ms-input-placeholder {
+		color: rgba(0,0,0,0);
+	}
 </style>
