@@ -76,10 +76,6 @@ export default {
 	color: $color-default-text;
 }
 
-::placeholder {
-	color: $color-default-text;
-}
-
 .text-input:focus {
 	outline: none;
 	border-bottom-color: $color-default-text;
@@ -89,5 +85,35 @@ export default {
 	height: 2px;
 	width: 100%;
 	background-color: #ffffff;
+}
+
+/* Hidden placeholder when focus */
+input::-webkit-input-placeholder {
+    color: #ffffff;
+}
+input:focus::-webkit-input-placeholder {
+    color: rgba(0,0,0,0);
+}
+/* Firefox < 19 */
+input:-moz-placeholder {
+    color: #ffffff;
+}
+input:focus:-moz-placeholder {
+    color: rgba(0,0,0,0);
+}
+/* Firefox > 19 */
+input::-moz-placeholder {
+    color: #ffffff;
+}
+input:focus::-moz-placeholder {
+    color: rgba(0,0,0,0);
+}
+
+/* Internet Explorer 10 */
+input:-ms-input-placeholder {
+    color: #ffffff;
+}
+input:focus:-ms-input-placeholder {
+    color: rgba(0,0,0,0);
 }
 </style>
