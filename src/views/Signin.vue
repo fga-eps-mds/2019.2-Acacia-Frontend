@@ -5,7 +5,7 @@
 			<img width="45%" class="max-width-500 mb-4" src="../assets/images/logo.svg">
 			<TextField class="mt-5" v-model="email" :texticon="'user'" :placeholder="'email'"/>
 			<TextField class="mt-5" v-model="password" :texticon="'lock'" :placeholder="'password'" :password="true"/>
-			<SignButton :label="'Sign in'" class="mt-5" @login="login"/>
+			<SignButton :label="'Sign in'" class="mt-5" @action="login"/>
 			<a href="/forgotten-password" class="mt-3 text-white" style="text-decoration:underline">Forgot your password?</a>
       <!-- <div class="container">
         <p style="font-size: 10px">Access token: {{ this.$store.getters.getAccessToken }}</p>
@@ -29,6 +29,9 @@ import SignButton from '../components/input/SignButton'
 
 /* Library imports */
 import axios from "axios"
+
+/* Basic scripts imports */
+import router from '../router'
 
 export default {
 	components: {
@@ -67,6 +70,9 @@ export default {
               refreshToken: response.data['refresh']
             }
             this.$store.commit('authUser', tokenData);
+            router.push({name: 'home'})
+          } else {
+            this.$toasted.show('An error has occurred, try again').goAway(2000)
           }
         })
         .catch ((errors) => {

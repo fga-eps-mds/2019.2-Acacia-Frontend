@@ -33,6 +33,12 @@ export default new Vuex.Store({
       Vue.cookie.set('access-token', userData.accessToken, { expires: '5d' });
       Vue.cookie.set('refresh-token', userData.refreshToken, { expires: '5d' });
     },
+    logoutUser(state) {
+      state.accessToken = ''
+      state.refreshToken = ''
+      Vue.cookie.delete('access-token');
+      Vue.cookie.delete('refresh-token');
+    }
 	},
 	actions: {
   }
