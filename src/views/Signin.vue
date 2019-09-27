@@ -1,16 +1,16 @@
 <template>
-  <div class="signin gradient">
+  <div class="signin gradient" v-on:keydown.enter="login">
 		<TopBar :iconleft="'chevron-left'"/>
 		<div class="content-container">
 			<img width="45%" class="max-width-500 mb-4" src="../assets/images/logo.svg">
-			<TextField class="mt-5" v-model="username_or_email" :texticon="'user'" :placeholder="'email or username'"/>
-			<TextField class="mt-4" v-model="password" :texticon="'lock'" :placeholder="'password'" :password="true"/>
+			<TextField class="mt-5" v-model="email" :texticon="'user'" :placeholder="'email'"/>
+			<TextField class="mt-5" v-model="password" :texticon="'lock'" :placeholder="'password'" :password="true"/>
 			<SignButton :label="'Sign in'" class="mt-5" @login="login"/>
 			<a href="/forgotten-password" class="mt-3 text-white" style="text-decoration:underline">Forgot your password?</a>
-      <div>
-        <p>Access token: {{ this.$store.getters.getAccessToken }}</p>
-        <p>Refresh token: {{ this.$store.getters.getRefreshToken }}</p>
-      </div>
+      <!-- <div class="container">
+        <p style="font-size: 10px">Access token: {{ this.$store.getters.getAccessToken }}</p>
+        <p style="font-size: 10px">Refresh token: {{ this.$store.getters.getRefreshToken }}</p>
+      </div> -->
     </div>
 		<div href="/signup" class="signup-button fixed-bottom">
 			<a href="/signup" class="button-link">
@@ -38,14 +38,14 @@ export default {
 	},
 	data() {
 		return {
-			username_or_email: '',
+			email: '',
 			password: ''
 		}
 	},
   methods: {
     login() {
-      if (!this.username_or_email) {
-        this.$toasted.show('Provide an email or username').goAway(2000)
+      if (!this.email) {
+        this.$toasted.show('Provide an email').goAway(2000)
         return
       }
       if (!this.password) {
@@ -54,7 +54,7 @@ export default {
       }
 
       let data = {
-        email: this.username_or_email,
+        email: this.email,
         password: this.password
       }
 
@@ -70,7 +70,6 @@ export default {
           }
         })
         .catch ((errors) => {
-          console.log(errors)
           this.$toasted.show('Email or password is incorrect').goAway(2000)
         })
     }
