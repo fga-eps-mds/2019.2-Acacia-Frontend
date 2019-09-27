@@ -1,6 +1,6 @@
 <template>
     <div id="signbutton" class="container">
-        <button> {{label}} </button>
+        <button v-on:click="$emit('login')"> {{label}} </button>
     </div>
 </template>
 

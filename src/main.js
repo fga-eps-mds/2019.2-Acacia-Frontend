@@ -3,6 +3,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+/* Vue Toasted configuration */
+import Toasted from 'vue-toasted'
+Vue.use(Toasted)
+
 /* Boostrap configuration */
 import BoostrapVue from 'bootstrap-vue'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
