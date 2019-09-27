@@ -9,7 +9,7 @@ on:
       - release/*
   push:
     branches:
-      feature/47-continuous-integration
+      - feature/47-continuous-integration
 
 jobs:
   test:
