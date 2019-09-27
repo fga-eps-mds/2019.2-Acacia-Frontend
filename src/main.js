@@ -3,6 +3,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+/* Vue Cookie configuration */
+import VueCookie from 'vue-cookie'
+Vue.use(VueCookie)
+
 /* Vue Toasted configuration */
 import Toasted from 'vue-toasted'
 Vue.use(Toasted)

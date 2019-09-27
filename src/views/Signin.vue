@@ -7,6 +7,10 @@
 			<TextField class="mt-4" v-model="password" :texticon="'lock'" :placeholder="'password'" :password="true"/>
 			<SignButton :label="'Sign in'" class="mt-5" @login="login"/>
 			<a href="/forgotten-password" class="mt-3 text-white" style="text-decoration:underline">Forgot your password?</a>
+      <div>
+        <p>Access token: {{ this.$store.getters.getAccessToken }}</p>
+        <p>Refresh token: {{ this.$store.getters.getRefreshToken }}</p>
+      </div>
     </div>
 		<div href="/signup" class="signup-button fixed-bottom">
 			<a href="/signup" class="button-link">
@@ -66,6 +70,7 @@ export default {
           }
         })
         .catch ((errors) => {
+          console.log(errors)
           this.$toasted.show('Email or password is incorrect').goAway(2000)
         })
     }
