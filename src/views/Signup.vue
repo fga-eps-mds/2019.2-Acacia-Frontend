@@ -3,16 +3,16 @@
     <TopBar :iconleft="'chevron-left'"></TopBar>
     <div class="content-container">
       <div class="content-title">
-        <h1> Create account </h1>
+        <a style="font-size: 40px"> Criar conta </a>
       </div>
       <div class="content-form">
-        <TextField class="mt-3" v-model="username" :label="'Name'"></TextField>
+        <TextField class="mt-3" v-model="username" :label="'Nome'"></TextField>
         <TextField class="mt-3" v-model="email" :label="'Email'"></TextField>
-        <TextField class="mt-3" v-model="password" :label="'Password'" :password="true"></TextField>
-        <TextField class="mt-3" v-model="confirm_password" :label="'Confirm password'" :password="true"></TextField>
+        <TextField class="mt-3" v-model="password" :label="'Senha'" :password="true"></TextField>
+        <TextField class="mt-3" v-model="confirm_password" :label="'Confirme a senha'" :password="true"></TextField>
       </div>
       <div class="content-button">
-        <SignButton class="mt-4" :label="'Sign up'"></SignButton>
+        <SignButton class="mt-4" :label="'Criar conta'"></SignButton>
       </div>
     </div>
 
@@ -45,9 +45,13 @@
 <style lang="scss" scoped>
   @import "../assets/stylesheets/colors.scss";
 
+  .content-button {
+    margin-top: 90px;
+  }
+
   .content-title {
     width: 100%;
-    padding: 0px 20px;
+    padding: 0px 25px;
     margin-bottom: 20%;
     color: $color-default-text;
     display: flex;
