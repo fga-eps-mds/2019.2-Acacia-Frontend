@@ -9,13 +9,19 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import '../node_modules/bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BoostrapVue)
 
-/* Font awesome onfiguration */
+/* Font awesome configuration */
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(fas)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+
+/* Vue Toasted configuration */
+
+import Toasted from 'vue-toasted'
+Vue.use(Toasted)
+
 
 Vue.config.productionTip = false
 

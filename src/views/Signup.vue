@@ -12,7 +12,7 @@
         <TextField class="mt-3" v-model="confirm_password" :label="'Confirme a senha'" :password="true"></TextField>
       </div>
       <div class="content-button">
-        <SignButton class="mt-4" :label="'Criar conta'"></SignButton>
+        <SignButton class="mt-4" :label="'Criar conta'" @action="signup"/>
       </div>
     </div>
 
@@ -23,6 +23,7 @@
   import TopBar from '../components/layout/TopBar'
   import TextField from '../components/input/TextField'
   import SignButton from '../components/input/SignButton'
+  import axios from "axios"
 
   export default {
     components: {
@@ -36,6 +37,44 @@
         email: '',
         password: '',
         confirm_password: '',
+      }
+    },
+    methods: {
+      signup(){
+        
+        if (!this.username) {
+          this.$toasted.show('Provide a name').goAway(2000)
+          return
+        }
+        if (!this.email) {
+          this.$toasted.show('Provide an email').goAway(2000)
+          return
+        }
+        if (!this.password) {
+          this.$toasted.show('Provide a password').goAway(2000)
+          return
+        }
+        if (this.confirm_password != this.password) {
+          this.$toasted.show('Password must match').goAway(2000)
+          return
+        }
+        
+        let data = {
+          email: this.email,
+          username: this.username,
+          password: this.password,
+          confirm_password: this.confirm_password
+        }
+
+        const url = 'http://0.0.0.0:8080/users/signup/'
+        axios.post(url, data)
+          .then((response) => {
+            console.log(response)
+          })
+          .catch((error) => {
+            console.log(error.response)
+            this.$toasted.show(error).goAway(2000)
+          })
       }
     }
   }
