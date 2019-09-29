@@ -69,11 +69,19 @@
         const url = 'http://0.0.0.0:8080/users/signup/'
         axios.post(url, data)
           .then((response) => {
-            console.log(response)
+            
           })
           .catch((error) => {
-            console.log(error.response)
-            this.$toasted.show(error).goAway(2000)
+            if(error.response.data.email){
+              this.$toasted.show(error.response.data.email).goAway(2000)
+            }
+              if(error.response.data.username){
+              this.$toasted.show(error.response.data.username).goAway(2000)
+            }
+            if(error.response.data.password){
+              this.$toasted.show(error.response.data.password).goAway(2000)
+            }
+            
           })
       }
     }
