@@ -41,23 +41,9 @@
     },
     methods: {
       signup(){
-        
-        if (!this.username) {
-          this.$toasted.show('Provide a name').goAway(2000)
+        if (!this.validateInput()) {
           return
-        }
-        if (!this.email) {
-          this.$toasted.show('Provide an email').goAway(2000)
-          return
-        }
-        if (!this.password) {
-          this.$toasted.show('Provide a password').goAway(2000)
-          return
-        }
-        if (this.confirm_password != this.password) {
-          this.$toasted.show('Password must match').goAway(2000)
-          return
-        }
+        }       
         
         let data = {
           email: this.email,
@@ -70,19 +56,53 @@
         axios.post(url, data)
           .then((response) => {
             
-          })
+            })
           .catch((error) => {
             if(error.response.data.email){
               this.$toasted.show(error.response.data.email).goAway(2000)
             }
               if(error.response.data.username){
-              this.$toasted.show(error.response.data.username).goAway(2000)
+                this.$toasted.show(error.response.data.username).goAway(2000)
             }
             if(error.response.data.password){
               this.$toasted.show(error.response.data.password).goAway(2000)
             }
             
           })
+      },
+      validateInput(){
+        if (!this.username) {
+          this.$toasted.show('Insira seu nome').goAway(2000)
+          return false
+        }
+
+        if (!this.email) {
+          this.$toasted.show('Insira um email').goAway(2000)
+          return false
+        }
+
+        if (!this.password) {
+          this.$toasted.show('Insira uma senha').goAway(2000)
+          return false
+        }
+
+        if (this.password.length < 8) {
+          this.$toasted.show('Insira uma senha maior que 8 caracteres').goAway(2000)
+          return false
+        }
+        
+        if (this.confirm_password != this.password) {
+          this.$toasted.show('As senhas devem corresponder').goAway(2000)
+          return false
+        }
+
+        let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/igm
+        if (!this.email.match(emailRegex)) {
+          this.$toasted.show('Email digitado não é válido').goAway(2000)
+          return false
+        }
+
+        return true
       }
     }
   }
