@@ -1,12 +1,12 @@
 <template>
-  <div class="signin gradient" v-on:keydown.enter="login">
+  <div class="signin gradient">
 		<TopBar :iconleft="'chevron-left'"/>
 		<div class="content-container">
 			<img width="45%" class="max-width-500 mb-4" src="../assets/images/logo.svg">
 			<TextField class="mt-5" v-model="email" :texticon="'user'" :placeholder="'email'"/>
-			<TextField class="mt-5" v-model="password" :texticon="'lock'" :placeholder="'password'" :password="true"/>
-			<SignButton :label="'Sign in'" class="mt-5" @action="login"/>
-			<a href="/forgotten-password" class="mt-3 text-white" style="text-decoration:underline">Forgot your password?</a>
+			<TextField class="mt-5" v-model="password" :texticon="'lock'" :placeholder="'senha'" :password="true"/>
+			<SignButton :label="'Entrar'" class="mt-5" @action="login"/>
+			<a href="/forgotten-password" class="mt-3 text-white" style="text-decoration:underline">Esqueceu sua senha?</a>
       <!-- <div class="container">
         <p style="font-size: 10px">Access token: {{ this.$store.getters.getAccessToken }}</p>
         <p style="font-size: 10px">Refresh token: {{ this.$store.getters.getRefreshToken }}</p>
@@ -14,7 +14,7 @@
     </div>
 		<div href="/signup" class="signup-button fixed-bottom">
 			<a href="/signup" class="button-link">
-        Create account
+        Criar conta
       </a>
 		</div>
 
@@ -47,12 +47,7 @@ export default {
 	},
   methods: {
     login() {
-      if (!this.email) {
-        this.$toasted.show('Provide an email').goAway(2000)
-        return
-      }
-      if (!this.password) {
-        this.$toasted.show('Provide a password').goAway(2000)
+      if (!this.validateInput()) {
         return
       }
 
@@ -72,12 +67,32 @@ export default {
             this.$store.commit('authUser', tokenData);
             router.push({name: 'home'})
           } else {
-            this.$toasted.show('An error has occurred, try again').goAway(2000)
+            this.$toasted.show('Algum erro ocorreu, tente de novo').goAway(2000)
           }
         })
         .catch ((errors) => {
-          this.$toasted.show('Email or password is incorrect').goAway(2000)
+          this.$toasted.show('Email ou senha está incorreto').goAway(2000)
         })
+    },
+    validateInput() {
+      if (!this.email) {
+        this.$toasted.show('Digite um email').goAway(2000)
+        return false
+      }
+      if (!this.password) {
+        this.$toasted.show('Digite uma senha').goAway(2000)
+        return false
+      }
+      if (this.password.length < 8) {
+        this.$toasted.show('Digite uma senha maior que 8 caracteres').goAway(2000)
+        return false
+      }
+      let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/igm
+      if (!this.email.match(emailRegex)) {
+        this.$toasted.show('Email digitado não é válido').goAway(2000)
+        return false
+      }
+      return true
     }
   }
 }
