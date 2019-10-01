@@ -6,7 +6,6 @@
 			<TextField class="mt-5" v-model="email" :texticon="'user'" :placeholder="'email'"/>
 			<TextField class="mt-5" v-model="password" :texticon="'lock'" :placeholder="'senha'" :password="true"/>
 			<SignButton :label="'Entrar'" class="mt-5" @action="login"/>
-			<a href="/forgotten-password" class="mt-3 text-white" style="text-decoration:underline">Esqueceu sua senha?</a>
       <!-- <div class="container">
         <p style="font-size: 10px">Access token: {{ this.$store.getters.getAccessToken }}</p>
         <p style="font-size: 10px">Refresh token: {{ this.$store.getters.getRefreshToken }}</p>
