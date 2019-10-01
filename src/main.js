@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import VueCookie from 'vue-cookie'
+Vue.use(VueCookie)	
+
 /* Boostrap configuration */
 import BoostrapVue from 'bootstrap-vue'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
@@ -21,7 +24,6 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 import Toasted from 'vue-toasted'
 Vue.use(Toasted)
-
 
 Vue.config.productionTip = false
 

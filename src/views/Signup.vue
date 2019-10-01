@@ -24,6 +24,7 @@
   import TextField from '../components/input/TextField'
   import SignButton from '../components/input/SignButton'
   import axios from "axios"
+  import router from "../router"
 
   export default {
     components: {
@@ -52,11 +53,33 @@
           confirm_password: this.confirm_password
         }
 
+        let dataToken = {
+          email: this.email,
+          password: this.password,
+        }
+
         const url = 'http://0.0.0.0:8080/users/signup/'
         axios.post(url, data)
           .then((response) => {
-            
-            })
+            axios.post("http://0.0.0.0:8080/users/token/", dataToken)
+              .then((response) => {
+                if (response.status == '200') {
+                  this.$toasted.show('Created!').goAway(2000)
+                  let tokenData = {
+                    accessToken: response.data['access'],
+                    refreshToken: response.data['refresh']
+                  }
+                  this.$store.commit('authUser', tokenData);
+                  router.push({name: 'home'})
+                } else {
+                  this.$toasted.show('Algum erro ocorreu, tente de novo').goAway(2000)
+                }
+              })
+              .catch ((errors) => {
+                console.log(errors.response)
+                router.push({name: 'signin'})
+              })
+          })
           .catch((error) => {
             if(error.response.data.email){
               this.$toasted.show(error.response.data.email).goAway(2000)
