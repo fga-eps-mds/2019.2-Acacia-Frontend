@@ -1,7 +1,7 @@
 <template>
 	<div id="topbar" class="navbar fixed-top">
-        <font-awesome-icon :icon="iconleft" @click="selectLeft()" style="color: white;"> </font-awesome-icon>
-        <font-awesome-icon :icon="iconright" @click="selectRight()" style="color: white;"> </font-awesome-icon>
+        <font-awesome-icon v-if="iconleft" :icon="iconleft" @click="selectLeft()" style="color: white;"> </font-awesome-icon>
+        <font-awesome-icon v-if="iconright" :icon="iconright" @click="selectRight()" style="color: white;"> </font-awesome-icon>
     </div>
 </template>
 

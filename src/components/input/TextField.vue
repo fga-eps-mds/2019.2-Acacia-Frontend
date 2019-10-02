@@ -69,7 +69,7 @@ export default {
 		border-top: 0;
 		border-left: 0;
 		border-right: 0;
-		border-bottom: 1 !important; 
+		border-bottom: 1; 
 		border-bottom-color: '#bbbbbb';
 		width: 80%;
 		padding: 1%;
@@ -83,7 +83,7 @@ export default {
 
 	.text-field-border {
 		height: 1px;
-		width: 80%;
+		width: 100%;
 		background-color: #ffffff;
 	}
 
