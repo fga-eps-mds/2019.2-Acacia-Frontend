@@ -96,7 +96,7 @@ export default {
 
 	.text-field-border {
 		height: 1px;
-		width: 80%;
+		width: 100%;
 		background-color: #ffffff;
 	}
 

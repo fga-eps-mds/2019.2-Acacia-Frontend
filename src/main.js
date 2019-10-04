@@ -3,8 +3,13 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+/* Vue Cookie configuration */
 import VueCookie from 'vue-cookie'
-Vue.use(VueCookie)	
+Vue.use(VueCookie)
+
+/* Vue Toasted configuration */
+import Toasted from 'vue-toasted'
+Vue.use(Toasted)
 
 /* Boostrap configuration */
 import BoostrapVue from 'bootstrap-vue'
@@ -19,11 +24,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(fas)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
-
-/* Vue Toasted configuration */
-
-import Toasted from 'vue-toasted'
-Vue.use(Toasted)
 
 Vue.config.productionTip = false
 

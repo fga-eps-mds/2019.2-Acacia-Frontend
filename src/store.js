@@ -26,7 +26,7 @@ export default new Vuex.Store({
     accessToken: null,
     refreshToken: null,
   },
-  mutations: {
+	mutations: {
     authUser(state, userData) {
       state.accessToken = userData.accessToken
       state.refreshToken = userData.refreshToken
