@@ -1,0 +1,85 @@
+/* Fonts available project-wide */
+/* Font list: 
+Raleway:
+	raleway-bold
+	raleway-medium
+	raleway-regular
+	raleway-light
+	raleway-thin		
+Roboto:
+	roboto-bold
+	roboto-medium
+	roboto-regular
+	roboto-light
+	roboto-thin
+*/
+@font-face {
+	font-family: RalewayBold;
+	src: url('assets/fonts/Raleway-Bold.ttf');
+}
+.raleway-bold {
+	font-family: RalewayBold;
+}
+@font-face {
+	font-family: RalewayMedium;
+	src: url('assets/fonts/Raleway-Medium.ttf');
+}
+.raleway-medium {
+	font-family: RalewayMedium;
+}
+@font-face {
+	font-family: RalewayRegular;
+	src: url('assets/fonts/Raleway-Regular.ttf');
+}
+.raleway-regular {
+	font-family: RalewayRegular;
+}
+@font-face {
+	font-family: RalewayLight;
+	src: url('assets/fonts/Raleway-Light.ttf');
+}
+.raleway-light {
+	font-family: RalewayLight;
+}
+@font-face {
+	font-family: RalewayThin;
+	src: url('assets/fonts/Raleway-Thin.ttf');
+}
+.raleway-thin {
+	font-family: RalewayThin;
+}
+@font-face {
+	font-family: RobotoBold;
+	src: url('assets/fonts/Roboto-Bold.ttf');
+}
+.roboto-bold {
+	font-family: RobotoBold;
+}
+@font-face {
+	font-family: RobotoMedium;
+	src: url('assets/fonts/Roboto-Medium.ttf');
+}
+.roboto-medium {
+	font-family: RobotoMedium;
+}
+@font-face {
+	font-family: RobotoRegular;
+	src: url('assets/fonts/Roboto-Regular.ttf');
+}
+.roboto-regular {
+	font-family: RobotoRegular;
+}
+@font-face {
+	font-family: RobotoLight;
+	src: url('assets/fonts/Roboto-Light.ttf');
+}
+.roboto-light {
+	font-family: RobotoLight;
+}
+@font-face {
+	font-family: RobotoThin;
+	src: url('assets/fonts/Roboto-Thin.ttf');
+}
+.roboto-thin {
+	font-family: RobotoThin;
+}
