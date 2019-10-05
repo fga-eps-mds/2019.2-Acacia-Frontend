@@ -25,7 +25,7 @@ export default new Vuex.Store({
   state: {
     accessToken: null,
     refreshToken: null,
-	},
+  },
 	mutations: {
     authUser(state, userData) {
       state.accessToken = userData.accessToken
@@ -39,7 +39,7 @@ export default new Vuex.Store({
       Vue.cookie.delete('access-token');
       Vue.cookie.delete('refresh-token');
     }
-	},
-	actions: {
+  },
+  actions: {
   }
 })
