@@ -10,12 +10,12 @@
       </div>
 
       <div class="content-form">
-        <TextField class="mt-3" v-model="cep" :label="'CEP'"></TextField>
-        <TextField class="mt-3" v-model="state" :label="'Estado'"></TextField>
-        <TextField class="mt-3" v-model="city" :label="'Cidade'"></TextField>
-        <TextField class="mt-3" v-model="district" :label="'Bairro'"></TextField>
-        <TextField class="mt-3" v-model="street" :label="'Rua/Avenida'"></TextField>
-        <TextField class="mt-3" v-model="complement" :label="'Complemento'"></TextField>
+        <TextField :color="'black'" class="mt-3" v-model="cep" :label="'CEP'"></TextField>
+        <TextField :color="'black'" class="mt-3" v-model="state" :label="'Estado'"></TextField>
+        <TextField :color="'black'" class="mt-3" v-model="city" :label="'Cidade'"></TextField>
+        <TextField :color="'black'" class="mt-3" v-model="district" :label="'Bairro'"></TextField>
+        <TextField :color="'black'" class="mt-3" v-model="street" :label="'Rua/Avenida'"></TextField>
+        <TextField :color="'black'" class="mt-3" v-model="complement" :label="'Complemento'"></TextField>
       </div>
 
       <div class="content-button">

@@ -20,13 +20,13 @@
 
 			<div v-else class="w-100 col p-0">
         
-        <div v-if="color == 'white'">
+        <div v-if="color == 'white'" style="display: inline">
           <font-awesome-icon 
             style="color: #ffffff"
             :icon="texticon" 
           />
         </div>
-        <div v-else>
+        <div v-else style="display: inline">
           <font-awesome-icon 
             style="color: #000000"
             :icon="texticon" 
@@ -36,7 +36,7 @@
         <input 
           v-model="variableLocal" 
           :type="getFieldType()" 
-          :class="color + 'ml-3 text-input col-12'" 
+          :class="color + ' ml-3 text-input col-12'" 
           :style="'border:none; text-color: ' + hexcolor" 
           :placeholder="placeholder"
         >
@@ -45,6 +45,7 @@
           class="text-field-border"
           :style="'background-color: ' + hexcolor"  
         />
+
 
 			</div>
 
@@ -80,7 +81,7 @@ export default {
       White
     */
     color: {
-      defaut: 'white',
+      default: 'white',
       type: String
     }
   },
@@ -107,6 +108,7 @@ export default {
     if (this.color == 'white') {
       this.hexcolor = '#ffffff'
     } else {
+      this.color = 'black'
       this.hexcolor = '#000000'
     }
   },
