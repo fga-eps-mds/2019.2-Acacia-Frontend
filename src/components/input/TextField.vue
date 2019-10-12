@@ -1,175 +1,157 @@
 <template>
-	<div id="textfield" class="textfield-container">
-		<div class="row ml-1 mr-1 centralize-div">
+  <div id="textfield" class="textfield-container">
 
-			<div v-if="label" 
-        class="col-12 p-0 textfield-label"
-        :style="'color: ' + hexcolor"
-      >
-        {{ label }}
+    <div class="row ml-1 mr-1 centralize-div">
+
+      <div 
+        v-if="label" 
+        class="col-12 p-0 textfield-label" 
+        :style="'color: ' + this.color">
+          {{ label }}
       </div>
 
+      <!-- When this component is instantiated without icon it is necessary 
+      to render a line to assist the user. -->
 			<input 
-        v-model="variableLocal" 
+        v-model="typed_text" 
         v-if="!texticon" 
         :type="getFieldType()" 
-        :class="'text-input col-12 ' + color" 
+        :class="'text-input col-12 ' + color"
         :placeholder="placeholder"
-        :style="'text-color: ' + hexcolor + '; border-bottom-color: ' + hexcolor"
+        
       >
 
 			<div v-else class="w-100 col p-0">
+
+				<font-awesome-icon :icon="texticon" style="color:white"/>
         
-        <div v-if="color == 'white'" style="display: inline">
-          <font-awesome-icon 
-            style="color: #ffffff"
-            :icon="texticon" 
-          />
-        </div>
-        <div v-else style="display: inline">
-          <font-awesome-icon 
-            style="color: #000000"
-            :icon="texticon" 
-          />
-        </div>
-				
-        <input 
-          v-model="variableLocal" 
+				<input 
+          v-model="typed_text" 
+          style="border:none"
           :type="getFieldType()" 
-          :class="color + ' ml-3 text-input col-12'" 
-          :style="'border:none; text-color: ' + hexcolor" 
+          class="ml-3 text-input col-12 white" 
           :placeholder="placeholder"
+          :style="'color: ' + this.color"
         >
-				
-        <div 
-          class="text-field-border"
-          :style="'background-color: ' + hexcolor"  
-        />
 
-
+				<!-- <div class="text-field-border"></div> -->
 			</div>
 
-		</div>
-	</div>
+    </div>
+  </div>
 </template>
 
 <script>
-export default {
-	props: {
-		label: {
-			default: '',
-			type: String
-    }, 
-		placeholder: {
-			default: '',
-			type: String
-		},
-		password: {
-			default: false,
-			type: Boolean
-		},
-		texticon: {
-			default: '',
-			type: String
-		},
-		variable: {
-			type: String
+  export default {
+
+    props: {
+      label: {
+        default: "",
+        type: String
+      },
+
+      placeholder: {
+        default: "",
+        type: String
+      },
+
+      password: {
+        default: false,
+        type: Boolean
+      },
+
+      texticon: {
+        default: "",
+        type: String
+      },
+
+      input_text: {
+        type: String
+      },
+
+      color: {
+        default: "white",
+        type: String
+      }
     },
-    /*
-      Supported colors:
-      Black
-      White
-    */
-    color: {
-      default: 'white',
-      type: String
-    }
-  },
-  data () {
-    return {
-      hexcolor: '#ffffff',
-    }
-  },
-	model: {
-		prop: 'variable',
-		event: 'textfield-change'
-	},
-	computed: {
-		variableLocal: {
-			get: function() {
-					return this.variable
-			},
-			set: function(value) {
-					this.$emit('textfield-change', value)
-			}
+
+    model: {
+      prop: "input_text",
+      event: "textfield-change"
     },
-  },
-  mounted() {
-    if (this.color == 'white') {
-      this.hexcolor = '#ffffff'
-    } else {
-      this.color = 'black'
-      this.hexcolor = '#000000'
+
+    computed: {
+      typed_text: {
+        get: function () {
+          return this.input_text;
+        },
+
+        set: function (value) {
+          this.$emit("textfield-change", value);
+        }
+      },
+    },
+
+    methods: {
+      getFieldType() {
+        if (this.password) {
+          return "password";
+        } else {
+          return "text";
+        }
+      }
     }
-  },
-	methods: {
-		getFieldType() {
-			if (this.password) {
-				return 'password'
-			} else {
-				return 'text'
-			}
-		},
-	}
-}
+  };
 </script>
 
 <style lang="scss" scoped>
-	@import "../../assets/stylesheets/colors.scss";
+  @import "../../assets/stylesheets/colors.scss";
 
-	.textfield-label {
-		text-align: left;
-		font-size: 90%;
-	}
-
-	.textfield-container {
-		width: 100%;
-		padding-right: 20px;
-		padding-left: 20px;
-		margin-right: auto;
-		margin-left: auto;
-	}
-
-	.text-input {
-		background-color: rgba(7, 37, 37,0 );
-		border-top: 0;
-		border-left: 0;
-		border-right: 0;
-		border-bottom: 1px solid; 
-		
-		width: 80%;
-		padding: 1%;
-		
-	}
-
-	.text-input:focus {
-		outline: none;
-		border-bottom-color: $color-default-text;
-	}
-
-	.text-field-border {
-		height: 1px;
-		width: 100%;
+  .textfield-label {
+    text-align: left;
+    font-size: 90%;
   }
 
-	/* Hidden placeholder when focus */
-	input.white::-webkit-input-placeholder {
-		color: #ffffff;
+  .textfield-container {
+    width: 100%;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-right: auto;
+    margin-left: auto;
   }
+
+  .text-input {
+    background-color: rgba(7, 37, 37, 0);
+    border: none;
+    border-bottom: 1px solid white;
+    width: 80%;
+    padding: 2%;
+  }
+
+  .text-input:focus {
+    outline: none;
+    border-bottom-color: $color-default-text;
+  }
+
+  .text-field-border {
+    height: 1px;
+    width: 100%;
+  }
+
+  input {
+    color: white;
+  }
+
+  /* Hidden placeholder when focus */
+  input.white::-webkit-input-placeholder {
+    color: #ffffff;
+  }
+
   input.black::-webkit-input-placeholder {
-		color: #000000;
+    color: #000000;
   }
-	input:focus::-webkit-input-placeholder {
-		color: rgba(0,0,0,0);
-	}
+
+  input:focus::-webkit-input-placeholder {
+    color: rgba(0, 0, 0, 0);
+  }
 </style>
