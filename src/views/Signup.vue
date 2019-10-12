@@ -1,19 +1,48 @@
 <template>
   <div class="signup gradient">
+    
     <TopBar :iconleft="'chevron-left'"></TopBar>
+    
     <div class="content-container">
+
       <div class="content-title">
-        <a style="font-size: 40px"> Criar conta </a>
+        <h1> Criar Conta </h1>
       </div>
+
       <div class="content-form">
-        <TextField class="mt-3" v-model="username" :label="'Nome'"></TextField>
-        <TextField class="mt-3" v-model="email" :label="'Email'"></TextField>
-        <TextField class="mt-3" v-model="password" :label="'Senha'" :password="true"></TextField>
-        <TextField class="mt-3" v-model="confirm_password" :label="'Confirme a senha'" :password="true"></TextField>
+        
+        <TextField 
+          class="mt-3" 
+          v-model="username" 
+          :label="'Nome'" 
+        />
+        
+        <TextField 
+          class="mt-3" 
+          v-model="email" 
+          :label="'Email'" 
+        />
+
+        <TextField 
+          class="mt-3" 
+          v-model="password" 
+          :label="'Senha'" 
+          :password="true"
+        />
+
+        <TextField 
+          class="mt-3" 
+          v-model="confirm_password" 
+          :label="'Confirme a senha'" 
+          :password="true"
+        />
+
       </div>
+
       <div class="content-button">
         <SignButton class="mt-4" :label="'Criar conta'" @action="signup"/>
       </div>
+
     </div>
 
   </div>
@@ -32,6 +61,7 @@
       TextField,
       SignButton,
     },
+
     data() {
       return {
         username: '',
@@ -40,6 +70,7 @@
         confirm_password: '',
       }
     },
+
     methods: {
       signup(){
         if (!this.validateInput()) {
@@ -93,6 +124,7 @@
             
           })
       },
+      
       validateInput(){
         if (!this.username) {
           this.$toasted.show('Insira seu nome').goAway(2000)
