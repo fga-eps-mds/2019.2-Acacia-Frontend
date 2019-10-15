@@ -5,10 +5,34 @@ Vue.use(VueI18n)
 
 const messages = { 
     'en': {
-        IWillFurarTheRenato: "this is a message in english" 
+        SignPages: {
+            name: "Name",
+            email: "Email",
+            password: "Password",
+            confirmPassword: "Confirm your password",
+            forgotPassword: "Forgot your password?",
+            createAccount: "Create account",
+            login: "Log in",
+            logout: "Log out",
+        },
+        RootPage: {
+            title: "This is root page"
+        },
     },
     'pt': {
-        IWillFurarTheRenato: "Isso é uma mensagem em português"
+        SignPages: {
+            name: "Nome",
+            email: "Email",
+            password: "Senha",
+            confirmPassword: "Confirme sua senha",
+            forgotPassword: "Esqueceu sua senha?",
+            createAccount: "Criar conta",
+            login: "Entrar",
+            logout: "Sair",
+        },         
+        RootPage: {
+            title: "Essa é a pagina root"
+        },
     },
 }
 
