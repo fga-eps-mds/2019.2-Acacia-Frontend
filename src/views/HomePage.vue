@@ -8,6 +8,8 @@
         {{entry.title}}
       </button>
     </div>
+    <button @click="func"> TA BOM
+    </button>
   </div>
 </template>
 
@@ -45,6 +47,13 @@ export default {
     },
     changeLocale(locale){
       i18n.locale = locale
+    },
+    func()
+    {
+      this.$store.getters.noAuthRequest("http://0.0.0.0:8080/users/signup")
+          .then(response => {
+            console.log(response)
+          })
     }
   }
 }
