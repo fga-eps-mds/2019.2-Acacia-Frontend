@@ -12,7 +12,12 @@
 <script>
 export default {
 	components: {
-	}
+  },
+  mounted() {
+    
+  },
+  methods: {
+  }
 }
 </script>
 

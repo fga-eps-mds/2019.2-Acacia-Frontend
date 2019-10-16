@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import { access } from 'fs'
 
 Vue.use(Vuex)
 
@@ -32,11 +31,11 @@ export default new Vuex.Store({
     /* === Token setters === */
     setAccessToken: function (accessToken) {
       this.accessToken = accessToken
-      Vue.cookie.set('access-token', accessToken, { expires: '10d' });
+      Vue.cookie.set('access-token', accessToken, { expires: '5m' });
     },
     setRefreshToken: function (refreshToken) {
       this.refreshToken = refreshToken
-      Vue.cookie.set('refresh-token', refreshToken, { expires: '5m' });
+      Vue.cookie.set('refresh-token', refreshToken, { expires: '10d' });
     },
     /* === Access token refresh function === */
     accessTokenRefresh: function () {
@@ -78,6 +77,13 @@ export default new Vuex.Store({
           })
       })
     },
+    /*
+     __
+    /  \
+    |  |
+    \__/
+
+    */
     /* === Request functions === */
     // THEY WORK WITH PROMISSES
     // Example code of making an authorized request to check user's chosen language:
@@ -157,7 +163,6 @@ export default new Vuex.Store({
                   }
                 })
                 .catch(response => rejectBase(response))
-
             } else {
               rejectBase({});
             }
