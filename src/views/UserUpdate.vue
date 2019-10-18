@@ -1,39 +1,59 @@
 <template>
     <div class="userupdate">
-        <TopBar :iconleft="'chevron-left'"/>
+        <TopBar :iconleft="'chevron-left'" class="bg-color-primary"/>
 		<div class="content-container">
-            <FileUpload @action="onFileSelected" ></FileUpload>
-            <datetime v-model="date"></datetime>
-		</div>
+            <PhotoUpload @action="onFileSelected" ></PhotoUpload>
+            <TextField class="mt-3" v-model="username" label="Nome" color="#949090"></TextField>
+            <TextField class="mt-3" v-model="email" label="Email" color="#949090"></TextField>
+            <TextField class="mt-3" v-model="phone" label="Telefone" color="#949090"></TextField>
+            <TextField class="mt-3" v-model="status" label="Bio" color="#949090"></TextField>
+        </div>
+        <div class="content-button">
+            <SignButton class="mt-4" :label="'Salvar'" @action="updateProfile"/>
+        </div>
     </div>
 </template>
 
 <script>
-    import FileUpload from '../components/input/FileUpload.vue'
+    import PhotoUpload from '../components/input/PhotoUpload.vue'
+    import TextField from '../components/input/TextField.vue'
+    import SignButton from '../components/input/SignButton.vue'
     import TopBar from '../components/layout/TopBar.vue'
 
 export default {
 
     components: {
-        FileUpload,
+        PhotoUpload,
+        SignButton,
+        TextField,
         TopBar
-    },
-    methods: {
-        onFileSelected(event){
-            this.propertyImage = event
-        }
     },
     data (){
         return{
-            propertyImage: null,
-            date: new Date().toISOString().substr(0, 10),
+            profileImage: null,
+            username: '',
+            email: '',
+            phone: '',
+            status: '',
         }
-    }
+    },
+    methods: {
+        onFileSelected(event){
+            this.profileImage = event
+        },
+        updateProfile(){
+
+        }
+    },
 
 }
 </script>
 
 <style>
+
+    .text-field-border{
+        color: black;
+    }
 
     .userupdate{
         width: 100%;
