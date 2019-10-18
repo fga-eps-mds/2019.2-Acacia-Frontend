@@ -4,41 +4,63 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
+import i18n from '@/plugins/i18n.js'
+
 export default new Vuex.Store({
   getters: {
   },
   state: {
-    accessToken: null,
-    refreshToken: null,
     defaultLanguage: 'en',
-    preferedLanguage: null,
     baseURL: "http://0.0.0.0:8000/",
+    /* === Language helper functions === */
+    resolveUserLanguage: function() {
+      let resolvedUserLanguage = Vue.cookie.get('resolved-user-language')
+      if (resolvedUserLanguage) {
+        i18n.locale = resolvedUserLanguage
+        return
+      }
+      let language = this.defaultLanguage;
+      let state = this
+      state.authRequest(
+        'users/prefered-language/',
+        'GET'
+      )
+        .then(res => {
+          let lang = res.data['chosen_language'];
+          language = lang;
+          state.setCookieLanguage(lang); // cookies
+        })
+        .catch(() => {
+          let cookieLang = state.getCookieLanguage()
+
+          if (cookieLang) {
+            language = cookieLang
+          }
+        })
+        .finally(() => {
+          i18n.locale = language;
+        })
+    },
+    setUserLanguage(lang) {
+      let state = this
+      i18n.locale = lang
+      state.setCookieLanguage(lang)
+      Vue.cookie.set('resolved-user-language', lang)
+      /* It doesn't really matter if the user is not logged in, fails graciously */
+      if (state.getAccessToken() && state.getRefreshToken()) {
+        state.authRequest('users/prefered-language', 'PATCH', {
+          'chosen_language' : lang
+        })
+        .then(() => {})
+        .catch(() => {})
+      }
+    },
     /* === Token getters === */
-    getAccessToken: function () {
-      if (this.accessToken == null) {
-        try {
-          this.accessToken = Vue.cookie.get('access-token')
-        } catch (e) { }
-      }
-      return this.accessToken
-    },
-    getRefreshToken: function () {
-      if (this.refreshToken == null) {
-        try {
-          this.refreshToken = Vue.cookie.get('refresh-token')
-        } catch (e) { }
-      }
-      return this.refreshToken
-    },
+    getAccessToken: () => { return Vue.cookie.get('access-token') },
+    getRefreshToken: () => { return Vue.cookie.get('refresh-token') },
     /* === Token setters === */
-    setAccessToken: function (accessToken) {
-      this.accessToken = accessToken
-      Vue.cookie.set('access-token', accessToken, { expires: '5m' });
-    },
-    setRefreshToken: function (refreshToken) {
-      this.refreshToken = refreshToken
-      Vue.cookie.set('refresh-token', refreshToken, { expires: '10d' });
-    },
+    setAccessToken: (accessToken) => Vue.cookie.set('access-token', accessToken, { expires: '5m' }),
+    setRefreshToken: (refreshToken) => Vue.cookie.set('refresh-token', refreshToken, { expires: '10d' }),
     /* === Access token refresh function === */
     accessTokenRefresh: function () {
       let url = this.baseURL + 'users/token/refresh/'
@@ -159,7 +181,7 @@ export default new Vuex.Store({
               axios.post(url, data, { headers: headers })
                 .then(response => {
                   if (response.status.toString()[0] == 2) {
-                    resolveBase(response.data);
+                    resolveBase(response);
                   } else {
                     rejectBase(response);
                   }
@@ -169,7 +191,7 @@ export default new Vuex.Store({
               axios.patch(url, data, { headers: headers })
                 .then(response => {
                   if (response.status.toString()[0] == 2) {
-                    resolveBase(response.data);
+                    resolveBase(response);
                   } else {
                     rejectBase(response);
                   }
@@ -183,27 +205,21 @@ export default new Vuex.Store({
       })
     },
 
-    setCookieLanguage: function(lang) {
-      Vue.cookie.set('prefered-language', lang);
+    authUser(userData) {
+      this.setAccessToken(userData.accessToken)
+      this.setRefreshToken(userData.refreshToken)
+      Vue.cookie.delete('resolved-user-language')
     },
 
-    getCookieLanguage: function() {
-      Vue.cookie.get('prefered-language');
-    },
+    setCookieLanguage: (lang) => Vue.cookie.set('prefered-language', lang),
+    getCookieLanguage: () => { return Vue.cookie.get('prefered-language') },
 
   },
   mutations: {
-    authUser(state, userData) {
-      state.setAccessToken(userData.accessToken)
-      state.setRefreshToken(userData.refreshToken)
-    },
-    logoutUser(state) {
-      state.accessToken = null
-      state.refreshToken = null
+    logoutUser() {
       Vue.cookie.delete('access-token');
       Vue.cookie.delete('refresh-token');
       Vue.cookie.delete('prefered-language');
-      state.preferedLanguage = null;
     }
   },
   actions: {

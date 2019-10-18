@@ -8,29 +8,16 @@
         {{entry.title}}
       </button>
     </div>
-    <div class="bg-dark p-1">
-      <TextField v-model="lang" :label="'Your choosen language (2 characters long max)'" :color="'black'"/>
-    </div>
-    <button @click="changeLanguage">
-      Change your language in server
-    </button>
-    <button @click="getLanguage">
-      Get your language from server
-    </button>
   </div>
 </template>
 
 <script>
 import SignButton from '../components/input/SignButton'
-import TextField from '../components/input/TextField'
 import router from '../router'
-import axios from 'axios'
-import i18n from '@/plugins/i18n'
 export default {
   name: 'home',
   components: {
-    SignButton,
-    TextField
+    SignButton
   },
   data() {
     return {
@@ -76,7 +63,7 @@ export default {
         })
     },
     changeLocale(locale){
-      i18n.locale = locale
+      this.$store.state.setUserLanguage(locale)
     },
 
   }

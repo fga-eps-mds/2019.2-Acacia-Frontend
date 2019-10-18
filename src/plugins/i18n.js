@@ -14,13 +14,21 @@ const messages = {
             createAccount: "Create account",
             login: "Log in",
             logout: "Log out",
-        },
-        RootPage: {
+            positiveStatus: "Logged in!",
+            negativeStatus: "Email or password are incorrect",
+            requireName: 'Type your name',
+            requirePasswordCorrespondance: "Passwords must match",
+            requireEmail: "Type your email",
+            requirePassword: "Type your password",
+            requreValidPassword: "Type a password with at least 8 chararcters",
+            requireValidEmail: "Type a valid email"
+          },
+          RootPage: {
             title: "This is root page"
+          },
         },
-    },
-    'pt': {
-        SignPages: {
+        'pt': {
+          SignPages: {
             name: "Nome",
             email: "Email",
             password: "Senha",
@@ -29,6 +37,14 @@ const messages = {
             createAccount: "Criar conta",
             login: "Entrar",
             logout: "Sair",
+            positiveStatus: "Você entrou na sua conta!",
+            negativeStatus: "Email ou senha estão incorretos",
+            requireName: 'Digite seu nome',
+            requirePasswordCorrespondance: "As senhas devem ser iguais",
+            requireEmail: "Digite seu email",
+            requirePassword: "Digite sua senha",
+            requreValidPassword: "Digite uma senha com, ao menos, 8 caractéres",
+            requireValidEmail: "Digite um email válido"
         },         
         RootPage: {
             title: "Essa é a pagina root"
