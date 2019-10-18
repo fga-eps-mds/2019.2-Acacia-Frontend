@@ -1,29 +1,56 @@
-<template>
-  <div class="signin">
-    
-    <TopBar :iconleft="'chevron-left'"></TopBar>
 
+<template>
+  <div class="property-form gradient">
+    <TopBar :iconleft="'chevron-left'"/>
+    
     <div class="content-container">
-      
+
       <div class="content-title">
-        <a style="font-size: 40px"> Cadastro de Propriedade </a>
+        <h2> Registrar propriedade</h2>
       </div>
 
       <div class="content-form">
-        <TextField :color="'black'" class="mt-3" v-model="cep" :label="'CEP'"></TextField>
-        <TextField :color="'black'" class="mt-3" v-model="state" :label="'Estado'"></TextField>
-        <TextField :color="'black'" class="mt-3" v-model="city" :label="'Cidade'"></TextField>
-        <TextField :color="'black'" class="mt-3" v-model="district" :label="'Bairro'"></TextField>
-        <TextField :color="'black'" class="mt-3" v-model="street" :label="'Rua/Avenida'"></TextField>
-        <TextField :color="'black'" class="mt-3" v-model="complement" :label="'Complemento'"></TextField>
+        
+        <TextField 
+          class="mt-3" 
+          v-model="brzipcode" 
+          :label="'CEP'" 
+        />
+        <TextField 
+          class="mt-3" 
+          v-model="state" 
+          :label="'Estado'" 
+        />
+        <TextField 
+          class="mt-3" 
+          v-model="city" 
+          :label="'Cidade'" 
+        />
+        <TextField 
+          class="mt-3" 
+          v-model="district" 
+          :label="'Bairro'" 
+        />
+        <TextField 
+          class="mt-3" 
+          v-model="street" 
+          :label="'Rua / Avenida'" 
+        />
+        <TextField 
+          class="mt-3" 
+          v-model="complement" 
+          :label="'Complemento'" 
+        />        
+      
       </div>
 
       <div class="content-button">
-        <SignButton class="mt-4" :label="'Cadastrar'" @action="register"/>
+        <SignButton class="mt-4" :label="'Cadastrar propriedade'" @action="registerProperty"/>
       </div>
-      
+
     </div>
   </div>
+
 </template>
 
 <script>
@@ -42,7 +69,7 @@
 
     data() {
       return {
-        cep: '',
+        brzipcode: '',
         state: '',
         city: '',
         district: '',
@@ -52,14 +79,13 @@
     },
 
     methods: {
-
-      register(){
+      registerProperty(){
         if (!this.validateInput()) {
           return
         }       
         
         let data = {
-          cep: this.cep,
+          brzipcode: this.brzipcode,
           state: this.state,
           city: this.city,
           district: this.district,
@@ -74,8 +100,8 @@
             console.log(response)
           })
           .catch((error) => {
-            if(error.response.data.cep){
-              this.$toasted.show(error.response.data.cep).goAway(2000)
+            if(error.response.data.brzipcode){
+              this.$toasted.show(error.response.data.brzipcode).goAway(2000)
             }
             if(error.response.data.state){
               this.$toasted.show(error.response.data.state).goAway(2000)
@@ -96,8 +122,7 @@
       },
 
       validateInput(){
-
-        if (!this.cep) {
+        if (!this.brzipcode) {
           this.$toasted.show('Insira seu CEP').goAway(2000)
           return false
         }
@@ -108,7 +133,7 @@
         }
 
         if (!this.city) {
-          this.$toasted.show('Insira um cidade').goAway(2000)
+          this.$toasted.show('Insira uma cidade').goAway(2000)
           return false
         }
 
@@ -121,8 +146,9 @@
           this.$toasted.show('Insira um endereço').goAway(2000)
           return false
         }
+
         return true
-      }
+      },
     }
   }
 
@@ -130,46 +156,43 @@
 
 <style scoped lang="scss">
 @import "../assets/stylesheets/colors.scss";
-
-	.max-width-500 {
-		max-width: 400px;
-	}
-	.signup-button {
-		margin: auto;
-		height: 6%;
-		width: 100%;
-		background-color: $color-primary;
-		margin-bottom: 0;
-		position: absolute;
-		color: $color-default-text;
-		font-family: RobotoBold;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-	.content-container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		height: 100%;
-	}
-	.signin {
-		width: 100%;
-		height: 100%;
-		position: absolute;
-		margin-top: 0;
-		text-align: center;
-	}
-  .button-link {
-    color: $color-default-text;
-		font-family: RobotoBold;
-    font-size: 130%;
-    text-decoration: none;
+  
+  .property-form {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    margin-top: 0;
+    text-align: center;
   }
 	.gradient {
 		background-image: linear-gradient(180deg, rgba(86, 163, 166, 1), rgba(75s, 125, 170, 105));
 	}
+
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .content-form {
+
+  }
+
+  .content-title {
+    width: 100%;
+    padding: 0px 25px;
+    margin-bottom: 20%;
+    color: $color-default-text;
+    display: flex;
+    justify-content: left; 
+  }
+
+
+  .content-button {
+    margin-top: 20px;
+  }
+
 </style>
