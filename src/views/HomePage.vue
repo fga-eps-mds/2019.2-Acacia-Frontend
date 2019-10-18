@@ -17,21 +17,6 @@
     <button @click="getLanguage">
       Get your language from server
     </button>
-    <button @click="testAccessToken">
-      Test access token
-    </button>
-    <button @click="destroyAccessToken">
-      Destroy access token
-    </button>
-    <div class="bg-dark p-1">
-      <TextField v-model="lang" :label="'Your choosen language (2 characters long max)'" :color="'black'"/>
-    </div>
-    <button @click="changeLanguage">
-      Change your language in server
-    </button>
-    <button @click="getLanguage">
-      Get your language from server
-    </button>
   </div>
 </template>
 
@@ -70,22 +55,9 @@ export default {
       this.$store.commit('logoutUser')
       window.location.reload()
     },
-<<<<<<< fb7b563d6e3a5edbc04285af6620d24e9c8c28cf
-    testAccessToken() {
-      this.$store.state.testAndRefreshAccessToken()
-        .then(() => this.$toasted.show('Access token is ok').goAway(2000))
-        .catch(() => {
-          this.$toasted.show('You must login again').goAway(2000)
-          this.$router.push('signin')
-        })
-    },
-    destroyAccessToken() {
-      this.$store.state.accessToken = 'batata'
-    },
-=======
->>>>>>> #40 Fix token expiration time
+
     changeLanguage() {
-      this.$store.state.authRequest('users/set-prefered-language', 'post', { "chosen_language" : this.lang })
+      this.$store.state.authRequest('users/prefered-language/', 'PATCH', { "chosen_language" : this.lang })
         .then(response => {
           console.log(response)
         })
@@ -93,12 +65,9 @@ export default {
           console.log(error)
         })
     },
+    
     getLanguage() {
-<<<<<<< fb7b563d6e3a5edbc04285af6620d24e9c8c28cf
-      this.$store.state.authRequest('users/get-prefered-language', 'post', {})
-=======
-      this.$store.state.authRequest('users/get-prefered-language', 'post')
->>>>>>> #40 Fix token expiration time
+      this.$store.state.authRequest('users/prefered-language/', 'GET')
         .then(response => {
           console.log(response)
         })

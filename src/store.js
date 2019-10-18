@@ -10,7 +10,9 @@ export default new Vuex.Store({
   state: {
     accessToken: null,
     refreshToken: null,
-    baseURL: "http://0.0.0.0:8080/",
+    defaultLanguage: 'en',
+    preferedLanguage: null,
+    baseURL: "http://0.0.0.0:8000/",
     /* === Token getters === */
     getAccessToken: function () {
       if (this.accessToken == null) {
@@ -56,13 +58,13 @@ export default new Vuex.Store({
     },
     /* === Access Token test function === */
     testAndRefreshAccessToken: function () {
-      let url = this.baseURL + 'users/test-access-token/'
+      let url = this.baseURL + 'users/token/test-access-token/'
       let store = this
       return new Promise(function (resolveBase, rejectBase) {
         const config = {
-          headers: { 'Authorization': "Bearer " + store.getAccessToken() }
+          'headers': { 'Authorization': "Bearer " + store.getAccessToken() }
         }
-        axios.post(url, {}, config)
+        axios.get(url, config)
           .then(() => {
             resolveBase();
           })
@@ -144,7 +146,7 @@ export default new Vuex.Store({
               "Authorization": "Bearer " + store.getAccessToken()
             }
             if (method.toLowerCase() === "get") {
-              axios.get(url, data, { headers: headers })
+              axios.get(url, { headers: headers })
                 .then(response => {
                   if (response.status.toString()[0] == 2) {
                     resolveBase(response.data);
@@ -163,6 +165,16 @@ export default new Vuex.Store({
                   }
                 })
                 .catch(response => rejectBase(response))
+            } else if (method.toLowerCase()==="patch" || method.toLowerCase() ==="put") {
+              axios.patch(url, data, { headers: headers })
+                .then(response => {
+                  if (response.status.toString()[0] == 2) {
+                    resolveBase(response.data);
+                  } else {
+                    rejectBase(response);
+                  }
+                })
+                .catch(response => rejectBase(response))
             } else {
               rejectBase({});
             }
@@ -170,6 +182,15 @@ export default new Vuex.Store({
           .catch(() => rejectBase(false))
       })
     },
+
+    setCookieLanguage: function(lang) {
+      Vue.cookie.set('prefered-language', lang);
+    },
+
+    getCookieLanguage: function() {
+      Vue.cookie.get('prefered-language');
+    },
+
   },
   mutations: {
     authUser(state, userData) {
@@ -181,6 +202,8 @@ export default new Vuex.Store({
       state.refreshToken = null
       Vue.cookie.delete('access-token');
       Vue.cookie.delete('refresh-token');
+      Vue.cookie.delete('prefered-language');
+      state.preferedLanguage = null;
     }
   },
   actions: {

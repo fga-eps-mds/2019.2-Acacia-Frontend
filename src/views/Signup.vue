@@ -58,10 +58,10 @@
           password: this.password,
         }
 
-        const url = 'http://0.0.0.0:8080/users/signup/'
-        axios.post(url, data)
+        const baseURL = this.$store.state.baseURL;
+        axios.post(baseURL + 'users/signup/', data)
           .then((response) => {
-            axios.post("http://0.0.0.0:8080/users/token/", dataToken)
+            axios.post(baseURL +"users/token/", dataToken)
               .then((response) => {
                 if (response.status == '200') {
                   this.$toasted.show('Created!').goAway(2000)
