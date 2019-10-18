@@ -57,6 +57,7 @@
   import TopBar from '../components/layout/TopBar'
   import TextField from '../components/input/TextField'
   import SignButton from '../components/input/SignButton'
+  import SelectField from '../components/input/SelectField'
   import axios from "axios"
   import router from "../router"
 
@@ -65,6 +66,7 @@
       TopBar,
       TextField,
       SignButton,
+      SelectField,
     },
 
     data() {
@@ -75,6 +77,45 @@
         district: '',
         street: '',
         complement: '',
+        getstateinitial: '',
+      }
+    },
+
+    props: {
+      brstates: [
+        {name: "Acre", initial: "ac"},
+        {name: "Alagoas", initial: "al"},
+        {name: "Amapá", initial: "ap"},
+        {name: "Amazonas", initial: "am"},
+        {name: "Bahia", initial: "ba"},
+        {name: "Ceará", initial: "ce"},
+        {name: "Distrito Federal", initial: "df"},
+        {name: "Espírito Santo", initial: "es"},
+        {name: "Goiás", initial: "go"},
+        {name: "Maranhão", initial: "ma"},
+        {name: "Mato Grosso", initial: "mt"},
+        {name: "Mato Grosso do Sul", initial: "ms"},
+        {name: "Minas Gerais", initial: "mg"},
+        {name: "Pará", initial: "pa"},
+        {name: "Paraíba", initial: "pb"},
+        {name: "Paraná", initial: "pr"},
+        {name: "Pernambuco", initial: "pe"},
+        {name: "Piauí", initial: "pi"},
+        {name: "Rio de Janeiro", initial: "rj"},
+        {name: "Rio Grande do Norte", initial: "rn"},
+        {name: "Rio Grande do Sul", initial: "rs"},
+        {name: "Rondônia", initial: "ro"},
+        {name: "Roraima", initial: "rr"},
+        {name: "Santa Catarina", initial: "sc"},
+        {name: "São Paulo", initial: "sp"},
+        {name: "Sergipe", initial: "se"},
+        {name: "Tocantins", initial: "to"},
+      ],
+    },
+
+    computed: {
+      stateInitials() {
+
       }
     },
 
