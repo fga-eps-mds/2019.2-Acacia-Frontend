@@ -1,7 +1,7 @@
 <template>
 	<div id="topbar" class="navbar fixed-top">
-        <font-awesome-icon v-if="iconleft" :icon="iconleft" @click="selectLeft()" style="color: white;"> </font-awesome-icon>
-        <font-awesome-icon v-if="iconright" :icon="iconright" @click="selectRight()" style="color: white;"> </font-awesome-icon>
+        <font-awesome-icon v-if="iconleft" :icon="iconleft" @click="selectLeft()" :style="componentStyle"> </font-awesome-icon>
+        <font-awesome-icon v-if="iconright" :icon="iconright" @click="selectRight()" :style="componentStyle"> </font-awesome-icon>
     </div>
 </template>
 
@@ -17,8 +17,17 @@
                 default: '',
                 type: String
             },
+            color: {
+                default: '',
+                type: String
+            },
         },
-
+        computed: {
+            componentStyle() { 	
+                let componentColor = `color:${this.color};`
+                return componentColor
+            }
+        },
         methods: {
             selectLeft(){
                 if (this.iconleft=='chevron-left'){
