@@ -1,124 +1,77 @@
 <template>
-  <div
-    class="select-field"
-    :tabindex="tabindex"
-    @blur="open = false"
-  >
-    <div
-      class="selected"
-      :class="{open: open}"
-      @click="open = !open"
-    >
-      {{ selected }}
+    <div id="autocomplete" class="selectfield">
+        <div class="input" @click="toggleVisible"></div>
+        <div class="popover" v-show="visible">
+            <input 
+            type="text"
+            v-model="query"
+            placeholder="Start typing ...">
+            <div class="options">
+                <ul>
+                    <li
+                        v-for="match in matches"
+                        :key="match[filterby]"
+                        @click="itemClicked(index)"
+                        v-text="match[filterby]">
+                    </li>
+                </ul>                
+            </div>
+        </div>
     </div>
-    <div
-      class="items"
-      :class="{selectHide: !open}"
-    >
-      <div
-        class="item"
-        v-for="(option, i) of options"
-        :key="i"
-        @click="selected=option; open=false; $emit('input', option)"
-      >
-        {{ option }}
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
-    export default {
-        props:{
-            options:{
-                type: Array,
-                required: true,
-            },
+export default {
+    props: ['items', 'filterby'],
 
-            tabindex:{
-                type: Number,
-                required: false,
-                default: 0,
+    data() {
+        return {
+            query: '',      // Data to store the input
+            visible: false, // Boolean to set the visibility of the pop-over
+        };
+    },
+
+    methods: {
+        toggleVisible() {
+            this.visible = !this.visible;
+        },
+
+        itemClicked(index){
+            console.log(this.matches[index]);
+        },
+    },
+
+    computed: {
+        /****************************************************************************
+        | Computed data to return the elements in 'items' that includes query model |
+        ****************************************************************************/
+        matches() {
+            if (this.query == '') {
+                return [];
             }
-        },
 
-        data() {
-            return {
-                selected: this.options.length > 0 ? this.options[0] : null,
-                open: false,
-            };
+            return this.items.filter( (item) => item[this.filterby].toLowerCase().includes(this.query.toLowerCase()) );
         },
-
-        mounted(){
-            this.$emit('input', this.selected);
-        }
-    };
+    },
+}
 </script>
 
+
 <style lang="scss" scoped>
-  @import "../../assets/stylesheets/colors.scss";
-
-    .select-field {
-        position: relative;
+    .selectfield {
         width: 100%;
-        text-align: left;
-        outline: none;
-        height: 47px;
-        line-height: 47px;
+        position: relative;
     }
 
-    .selected {
-        background-color: #080D0E;
-        border-radius: 6px;
-        border: 1px solid #858586;
-        color: #ffffff;
-        padding-left: 8px;
-        cursor: pointer;
-        user-select: none;
+    .input {
+        height: 40px;
+        border-radius: 3px;
+        border: 2px solid lightgray;
+        box-shadow: 0 0 10px #eceaea;
+        font-size: 25px;
+        padding-left: 100px;
+        padding-top: 10px;
+        cursor: text;
     }
 
-    .selected.open{
-        border: 1px solid #CE9B2C;
-        border-radius: 6px 6px 0px 0px;
-    }
-
-    .selected:after {
-        position: absolute;
-        content: "";
-        top: 22px;
-        right: 10px;
-        width: 0;
-        height: 0;
-        border: 4px solid transparent;
-        border-color: #fff transparent transparent transparent;
-    }
-
-    .items {
-        color: #ffffff;
-        border-radius: 0px 0px 6px 6px;
-        overflow: hidden;
-        border-right: 1px solid #CE9B2C;
-        border-left: 1px solid #CE9B2C;
-        border-bottom: 1px solid #CE9B2C;
-        position: absolute;
-        background-color: #080D0E;
-        left: 0;
-        right: 0;
-    }
-
-    .item {
-        color: #ffffff;
-        padding-left: 8px;
-        cursor: pointer;
-        user-select: none;
-    }
-
-    .item:hover {
-        background-color: #B68A28;
-    }
-
-    .selectHide {
-        display: none;
-    }
-    
 </style>
