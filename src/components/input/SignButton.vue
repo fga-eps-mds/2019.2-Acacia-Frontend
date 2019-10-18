@@ -1,6 +1,6 @@
 <template>
     <div id="signbutton" class="container">
-        <button v-on:click="$emit('action')"> {{label}} </button>
+        <button v-on:click="$emit('action')" :style="componentStyle"> {{label}} </button>
     </div>
 </template>
 
@@ -11,6 +11,18 @@
                 default: '',
                 type: String
             },
+            color: {
+                default: '',
+                type: String
+            },
+        },
+
+        computed: {
+            componentStyle() { 	
+                let componentColor = `background-color:${this.color};`
+                return componentColor
+            }
+
         },
     }
 </script>

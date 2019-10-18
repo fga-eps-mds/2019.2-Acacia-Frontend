@@ -1,15 +1,18 @@
 <template>
     <div class="userupdate">
-        <TopBar :iconleft="'chevron-left'" class="bg-color-primary"/>
-		<div class="content-container">
+        <TopBar :iconleft="'chevron-left'" color="#56a3a6"/>
+        <div class="content-container">
+            <div class="content-title">
+                <a style="font-size:35px; color:#56a3a6;"> Editar conta </a>
+            </div>
             <PhotoUpload @action="onFileSelected" ></PhotoUpload>
             <TextField class="mt-3" v-model="username" label="Nome" color="#949090"></TextField>
             <TextField class="mt-3" v-model="email" label="Email" color="#949090"></TextField>
             <TextField class="mt-3" v-model="phone" label="Telefone" color="#949090"></TextField>
             <TextField class="mt-3" v-model="status" label="Bio" color="#949090"></TextField>
-        </div>
-        <div class="content-button">
-            <SignButton class="mt-4" :label="'Salvar'" @action="updateProfile"/>
+            <div class="content-button">
+                <SignButton class="mt-5" :label="'Salvar'" @action="updateProfile" color="#56a3a6"/>
+            </div>
         </div>
     </div>
 </template>
@@ -26,7 +29,7 @@ export default {
         PhotoUpload,
         SignButton,
         TextField,
-        TopBar
+        TopBar,
     },
     data (){
         return{
@@ -49,10 +52,16 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import "../assets/stylesheets/colors.scss";
 
-    .text-field-border{
-        color: black;
+    .content-title {
+        width: 100%;
+        padding: 0px 25px;
+        margin-bottom: 20%;
+        color: $color-primary-text-title;
+        display: flex;
+        justify-content: left; 
     }
 
     .userupdate{
