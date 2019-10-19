@@ -84,7 +84,7 @@ export default {
 		height: 100%;
 	}
     .datefield-container{
-        margin-top: 50px;
+        margin-top: 20px;
         width: 100%;
 		height: 100%;
     }

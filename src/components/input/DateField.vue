@@ -1,7 +1,7 @@
 <template>
     <div class="datefield-container"> 
         <div v-if="label" class="p-0 col-12 text-color-secundary datefield-label">{{ label }}</div>
-        <datetime class="datefield-format" :max-datetime="getDateToday()" ></datetime>
+        <datetime class="datefield-format" input-class="input-format" :max-datetime="getDateToday()" input-style="border-top:0; border-left:0; border-right:0;"></datetime>
     </div>
 </template>
 
@@ -27,23 +27,21 @@ export default {
     @import "../../assets/stylesheets/colors.scss";
     .datefield-container {
         width: 100%;
+        margin-left: 6px;
 		padding-right: 20px;
 		padding-left: 20px;
 		margin-right: auto;
-		margin-left: auto;
     }
     .datefield-label {
         text-align: left;
-        margin-bottom: 10px;
 		font-size: 90%;
     }
     .datefield-format {
         width: 100%;
+        height: 100%;
         text-align: left;   
     }
-    .vdatetime-input input{
-        border-top: 0;
-		border-left: 0;
-		border-right: 0; 
+    .input-format {
+        border-color: #949090;
     }
 </style>
