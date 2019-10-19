@@ -10,6 +10,7 @@
             <TextField class="mt-3" v-model="email" label="Email" color="#949090"></TextField>
             <TextField class="mt-3" v-model="phone" label="Telefone" color="#949090"></TextField>
             <TextField class="mt-3" v-model="status" label="Bio" color="#949090"></TextField>
+            <DateField class="datefield-container" label="Birthdate"></DateField>
             <div class="content-button">
                 <SignButton class="mt-5" :label="'Salvar'" @action="updateProfile" color="#56a3a6"/>
             </div>
@@ -22,6 +23,7 @@
     import TextField from '../components/input/TextField.vue'
     import SignButton from '../components/input/SignButton.vue'
     import TopBar from '../components/layout/TopBar.vue'
+    import DateField from '../components/input/DateField.vue'
 
 export default {
 
@@ -30,6 +32,7 @@ export default {
         SignButton,
         TextField,
         TopBar,
+        DateField,
     },
     data (){
         return{
@@ -80,5 +83,9 @@ export default {
 		width: 100%;
 		height: 100%;
 	}
-
+    .datefield-container{
+        margin-top: 50px;
+        width: 100%;
+		height: 100%;
+    }
 </style>
