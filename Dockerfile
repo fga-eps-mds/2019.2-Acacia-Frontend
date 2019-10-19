@@ -9,4 +9,5 @@ ADD . /app
 
 EXPOSE 8080
 
-CMD ["npm", "run", "serve"]
+CMD npm run build
+CMD npm start
