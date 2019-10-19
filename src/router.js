@@ -22,7 +22,7 @@ export default new Router({
 			component: () => import('./views/Signup.vue')
 		},
 		{
-			path: '/userupdate',
+			path: '/user/update',
 			name: 'userupdate',
 			component: () => import('./views/UserUpdate.vue')
 		}

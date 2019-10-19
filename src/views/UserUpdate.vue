@@ -5,11 +5,9 @@
             <div class="content-title">
                 <a style="font-size:35px; color:#56a3a6;"> Editar conta </a>
             </div>
-            <PhotoUpload @action="onFileSelected" ></PhotoUpload>
-            <TextField class="mt-3" v-model="username" label="Nome" color="#949090"></TextField>
-            <TextField class="mt-3" v-model="email" label="Email" color="#949090"></TextField>
-            <TextField class="mt-3" v-model="phone" label="Telefone" color="#949090"></TextField>
-            <TextField class="mt-3" v-model="status" label="Bio" color="#949090"></TextField>
+            <PhotoUpload style="display:none" @action="onFileSelected" ></PhotoUpload>
+            <TextField class="mt-3" v-model="phone_number" label="Telefone" color="#949090" :placeholder="phone_number"></TextField>
+            <TextField class="mt-3" v-model="bio" label="Bio" color="#949090" :placeholder="bio"></TextField>
             <div class="content-button">
                 <SignButton class="mt-5" :label="'Salvar'" @action="updateProfile" color="#56a3a6"/>
             </div>
@@ -23,6 +21,7 @@
     import SignButton from '../components/input/SignButton.vue'
     import TopBar from '../components/layout/TopBar.vue'
 
+
 export default {
 
     components: {
@@ -34,20 +33,75 @@ export default {
     data (){
         return{
             profileImage: null,
-            username: '',
-            email: '',
-            phone: '',
-            status: '',
+            phone_number: '',
+            bio: '',
+            birthdate: '',
         }
     },
     methods: {
         onFileSelected(event){
             this.profileImage = event
         },
-        updateProfile(){
 
-        }
+
+        updateProfile(){     
+            console.log(this.profileImage)
+            
+            let formData = new FormData()
+            formData.append("photo", this.profileImage)
+            formData.append("phone_number", this.phone_number)
+            formData.append("bio", this.bio)
+            formData.append("birthdate", this.birthdate)
+
+            console.log(formData)
+
+            let state = this.$store.state
+            let toasted = this.$toasted
+
+            state.authRequest('users/profile/', 'PATCH', formData)
+                .then((response) => {
+                    console.log(response)
+                    toasted.show('SignPages.positiveStatus').goAway(2000)
+                })
+                .catch((errors) => {
+                    console.log(errors)
+                    toasted.show('SignPages.negativeStatus').goAway(2000)
+                })
+        },
+
+        validateInput(){
+            let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/igm
+            if (!this.email.match(emailRegex)) {
+                this.$toasted.show('Email digitado não é válido').goAway(2000)
+                return false
+            }
+            return true
+        },
+
+
+
+        uploadProfile(){     
+
+            let state = this.$store.state
+            let toasted = this.$toasted
+
+            state.authRequest('users/profile/', 'GET')
+                .then((response) => {
+                    this.phone_number = response.phone_number
+                    this.bio = response.bio
+                    this.profileImage = response.photo
+                    this.birthdate = response.birthdate
+                })
+                .catch((errors) => {
+                    console.log(errors)
+                })
+        },
+        
+
     },
+    beforeMount(){
+        this.uploadProfile()
+    }
 
 }
 </script>
