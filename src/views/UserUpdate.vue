@@ -112,7 +112,7 @@ export default {
     .content-title {
         width: 100%;
         padding: 0px 25px;
-        margin-bottom: 20%;
+        margin-bottom: 40%;
         color: $color-primary-text-title;
         display: flex;
         justify-content: left; 
