@@ -8,6 +8,7 @@
             <PhotoUpload style="display:none" @action="onFileSelected" ></PhotoUpload>
             <TextField class="mt-3" v-model="phone_number" label="Telefone" color="#949090" :placeholder="phone_number"></TextField>
             <TextField class="mt-3" v-model="bio" label="Bio" color="#949090" :placeholder="bio"></TextField>
+            <DateField class="datefield-container" label="Birthdate"></DateField>
             <div class="content-button">
                 <SignButton class="mt-5" :label="'Salvar'" @action="updateProfile" color="#56a3a6"/>
             </div>
@@ -20,6 +21,7 @@
     import TextField from '../components/input/TextField.vue'
     import SignButton from '../components/input/SignButton.vue'
     import TopBar from '../components/layout/TopBar.vue'
+    import DateField from '../components/input/DateField.vue'
 
 
 export default {
@@ -29,6 +31,7 @@ export default {
         SignButton,
         TextField,
         TopBar,
+        DateField,
     },
     data (){
         return{
@@ -134,5 +137,9 @@ export default {
 		width: 100%;
 		height: 100%;
 	}
-
+    .datefield-container{
+        margin-top: 50px;
+        width: 100%;
+		height: 100%;
+    }
 </style>

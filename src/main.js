@@ -22,8 +22,17 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+/*Datepicker configuration*/
+import Datepicker from 'vuejs-datepicker'
+
+/*Datetime configuration*/
+import { Datetime } from 'vue-datetime'
+import 'vue-datetime/dist/vue-datetime.css'
+
 library.add(fas)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('datepicker', Datepicker)
+Vue.component('datetime', Datetime)
 
 Vue.config.productionTip = false
 
