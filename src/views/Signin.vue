@@ -54,7 +54,12 @@ export default {
         email: this.email,
         password: this.password
       }
-
+      //Teste (remover)
+      const dotenv = require('dotenv');
+      dotenv.config();
+      console.log("ENV3:::::::::::::")
+      console.log(process.env)
+      //Fim teste
       axios.post("http://0.0.0.0:8080/users/token/", data)
         .then((response) => {
           if (response.status == '200') {
