@@ -16,47 +16,53 @@
           class="mt-3" 
           v-model="brzipcode" 
           :label="'CEP'"
-          color="8B8888" 
+          color="black"
+          bordercolor="#C4C4C4" 
         />
         <TextField 
           class="mt-3" 
           v-model="state" 
           :label="'Estado'" 
-          color="8B8888" 
+          color="black"
+          bordercolor="#C4C4C4"
         />
         <TextField 
           class="mt-3" 
           v-model="city" 
           :label="'Cidade'" 
-          color="8B8888" 
+          color="black"
+          bordercolor="#C4C4C4" 
         />
         <TextField 
           class="mt-3" 
           v-model="district" 
           :label="'Bairro'" 
-          color="8B8888" 
+          color="black"
+          bordercolor="#C4C4C4"
         />
         <TextField 
           class="mt-3" 
           v-model="street" 
           :label="'Rua / Avenida'" 
-          color="8B8888" 
+          color="black"
+          bordercolor="#C4C4C4"
         />
         <TextField 
           class="mt-3" 
           v-model="complement" 
           :label="'Complemento'" 
-          color="8B8888" 
+          color="black"
+          bordercolor="#C4C4C4"
         />        
       
       </div>
 
       <div class="content-button">
-        <SignButton 
+        <RegisterButton
           class="mt-4" 
           label="Cadastrar" 
           @action="registerProperty"
-        />
+        />        
       </div>
 
     </div>
@@ -69,6 +75,7 @@
   import TextField from '../components/input/TextField'
   import SignButton from '../components/input/SignButton'
   import SelectField from '../components/input/SelectField'
+  import RegisterButton from '../components/input/RegisterButton'
   import axios from "axios"
   import router from "../router"
 
@@ -78,6 +85,7 @@
       TextField,
       SignButton,
       SelectField,
+      RegisterButton,
     },
 
     data() {
@@ -239,6 +247,9 @@
 
   .content-button {
     margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
   }
 
 </style>
