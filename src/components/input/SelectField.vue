@@ -1,24 +1,35 @@
 <template>
-    <div id="autocomplete" class="selectfield">
-        <div class="input" @click="toggleVisible" v-text="selectedItem ? selectedItem[filterby] : ''"></div>
-        <div class="popover" v-show="visible">
+    <div id="autocomplete" class="selectfield-container">
+
+        <div class="row ml-1 mr-1 centralize-div">
+            <!-- DIV for displaying the label on the screen -->
+            <div 
+            v-if="label" 
+            :class="'col-12 p-0 textfield-label' + color" 
+            style="8B8888">
+              {{ label }}
+            </div>
+
             <input 
             type="text"
-            v-model="query"
+            @focus="toggleVisible" 
             @keydown.up="up"
             @keydown.down="down"
             @keydown.enter="selectItem"
-            placeholder="Start typing ...">
-            <div class="options" ref="optionList">
-                <ul>
-                    <li
-                        v-for="(match, index) in matches"
-                        :key="match[index]"
-                        :class="{ 'selected': (selected == index)}"
-                        @click="itemClicked(index)"
-                        v-text="match[filterby]">
-                    </li>
-                </ul>                
+            :placeholder="placeholder">    
+
+            <div class="popover" v-show="visible">
+                <div class="options" ref="optionList">
+                    <ul>
+                        <li
+                            v-for="(match, index) in matches"
+                            :key="match[index]"
+                            :class="{ 'selected': (selected == index)}"
+                            @click="itemClicked(index)"
+                            v-text="match[filterby]">
+                        </li>
+                    </ul>                
+                </div>
             </div>
         </div>
     </div>
@@ -27,6 +38,16 @@
 <script>
 export default {
     props: {
+        label: {
+            default: "",
+            type: String,
+        },
+
+        placeholder: {
+            default: "",
+            type: String,
+        },
+
         items: {
             default: [],
             type: Array,
@@ -37,7 +58,7 @@ export default {
             type: String,
         },
 
-        title: {
+        color: {
             default: "",
             type: String,
         },
@@ -93,34 +114,29 @@ export default {
         ****************************************************************************/
         matches() {
             if (this.query == '') {
-                return [];
+                return this.items;
             }
 
             return this.items.filter( (item) => item[this.filterby].toLowerCase().includes(this.query.toLowerCase()) );
         },
+
+
     },
 }
 </script>
 
 
 <style lang="scss" scoped>
-    .selectfield {
+    .selectfield-container {
         width: 100%;
-        position: relative;
-    }
-
-    .input {
-        height: 40px;
-        border-radius: 3px;
-        border: 2px solid lightgray;
-        box-shadow: 0 0 10px #eceaea;
-        font-size: 25px;
-        padding-left: 10px;
-        padding-top: 10px;
-        cursor: text;
+        padding-right: 20px;
+        padding-left: 20px;
+        margin-right: auto;
+        margin-right: auto;    
     }
 
     .popover {
+        align-content: center;
         min-height: 50px;
         border: 2px solid;
         position: absolute;
@@ -165,6 +181,20 @@ export default {
         background: #58bd4c;
         color: #ffffff;
         font-weight: 600;
+    }
+
+    input {
+        color: #8B8888;
+    }
+    /* Hidden placeholder when focus */
+    input.white::-webkit-input-placeholder {
+      color: #ffffff;
+    }
+    input.black::-webkit-input-placeholder {
+      color: #000000;
+    }
+    input:focus::-webkit-input-placeholder {
+        color: rgba(0, 0, 0, 0);
     }
 
 </style>
