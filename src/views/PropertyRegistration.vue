@@ -1,12 +1,13 @@
 
 <template>
-  <div class="property-form gradient">
-    <TopBar :iconleft="'chevron-left'"/>
+  <div class="property-form">
+    
+    <TopBar :iconleft="'chevron-left'" color="#2D9CDB"/>
     
     <div class="content-container">
 
       <div class="content-title">
-        <h2> Registrar propriedade</h2>
+        <h3> Cadastrar propriedade </h3>
       </div>
 
       <div class="content-form">
@@ -14,38 +15,48 @@
         <TextField 
           class="mt-3" 
           v-model="brzipcode" 
-          :label="'CEP'" 
+          :label="'CEP'"
+          color="8B8888" 
         />
         <TextField 
           class="mt-3" 
           v-model="state" 
           :label="'Estado'" 
+          color="8B8888" 
         />
         <TextField 
           class="mt-3" 
           v-model="city" 
           :label="'Cidade'" 
+          color="8B8888" 
         />
         <TextField 
           class="mt-3" 
           v-model="district" 
           :label="'Bairro'" 
+          color="8B8888" 
         />
         <TextField 
           class="mt-3" 
           v-model="street" 
           :label="'Rua / Avenida'" 
+          color="8B8888" 
         />
         <TextField 
           class="mt-3" 
           v-model="complement" 
           :label="'Complemento'" 
+          color="8B8888" 
         />        
       
       </div>
 
       <div class="content-button">
-        <SignButton class="mt-4" :label="'Cadastrar propriedade'" @action="registerProperty"/>
+        <SignButton 
+          class="mt-4" 
+          label="Cadastrar" 
+          @action="registerProperty"
+        />
       </div>
 
     </div>
@@ -83,33 +94,33 @@
 
     props: {
       brstates: [
-        {name: "Acre", initial: "ac"},
-        {name: "Alagoas", initial: "al"},
-        {name: "Amapá", initial: "ap"},
-        {name: "Amazonas", initial: "am"},
-        {name: "Bahia", initial: "ba"},
-        {name: "Ceará", initial: "ce"},
-        {name: "Distrito Federal", initial: "df"},
-        {name: "Espírito Santo", initial: "es"},
-        {name: "Goiás", initial: "go"},
-        {name: "Maranhão", initial: "ma"},
-        {name: "Mato Grosso", initial: "mt"},
-        {name: "Mato Grosso do Sul", initial: "ms"},
-        {name: "Minas Gerais", initial: "mg"},
-        {name: "Pará", initial: "pa"},
-        {name: "Paraíba", initial: "pb"},
-        {name: "Paraná", initial: "pr"},
-        {name: "Pernambuco", initial: "pe"},
-        {name: "Piauí", initial: "pi"},
-        {name: "Rio de Janeiro", initial: "rj"},
-        {name: "Rio Grande do Norte", initial: "rn"},
-        {name: "Rio Grande do Sul", initial: "rs"},
-        {name: "Rondônia", initial: "ro"},
-        {name: "Roraima", initial: "rr"},
-        {name: "Santa Catarina", initial: "sc"},
-        {name: "São Paulo", initial: "sp"},
-        {name: "Sergipe", initial: "se"},
-        {name: "Tocantins", initial: "to"},
+        {name: "Acre"},
+        {name: "Alagoas" },
+        {name: "Amapá" },
+        {name: "Amazonas" },
+        {name: "Bahia" },
+        {name: "Ceará" },
+        {name: "Distrito Federal" },
+        {name: "Espírito Santo" },
+        {name: "Goiás" },
+        {name: "Maranhão" },
+        {name: "Mato Grosso" },
+        {name: "Mato Grosso do Sul" },
+        {name: "Minas Gerais" },
+        {name: "Pará" },
+        {name: "Paraíba" },
+        {name: "Paraná" },
+        {name: "Pernambuco" },
+        {name: "Piauí" },
+        {name: "Rio de Janeiro" },
+        {name: "Rio Grande do Norte" },
+        {name: "Rio Grande do Sul" },
+        {name: "Rondônia" },
+        {name: "Roraima" },
+        {name: "Santa Catarina" },
+        {name: "São Paulo" },
+        {name: "Sergipe" },
+        {name: "Tocantins" },
       ],
     },
 
@@ -204,10 +215,8 @@
     position: absolute;
     margin-top: 0;
     text-align: center;
+    background: white
   }
-	.gradient {
-		background-image: linear-gradient(180deg, rgba(86, 163, 166, 1), rgba(75s, 125, 170, 105));
-	}
 
   .content-container {
     display: flex;
@@ -218,15 +227,11 @@
     height: 100%;
   }
 
-  .content-form {
-
-  }
-
   .content-title {
     width: 100%;
     padding: 0px 25px;
     margin-bottom: 20%;
-    color: $color-default-text;
+    color: #2D9CDB;
     display: flex;
     justify-content: left; 
   }
