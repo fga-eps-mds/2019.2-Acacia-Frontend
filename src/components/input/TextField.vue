@@ -16,9 +16,10 @@
         v-model="typed_text" 
         v-if="!texticon" 
         :type="getFieldType()" 
-        :class="'text-input col-12 ' + color"
+        :class="'text-input col-12 '"
         :placeholder="placeholder"
-        
+        :style="'border-bottom: 1px solid ' + this.bordercolor + ';' 
+                + 'color: ' + this.color + ';'"
       >
 
 			<div v-else class="w-100 col p-0">
@@ -72,7 +73,12 @@
       color: {
         default: "white",
         type: String
-      }
+      },
+
+      bordercolor: {
+        default: "white",
+        type: String
+      },
     },
 
     model: {
@@ -123,7 +129,6 @@
   .text-input {
     background-color: rgba(7, 37, 37, 0);
     border: none;
-    border-bottom: 1px solid white;
     width: 80%;
     padding: 2%;
   }
