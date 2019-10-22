@@ -18,7 +18,8 @@ import router from '@/router'
 export default {
   name: 'home',
   components: {
-    SignButton
+    SignButton,
+    TextField
   },
   data() {
     return {

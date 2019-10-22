@@ -22,12 +22,12 @@ const messages = {
             requirePassword: "Type your password",
             requreValidPassword: "Type a password with at least 8 chararcters",
             requireValidEmail: "Type a valid email"
-          },
-          RootPage: {
-            title: "This is root page"
-          },
         },
-        'pt': {
+        RootPage: {
+            title: "This is root page"
+        },
+    },
+    'pt': {
           SignPages: {
             name: "Nome",
             email: "Email",

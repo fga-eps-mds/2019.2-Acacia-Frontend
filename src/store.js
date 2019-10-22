@@ -68,7 +68,6 @@ export default new Vuex.Store({
     /* === Token setters === */
     setAccessToken: (accessToken) => Vue.cookie.set('access-token', accessToken, { expires: '5m' }),
     setRefreshToken: (refreshToken) => Vue.cookie.set('refresh-token', refreshToken, { expires: '10d' }),
-
     /* === Access token refresh function === */
     accessTokenRefresh: function () {
       let url = this.baseURL + 'users/token/refresh/'
@@ -86,7 +85,6 @@ export default new Vuex.Store({
           .catch(() => rejectBase())
       })
     },
-
     /* === Access Token test function === */
     testAndRefreshAccessToken: function () {
       let url = this.baseURL + 'users/token/test-access-token/'
@@ -110,7 +108,6 @@ export default new Vuex.Store({
           })
       })
     },
-
     /* === Request functions === */
     // THEY WORK WITH PROMISSES
     // Example code of making an authorized request to check user's chosen language:
@@ -155,7 +152,6 @@ export default new Vuex.Store({
         }
       })
     },
-
     // Do a request with authentication required
     // It will try the current access token, if it fails, it gets another
     // access token in case the refresh token is valid.
