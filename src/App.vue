@@ -9,44 +9,17 @@
 </template>
 
 <script>
-  import i18n from '@/plugins/i18n'
 
-  export default {
-    components: {
-    },
-    mounted() {
-
-      let state = this.$store.state;
-
-      if (!state.preferedLanguage) {
-        state.authRequest(
-          'users/prefered-language/',
-          'GET'
-        )
-        .then(res => { 
-          let lang = res.data['chosen_language'];
-          state.preferedLanguage = lang;
-          state.setCookieLanguage(lang); // cookies
-        })
-        .catch(res => {
-          let cookieLang = state.getCookieLanguage()
-
-          if(cookieLang) {
-            state.preferedLanguage = cookieLang
-          }
-
-          else {
-            state.preferedLanguage = state.defaultLanguage;
-          }
-        })
-        .finally(() => {
-          i18n.locale = state.preferedLanguage;
-        })
-      }
-    },
-    methods: {
-    }
+export default {
+  components: {
+  },
+  mounted() {
+    let state = this.$store.state;
+    state.resolveUserLanguage();
+  },
+  methods: {
   }
+}
 </script>
 
 <style lang="scss">
