@@ -3,16 +3,16 @@
     <TopBar :iconleft="'chevron-left'"></TopBar>
     <div class="content-container">
       <div class="content-title">
-        <a style="font-size: 40px"> Criar conta </a>
+        <a style="font-size: 40px"> {{ $t('SignPages.createAccount') }} </a>
       </div>
       <div class="content-form">
-        <TextField class="mt-3" v-model="username" :label="'Nome'"></TextField>
-        <TextField class="mt-3" v-model="email" :label="'Email'"></TextField>
-        <TextField class="mt-3" v-model="password" :label="'Senha'" :password="true"></TextField>
-        <TextField class="mt-3" v-model="confirm_password" :label="'Confirme a senha'" :password="true"></TextField>
+        <TextField class="mt-3" v-model="username" :label="this.$t('SignPages.name')"></TextField>
+        <TextField class="mt-3" v-model="email" :label="this.$t('SignPages.email')"></TextField>
+        <TextField class="mt-3" v-model="password" :label="this.$t('SignPages.password')" :password="true"></TextField>
+        <TextField class="mt-3" v-model="confirm_password" :label="this.$t('SignPages.confirmPassword')" :password="true"></TextField>
       </div>
       <div class="content-button">
-        <SignButton class="mt-4" :label="'Criar conta'" @action="signup"/>
+        <SignButton class="mt-4" :label="this.$t('SignPages.createAccount')" @action="signup"/>
       </div>
     </div>
 
@@ -58,25 +58,20 @@
           password: this.password,
         }
 
-        const url = 'http://0.0.0.0:8080/users/signup/'
-        axios.post(url, data)
-          .then((response) => {
-            axios.post("http://0.0.0.0:8080/users/token/", dataToken)
+        const baseURL = this.$store.state.baseURL;
+        axios.post(baseURL + 'users/signup/', data)
+          .then(() => {
+            axios.post(baseURL + 'users/token/', dataToken)
               .then((response) => {
-                if (response.status == '200') {
-                  this.$toasted.show('Created!').goAway(2000)
-                  let tokenData = {
-                    accessToken: response.data['access'],
-                    refreshToken: response.data['refresh']
-                  }
-                  this.$store.commit('authUser', tokenData);
-                  router.push({name: 'home'})
-                } else {
-                  this.$toasted.show('Algum erro ocorreu, tente de novo').goAway(2000)
+                this.$toasted.show(this.$t('SignPages.positiveStatus')).goAway(2000)
+                let tokenData = {
+                  accessToken: response.data['access'],
+                  refreshToken: response.data['refresh']
                 }
+                this.$store.commit('authUser', tokenData);
+                router.push({name: 'home'})
               })
-              .catch ((errors) => {
-                console.log(errors.response)
+              .catch (() => {
                 router.push({name: 'signin'})
               })
           })
@@ -84,8 +79,8 @@
             if(error.response.data.email){
               this.$toasted.show(error.response.data.email).goAway(2000)
             }
-              if(error.response.data.username){
-                this.$toasted.show(error.response.data.username).goAway(2000)
+            if(error.response.data.username){
+              this.$toasted.show(error.response.data.username).goAway(2000)
             }
             if(error.response.data.password){
               this.$toasted.show(error.response.data.password).goAway(2000)
@@ -95,33 +90,33 @@
       },
       validateInput(){
         if (!this.username) {
-          this.$toasted.show('Insira seu nome').goAway(2000)
+          this.$toasted.show(this.$t('SignPages.requireName')).goAway(2000)
           return false
         }
 
         if (!this.email) {
-          this.$toasted.show('Insira um email').goAway(2000)
+          this.$toasted.show(this.$t('SignPages.requireEmail')).goAway(2000)
           return false
         }
 
         if (!this.password) {
-          this.$toasted.show('Insira uma senha').goAway(2000)
+          this.$toasted.show(this.$t('SignPages.requirePassword')).goAway(2000)
           return false
         }
 
         if (this.password.length < 8) {
-          this.$toasted.show('Insira uma senha maior que 8 caracteres').goAway(2000)
+          this.$toasted.show(this.$t('SignPages.requreValidPassword')).goAway(2000)
           return false
         }
         
         if (this.confirm_password != this.password) {
-          this.$toasted.show('As senhas devem corresponder').goAway(2000)
+          this.$toasted.show(this.$t('SignPages.requirePasswordCorrespondance')).goAway(2000)
           return false
         }
 
         let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/igm
         if (!this.email.match(emailRegex)) {
-          this.$toasted.show('Email digitado não é válido').goAway(2000)
+          this.$toasted.show(this.$t('SignPages.requireValidEmail')).goAway(2000)
           return false
         }
 
