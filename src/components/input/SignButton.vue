@@ -1,5 +1,5 @@
 <template>
-    <div id="signbutton" class="container">
+    <div id="signbutton">
         <button v-on:click="$emit('action')"> {{label}} </button>
     </div>
 </template>

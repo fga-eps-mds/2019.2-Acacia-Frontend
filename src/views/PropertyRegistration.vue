@@ -238,7 +238,7 @@
   .content-title {
     width: 100%;
     padding: 0px 25px;
-    margin-bottom: 20%;
+    margin-bottom: 10%;
     color: #2D9CDB;
     display: flex;
     justify-content: left; 
@@ -249,7 +249,8 @@
     margin-top: 20px;
     display: flex;
     flex-direction: row;
-    justify-content: right;
+    justify-content: flex-end;
+    width: 100%;
   }
 
 </style>

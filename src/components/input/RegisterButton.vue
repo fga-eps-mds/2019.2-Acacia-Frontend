@@ -28,7 +28,7 @@
         color: $color-default-text;
         border: none;
         border-radius: 12px;
-        margin: 10px;
+        margin: 10px 30px;
         box-shadow: 0 2px 3px 0.5px $color-shadow;
         outline: none;
         
