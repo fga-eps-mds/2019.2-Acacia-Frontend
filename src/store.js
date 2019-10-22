@@ -12,42 +12,42 @@ export default new Vuex.Store({
   state: {
     defaultLanguage: 'en',
     baseURL: "http://0.0.0.0:8000/",
-    /* === Language helper functions === */
+
+    /* === Resolves user language based on backend user, cookies and defaults to defaultLanguage === */
     resolveUserLanguage: function() {
       let resolvedUserLanguage = Vue.cookie.get('resolved-user-language')
       if (resolvedUserLanguage) {
         i18n.locale = resolvedUserLanguage
         return
       }
-      let language = this.defaultLanguage;
+      let language = null
       let state = this
-      state.authRequest(
-        'users/prefered-language/',
-        'GET'
-      )
-        .then(res => {
-          let lang = res.data['chosen_language'];
-          language = lang;
-          state.setCookieLanguage(lang); // cookies
+      state.authRequest('users/prefered-language/', 'GET')
+        .then(response => {
+          language = response.data['chosen_language']
+          state.setCookieLanguage(language)
         })
         .catch(() => {
           let cookieLang = state.getCookieLanguage()
-
-          if (cookieLang) {
+          if (cookieLang && !language) {
             language = cookieLang
+          } else if (!language) {
+            language = state.defaultLanguage
           }
         })
         .finally(() => {
-          i18n.locale = language;
+          i18n.locale = language
         })
     },
+
+    /* === Sets user language === */
     setUserLanguage(lang) {
       let state = this
       i18n.locale = lang
       state.setCookieLanguage(lang)
       Vue.cookie.set('resolved-user-language', lang)
       /* It doesn't really matter if the user is not logged in, fails graciously */
-      if (state.getAccessToken() && state.getRefreshToken()) {
+      if (state.userTokensPresent()) {
         state.authRequest('users/prefered-language', 'PATCH', {
           'chosen_language' : lang
         })
@@ -55,12 +55,20 @@ export default new Vuex.Store({
         .catch(() => {})
       }
     },
+
+    /* === Returns true if both access and refresh token are present in cookies === */
+    userTokensPresent: function() { 
+      return !!(this.getAccessToken() && this.getRefreshToken()) 
+    },
+
     /* === Token getters === */
     getAccessToken: () => { return Vue.cookie.get('access-token') },
     getRefreshToken: () => { return Vue.cookie.get('refresh-token') },
+
     /* === Token setters === */
     setAccessToken: (accessToken) => Vue.cookie.set('access-token', accessToken, { expires: '5m' }),
     setRefreshToken: (refreshToken) => Vue.cookie.set('refresh-token', refreshToken, { expires: '10d' }),
+
     /* === Access token refresh function === */
     accessTokenRefresh: function () {
       let url = this.baseURL + 'users/token/refresh/'
@@ -78,6 +86,7 @@ export default new Vuex.Store({
           .catch(() => rejectBase())
       })
     },
+
     /* === Access Token test function === */
     testAndRefreshAccessToken: function () {
       let url = this.baseURL + 'users/token/test-access-token/'
@@ -101,13 +110,7 @@ export default new Vuex.Store({
           })
       })
     },
-    /*
-     __
-    /  \
-    |  |
-    \__/
 
-    */
     /* === Request functions === */
     // THEY WORK WITH PROMISSES
     // Example code of making an authorized request to check user's chosen language:
@@ -152,6 +155,7 @@ export default new Vuex.Store({
         }
       })
     },
+
     // Do a request with authentication required
     // It will try the current access token, if it fails, it gets another
     // access token in case the refresh token is valid.
@@ -162,65 +166,70 @@ export default new Vuex.Store({
       let store = this
       if (url.substr(-1) != '/') { url += '/' }
       return new Promise(function (resolveBase, rejectBase) {
-        store.testAndRefreshAccessToken()
-          .then(() => {
-            let headers = {
-              "Authorization": "Bearer " + store.getAccessToken()
-            }
-            if (method.toLowerCase() === "get") {
-              axios.get(url, { headers: headers })
-                .then(response => {
-                  if (response.status.toString()[0] == 2) {
-                    resolveBase(response.data);
-                  } else {
-                    rejectBase(response);
-                  }
-                })
-                .catch(response => rejectBase(response))
-            } else if (method.toLowerCase() === "post") {
-              axios.post(url, data, { headers: headers })
-                .then(response => {
-                  if (response.status.toString()[0] == 2) {
-                    resolveBase(response);
-                  } else {
-                    rejectBase(response);
-                  }
-                })
-                .catch(response => rejectBase(response))
-            } else if (method.toLowerCase()==="patch" || method.toLowerCase() ==="put") {
-              axios.patch(url, data, { headers: headers })
-                .then(response => {
-                  if (response.status.toString()[0] == 2) {
-                    resolveBase(response);
-                  } else {
-                    rejectBase(response);
-                  }
-                })
-                .catch(response => rejectBase(response))
-            } else {
-              rejectBase({});
-            }
-          })
-          .catch(() => rejectBase(false))
+        if (!store.userTokensPresent()) {
+          rejectBase();
+        } else {
+          store.testAndRefreshAccessToken()
+            .then(() => {
+              let headers = {
+                "Authorization": "Bearer " + store.getAccessToken()
+              }
+              if (method.toLowerCase() === "get") {
+                axios.get(url, { headers: headers })
+                  .then(response => {
+                    if (response.status.toString()[0] == 2) {
+                      resolveBase(response);
+                    } else {
+                      rejectBase(response);
+                    }
+                  })
+                  .catch(response => rejectBase(response))
+              } else if (method.toLowerCase() === "post") {
+                axios.post(url, data, { headers: headers })
+                  .then(response => {
+                    if (response.status.toString()[0] == 2) {
+                      resolveBase(response);
+                    } else {
+                      rejectBase(response);
+                    }
+                  })
+                  .catch(response => rejectBase(response))
+              } else if (method.toLowerCase()==="patch" || method.toLowerCase() ==="put") {
+                axios.patch(url, data, { headers: headers })
+                  .then(response => {
+                    if (response.status.toString()[0] == 2) {
+                      resolveBase(response);
+                    } else {
+                      rejectBase(response);
+                    }
+                  })
+                  .catch(response => rejectBase(response))
+              } else {
+                rejectBase({});
+              }
+            })
+            .catch(() => rejectBase(false))
+        }
       })
     },
-
-    authUser(userData) {
-      this.setAccessToken(userData.accessToken)
-      this.setRefreshToken(userData.refreshToken)
-      Vue.cookie.delete('resolved-user-language')
-    },
-
+    
+    /* === Setters and getters for cookie languege === */
     setCookieLanguage: (lang) => Vue.cookie.set('prefered-language', lang),
     getCookieLanguage: () => { return Vue.cookie.get('prefered-language') },
 
+    /* === Authentication functions === */
+    authUser(accessToken, refreshToken) {
+      this.setAccessToken(accessToken)
+      this.setRefreshToken(refreshToken)
+      Vue.cookie.delete('resolved-user-language')
+      this.resolveUserLanguage()
+    },
+    logoutUser() {
+      Vue.cookie.delete('access-token')
+      Vue.cookie.delete('refresh-token')
+    },
   },
   mutations: {
-    logoutUser() {
-      Vue.cookie.delete('access-token');
-      Vue.cookie.delete('refresh-token');
-      Vue.cookie.delete('prefered-language');
-    }
   },
   actions: {
   }

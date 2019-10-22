@@ -35,12 +35,12 @@
 
 <script>
 /* Component imports */
-import TextField from '../components/input/TextField'
-import TopBar from '../components/layout/TopBar'
-import SignButton from '../components/input/SignButton'
+import TextField from '@/components/input/TextField'
+import TopBar from '@/components/layout/TopBar'
+import SignButton from '@/components/input/SignButton'
 
-/* Basic scripts imports */
-import router from '../router'
+/* Local scripts imports */
+import router from '@/router'
 
 export default {
 	components: {
@@ -71,11 +71,7 @@ export default {
       state.noAuthRequest('users/token', 'POST', data)
         .then((response) => {
           toasted.show(this.$t('SignPages.positiveStatus')).goAway(2000)
-          let tokenData = {
-            accessToken: response.data['access'],
-            refreshToken: response.data['refresh']
-          }
-          state.authUser(tokenData)
+          state.authUser(response.data['access'], response.data['refresh'])
           router.push({ name: 'home' })
         })
         .catch(() => {

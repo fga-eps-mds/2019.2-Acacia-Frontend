@@ -43,7 +43,7 @@ const messages = {
             requirePasswordCorrespondance: "As senhas devem ser iguais",
             requireEmail: "Digite seu email",
             requirePassword: "Digite sua senha",
-            requreValidPassword: "Digite uma senha com, ao menos, 8 caractéres",
+            requreValidPassword: "Digite uma senha com, ao menos, 8 caracteres",
             requireValidEmail: "Digite um email válido"
         },         
         RootPage: {
