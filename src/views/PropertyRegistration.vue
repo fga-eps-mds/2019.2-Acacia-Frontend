@@ -76,8 +76,6 @@
   import SignButton from '../components/input/SignButton'
   import SelectField from '../components/input/SelectField'
   import RegisterButton from '../components/input/RegisterButton'
-  import axios from "axios"
-  import router from "../router"
 
   export default {
     components: {
@@ -132,12 +130,6 @@
       ],
     },
 
-    computed: {
-      stateInitials() {
-
-      }
-    },
-
     methods: {
       registerProperty(){
         if (!this.validateInput()) {
@@ -153,32 +145,35 @@
           complement: this.complement,
         }
 
-        const url = 'http://0.0.0.0:8080/property/'
+        let state = this.$store.state
+        let toasted = this.$toasted
 
-        axios.post(url, data)
-          .then((response) => {
-            console.log(response)
-          })
-          .catch((error) => {
-            if(error.response.data.brzipcode){
-              this.$toasted.show(error.response.data.brzipcode).goAway(2000)
-            }
-            if(error.response.data.state){
-              this.$toasted.show(error.response.data.state).goAway(2000)
-            }
-            if(error.response.data.city){
-              this.$toasted.show(error.response.data.city).goAway(2000)
-            }
-            if(error.response.data.district){
-              this.$toasted.show(error.response.data.district).goAway(2000)
-            }
-            if(error.response.data.street){
-              this.$toasted.show(error.response.data.street).goAway(2000)
-            }
-            if(error.response.data.complement){
-              this.$toasted.show(error.response.data.complement).goAway(2000)
-            }
-          })
+        state.authRequest("properties/", "POST", data)
+        .then((response) => {
+          toasted.show('Propriedade cadastrada com sucesso').goAway(2000)
+          this.$router.push({ name: 'home'})
+        })
+        .catch((error) => {
+          if(error.response.data.brzipcode){
+            this.$toasted.show(error.response.data.brzipcode).goAway(2000)
+          }
+          if(error.response.data.state){
+            this.$toasted.show(error.response.data.state).goAway(2000)
+          }
+          if(error.response.data.city){
+            this.$toasted.show(error.response.data.city).goAway(2000)
+          }
+          if(error.response.data.district){
+            this.$toasted.show(error.response.data.district).goAway(2000)
+          }
+          if(error.response.data.street){
+            this.$toasted.show(error.response.data.street).goAway(2000)
+          }
+          if(error.response.data.complement){
+            this.$toasted.show(error.response.data.complement).goAway(2000)
+          }
+        })
+        
       },
 
       validateInput(){
