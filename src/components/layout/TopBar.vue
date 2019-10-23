@@ -1,8 +1,8 @@
 <template>
 	<div id="topbar" :class="'navbar fixed-top ' + color">
-        <font-awesome-icon v-if="iconleft"  :icon="iconleft" @click="selectLeft()"> </font-awesome-icon>
-        <font-awesome-icon v-if="iconright" :icon="iconright" @click="selectRight()"> </font-awesome-icon>
-    </div>
+      <font-awesome-icon v-if="iconleft"  :icon="iconleft" @click="selectLeft()"> </font-awesome-icon>
+      <font-awesome-icon v-if="iconright" :icon="iconright" @click="selectRight()"> </font-awesome-icon>
+  </div>
 </template>
 
 <script>
@@ -18,7 +18,7 @@
                 type: String
             },
             color:{
-                default: 'primary',
+                default: 'color-default-text',
                 type: String
             }
         },
@@ -50,13 +50,15 @@
     #topbar {
         padding: 15px;
     }
-    .primary {
+    .color-primary {
         color: $color-primary;
     }
-    .primary-dark {
+    .color-primary-dark {
         color: $color-primary-dark;
     }
-
+    .color-default-text {
+        color: $color-default-text;
+    }
     .pink {
         color: pink;
     }

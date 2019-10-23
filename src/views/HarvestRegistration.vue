@@ -1,6 +1,6 @@
 <template>
   <div class="harvest-form">
-    <TopBar iconleft="chevron-left" color="primary"/>
+    <TopBar iconleft="chevron-left" color="color-primary"/>
     <div class="content-container">
       <div class="content-title">
         <h3> Cadastrar colheita </h3>
@@ -13,13 +13,13 @@
           color="#949090"
           bordercolor="#C4C4C4"
         />
-        <TextField 
+        <!-- <TextField 
           class="mt-3" 
           v-model="status" 
           label="Status" 
           color="#949090"
           bordercolor="#C4C4C4" 
-        />
+        /> -->
         <TextField 
           class="mt-3" 
           v-model="equipment" 
@@ -27,10 +27,6 @@
           color="#949090"
           bordercolor="#C4C4C4"
         />
-        <v-switch
-          v-model="neighbor_access"
-          label="Neighbor access">
-        </v-switch>
         <TextField 
           class="mt-3" 
           v-model="description" 
@@ -44,6 +40,7 @@
           label="Número de voluntários" 
           color="#949090"
           bordercolor="#C4C4C4"
+          type="number"
         />        
       </div>
       <div class="content-button">
@@ -79,7 +76,7 @@
         description: '',
         equipment: '',
         max_voluneteers: '',
-        neighbor_access: '',
+        neighbor_access: false,
         status: '',
       }
     },
@@ -109,24 +106,6 @@
             console.log(response)
           })
           .catch((error) => {
-            if(error.response.data.date){
-              this.$toasted.show(error.response.data.date).goAway(2000)
-            }
-            if(error.response.data.description){
-              this.$toasted.show(error.response.data.description).goAway(2000)
-            }
-            if(error.response.data.equipment){
-              this.$toasted.show(error.response.data.equipment).goAway(2000)
-            }
-            if(error.response.data.max_voluneteers){
-              this.$toasted.show(error.response.data.max_voluneteers).goAway(2000)
-            }
-            if(error.response.data.neighbor_access){
-              this.$toasted.show(error.response.data.neighbor_access).goAway(2000)
-            }
-            if(error.response.data.status){
-              this.$toasted.show(error.response.data.status).goAway(2000)
-            }
           })
       },
       validateInput(){
