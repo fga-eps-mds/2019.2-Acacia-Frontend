@@ -1,6 +1,6 @@
 <template>
   <div class="harvest-form">
-    <TopBar :iconleft="'chevron-left'" color="#2D9CDB"/>
+    <TopBar iconleft="chevron-left" color="#56a3a6"/>
     <div class="content-container">
       <div class="content-title">
         <h3> Cadastrar colheita </h3>
@@ -9,51 +9,54 @@
         <TextField 
           class="mt-3" 
           v-model="date" 
-          label="Date" 
-          color="black"
+          label="Data da colheita" 
+          color="#949090"
           bordercolor="#C4C4C4"
         />
         <TextField 
           class="mt-3" 
           v-model="status" 
-          label="status" 
-          color="black"
+          label="Status" 
+          color="#949090"
           bordercolor="#C4C4C4" 
         />
         <TextField 
           class="mt-3" 
           v-model="neighbor_access" 
-          label="Neighbors of my property allow access for harvesters?" 
-          color="black"
+          label="Acesso a propriedades visinhas" 
+          color="#949090"
           bordercolor="#C4C4C4"
         />
         <TextField 
           class="mt-3" 
           v-model="equipment" 
-          label="Equipment needed" 
-          color="black"
+          label="Equipamentos" 
+          color="#949090"
           bordercolor="#C4C4C4"
         />
         <TextField 
           class="mt-3" 
           v-model="description" 
-          label="description" 
-          color="black"
+          label="Descrição" 
+          color="#949090"
           bordercolor="#C4C4C4"
         />
         <TextField 
           class="mt-3" 
           v-model="max_voluneteers" 
-          label="Max Voluneteers" 
-          color="black"
+          label="Número de voluntários" 
+          color="#949090"
           bordercolor="#C4C4C4"
         />        
       </div>
       <div class="content-button">
         <SignButton
           class="mt-4" 
-          label="Criar colheita" 
+          label="Cadastrar" 
           @action="registerProperty"
+          direction="right"
+          padding="small"
+          color="light-blue"
         />        
       </div>
     </div>
@@ -159,35 +162,43 @@
 
 <style scoped lang="scss">
 @import "../assets/stylesheets/colors.scss";
-  
-  .harvest-form {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    margin-top: 0;
-    text-align: center;
-    background: white
-  }
-  .content-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-  }
-  .content-title {
-    width: 100%;
-    padding: 0px 25px;
-    margin-bottom: 20%;
-    color: #2D9CDB;
-    display: flex;
-    justify-content: left; 
-  }
-  .content-button {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
-  }
+
+    .harvest-form {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        margin-top: 0;
+        text-align: center;
+        background: white
+    }
+
+    .content-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .content-title {
+        h3{
+            font-weight: bold;
+        }
+        width: 100%;
+        padding: 0px 25px;
+        margin-bottom: 10%;
+        color: $color-secundary;
+        display: flex;
+        justify-content: left; 
+    }
+
+    .content-button {
+        margin-top: 20px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+    }
+
 </style>

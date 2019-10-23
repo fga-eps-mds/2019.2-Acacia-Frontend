@@ -20,6 +20,11 @@ export default new Router({
 			path: '/signup',
 			name: 'signup',
 			component: () => import('./views/Signup.vue')
+		},
+		{
+			path: '/harvest/registration',
+			name: 'harvestRegistration',
+			component: () => import('./views/HarvestRegistration.vue')
 		}
 	]
 })

@@ -1,7 +1,7 @@
 <template>
-	<div id="topbar" class="navbar fixed-top">
-        <font-awesome-icon v-if="iconleft" :icon="iconleft" @click="selectLeft()" style="color: white;"> </font-awesome-icon>
-        <font-awesome-icon v-if="iconright" :icon="iconright" @click="selectRight()" style="color: white;"> </font-awesome-icon>
+	<div id="topbar" class="navbar fixed-top" :style="componentStyle">
+        <font-awesome-icon v-if="iconleft" :icon="iconleft" @click="selectLeft()"> </font-awesome-icon>
+        <font-awesome-icon v-if="iconright" :icon="iconright" @click="selectRight()"> </font-awesome-icon>
     </div>
 </template>
 
@@ -17,6 +17,10 @@
                 default: '',
                 type: String
             },
+            color:{
+                default: '',
+                type: String
+            }
         },
 
         methods: {
@@ -37,7 +41,14 @@
                     // The add feature will be implemented here
                 }
             },
-        }
+        },
+
+        computed: {
+            componentStyle() { 	
+                let componentColor = `color:${this.color};`
+                return componentColor
+            }
+        },
     }
 </script>
 
