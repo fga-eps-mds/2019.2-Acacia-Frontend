@@ -1,11 +1,11 @@
 <template>
 	<div id="textfield" class="textfield-container">
 		<div class="row ml-1 mr-1 centralize-div">
-			<div v-if="label" class="col-12 p-0 text-color-default textfield-label">{{ label }}</div>
-			<input v-model="variableLocal" v-if="!texticon" :type="getFieldType()" class="text-input col-12" :placeholder="placeholder">
+			<div v-if="label" class="col-12 p-0 text-color-default textfield-label" :style="componentStyle">{{ label }}</div>
+			<input v-model="variableLocal" v-if="!texticon" :type="type" class="text-input col-12" :placeholder="placeholder" :style="componentStyle">
 			<div v-else class="w-100 col p-0">
 				<font-awesome-icon :icon="texticon" style="color:white"/>
-				<input v-model="variableLocal" :type="getFieldType()" class=" ml-3 text-input col-12" style="border:none" :placeholder="placeholder">
+				<input v-model="variableLocal" :type="type" class=" ml-3 text-input col-12" style="border:none" :placeholder="placeholder">
 				<div class="text-field-border"></div>
 			</div>
 		</div>
@@ -23,9 +23,9 @@ export default {
 			default: '',
 			type: String
 		},
-		password: {
-			default: false,
-			type: Boolean
+		type: {
+			default: 'text',
+			type: String
 		},
 		texticon: {
 			default: '',
@@ -50,13 +50,6 @@ export default {
 		}
 	},
 	methods: {
-		getFieldType() {
-			if (this.password) {
-				return 'password'
-			} else {
-				return 'text'
-			}
-		},
 	}
 }
 </script>

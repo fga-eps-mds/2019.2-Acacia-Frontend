@@ -21,12 +21,12 @@
           class="mt-3" 
           v-model="password" 
           :label="this.$t('SignPages.password')" 
-          :password="true"/>
+          type="password"/>
         <TextField 
           class="mt-3" 
           v-model="confirm_password" 
           :label="this.$t('SignPages.confirmPassword')" 
-          :password="true"/>
+          type="password"/>
 
       </div>
       <div class="content-button">

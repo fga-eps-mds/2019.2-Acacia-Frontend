@@ -18,7 +18,7 @@
         v-model="password" 
         texticon="lock" 
         :placeholder="this.$t('SignPages.password').toLowerCase()" 
-        :password="true"/>
+        type="password"/>
 			<SignButton 
         :label="this.$t('SignPages.login')" 
         class="mt-5" 
