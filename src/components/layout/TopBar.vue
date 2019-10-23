@@ -1,6 +1,6 @@
 <template>
-	<div id="topbar" class="navbar fixed-top" :style="componentStyle">
-        <font-awesome-icon v-if="iconleft" :icon="iconleft" @click="selectLeft()"> </font-awesome-icon>
+	<div id="topbar" :class="'navbar fixed-top ' + color">
+        <font-awesome-icon v-if="iconleft"  :icon="iconleft" @click="selectLeft()"> </font-awesome-icon>
         <font-awesome-icon v-if="iconright" :icon="iconright" @click="selectRight()"> </font-awesome-icon>
     </div>
 </template>
@@ -18,7 +18,7 @@
                 type: String
             },
             color:{
-                default: '',
+                default: 'primary',
                 type: String
             }
         },
@@ -42,18 +42,22 @@
                 }
             },
         },
-
-        computed: {
-            componentStyle() { 	
-                let componentColor = `color:${this.color};`
-                return componentColor
-            }
-        },
     }
 </script>
 
 <style lang="scss" scoped>    
+    @import '@/assets/stylesheets/colors.scss';
     #topbar {
         padding: 15px;
+    }
+    .primary {
+        color: $color-primary;
+    }
+    .primary-dark {
+        color: $color-primary-dark;
+    }
+
+    .pink {
+        color: pink;
     }
 </style>

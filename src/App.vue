@@ -9,7 +9,6 @@
 </template>
 
 <script>
-
 export default {
   components: {
   },
@@ -32,11 +31,9 @@ export default {
   html {
     margin: 0;
   }
-
   body {
     margin: 0;
   }
-
   #app {
     font-family: RobotoRegular;
     -webkit-font-smoothing: antialiased;

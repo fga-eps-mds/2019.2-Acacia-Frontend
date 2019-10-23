@@ -144,6 +144,6 @@ export default {
     text-decoration: none;
   }
 	.gradient {
-		background-image: linear-gradient(180deg, rgba(86, 163, 166, 1), rgba(75s, 125, 170, 105));
+		background-image: linear-gradient(180deg, rgba(86, 163, 166, 1), rgba(75, 125, 170, 105));
 	}
 </style>

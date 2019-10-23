@@ -1,6 +1,13 @@
 <template>
     <div id="signbutton" :class="'container ' + direction">
-        <button v-on:click="$emit('action')" :style="buttonStyle" :class="color + ' ' + padding"> {{label}} </button>
+        <button 
+            v-on:click="$emit('action')" 
+            :style="buttonStyle" 
+            :class="color + ' ' + padding"> 
+            {{label}}
+        </button>
+
+
     </div>
 </template>
 
@@ -16,7 +23,7 @@
                 type: String
             },
             color: {
-                default: 'dark-blue',
+                default: 'light-blue',
                 type: String
             },
             padding: {
@@ -66,11 +73,11 @@
     }
 
     .dark-blue{
-        background-color: $color-primary;
+        background-color: $color-primary-dark;
     }
 
     .light-blue{
-        background-color: $color-secundary; 
+        background-color: $color-primary; 
     }
 
     .big{

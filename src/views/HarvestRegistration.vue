@@ -1,6 +1,6 @@
 <template>
   <div class="harvest-form">
-    <TopBar iconleft="chevron-left" color="#56a3a6"/>
+    <TopBar iconleft="chevron-left" color="primary"/>
     <div class="content-container">
       <div class="content-title">
         <h3> Cadastrar colheita </h3>
@@ -22,18 +22,15 @@
         />
         <TextField 
           class="mt-3" 
-          v-model="neighbor_access" 
-          label="Acesso a propriedades visinhas" 
-          color="#949090"
-          bordercolor="#C4C4C4"
-        />
-        <TextField 
-          class="mt-3" 
           v-model="equipment" 
           label="Equipamentos" 
           color="#949090"
           bordercolor="#C4C4C4"
         />
+        <v-switch
+          v-model="neighbor_access"
+          label="Neighbor access">
+        </v-switch>
         <TextField 
           class="mt-3" 
           v-model="description" 
@@ -53,7 +50,7 @@
         <SignButton
           class="mt-4" 
           label="Cadastrar" 
-          @action="registerProperty"
+          @action="registerHarvest"
           direction="right"
           padding="small"
           color="light-blue"
@@ -188,7 +185,7 @@
         width: 100%;
         padding: 0px 25px;
         margin-bottom: 10%;
-        color: $color-secundary;
+        color: $color-primary;
         display: flex;
         justify-content: left; 
     }
