@@ -11,6 +11,13 @@ Vue.use(VueCookie)
 import Toasted from 'vue-toasted'
 Vue.use(Toasted)
 
+/* i18n configuration (internationalization) */
+import i18n from '@/plugins/i18n'
+
+/* Flag-Icon configuration */
+import FlagIcon from 'vue-flag-icon'
+Vue.use(FlagIcon)
+
 /* Boostrap configuration */
 import BoostrapVue from 'bootstrap-vue'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
@@ -37,6 +44,7 @@ Vue.component('datetime', Datetime)
 Vue.config.productionTip = false
 
 new Vue({
+	i18n,
 	router,
 	store,
 	render: h => h(App)
