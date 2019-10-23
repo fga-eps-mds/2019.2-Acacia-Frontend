@@ -19,12 +19,13 @@
           color="black"
           bordercolor="#C4C4C4" 
         />
-        <TextField 
+        <SelectField 
           class="mt-3" 
           v-model="state" 
           :label="'Estado'" 
           color="black"
           bordercolor="#C4C4C4"
+          :items="brstates"
         />
         <TextField 
           class="mt-3" 
@@ -99,35 +100,38 @@
     },
 
     props: {
-      brstates: [
-        {name: "Acre"},
-        {name: "Alagoas" },
-        {name: "Amapá" },
-        {name: "Amazonas" },
-        {name: "Bahia" },
-        {name: "Ceará" },
-        {name: "Distrito Federal" },
-        {name: "Espírito Santo" },
-        {name: "Goiás" },
-        {name: "Maranhão" },
-        {name: "Mato Grosso" },
-        {name: "Mato Grosso do Sul" },
-        {name: "Minas Gerais" },
-        {name: "Pará" },
-        {name: "Paraíba" },
-        {name: "Paraná" },
-        {name: "Pernambuco" },
-        {name: "Piauí" },
-        {name: "Rio de Janeiro" },
-        {name: "Rio Grande do Norte" },
-        {name: "Rio Grande do Sul" },
-        {name: "Rondônia" },
-        {name: "Roraima" },
-        {name: "Santa Catarina" },
-        {name: "São Paulo" },
-        {name: "Sergipe" },
-        {name: "Tocantins" },
-      ],
+      brstates: {
+          type: Array,
+          default: [
+          {name: "Acre", id: 1 },
+          {name: "Alagoas", id: 2 },
+          {name: "Amapá", id: 3 },
+          {name: "Amazonas", id: 4 },
+          {name: "Bahia", id: 5 },
+          {name: "Ceará", id: 6 },
+          {name: "Distrito Federal", id: 7 },
+          {name: "Espírito Santo", id: 8 },
+          {name: "Goiás", id: 9 },
+          {name: "Maranhão", id: 10 },
+          {name: "Mato Grosso", id: 11 },
+          {name: "Mato Grosso do Sul", id: 12 },
+          {name: "Minas Gerais", id: 13 },
+          {name: "Pará", id: 14 },
+          {name: "Paraíba", id: 15 },
+          {name: "Paraná", id: 16 },
+          {name: "Pernambuco", id: 17 },
+          {name: "Piauí", id: 18 },
+          {name: "Rio de Janeiro", id: 19 },
+          {name: "Rio Grande do Norte", id: 20 },
+          {name: "Rio Grande do Sul", id: 21 },
+          {name: "Rondônia", id: 22 },
+          {name: "Roraima", id: 23 },
+          {name: "Santa Catarina", id: 24 },
+          {name: "São Paulo", id: 25 },
+          {name: "Sergipe", id: 26 },
+          {name: "Tocantins", id: 27 },
+        ],
+      },
     },
 
     methods: {

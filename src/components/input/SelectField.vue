@@ -1,200 +1,105 @@
 <template>
-    <div id="autocomplete" class="selectfield-container">
+  <div id="selectfield" class="selectfield-container">
+    <div class="row ml-1 mr-1 centralize-div">    
+      <div 
+        v-if="label" 
+        class="col-12 p-0 selectfield-label" 
+        :style="'color: ' + this.color">
+          {{ label }}
+      </div>
 
-        <div class="row ml-1 mr-1 centralize-div">
-            <!-- DIV for displaying the label on the screen -->
-            <div 
-            v-if="label" 
-            :class="'col-12 p-0 textfield-label' + color" 
-            style="8B8888">
-              {{ label }}
-            </div>
-
-            <input 
-            type="text"
-            @focus="toggleVisible" 
-            @keydown.up="up"
-            @keydown.down="down"
-            @keydown.enter="selectItem"
-            :placeholder="placeholder">    
-
-            <div class="popover" v-show="visible">
-                <div class="options" ref="optionList">
-                    <ul>
-                        <li
-                            v-for="(match, index) in matches"
-                            :key="match[index]"
-                            :class="{ 'selected': (selected == index)}"
-                            @click="itemClicked(index)"
-                            v-text="match[filterby]">
-                        </li>
-                    </ul>                
-                </div>
-            </div>
-        </div>
+      <select
+        v-model="selected_text"
+        class="text-select col-12"
+        :style="'border-bottom: 1px solid ' + this.bordercolor + ';' 
+                + 'color: ' + this.color + ';'"
+      >
+        <option 
+        v-for="item in items"
+        :key="item.id"> 
+          {{ item.name }} 
+        </option>
+      </select>
     </div>
+  </div>
 </template>
 
 <script>
-export default {
+  export default {
     props: {
-        label: {
-            default: "",
-            type: String,
-        },
+      label: {
+        default: "",
+        type: String,
+      },
 
-        placeholder: {
-            default: "",
-            type: String,
-        },
+      color: {
+        default: "#8B8888",
+        type: String,
+      },
 
-        items: {
-            default: [],
-            type: Array,
-        },
-     
-        filterby: {
-            default: "",
-            type: String,
-        },
+      bordercolor: {
+        default: "#C4C4C4",
+        type: String
+      },
 
-        color: {
-            default: "",
-            type: String,
-        },
+      selected: {
+        type: String,
+      },
 
+      items: {
+        default: [],
+        type: Array,
+      }
     },
 
-    data() {
-        return {
-            selectedItem: null,
-            selected: 0,        // Index data
-            query: '',          // Data to store the input
-            visible: false,     // Boolean to set the visibility of the pop-over
-        };
-    },
-
-    methods: {
-        toggleVisible() {            
-            this.visible = !this.visible;
-        },
-
-        itemClicked(index) {
-            this.selected = index;
-            this.selectItem();        
-        },
-
-        selectItem() {
-            this.selectedItem = this.matches[this.selected]
-            this.visible = false;
-        },
-
-        up() {
-            if (this.selected == 0) return
-
-            this.selected -= 1;
-            this.scrollToItem()
-        },
-
-        down() {
-            if (this.selected >= this.matches.length-1) return
-
-            this.selected += 1;
-            this.scrollToItem()
-        },
-
-        scrollToItem() {
-            this.$refs.optionList.scrollTop = this.selected * 41
-        }
+    model: {
+      prop: "selected",
+      event: "selectfield-change",
     },
 
     computed: {
-        /****************************************************************************
-        | Computed data to return the elements in 'items' that includes query model |
-        ****************************************************************************/
-        matches() {
-            if (this.query == '') {
-                return this.items;
-            }
-
-            return this.items.filter( (item) => item[this.filterby].toLowerCase().includes(this.query.toLowerCase()) );
+      selected_text: {
+        get: function() {
+          return this.selected;
         },
 
-
+        set: function(value) {
+          this.$emit("selectfield-change", value);
+        }
+      },
     },
-}
+  }
 </script>
 
-
 <style lang="scss" scoped>
-    .selectfield-container {
-        width: 100%;
-        padding-right: 20px;
-        padding-left: 20px;
-        margin-right: auto;
-        margin-right: auto;    
-    }
+  @import "../../assets/stylesheets/colors.scss";
 
-    .popover {
-        align-content: center;
-        min-height: 50px;
-        border: 2px solid;
-        position: absolute;
-        top: 46px;
-        left: 0;
-        right: 0;
-        background: #ffffff;
-        border-radius: 3px;
-        text-align: center;
-    }
+  .selectfield-container {
+    width: 100%;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-right: auto;
+    margin-left: auto;
+  }
 
-    .popover input {
-        width: 95%;
-        margin-top: 5px;
-        height: 40px;
-        font-size: 16px;
-        border-radius: 3px;
-        border: 1 px solid lightgray;
-        padding-left: 8px;
-    }
+  .selectfield-label {
+    text-align: left;
+    font-size: 90%;
+  }
 
-    .options {
-        max-height: 150px;
-        overflow-y: scroll;
-        margin-top: 5px;
-    }
+  .text-select {
+    background-color: rgba(7, 37, 37, 0);
+    border: none;
+    width: 80%;
+    padding: 2%;
+  }
 
-    .options ul {
-        list-style-type: none;
-        text-align: left;
-        padding-left: 0;
-    }
+  .text-select:focus {
+    outline: none;
+    border-bottom-color: $color-default-text;
+  }
 
-    .options ul li {
-        border-bottom: 1px solid lightgray;
-        padding: 10px;
-        cursor: pointer;
-        background: #f1f1f1;
-    }
-
-    .options ul li.selected{
-        background: #58bd4c;
-        color: #ffffff;
-        font-weight: 600;
-    }
-
-    input {
-        color: #8B8888;
-    }
-    /* Hidden placeholder when focus */
-    input.white::-webkit-input-placeholder {
-      color: #ffffff;
-    }
-    input.black::-webkit-input-placeholder {
-      color: #000000;
-    }
-    input:focus::-webkit-input-placeholder {
-        color: rgba(0, 0, 0, 0);
-    }
-
+  select {
+    -webkit-appearance: none;
+  }
 </style>

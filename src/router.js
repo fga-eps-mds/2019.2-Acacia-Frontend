@@ -22,7 +22,7 @@ export default new Router({
 			component: () => import('./views/Signup.vue')
 		},
 		{
-			path: '/property/registration',
+			path: '/properties/registration',
 			name: 'propertyRegistration',
 			component: () => import('./views/PropertyRegistration.vue')
 		}
