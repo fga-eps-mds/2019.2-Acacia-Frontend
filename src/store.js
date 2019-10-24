@@ -5,7 +5,7 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 import i18n from '@/plugins/i18n.js'
-import { API_URL } from '../config'
+import { API_URL } from './config'
 
 export default new Vuex.Store({
   getters: {
