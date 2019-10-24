@@ -2,7 +2,7 @@
   <div class="harvest-form">
     <TopBar iconleft="chevron-left" color="color-primary"/>
     <div class="content-container">
-      <div class="content-title">
+      <div class="content-title raleway-thin">
         <h3> Cadastrar colheita </h3>
       </div>
       <div class="content-form">
@@ -34,14 +34,31 @@
           color="#949090"
           bordercolor="#C4C4C4"
         />
-        <TextField 
-          class="mt-3" 
-          v-model="max_voluneteers" 
-          label="Número de voluntários" 
-          color="#949090"
-          bordercolor="#C4C4C4"
-          type="number"
-        />        
+        <v-row>
+          <v-col cols="12" class="roboto-light color-secundary-text">
+            Numero mínimo e máximo de voluntários
+          </v-col>
+          <v-col cols="6">
+            <TextField  
+              v-model="min_volunteers"  
+              color="#949090"
+              bordercolor="#C4C4C4"
+              type="number"
+              :placeholder="'Mínimo'"
+              placeholderBlack="true"
+            />       
+          </v-col>
+          <v-col cols="6">
+            <TextField  
+              v-model="max_volunteers" 
+              color="#949090"
+              bordercolor="#C4C4C4"
+              type="number"
+              :placeholder="'Máximo'"
+              placeholderBlack="true"
+            />
+          </v-col>
+        </v-row>
       </div>
       <div class="content-button">
         <SignButton
@@ -75,7 +92,8 @@
         date: '',
         description: '',
         equipment: '',
-        max_voluneteers: '',
+        max_volunteers: null,
+        min_volunteers: null,
         neighbor_access: false,
         status: '',
       }
@@ -96,7 +114,8 @@
           date: this.date,
           description: this.description,
           equipment: this.equipment,
-          max_voluneteers: this.max_voluneteers,
+          max_volunteers: this.max_volunteers,
+          min_volunteers: this.min_volunteers,
           neighbor_access: this.neighbor_access,
           status: this.status,
         }
@@ -109,27 +128,27 @@
           })
       },
       validateInput(){
-        //if (!this.brzipcode) {
-        //  this.$toasted.show('Insira seu CEP').goAway(2000)
-        //  return false
-        //}
-        //if (!this.state) {
-        //  this.$toasted.show('Selecione um estado').goAway(2000)
-        //  return false
-        //}
-        //if (!this.city) {
-        //  this.$toasted.show('Insira uma cidade').goAway(2000)
-        //  return false
-        //}
-        //if (!this.district) {
-        //  this.$toasted.show('Insira um bairro').goAway(2000)
-        //  return false
-        //}
-        //
-        //if (!this.street) {
-        //  this.$toasted.show('Insira um endereço').goAway(2000)
-        //  return false
-        //}
+        if (!this.brzipcode) {
+         this.$toasted.show('Insira seu CEP').goAway(2000)
+         return false
+        }
+        if (!this.state) {
+         this.$toasted.show('Selecione um estado').goAway(2000)
+         return false
+        }
+        if (!this.city) {
+         this.$toasted.show('Insira uma cidade').goAway(2000)
+         return false
+        }
+        if (!this.district) {
+         this.$toasted.show('Insira um bairro').goAway(2000)
+         return false
+        }
+        
+        if (!this.street) {
+         this.$toasted.show('Insira um endereço').goAway(2000)
+         return false
+        }
         return true
       },
     }
