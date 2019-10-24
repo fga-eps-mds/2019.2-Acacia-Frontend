@@ -1,22 +1,27 @@
 <template>
-  <div id="selectfield" class="selectfield-container">
+  <div 
+    id="selectfield" 
+    class="selectfield-container"
+  >
     <div class="row ml-1 mr-1 centralize-div">    
       <div 
         v-if="label" 
         class="col-12 p-0 selectfield-label" 
-        :style="'color: ' + this.color">
-          {{ label }}
+        :style="'color: ' + color"
+      >
+        {{ label }}
       </div>
 
       <select
         v-model="selected_text"
         class="text-select col-12"
-        :style="'border-bottom: 1px solid ' + this.bordercolor + ';' 
-                + 'color: ' + this.color + ';'"
+        :style="'border-bottom: 1px solid ' + bordercolor + ';' 
+          + 'color: ' + color + ';'"
       >
         <option 
-        v-for="item in items"
-        :key="item.id"> 
+          v-for="item in items"
+          :key="item.id"
+        > 
           {{ item.name }} 
         </option>
       </select>
@@ -26,6 +31,11 @@
 
 <script>
   export default {
+    model: {
+      prop: "selected",
+      event: "selectfield-change",
+    },
+
     props: {
       label: {
         default: "",
@@ -43,18 +53,14 @@
       },
 
       selected: {
+        default: "",
         type: String,
       },
 
       items: {
-        default: [],
+        default: function() { return [] },
         type: Array,
       }
-    },
-
-    model: {
-      prop: "selected",
-      event: "selectfield-change",
     },
 
     computed: {

@@ -1,63 +1,61 @@
 
 <template>
   <div class="property-form">
-    
-    <TopBar :iconleft="'chevron-left'" color="#2D9CDB"/>
+    <TopBar 
+      iconleft="chevron-left"
+      color="#2D9CDB"
+    />
     
     <div class="content-container">
-
       <div class="content-title">
         <h3> Cadastrar propriedade </h3>
       </div>
 
       <div class="content-form">
-        
         <TextField 
-          class="mt-3" 
           v-model="BRZipCode" 
+          class="mt-3" 
           label="CEP"
           color="black"
           bordercolor="#C4C4C4" 
         />
         <SelectField 
-          class="mt-3" 
           v-model="state" 
+          class="mt-3" 
           label="Estado" 
           color="black"
           bordercolor="#C4C4C4"
           :items="brstates"
         />
         <TextField 
-          class="mt-3" 
           v-model="city" 
+          class="mt-3" 
           label="Cidade" 
           color="black"
           bordercolor="#C4C4C4" 
         />
         <TextField 
-          class="mt-3" 
           v-model="district" 
+          class="mt-3" 
           label="Bairro" 
           color="black"
           bordercolor="#C4C4C4"
         />
         <TextField 
-          class="mt-3" 
           v-model="address" 
+          class="mt-3" 
           label="Endereço" 
           color="black"
           bordercolor="#C4C4C4"
         />
         <SelectField 
-          class="mt-3" 
           v-model="type_of_address" 
+          class="mt-3" 
           label="Tipo de moradia" 
           color="black"
           bordercolor="#C4C4C4"
           :items="adrchoises"
         />
-              
-      
       </div>
 
       <div class="content-button">
@@ -67,16 +65,13 @@
           @action="registerProperty"
         />        
       </div>
-
     </div>
   </div>
-
 </template>
 
 <script>
   import TopBar from '../components/layout/TopBar'
   import TextField from '../components/input/TextField'
-  import SignButton from '../components/input/SignButton'
   import SelectField from '../components/input/SelectField'
   import RegisterButton from '../components/input/RegisterButton'
 
@@ -84,26 +79,14 @@
     components: {
       TopBar,
       TextField,
-      SignButton,
       SelectField,
       RegisterButton,
-    },
-
-    data() {
-      return {
-        type_of_address: '',
-        BRZipCode: '',
-        state: '',
-        city: '',
-        district: '',
-        address: '',
-      }
     },
 
     props: {
       brstates: {
           type: Array,
-          default: [
+          default: function() { return [
             {name: "Acre", id: 1 },
             {name: "Alagoas", id: 2 },
             {name: "Amapá", id: 3 },
@@ -131,18 +114,29 @@
             {name: "São Paulo", id: 25 },
             {name: "Sergipe", id: 26 },
             {name: "Tocantins", id: 27 },
-        ],
+        ]},
       },
 
       adrchoises: {
         type: Array,
-        default: [
+        default: function () { return [
           {name: "Apartamento", id: 1 },
           {name: "Casa", id: 2 },
           {name: "Fazenda", id: 3 },
           {name: "Outro", id: 4 },
-        ],
+        ]},
       },
+    },
+
+    data() {
+      return {
+        type_of_address: '',
+        BRZipCode: '',
+        state: '',
+        city: '',
+        district: '',
+        address: '',
+      }
     },
 
     methods: {

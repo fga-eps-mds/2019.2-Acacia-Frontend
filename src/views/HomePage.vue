@@ -19,7 +19,6 @@ export default {
   name: 'home',
   components: {
     SignButton,
-    TextField
   },
   data() {
     return {
