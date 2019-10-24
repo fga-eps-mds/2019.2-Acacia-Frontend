@@ -6,20 +6,8 @@
         <h3> Cadastrar colheita </h3>
       </div>
       <div class="content-form">
-        <TextField 
-          class="mt-3" 
-          v-model="date" 
-          label="Data da colheita" 
-          color="#949090"
-          bordercolor="#C4C4C4"
+        <DatePicker labelDate="Data da colheita"
         />
-        <!-- <TextField 
-          class="mt-3" 
-          v-model="status" 
-          label="Status" 
-          color="#949090"
-          bordercolor="#C4C4C4" 
-        /> -->
         <TextField 
           class="mt-3" 
           v-model="equipment" 
@@ -37,7 +25,15 @@
         <TextField 
           class="mt-3" 
           v-model="max_voluneteers" 
-          label="Número de voluntários" 
+          label="Número máximo de voluntários" 
+          color="#949090"
+          bordercolor="#C4C4C4"
+          type="number"
+        />  
+        <TextField 
+          class="mt-3" 
+          v-model="min_voluneteers" 
+          label="Número minimo de voluntários" 
           color="#949090"
           bordercolor="#C4C4C4"
           type="number"
@@ -62,6 +58,7 @@
   import TopBar from '../components/layout/TopBar'
   import TextField from '../components/input/TextField'
   import SignButton from '../components/input/SignButton'
+  import DatePicker from '../components/input/DatePicker'
   import axios from "axios"
   import router from "../router"
   export default {
@@ -69,6 +66,7 @@
       TopBar,
       TextField,
       SignButton,
+      DatePicker,
     },
     data() {
       return {
@@ -76,8 +74,14 @@
         description: '',
         equipment: '',
         max_voluneteers: '',
-        neighbor_access: false,
+        min_voluneteers: '',
         status: '',
+        items: [
+          'Programming',
+          'Design',
+          'Vue',
+          'Vuetify',
+        ],
       }
     },
     props: {
@@ -97,7 +101,6 @@
           description: this.description,
           equipment: this.equipment,
           max_voluneteers: this.max_voluneteers,
-          neighbor_access: this.neighbor_access,
           status: this.status,
         }
 
@@ -106,6 +109,21 @@
             console.log(response)
           })
           .catch((error) => {
+            if(error.response.data.date){
+              this.$toasted.show(error.response.data.date).goAway(2000)
+            }
+            if(error.response.data.description){
+              this.$toasted.show(error.response.data.description).goAway(2000)
+            }
+            if(error.response.data.equipment){
+              this.$toasted.show(error.response.data.equipment).goAway(2000)
+            }
+            if(error.response.data.max_voluneteers){
+              this.$toasted.show(error.response.data.max_voluneteers).goAway(2000)
+            }
+            if(error.response.data.status){
+              this.$toasted.show(error.response.data.status).goAway(2000)
+            }
           })
       },
       validateInput(){
@@ -138,6 +156,10 @@
 
 <style scoped lang="scss">
 @import "../assets/stylesheets/colors.scss";
+
+    .status{
+        padding: 0px 20px;
+    }
 
     .harvest-form {
         width: 100%;
