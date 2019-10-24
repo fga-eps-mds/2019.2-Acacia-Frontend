@@ -1,13 +1,15 @@
 <template>
   <div class="harvest-form">
-    <TopBar iconleft="chevron-left" color="color-primary"/>
+    <TopBar 
+        iconleft="chevron-left" 
+        color="color-primary"/>
     <div class="content-container">
       <div class="content-title raleway-thin">
         <h3> Cadastrar colheita </h3>
       </div>
       <div class="content-form">
-        <DatePicker labelDate="Data da colheita"
-        />
+        <DatePicker 
+          labelDate="Data da colheita"/>
         <TextField 
           class="mt-3" 
           v-model="equipment" 
@@ -22,31 +24,38 @@
           color="#949090"
           bordercolor="#C4C4C4"
         />
-        <v-row>
-          <v-col cols="12" class="roboto-light color-secundary-text">
-            Numero mínimo e máximo de voluntários
-          </v-col>
-          <v-col cols="6">
-            <TextField  
-              v-model="min_volunteers"  
-              color="#949090"
-              bordercolor="#C4C4C4"
-              type="number"
-              :placeholder="'Mínimo'"
-              placeholderBlack="true"
-            />       
-          </v-col>
-          <v-col cols="6">
-            <TextField  
-              v-model="max_volunteers" 
-              color="#949090"
-              bordercolor="#C4C4C4"
-              type="number"
-              :placeholder="'Máximo'"
-              placeholderBlack="true"
-            />
-          </v-col>
-        </v-row>
+        <div class="container">
+            <div class="roboto-light color-secundary-text">
+                Numero mínimo e máximo de voluntários
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <TextField  
+                    v-model="min_volunteers"  
+                    color="#949090"
+                    bordercolor="#C4C4C4"
+                    type="number"
+                    :placeholder="'Mínimo'"
+                    />       
+                </div>
+                <div class="col-6">
+                    <TextField  
+                    v-model="max_volunteers" 
+                    color="#949090"
+                    bordercolor="#C4C4C4"
+                    type="number"
+                    :placeholder="'Máximo'"
+                    />
+                </div>
+            </div>
+        </div>
+        </div>
+        <div>
+          <div class="mt-5 roboto-light color-secundary-text">
+            Regras da colheita
+          </div>
+          <StringList class="container" v-model="rules"/>
+        </div>
       </div>
       <div class="content-button">
         <SignButton
@@ -64,18 +73,19 @@
 </template>
 
 <script>
-  import TopBar from '../components/layout/TopBar'
-  import TextField from '../components/input/TextField'
-  import SignButton from '../components/input/SignButton'
-  import DatePicker from '../components/input/DatePicker'
-  import axios from "axios"
-  import router from "../router"
+  import TopBar from '@/components/layout/TopBar'
+  import TextField from '@/components/input/TextField'
+  import SignButton from '@/components/input/SignButton'
+  import DatePicker from '@/components/input/DatePicker'
+  import StringList from '@/components/input/StringList'
+  import router from "@/router"
   export default {
     components: {
       TopBar,
       TextField,
       SignButton,
       DatePicker,
+      StringList,
     },
     data() {
       return {
@@ -85,7 +95,7 @@
         max_volunteers: null,
         min_volunteers: null,
         status: '',
-        items: [
+        rules: [
           'Programming',
           'Design',
           'Vue',
