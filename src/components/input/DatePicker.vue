@@ -3,19 +3,18 @@
         <v-dialog
             ref="dialog"
             v-model="modal"
-            :return-value.sync="today"
             persistent
             width="290px"
         >
             <template v-slot:activator="{ on }">
                 <v-text-field
-                    v-model="today"
-                    :label="labelDate"
+                    v-model="date"
+                    :label="label"
                     readonly
                     v-on="on"
                 ></v-text-field>
             </template>
-            <v-date-picker v-model="today" color="blue" :min="today" class="date-picker" scrollable>
+            <v-date-picker v-model="dateLocal" color="blue" :min="today" class="date-picker" scrollable>
                 <v-spacer></v-spacer>
                 <v-btn color="blue" class="date-picker-button" @click="modal = false">Cancel</v-btn>
                 <v-btn color="blue" class="date-picker-button" @click="$refs.dialog.save(date)">Confirm</v-btn>
@@ -25,15 +24,39 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            labelDate: '',
-        },
-        data: () => ({
-            today: new Date().toISOString().slice(0,10),
-            modal: false,
-        }),
+export default {
+  data: () => ({
+    today: new Date().toISOString().slice(0,10),
+    modal: false,
+  }),
+  props: {
+    date: {
+      type: String,
+      default: new Date().toISOString().substr(0, 10)
+    },
+    label: {
+      type: String,
+      default: ''
     }
+  },
+  model: {
+		prop: 'date',
+		event: 'datepicker-change'
+  },
+  created() {
+    this.dateLocal = new Date().toISOString().substr(0, 10)
+  },
+	computed: {
+		dateLocal: {
+			get: function() {
+					return this.date
+			},
+			set: function(value) {
+					this.$emit('datepicker-change', value)
+			}
+		},
+  },
+}
 </script>
 
 <style lang="scss" scoped>

@@ -11,7 +11,11 @@
         v-model="variableLocal" 
         v-if="!texticon" 
         :type="type" 
-        class="text-input col-12" 
+        :class="{
+          'text-input' : true, 
+          'col-12': true, 
+          'black-placeholder': placeholderBlack, 
+          'white-placeholder': !placeholderBlack}" 
         :placeholder="placeholder" 
         :style="componentStyle">
 			<div 
@@ -22,8 +26,13 @@
           style="color:white"/>
 				<input 
           v-model="variableLocal" 
-          :type="type" 
-          class=" ml-3 text-input col-12" 
+          :type="type"
+          :class="{
+            'ml-3': true, 
+            'text-input' : true, 
+            'col-12': true, 
+            'black-placeholder': placeholderBlack, 
+            'white-placeholder': !placeholderBlack}" 
           style="border:none" 
           :placeholder="placeholder">
 				<div class="text-field-border"></div>
@@ -59,7 +68,8 @@ export default {
 			type: String
     },
     placeholderBlack: {
-      type: Boolean
+      type: Boolean,
+      default: false
     }
 	},
 	model: {
@@ -125,32 +135,24 @@ export default {
 	}
 
 	/* Hidden placeholder when focus */
-	input::-webkit-input-placeholder {
+  /* Chrome */
+	input.white-placeholder::-webkit-input-placeholder {
 		color: #ffffff;
+	}
+  input.black-placeholder::-webkit-input-placeholder {
+		color: #949090;
 	}
 	input:focus::-webkit-input-placeholder {
 		color: rgba(0,0,0,0);
 	}
-	/* Firefox < 19 */
-	input:-moz-placeholder {
-		color: #ffffff;
-	}
-	input:focus:-moz-placeholder {
-		color: rgba(0,0,0,0);
-	}
 	/* Firefox > 19 */
-	input::-moz-placeholder {
+  input.white-placeholder::-moz-placeholder {
 		color: #ffffff;
+	}
+  input.black-placeholder::-moz-placeholder {
+		color: #949090;
 	}
 	input:focus::-moz-placeholder {
-		color: rgba(0,0,0,0);
-	}
-
-	/* Internet Explorer 10 */
-	input:-ms-input-placeholder {
-		color: #ffffff;
-	}
-	input:focus:-ms-input-placeholder {
 		color: rgba(0,0,0,0);
 	}
 </style>

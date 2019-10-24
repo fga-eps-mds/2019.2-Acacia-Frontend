@@ -1,14 +1,14 @@
 <template>
-    <div id="stringlist" class="list-container">
-        <div class="p-1">
+    <div id="stringlist">
+        <div class="mb-3">
             <v-row>
-                <v-col cols="10">
+                <v-col cols="10" class="p-0">
                     <TextField 
                         color="black"
                         class="mr-3"  
                         v-model="textfield"/>
                 </v-col>
-                <v-col cols="2">
+                <v-col cols="2" class="p-0">
                     <font-awesome-icon
                         class="mt-2"
                         @click="addNewListElementAndSaveLast"
@@ -17,16 +17,18 @@
                 </v-col>
             </v-row>
         </div>
-        <div class="row p-2 border m-1" v-for="(item, index) in list">
-            <div class="col-10 text-left">
-                {{ item }}
-            </div>
-            <div class="col-2">
-                <font-awesome-icon
-                    @click="eraseListElement(index)"
-                    icon="minus" 
-                    style="color:black"/>
-            </div>
+        <div class="bg-light">
+          <div class="row p-1 border-bottom m-1" v-for="(item, index) in list" :key="item">
+              <div class="col-10 text-left" style="font-size: 0.85em;overflow: hidden">
+                  {{ item }}
+              </div>
+              <div class="col-2">
+                  <font-awesome-icon
+                      @click="eraseListElement(index)"
+                      icon="minus" 
+                      style="color:black"/>
+              </div>
+          </div>
         </div>
     </div>
 </template>
@@ -34,20 +36,20 @@
 <script>
 import TextField from '@/components/input/TextField'
 export default {
-    components: {
-        TextField,
-    },
-    props: {
-        list: {
-            type: Array
-        },
-    },
-    data() {
-        return {
-            textfield: ''
-        }
-    },
-    model: {
+  components: {
+      TextField,
+  },
+  props: {
+      list: {
+          type: Array
+      },
+  },
+  data() {
+      return {
+          textfield: ''
+      }
+  },
+  model: {
 		prop: 'list',
 		event: 'textfield-change'
 	},
@@ -60,28 +62,24 @@ export default {
 					this.$emit('stringlist-change', value)
 			}
 		},
-    },
-    methods: {
-        addNewListElementAndSaveLast() {
-            if (!this.textfield) {
-                this.$toasted.show('You must type something to add a new item!').goAway(2000)
-                return
-            }
-            this.list.push(this.textfield)
-            this.textfield = ''
-        },
-        eraseListElement(index) {
-            this.list.splice(index, 1)
-        }
-    }
+  },
+  methods: {
+      addNewListElementAndSaveLast() {
+          if (!this.textfield) {
+              this.$toasted.show('You must type something to add a new item!').goAway(2000)
+              return
+          }
+          this.list.push(this.textfield)
+          this.textfield = ''
+      },
+      eraseListElement(index) {
+          this.list.splice(index, 1)
+      }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
   @import "../../assets/stylesheets/colors.scss";
-  
-  .list-container {
-
-  }
 
 </style>

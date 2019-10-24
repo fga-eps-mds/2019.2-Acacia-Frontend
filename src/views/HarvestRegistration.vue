@@ -2,14 +2,16 @@
   <div class="harvest-form">
     <TopBar 
         iconleft="chevron-left" 
-        color="color-primary"/>
+        color="color-primary"
+        style="background-color: white"/>
     <div class="content-container">
       <div class="content-title raleway-thin">
         <h3> Cadastrar colheita </h3>
       </div>
       <div class="content-form">
         <DatePicker 
-          labelDate="Data da colheita"/>
+          :label="'Data da colheita'"
+          v-model="date"/>
         <TextField 
           class="mt-3" 
           v-model="equipment" 
@@ -24,34 +26,42 @@
           color="#949090"
           bordercolor="#C4C4C4"
         />
-        <div class="container">
-            <div class="roboto-light color-secundary-text">
-                Numero mínimo e máximo de voluntários
+        <TextField 
+          class="mt-3" 
+          v-model="status" 
+          label="Status" 
+          color="#949090"
+          bordercolor="#C4C4C4"
+        />
+        <div class="container mt-3">
+            <div class="roboto-light color-secundary-text text-left">
+                Numero de voluntários
             </div>
-            <div class="row">
-                <div class="col-6">
+            <div class="row mt-3">
+                <div class="col-6 p-0">
                     <TextField  
                     v-model="min_volunteers"  
                     color="#949090"
                     bordercolor="#C4C4C4"
                     type="number"
                     :placeholder="'Mínimo'"
+                    :placeholderBlack="true"
                     />       
                 </div>
-                <div class="col-6">
+                <div class="col-6 p-0">
                     <TextField  
                     v-model="max_volunteers" 
                     color="#949090"
                     bordercolor="#C4C4C4"
                     type="number"
                     :placeholder="'Máximo'"
+                    :placeholderBlack="true"
                     />
                 </div>
             </div>
         </div>
-        </div>
-        <div>
-          <div class="mt-5 roboto-light color-secundary-text">
+        <div class="mt-2 p-0">
+          <div class="roboto-light color-secundary-text text-left">
             Regras da colheita
           </div>
           <StringList class="container" v-model="rules"/>
@@ -59,7 +69,6 @@
       </div>
       <div class="content-button">
         <SignButton
-          class="mt-4" 
           label="Cadastrar" 
           @action="registerHarvest"
           direction="right"
@@ -111,9 +120,15 @@
     },
     methods: {
       registerHarvest(){
-        if (!this.validateInput()) {
-          return
-        }       
+        // if (!this.validateInput()) {
+        //   return
+        // }
+        
+        let rules = []
+
+        for (let i = 0; i < this.rules.length; i++) {
+          rules.push({"description" : this.rules[i]})
+        }
         
         let data = {
           date: this.date,
@@ -122,51 +137,42 @@
           max_volunteers: this.max_volunteers,
           min_volunteers: this.min_volunteers,
           status: this.status,
+          rules: rules
         }
 
-        this.$store.state.authRequest('harvest', 'POST', data)
+        console.log('FAZENDO A REQUEST')
+        this.$store.state.authRequest('harvests', 'POST', data)
           .then((response) => {
-            console.log(response)
+            console.log('FOI:', response)
           })
           .catch((error) => {
-            if(error.response.data.date){
-              this.$toasted.show(error.response.data.date).goAway(2000)
-            }
-            if(error.response.data.description){
-              this.$toasted.show(error.response.data.description).goAway(2000)
-            }
-            if(error.response.data.equipment){
-              this.$toasted.show(error.response.data.equipment).goAway(2000)
-            }
-            if(error.response.data.max_voluneteers){
-              this.$toasted.show(error.response.data.max_voluneteers).goAway(2000)
-            }
-            if(error.response.data.status){
-              this.$toasted.show(error.response.data.status).goAway(2000)
-            }
+            console.log('ERRO:', error)
           })
       },
       validateInput(){
-        if (!this.brzipcode) {
-         this.$toasted.show('Insira seu CEP').goAway(2000)
-         return false
+        if (!this.date) {
+          this.$toasted.show('Insira uma data').goAway(2000)
+          return false
         }
-        if (!this.state) {
-         this.$toasted.show('Selecione um estado').goAway(2000)
-         return false
+        if (!this.status) {
+          this.$toasted.show('Insira um status').goAway(2000)
+          return false
         }
-        if (!this.city) {
-         this.$toasted.show('Insira uma cidade').goAway(2000)
-         return false
+        if (!this.min_volunteers) {
+          this.$toasted.show('Insira um número mínimo de voluntários').goAway(2000)
+          return false
         }
-        if (!this.district) {
-         this.$toasted.show('Insira um bairro').goAway(2000)
-         return false
+        if (!this.max_volunteers) {
+          this.$toasted.show('Insira um número máximo de voluntários').goAway(2000)
+          return false
         }
-        
-        if (!this.street) {
-         this.$toasted.show('Insira um endereço').goAway(2000)
-         return false
+        if (this.min_volunteers > this.max_volunteers) {
+          this.$toasted.show('O número mínimo de voluntários é maior que o máximo').goAway(2000)
+          return false
+        }
+        if (this.rules.length > 10) {
+          this.$toasted.show('Diminua o número de regras da colheita').goAway(2000)
+          return false
         }
         return true
       },
@@ -191,10 +197,7 @@
     }
 
     .content-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        margin-top: 80px;
         width: 100%;
         height: 100%;
     }
