@@ -5,13 +5,14 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 import i18n from '@/plugins/i18n.js'
+import { API_URL } from '../config'
 
 export default new Vuex.Store({
   getters: {
   },
   state: {
     defaultLanguage: 'en',
-    baseURL: "http://0.0.0.0:8000/",
+    baseURL: API_URL,
 
     /* === Resolves user language based on backend user, cookies and defaults to defaultLanguage === */
     resolveUserLanguage: function() {
