@@ -1,32 +1,31 @@
 <template>
     <div id="stringlist">
-        <div class="mb-3">
+        <div >
             <v-row>
                 <v-col cols="10" class="p-0">
                     <TextField 
-                        color="black"
-                        class="mr-3"  
+                        color="#949090"
+                        bordercolor="#C4C4C4" 
                         v-model="textfield"/>
                 </v-col>
                 <v-col cols="2" class="p-0">
                     <font-awesome-icon
-                        class="mt-2"
+                        class="icon"
                         @click="addNewListElementAndSaveLast"
-                        icon="plus" 
-                        style="color:black"/>
+                        icon="plus" />
                 </v-col>
             </v-row>
         </div>
-        <div class="bg-light">
-          <div class="row p-1 border-bottom m-1" v-for="(item, index) in list" :key="item">
+        <div>
+          <div class="row border-bottom m-1" v-for="(item, index) in list" :key="item">
               <div class="col-10 text-left" style="font-size: 0.85em;overflow: hidden">
                   {{ item }}
               </div>
               <div class="col-2">
                   <font-awesome-icon
+                      class="icon"
                       @click="eraseListElement(index)"
-                      icon="minus" 
-                      style="color:black"/>
+                      icon="minus" />
               </div>
           </div>
         </div>
@@ -81,5 +80,14 @@ export default {
 
 <style lang="scss" scoped>
   @import "../../assets/stylesheets/colors.scss";
+
+    #stringlist{
+        padding: 10px 0px !important;
+    }
+
+    .icon{
+        font-size:12px;
+        color: $color-primary !important;
+    }
 
 </style>

@@ -2,39 +2,38 @@
 	<div id="textfield" class="textfield-container">
 		<div class="row ml-1 mr-1">
 			<div 
-        v-if="label" 
-        class="col-12 p-0 text-color-default textfield-label" 
-        :style="componentStyle">
-          {{ label }}
-      </div>
+				v-if="label" 
+				class="col-12 p-0 text-color-default textfield-label" 
+				:style="componentStyle">{{ label }}
+			</div>
 			<input 
-        v-model="variableLocal" 
-        v-if="!texticon" 
-        :type="type" 
-        :class="{
-          'text-input' : true, 
-          'col-12': true, 
-          'black-placeholder': placeholderBlack, 
-          'white-placeholder': !placeholderBlack}" 
-        :placeholder="placeholder" 
-        :style="componentStyle">
-			<div 
-        v-else 
-        class="w-100 col p-0">
+				v-model="variableLocal" 
+				v-if="!texticon" 
+				:type="type" 
+				:class="{
+				'text-input' : true, 
+				'col-12': true, 
+				'black-placeholder': placeholderBlack, 
+				'white-placeholder': !placeholderBlack}" 
+				:placeholder="placeholder" 
+				:style="componentStyle">
+			<div 	
+				v-else 
+				class="w-100 col p-0">
 				<font-awesome-icon 
-          :icon="texticon" 
-          style="color:white"/>
+					:icon="texticon" 
+					style="color:white"/>
 				<input 
-          v-model="variableLocal" 
-          :type="type"
-          :class="{
-            'ml-3': true, 
-            'text-input' : true, 
-            'col-12': true, 
-            'black-placeholder': placeholderBlack, 
-            'white-placeholder': !placeholderBlack}" 
-          style="border:none" 
-          :placeholder="placeholder">
+					v-model="variableLocal" 
+					:type="type"
+					:class="{
+						'ml-3': true, 
+						'text-input' : true, 
+						'col-12': true, 
+						'black-placeholder': placeholderBlack, 
+						'white-placeholder': !placeholderBlack}" 
+					style="border:none" 
+					:placeholder="placeholder">
 				<div class="text-field-border"></div>
 			</div>
 		</div>
@@ -120,11 +119,12 @@ export default {
 		border-bottom-color: '#bbbbbb';
 		width: 80%;
 		padding: 1%;
-		color: $color-default-text;
+		color: $color-primary-text !important;
 	}
 
 	.text-input:focus {
 		outline: none;
+		color: $color-primary-text !important;
 		border-bottom-color: $color-default-text;
 	}
 

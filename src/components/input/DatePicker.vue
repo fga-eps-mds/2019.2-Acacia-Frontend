@@ -2,7 +2,6 @@
     <div class="container-date-picker">
         <v-dialog
             ref="dialog"
-            v-model="modal"
             :return-value.sync="date"
             persistent
             width="290px"

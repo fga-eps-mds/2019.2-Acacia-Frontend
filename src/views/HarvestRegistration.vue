@@ -26,12 +26,6 @@
           color="#949090"
           bordercolor="#C4C4C4"
         />
-        <div>
-          <div class="mt-5 roboto-light textfield-label color-secundary-text ">
-            Regras da colheita
-          </div>
-          <StringList class="container" v-model="rules"/>
-        </div>
         <v-row>
           <v-col cols="12" class="roboto-light color-secundary-text number-volunteers">
             Número de voluntários
@@ -41,7 +35,6 @@
               v-model="min_volunteers"  
               color="#949090"
               bordercolor="#C4C4C4"
-              label="mínimo"
               type="number"
               :placeholder="'Mínimo'"
               placeholderBlack
@@ -52,13 +45,18 @@
               v-model="max_volunteers" 
               color="#949090"
               bordercolor="#C4C4C4"
-              label="máximo"
               type="number"
               :placeholder="'Máximo'"
               placeholderBlack
             />
           </v-col>
         </v-row>
+        <div style="padding: 0px 20px">
+          <div class="col-12 text-color-default text-label">
+            Regras da colheita
+          </div>
+          <StringList class="container" v-model="rules"/>
+        </div>
       </div>
       <div class="content-button">
         <SignButton
@@ -166,6 +164,13 @@
 <style scoped lang="scss">
 @import "../assets/stylesheets/colors.scss";
 
+    .text-label{
+      color: $color-secundary-text;
+      padding: 12px 1% 0px 1% !important;
+      text-align: left;
+      font-size: 90%;
+    }
+
     .status{
       padding: 0px 20px;
     }
@@ -195,8 +200,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      width: 100%;
-      height: 100%;
+      width: auto;
+      height: auto;
       margin-top: 80px;
     }
 
