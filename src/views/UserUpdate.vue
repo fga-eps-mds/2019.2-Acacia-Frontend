@@ -1,5 +1,5 @@
 <template>
-    <div class="userupdate">
+    <div class="user-update">
         <TopBar
             :iconleft="'chevron-left'"
             color="#56a3a6"
@@ -85,6 +85,7 @@ export default {
             username: '',
         }
     },
+
     methods: {
         onFileSelected(event){
             this.profileImage = event
@@ -134,10 +135,11 @@ export default {
 
             state.authRequest('users/profile/', 'GET')
                 .then((response) => {
-                    this.phone_number = response.phone_number
-                    this.bio = response.bio
-                    this.profileImage = response.photo
-                    this.birthdate = response.birthdate
+                    console.log(response)
+                    this.phone_number = response.data.phone_number
+                    this.bio = response.data.bio
+                    this.profileImage = response.data.photo
+                    this.birthdate = response.data.birthdate
                 })
                 .catch((errors) => {
                     console.log(errors)
@@ -147,6 +149,7 @@ export default {
 
     },
     beforeMount(){
+        
         this.uploadProfile()
     }
 
@@ -165,7 +168,7 @@ export default {
         justify-content: left; 
     }
 
-    .userupdate{
+    .user-update{
         width: 100%;
 		height: 100%;
 		position: absolute;
