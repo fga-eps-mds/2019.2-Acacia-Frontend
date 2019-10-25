@@ -1,11 +1,13 @@
 <template>
-    <div id="signbutton">
-        <button v-on:click="$emit('action')"> {{label}} </button>
-    </div>
+  <div id="signbutton">
+    <button	@:click="$emit('action')"> 
+      {{ label }}
+    </button>
+  </div>
 </template>
 
 <script>
-    export default {
+export default {
         props: {
             label: {
                 default: '',

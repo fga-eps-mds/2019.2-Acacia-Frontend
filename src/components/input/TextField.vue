@@ -1,32 +1,39 @@
 <template>
-  <div id="textfield" class="textfield-container">
-
+  <div 
+    id="textfield" 
+    class="textfield-container"
+  >
     <div class="row ml-1 mr-1 centralize-div">
-
       <div 
         v-if="label" 
         class="col-12 p-0 textfield-label" 
-        :style="'color: ' + this.color">
-          {{ label }}
+        :style="'color: ' + this.color"
+      >
+        {{ label }}
       </div>
 
       <!-- When this component is instantiated without icon it is necessary 
       to render a line to assist the user. -->
-			<input 
-        v-model="typed_text" 
+      <input 
         v-if="!texticon" 
+        v-model="typed_text" 
         :type="getFieldType()" 
         :class="'text-input col-12 '"
         :placeholder="placeholder"
         :style="'border-bottom: 1px solid ' + this.bordercolor + ';' 
-                + 'color: ' + this.color + ';'"
+          + 'color: ' + this.color + ';'"
       >
 
-			<div v-else class="w-100 col p-0">
-
-				<font-awesome-icon :icon="texticon" style="color:white"/>
+      <div 
+        v-else 
+        class="w-100 col p-0"
+      >
+        <font-awesome-icon 
+          :icon="texticon"
+          style="color:white"
+        />
         
-				<input 
+        <input 
           v-model="typed_text" 
           style="border:none"
           :type="getFieldType()" 
@@ -34,17 +41,19 @@
           :placeholder="placeholder"
           :style="'color: ' + this.color"
         >
-
-				<!-- <div class="text-field-border"></div> -->
-			</div>
-
+        <!-- <div class="text-field-border"></div> -->
+      </div>
     </div>
   </div>
 </template>
 
 <script>
   export default {
-
+    model: {
+      event: "textfield-change",
+      prop: "input_text",
+    },
+    
     props: {
       label: {
         default: "",
@@ -66,7 +75,8 @@
         type: String
       },
 
-      input_text: {
+      inputText: {
+        default: "",
         type: String
       },
 
@@ -79,11 +89,6 @@
         default: "white",
         type: String
       },
-    },
-
-    model: {
-      prop: "input_text",
-      event: "textfield-change"
     },
 
     computed: {
