@@ -1,19 +1,21 @@
 <template>
-  <div id="topbar" class="navbar fixed-top">
-
+  <div 
+    id="topbar" 
+    class="navbar fixed-top"
+  >
     <div v-if="color == 'white'">
       <font-awesome-icon 
         v-if="iconleft" 
         :icon="iconleft" 
-        @click="selectLeft()" 
         style="color: white;"
+        @click="selectLeft()" 
       />
 
       <font-awesome-icon 
         v-if="iconright" 
         :icon="iconright" 
-        @click="selectRight()" 
         style="color: white;"
+        @click="selectRight()" 
       />
     </div>
 
@@ -21,15 +23,15 @@
       <font-awesome-icon 
         v-if="iconleft" 
         :icon="iconleft" 
-        @click="selectLeft()" 
         style="color: #2D9CDB;"
+        @click="selectLeft()" 
       />
 
       <font-awesome-icon 
         v-if="iconright" 
         :icon="iconright" 
-        @click="selectRight()" 
         style="color: #2D9CDB;"
+        @click="selectRight()" 
       />
     </div>
   </div>
