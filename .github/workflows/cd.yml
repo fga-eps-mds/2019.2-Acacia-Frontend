@@ -20,6 +20,6 @@ jobs:
     - name: Run container
       run: docker run -p 8080:8080 acacia-front-heroku
     - name: heroku login
-      uses: actions/heroku@v1.0.0
+      uses: actions/heroku@master
       with:
         args: "apps"
