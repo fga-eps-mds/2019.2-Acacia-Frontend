@@ -26,6 +26,13 @@ const messages = {
         RootPage: {
             title: "This is root page"
         },
+        ProfilePage: {
+            username: "Username",
+            phoneNumber: "Phone number",
+            bio: "Bio",
+            birthdate: "Birthdate",
+            email: "Email",
+        }
     },
     'pt': {
           SignPages: {
@@ -49,6 +56,13 @@ const messages = {
         RootPage: {
             title: "Essa é a pagina root"
         },
+        ProfilePage: {
+            username: "Nome de usuário",
+            phoneNumber: "Número de telefone",
+            bio: "Bio",
+            birthdate: "Data de nascimento",
+            email: "Email",
+        }
     },
 }
 

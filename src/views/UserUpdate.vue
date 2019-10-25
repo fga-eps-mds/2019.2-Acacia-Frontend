@@ -16,22 +16,36 @@
             </PhotoUpload>
             <TextField 
                 class="mt-3"
+                v-model="email"
+                :label="this.$t('ProfilePage.email')"
+                color="#949090"
+                :placeholder="email">
+            </TextField>
+            <TextField 
+                class="mt-3"
+                v-model="username"
+                :label="this.$t('ProfilePage.username')"
+                color="#949090"
+                :placeholder="username">
+            </TextField>
+            <TextField 
+                class="mt-3"
                 v-model="phone_number"
-                label="Telefone"
+                :label="this.$t('ProfilePage.phoneNumber')"
                 color="#949090"
                 :placeholder="phone_number">
             </TextField>
             <TextField
                 class="mt-3"
                 v-model="bio"
-                label="Bio"
+                :label="this.$t('ProfilePage.bio')"
                 color="#949090"
                 :placeholder="bio">
             </TextField>
             <DateField
                 class="datefield-container"
-                label="Birthdate">
-            </DateField>
+                :label="this.$t('ProfilePage.birthdate')"
+            />
             <div class="content-button">
                 <SignButton
                     class="mt-5"
@@ -64,9 +78,11 @@ export default {
     data (){
         return{
             profileImage: null,
+            email: '',
             phone_number: '',
             bio: '',
             birthdate: '',
+            username: '',
         }
     },
     methods: {
