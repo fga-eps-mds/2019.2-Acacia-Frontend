@@ -9,14 +9,8 @@
       </div>
       <div class="content-form">
         <DatePicker 
+          v-model="date"
           labelDate="Data da colheita"/>
-        <TextField 
-          class="mt-3" 
-          v-model="equipment" 
-          label="Equipamentos" 
-          color="#949090"
-          bordercolor="#C4C4C4"
-        />
         <TextField 
           class="mt-3" 
           v-model="description" 
@@ -24,38 +18,46 @@
           color="#949090"
           bordercolor="#C4C4C4"
         />
-        <div class="container">
-            <div class="roboto-light color-secundary-text">
-                Numero mínimo e máximo de voluntários
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <TextField  
-                    v-model="min_volunteers"  
-                    color="#949090"
-                    bordercolor="#C4C4C4"
-                    type="number"
-                    :placeholder="'Mínimo'"
-                    />       
-                </div>
-                <div class="col-6">
-                    <TextField  
-                    v-model="max_volunteers" 
-                    color="#949090"
-                    bordercolor="#C4C4C4"
-                    type="number"
-                    :placeholder="'Máximo'"
-                    />
-                </div>
-            </div>
-        </div>
-        </div>
+        <TextField 
+          class="mt-3" 
+          v-model="equipment" 
+          label="Equipamentos" 
+          color="#949090"
+          bordercolor="#C4C4C4"
+        />
         <div>
-          <div class="mt-5 roboto-light color-secundary-text">
+          <div class="mt-5 roboto-light textfield-label color-secundary-text ">
             Regras da colheita
           </div>
           <StringList class="container" v-model="rules"/>
         </div>
+        <v-row>
+          <v-col cols="12" class="roboto-light color-secundary-text number-volunteers">
+            Número de voluntários
+          </v-col>
+          <v-col cols="6" class="volunteer-quantity">
+            <TextField  
+              v-model="min_volunteers"  
+              color="#949090"
+              bordercolor="#C4C4C4"
+              label="mínimo"
+              type="number"
+              :placeholder="'Mínimo'"
+              placeholderBlack
+            />       
+          </v-col>
+          <v-col cols="6" class="volunteer-quantity">
+            <TextField  
+              v-model="max_volunteers" 
+              color="#949090"
+              bordercolor="#C4C4C4"
+              label="máximo"
+              type="number"
+              :placeholder="'Máximo'"
+              placeholderBlack
+            />
+          </v-col>
+        </v-row>
       </div>
       <div class="content-button">
         <SignButton
@@ -64,7 +66,6 @@
           @action="registerHarvest"
           direction="right"
           padding="small"
-          color="light-blue"
         />        
       </div>
     </div>
@@ -95,12 +96,7 @@
         max_volunteers: null,
         min_volunteers: null,
         status: '',
-        rules: [
-          'Programming',
-          'Design',
-          'Vue',
-          'Vuetify',
-        ],
+        rules: [],
       }
     },
     props: {
@@ -147,26 +143,26 @@
           })
       },
       validateInput(){
-        if (!this.brzipcode) {
-         this.$toasted.show('Insira seu CEP').goAway(2000)
-         return false
+        if (!this.date) {
+          this.$toasted.show('Insira a data').goAway(2000)
+          console.log(this.date)
+          return false
         }
-        if (!this.state) {
-         this.$toasted.show('Selecione um estado').goAway(2000)
-         return false
+        if (!this.description) {
+          this.$toasted.show('Insira a descrição').goAway(2000)
+          return false
         }
-        if (!this.city) {
-         this.$toasted.show('Insira uma cidade').goAway(2000)
-         return false
+        if (!this.min_volunteers) {
+          this.$toasted.show('Insira o número minimo de voluntários').goAway(2000)
+          return false
         }
-        if (!this.district) {
-         this.$toasted.show('Insira um bairro').goAway(2000)
-         return false
+        if (!this.max_volunteers) {
+          this.$toasted.show('Insira o número máximo de voluntários').goAway(2000)
+          return false
         }
-        
-        if (!this.street) {
-         this.$toasted.show('Insira um endereço').goAway(2000)
-         return false
+        if (this.min_volunteers > this.max_voluneteers) {
+          this.$toasted.show('Insira corretamente o número de voluntários').goAway(2000)
+          return false
         }
         return true
       },
@@ -178,45 +174,60 @@
 @import "../assets/stylesheets/colors.scss";
 
     .status{
-        padding: 0px 20px;
+      padding: 0px 20px;
+    }
+
+    .container{
+
+    }
+
+    .number-volunteers{
+      font-weight: bold;
+      font-size: 90%;
+  		color: $color-secundary-text;
+      padding: 20px 0px 0px 0px;
+    }
+
+    .volunteer-quantity{
+      padding: 10px 15px;
     }
 
     .harvest-form {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        margin-top: 0;
-        text-align: center;
-        background: white
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      margin-top: 0;
+      text-align: center;
+      background: white;
     }
 
     .content-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
     }
 
     .content-title {
-        h3{
-            font-weight: bold;
-        }
-        width: 100%;
-        padding: 0px 25px;
-        margin-bottom: 10%;
-        color: $color-primary;
-        display: flex;
-        justify-content: left; 
+      h3{
+        font-weight: bold;
+      }
+      width: 100%;
+      padding: 0px 25px;
+      margin-bottom: 10%;
+      color: $color-primary;
+      display: flex;
+      justify-content: left; 
     }
 
-    .content-button {
-        margin-top: 20px;
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: right;
+    .content-button { 
+      margin-top: 20px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: right;
     }
 
 </style>

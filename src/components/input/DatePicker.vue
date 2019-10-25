@@ -3,22 +3,22 @@
         <v-dialog
             ref="dialog"
             v-model="modal"
-            :return-value.sync="today"
+            :return-value.sync="date"
             persistent
             width="290px"
         >
             <template v-slot:activator="{ on }">
                 <v-text-field
-                    v-model="today"
+                    v-model="date"
                     :label="labelDate"
                     readonly
                     v-on="on"
                 ></v-text-field>
             </template>
-            <v-date-picker v-model="today" color="blue" :min="today" class="date-picker" scrollable>
+            <v-date-picker v-model="date" color="#376996" :min="today" class="date-picker" scrollable>
                 <v-spacer></v-spacer>
-                <v-btn color="blue" class="date-picker-button" @click="modal = false">Cancel</v-btn>
-                <v-btn color="blue" class="date-picker-button" @click="$refs.dialog.save(date)">Confirm</v-btn>
+                <v-btn color="#376996" class="date-picker-button" @click="modal = false">Cancel</v-btn>
+                <v-btn color="#376996" class="date-picker-button" @click="$refs.dialog.save(date)">Confirm</v-btn>
             </v-date-picker>
         </v-dialog>
     </div>
@@ -30,6 +30,7 @@
             labelDate: '',
         },
         data: () => ({
+            date: new Date().toISOString().slice(0,10),
             today: new Date().toISOString().slice(0,10),
             modal: false,
         }),
@@ -53,7 +54,8 @@
     }
 
     .container-date-picker {
-        padding: 0px 20px;
+        font-size: 12px;
+        padding: 0px 65% 0px 20px;
         margin: 1%;
     }
 

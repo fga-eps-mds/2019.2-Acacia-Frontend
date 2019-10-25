@@ -23,7 +23,7 @@
                 type: String
             },
             color: {
-                default: 'light-blue',
+                default: 'primary-blue',
                 type: String
             },
             padding: {
@@ -53,7 +53,6 @@
         margin: 10px;
         box-shadow: 0 2px 3px 0.5px $color-shadow;
         outline: none;
-        
     }
 
     button:active {
@@ -76,7 +75,7 @@
         background-color: $color-primary-dark;
     }
 
-    .light-blue{
+    .primary-blue{
         background-color: $color-primary; 
     }
 
