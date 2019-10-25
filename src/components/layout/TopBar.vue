@@ -49,6 +49,7 @@
     @import '@/assets/stylesheets/colors.scss';
     #topbar {
         padding: 15px;
+        z-index: 100 !important;
     }
     .color-primary {
         color: $color-primary;
