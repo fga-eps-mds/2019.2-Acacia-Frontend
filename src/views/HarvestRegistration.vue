@@ -2,15 +2,16 @@
   <div class="harvest-form">
     <TopBar 
         iconleft="chevron-left" 
-        color="color-primary"/>
+        color="color-primary"
+        style="background-color: white"/>
     <div class="content-container">
       <div class="content-title raleway-thin">
         <h3> Cadastrar colheita </h3>
       </div>
       <div class="content-form">
         <DatePicker 
-          v-model="date"
-          labelDate="Data da colheita"/>
+          :label="'Data da colheita'"
+          v-model="date"/>
         <TextField 
           class="mt-3" 
           v-model="description" 
@@ -61,7 +62,6 @@
       </div>
       <div class="content-button">
         <SignButton
-          class="mt-4" 
           label="Cadastrar" 
           @action="registerHarvest"
           direction="right"
@@ -107,9 +107,15 @@
     },
     methods: {
       registerHarvest(){
-        if (!this.validateInput()) {
-          return
-        }       
+        // if (!this.validateInput()) {
+        //   return
+        // }
+        
+        let rules = []
+
+        for (let i = 0; i < this.rules.length; i++) {
+          rules.push({"description" : this.rules[i]})
+        }
         
         let data = {
           date: this.date,
@@ -118,38 +124,21 @@
           max_volunteers: this.max_volunteers,
           min_volunteers: this.min_volunteers,
           status: this.status,
+          rules: rules
         }
 
-        this.$store.state.authRequest('harvest', 'POST', data)
+        console.log('FAZENDO A REQUEST')
+        this.$store.state.authRequest('harvests', 'POST', data)
           .then((response) => {
-            console.log(response)
+            console.log('FOI:', response)
           })
           .catch((error) => {
-            if(error.response.data.date){
-              this.$toasted.show(error.response.data.date).goAway(2000)
-            }
-            if(error.response.data.description){
-              this.$toasted.show(error.response.data.description).goAway(2000)
-            }
-            if(error.response.data.equipment){
-              this.$toasted.show(error.response.data.equipment).goAway(2000)
-            }
-            if(error.response.data.max_voluneteers){
-              this.$toasted.show(error.response.data.max_voluneteers).goAway(2000)
-            }
-            if(error.response.data.status){
-              this.$toasted.show(error.response.data.status).goAway(2000)
-            }
+            console.log('ERRO:', error)
           })
       },
       validateInput(){
         if (!this.date) {
           this.$toasted.show('Insira a data').goAway(2000)
-          console.log(this.date)
-          return false
-        }
-        if (!this.description) {
-          this.$toasted.show('Insira a descrição').goAway(2000)
           return false
         }
         if (!this.min_volunteers) {
@@ -164,6 +153,10 @@
           this.$toasted.show('Insira corretamente o número de voluntários').goAway(2000)
           return false
         }
+        if (this.rules.length > 10) {
+          this.$toasted.show('Diminua o número de regras da colheita').goAway(2000)
+          return false
+        }
         return true
       },
     }
@@ -175,10 +168,6 @@
 
     .status{
       padding: 0px 20px;
-    }
-
-    .container{
-
     }
 
     .number-volunteers{
@@ -208,6 +197,7 @@
       justify-content: center;
       width: 100%;
       height: 100%;
+      margin-top: 80px;
     }
 
     .content-title {
