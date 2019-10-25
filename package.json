@@ -1,78 +1,77 @@
 {
-  "name": "acacia",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "eslint \"src/**/*.{js,vue}\"",
-    "test:unit": "vue-cli-service test:unit --passWithNoTests"
-  },
-  "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.25",
-    "@fortawesome/free-brands-svg-icons": "^5.11.2",
-    "@fortawesome/free-solid-svg-icons": "^5.11.2",
-    "@fortawesome/vue-fontawesome": "^0.1.7",
-    "axios": "^0.19.0",
-    "bash": "0.0.1",
-    "bootstrap": "^4.3.1",
-    "bootstrap-vue": "^2.0.2",
-    "core-js": "^2.6.5",
-    "node-sass": "^4.12.0",
-    "sass-loader": "^8.0.0",
-    "vue": "^2.6.10",
-    "vue-cookie": "^1.1.4",
-    "vue-cookies": "^1.5.13",
-    "vue-flag-icon": "^1.0.6",
-    "vue-i18n": "^8.14.1",
-    "vue-router": "^3.1.3",
-    "vue-toasted": "^1.1.27",
-    "vuex": "^3.1.1"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.11.0",
-    "@vue/cli-plugin-eslint": "^3.11.0",
-    "@vue/cli-plugin-unit-jest": "^3.11.0",
-    "@vue/cli-service": "^3.11.0",
-    "@vue/test-utils": "1.0.0-beta.29",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^25.0.0",
-    "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.2.3",
-    "vue-template-compiler": "^2.6.10"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
+    "name": "acacia",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "lint": "eslint \"src/**/*.{js,vue}\"",
+        "test:unit": "vue-cli-service test:unit --passWithNoTests"
     },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "rules": {},
-    "parserOptions": {
-      "parser": "babel-eslint"
+    "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^1.2.25",
+        "@fortawesome/free-brands-svg-icons": "^5.11.2",
+        "@fortawesome/free-solid-svg-icons": "^5.11.2",
+        "@fortawesome/vue-fontawesome": "^0.1.7",
+        "axios": "^0.19.0",
+        "bash": "0.0.1",
+        "bootstrap": "^4.3.1",
+        "bootstrap-vue": "^2.0.2",
+        "core-js": "^2.6.5",
+        "node-sass": "^4.12.0",
+        "sass-loader": "^8.0.0",
+        "vue": "^2.6.10",
+        "vue-cookie": "^1.1.4",
+        "vue-cookies": "^1.5.13",
+        "vue-flag-icon": "^1.0.6",
+        "vue-i18n": "^8.14.1",
+        "vue-router": "^3.1.3",
+        "vue-toasted": "^1.1.27",
+        "vuex": "^3.1.1"
     },
-    "overrides": [
-      {
-        "files": [
-          "**/__tests__/*.{j,t}s?(x)"
-        ],
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "^3.11.0",
+        "@vue/cli-plugin-eslint": "^3.11.0",
+        "@vue/cli-plugin-unit-jest": "^3.11.0",
+        "@vue/cli-service": "^3.11.0",
+        "@vue/test-utils": "1.0.0-beta.29",
+        "babel-core": "7.0.0-bridge.0",
+        "babel-eslint": "^10.0.1",
+        "babel-jest": "^25.0.0",
+        "eslint": "^5.16.0",
+        "eslint-plugin-eslint-plugin": "^2.1.0",
+        "eslint-plugin-vue": "^5.2.3",
+        "vue-template-compiler": "^2.6.10"
+    },
+    "eslintConfig": {
+        "root": true,
         "env": {
-          "jest": true
+            "node": true
+        },
+        "extends": [
+            "plugin:vue/essential",
+            "eslint:recommended"
+        ],
+        "rules": {},
+        "parserOptions": {
+            "parser": "babel-eslint"
+        },
+        "overrides": [{
+            "files": [
+                "**/__tests__/*.{j,t}s?(x)"
+            ],
+            "env": {
+                "jest": true
+            }
+        }]
+    },
+    "postcss": {
+        "plugins": {
+            "autoprefixer": {}
         }
-      }
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions"
     ]
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions"
-  ]
 }

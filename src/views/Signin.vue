@@ -1,6 +1,8 @@
 <template>
   <div class="signin gradient">
-    <TopBar :iconleft="'chevron-left'" />
+    <TopBar 
+      :iconleft="'chevron-left'"
+    />
     <div class="content-container">
       <img 
         width="45%" 

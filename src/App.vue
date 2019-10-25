@@ -1,13 +1,10 @@
 <template>
   <div id="app">
-    <!-- Icons from fontawesome -->
-    <link 
+    <link
       rel="stylesheet"
       integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
       crossorigin="anonymous"
     >
-
-    <!-- The view from router is shown here -->
     <router-view />
   </div>
 </template>

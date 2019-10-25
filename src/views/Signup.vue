@@ -1,18 +1,19 @@
 <template>
   <div class="signup gradient">
-    <TopBar :iconleft="'chevron-left'" />
+    <TopBar
+      :iconleft="'chevron-left'"
+    />
     <div class="content-container">
       <div class="content-title">
         <a style="font-size: 40px"> 
           {{ $t('SignPages.createAccount') }} 
         </a>
       </div>
-
       <div class="content-form">
         <TextField 
           v-model="username" 
           class="mt-3" 
-          :label="this.$t('SignPages.name')" 
+          :label="this.$t('SignPages.name')"
         />
         <TextField 
           v-model="email" 
