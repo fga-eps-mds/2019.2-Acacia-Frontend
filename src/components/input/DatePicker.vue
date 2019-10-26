@@ -30,14 +30,14 @@
           class="date-picker-button"
           @click="modal = false"
         >
-          Cancel
+          Cancelar
         </v-btn>
         <v-btn
           color="#376996"
           class="date-picker-button"
           @click="$refs.dialog.save(date)"
         >
-          Confirm
+          Confirmar
         </v-btn>
       </v-date-picker>
     </v-dialog>
