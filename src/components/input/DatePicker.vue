@@ -9,13 +9,15 @@
     >
       <template v-slot:activator="{ on }">
         <v-text-field
-          v-model="date"
+          v-model="computedDateFormatted"
           :label="label"
+          persistent-hint
           readonly
           v-on="on"
         />
       </template>
       <v-date-picker 
+        locale="pt-br"
         v-model="dateLocal"
         color="#376996"
         :min="today"
@@ -71,9 +73,20 @@ export default {
           this.$emit('datepicker-change', value)
       }
     },
+    computedDateFormatted () {
+        return this.formatDate(this.date)
+    },
   },
   created() {
     this.dateLocal = new Date().toISOString().substr(0, 10)
+  },
+  methods: {
+    formatDate (date) {
+      if (!date) return null
+
+      const [year, month, day] = date.split('-')
+      return `${day}/${month}/${year}`
+    },
   },
 }
 </script>

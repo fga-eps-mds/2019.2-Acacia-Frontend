@@ -2,7 +2,10 @@
   <div id="stringlist">
     <div>
       <v-row>
-        <v-col cols="10" class="p-0">
+        <v-col 
+          cols="10"
+          class="p-0"
+        >
           <TextField 
             v-model="textfield"
             color="#949090"
@@ -10,13 +13,14 @@
           />
         </v-col>
         <v-col 
-            cols="2"
-            class="p-0"
+          cols="2"
+          class="p-0"
         >
           <font-awesome-icon
-            @click="addNewListElementAndSaveLast"
+            icon="plus" 
             class="icon"
-            icon="plus" />
+            @click="addNewListElementAndSaveLast"
+          />
         </v-col>
       </v-row>
     </div>
@@ -34,9 +38,9 @@
         </div>
         <div class="col-2">
           <font-awesome-icon
-            @click="eraseListElement(index)"
-            class="icon"
             icon="minus"
+            class="icon"
+            @click="eraseListElement(index)"
           />
         </div>
       </div>
@@ -57,7 +61,7 @@ export default {
   props: {
     list: {
       type: Array,
-      default: ''
+      default: () => 1
     },
   },
   data() {
