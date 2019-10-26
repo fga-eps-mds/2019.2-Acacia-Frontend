@@ -105,10 +105,10 @@
     },
     methods: {
       registerHarvest(){
-        // if (!this.validateInput()) {
-        //   return
-        // }
-        
+        if (!this.validateInput()) {
+          return
+        }
+
         let rules = []
 
         for (let i = 0; i < this.rules.length; i++) {
@@ -126,14 +126,16 @@
         }
 
         console.log('FAZENDO A REQUEST')
+
         this.$store.state.authRequest('harvests', 'POST', data)
           .then((response) => {
             console.log('FOI:', response)
           })
           .catch((error) => {
-            console.log('ERRO:', error)
+            console.log(error)
           })
       },
+
       validateInput(){
         if (!this.date) {
           this.$toasted.show('Insira a data').goAway(2000)
@@ -147,7 +149,7 @@
           this.$toasted.show('Insira o número máximo de voluntários').goAway(2000)
           return false
         }
-        if (this.min_volunteers > this.max_voluneteers) {
+        if (this.min_volunteers > this.max_volunteers) {
           this.$toasted.show('Insira corretamente o número de voluntários').goAway(2000)
           return false
         }
@@ -166,7 +168,7 @@
 
     .text-label{
       color: $color-secundary-text;
-      padding: 12px 1% 0px 1% !important;
+      padding: 15px 1% 0px 1% !important;
       text-align: left;
       font-size: 90%;
     }

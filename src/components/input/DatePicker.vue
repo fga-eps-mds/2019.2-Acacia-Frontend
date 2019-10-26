@@ -15,7 +15,7 @@
                     v-on="on"
                 ></v-text-field>
             </template>
-            <v-date-picker v-model="dateLocal" color="blue" :min="today" class="date-picker" scrollable>
+            <v-date-picker v-model="dateLocal" color="#376996" :min="today" class="date-picker" scrollable>
                 <v-spacer></v-spacer>
                 <v-btn color="#376996" class="date-picker-button" @click="modal = false">Cancel</v-btn>
                 <v-btn color="#376996" class="date-picker-button" @click="$refs.dialog.save(date)">Confirm</v-btn>
@@ -33,7 +33,7 @@ export default {
   props: {
     date: {
       type: String,
-      default: new Date().toISOString().substr(0, 10)
+      default: ''
     },
     label: {
       type: String,

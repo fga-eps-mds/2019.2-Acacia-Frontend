@@ -82,11 +82,11 @@ export default {
   @import "../../assets/stylesheets/colors.scss";
 
     #stringlist{
-        padding: 10px 0px !important;
+        padding: 8px 0px !important;
     }
 
     .icon{
-        font-size:12px;
+        font-size:15px;
         color: $color-primary !important;
     }
 

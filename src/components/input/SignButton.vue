@@ -6,8 +6,6 @@
             :class="color + ' ' + padding"> 
             {{label}}
         </button>
-
-
     </div>
 </template>
 

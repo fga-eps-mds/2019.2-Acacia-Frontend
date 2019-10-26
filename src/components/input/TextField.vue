@@ -11,10 +11,10 @@
 				v-if="!texticon" 
 				:type="type" 
 				:class="{
-				'text-input' : true, 
-				'col-12': true, 
-				'black-placeholder': placeholderBlack, 
-				'white-placeholder': !placeholderBlack}" 
+					'text-input' : true, 
+					'col-12': true, 
+					'black-placeholder': placeholderBlack, 
+					'white-placeholder': !placeholderBlack}" 
 				:placeholder="placeholder" 
 				:style="componentStyle">
 			<div 	
@@ -119,12 +119,10 @@ export default {
 		border-bottom-color: '#bbbbbb';
 		width: 80%;
 		padding: 1%;
-		color: $color-primary-text !important;
 	}
 
 	.text-input:focus {
 		outline: none;
-		color: $color-primary-text !important;
 		border-bottom-color: $color-default-text;
 	}
 
@@ -139,17 +137,17 @@ export default {
 	input.white-placeholder::-webkit-input-placeholder {
 		color: #ffffff;
 	}
-  input.black-placeholder::-webkit-input-placeholder {
+	input.black-placeholder::-webkit-input-placeholder {
 		color: #949090;
 	}
 	input:focus::-webkit-input-placeholder {
 		color: rgba(0,0,0,0);
 	}
-	/* Firefox > 19 */
-  input.white-placeholder::-moz-placeholder {
+		/* Firefox > 19 */
+	input.white-placeholder::-moz-placeholder {
 		color: #ffffff;
 	}
-  input.black-placeholder::-moz-placeholder {
+	input.black-placeholder::-moz-placeholder {
 		color: #949090;
 	}
 	input:focus::-moz-placeholder {

@@ -12,19 +12,27 @@
         <TextField 
           class="mt-3" 
           v-model="username" 
+          color="white"
+          bordercolor="white"
           :label="this.$t('SignPages.name')"/>
         <TextField 
           class="mt-3" 
           v-model="email" 
+          color="white"
+          bordercolor="white"
           :label="this.$t('SignPages.email')"/>
         <TextField 
           class="mt-3" 
           v-model="password" 
+          color="white"
+          bordercolor="white"
           :label="this.$t('SignPages.password')" 
           type="password"/>
         <TextField 
           class="mt-3" 
           v-model="confirm_password" 
+          color="white"
+          bordercolor="white"
           :label="this.$t('SignPages.confirmPassword')" 
           type="password"/>
 
