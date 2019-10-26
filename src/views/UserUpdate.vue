@@ -47,7 +47,6 @@
                 v-model="date"
                 :label="this.$t('ProfilePage.birthdate')"
                 :maxDate="getLimitDate()"
-                :labelDate="birthdate"
                 @confirm-date="setDate()"
             />
             <div class="content-button">
@@ -157,6 +156,7 @@ export default {
                     this.bio = response.data.bio
                     this.profileImage = response.data.photo
                     this.birthdate = response.data.birthdate
+                    this.date = this.birthdate
                     this.username = response.data.username
                     this.email = response.data.email
                 })
