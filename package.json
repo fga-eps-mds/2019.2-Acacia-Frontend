@@ -40,6 +40,8 @@
     "babel-eslint": "^10.0.1",
     "babel-jest": "^25.0.0",
     "eslint": "^5.16.0",
+    "eslint-plugin-eslint-plugin": "^2.1.0",
+    "eslint-plugin-vue": "^5.2.3",
     "eslint-plugin-vue": "^5.0.0",
     "sass": "^1.19.0",
     "sass-loader": "^8.0.0",
