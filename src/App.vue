@@ -1,7 +1,9 @@
 <template>
   <v-app id="app">
     <!-- Icons from fontawesome -->
-    <link rel="stylesheet" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+    <link
+      rel="stylesheet"
+      integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
       crossorigin="anonymous">
     <!-- The view from router is shown here -->
     <router-view />
@@ -31,9 +33,11 @@ export default {
   html {
     margin: 0;
   }
+
   body {
     margin: 0;
   }
+
   #app {
     font-family: RobotoRegular;
     -webkit-font-smoothing: antialiased;
@@ -41,4 +45,5 @@ export default {
     text-align: center;
     color: #2c3e50;
   }
+  
 </style>

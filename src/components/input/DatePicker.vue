@@ -1,35 +1,53 @@
 <template>
-    <div class="container-date-picker">
-        <v-dialog
-            ref="dialog"
-            v-model="modal"
-            :return-value.sync="date"
-            persistent
-            width="290px"
+  <div class="container-date-picker">
+    <v-dialog
+      ref="dialog"
+      v-model="modal"
+      :return-value.sync="date"
+      persistent
+      width="290px"
+    >
+      <template v-slot:activator="{ on }">
+        <v-text-field
+          v-model="date"
+          :label="label"
+          readonly
+          v-on="on"
+        />
+      </template>
+      <v-date-picker 
+        v-model="dateLocal"
+        color="#376996"
+        :min="today"
+        class="date-picker"
+        scrollable
+      >
+        <v-spacer/>
+        <v-btn
+          color="#376996"
+          class="date-picker-button"
+          @click="modal = false"
         >
-            <template v-slot:activator="{ on }">
-                <v-text-field
-                    v-model="date"
-                    :label="label"
-                    readonly
-                    v-on="on"
-                ></v-text-field>
-            </template>
-            <v-date-picker v-model="dateLocal" color="#376996" :min="today" class="date-picker" scrollable>
-                <v-spacer></v-spacer>
-                <v-btn color="#376996" class="date-picker-button" @click="modal = false">Cancel</v-btn>
-                <v-btn color="#376996" class="date-picker-button" @click="$refs.dialog.save(date)">Confirm</v-btn>
-            </v-date-picker>
-        </v-dialog>
-    </div>
+          Cancel
+        </v-btn>
+        <v-btn
+          color="#376996"
+          class="date-picker-button"
+          @click="$refs.dialog.save(date)"
+        >
+          Confirm
+        </v-btn>
+      </v-date-picker>
+    </v-dialog>
+  </div>
 </template>
 
 <script>
 export default {
-  data: () => ({
-    today: new Date().toISOString().slice(0,10),
-    modal: false,
-  }),
+  model: {
+    prop: 'date',
+    event: 'datepicker-change'
+  },
   props: {
     date: {
       type: String,
@@ -40,22 +58,22 @@ export default {
       default: ''
     }
   },
-  model: {
-		prop: 'date',
-		event: 'datepicker-change'
+  data: () => ({
+    today: new Date().toISOString().slice(0,10),
+    modal: false,
+  }),
+  computed: {
+    dateLocal: {
+      get: function() {
+          return this.date
+      },
+      set: function(value) {
+          this.$emit('datepicker-change', value)
+      }
+    },
   },
   created() {
     this.dateLocal = new Date().toISOString().substr(0, 10)
-  },
-	computed: {
-		dateLocal: {
-			get: function() {
-					return this.date
-			},
-			set: function(value) {
-					this.$emit('datepicker-change', value)
-			}
-		},
   },
 }
 </script>

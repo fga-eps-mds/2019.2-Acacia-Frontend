@@ -1,52 +1,63 @@
 <template>
   <div class="harvest-form">
     <TopBar 
-        iconleft="chevron-left" 
-        color="color-primary"
-        style="background-color: white"/>
+      iconleft="chevron-left" 
+      color="color-primary"
+      style="background-color: white"
+    />
     <div class="content-container">
       <div class="content-title raleway-thin">
         <h3> Cadastrar colheita </h3>
       </div>
       <div class="content-form">
         <DatePicker 
-          :label="'Data da colheita'"
-          v-model="date"/>
+          v-model="date"
+          label="Data da colheita"
+        />
         <TextField 
-          class="mt-3" 
           v-model="description" 
+          class="mt-3" 
           label="Descrição" 
           color="#949090"
           bordercolor="#C4C4C4"
         />
         <TextField 
-          class="mt-3" 
           v-model="equipment" 
+          class="mt-3" 
           label="Equipamentos" 
           color="#949090"
           bordercolor="#C4C4C4"
         />
         <v-row>
-          <v-col cols="12" class="roboto-light color-secundary-text number-volunteers">
+          <v-col 
+            cols="12" 
+            class="roboto-light color-secundary-text number-volunteers"
+          >
             Número de voluntários
           </v-col>
-          <v-col cols="6" class="volunteer-quantity">
+          <v-col  
+            cols="6" 
+            class="volunteer-quantity"
+          >
             <TextField  
               v-model="min_volunteers"  
               color="#949090"
               bordercolor="#C4C4C4"
               type="number"
-              :placeholder="'Mínimo'"
+              placeholder="Mínimo"
               placeholderBlack
             />       
           </v-col>
-          <v-col cols="6" class="volunteer-quantity">
+          <v-col 
+            cols="6" 
+            class="volunteer-quantity"
+          >
             <TextField  
               v-model="max_volunteers" 
               color="#949090"
               bordercolor="#C4C4C4"
               type="number"
-              :placeholder="'Máximo'"
+              placeholder="Máximo"
               placeholderBlack
             />
           </v-col>
@@ -55,20 +66,22 @@
           <div class="col-12 text-color-default text-label">
             Regras da colheita
           </div>
-          <StringList class="container" v-model="rules"/>
+          <StringList
+            v-model="rules"
+            class="container"
+          />
         </div>
       </div>
       <div class="content-button">
         <SignButton
           label="Cadastrar" 
-          @action="registerHarvest"
-          direction="right"
           padding="small"
+          direction="right"
+          @action="registerHarvest"
         />        
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -95,12 +108,6 @@
         min_volunteers: null,
         status: '',
         rules: [],
-      }
-    },
-    props: {
-    },
-    computed: {
-      stateInitials() {
       }
     },
     methods: {
