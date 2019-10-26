@@ -46,6 +46,8 @@
                 class="datefield-container"
                 :label="this.$t('ProfilePage.birthdate')"
                 :maxDate="getLimitDate()"
+                :labelDate="birthdate"
+                @confirm-date="setDate()"
             />
             <div class="content-button">
                 <SignButton
@@ -84,12 +86,18 @@ export default {
             bio: '',
             birthdate: '',
             username: '',
+
         }
     },
 
     methods: {
         onFileSelected(event){
             this.profileImage = event
+        },
+
+        setDate(payload) {
+            this.birthdate = payload.date
+            console.log(this.birthdate)
         },
 
         
@@ -147,6 +155,8 @@ export default {
                     this.bio = response.data.bio
                     this.profileImage = response.data.photo
                     this.birthdate = response.data.birthdate
+                    this.username = response.data.username
+                    this.email = response.data.email
                 })
                 .catch((errors) => {
                     console.log(errors)

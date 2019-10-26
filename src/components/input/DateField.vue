@@ -1,7 +1,14 @@
 <template>
     <div class="datefield-container"> 
         <div v-if="label" class="p-0 col-12 text-color-secundary datefield-label">{{ label }}</div>
-        <datetime class="datefield-format" input-class="input-format" :max-datetime="maxDate" input-style="border-top:0; border-left:0; border-right:0;"></datetime>
+        <datetime
+            class="datefield-format"
+            input-class="input-format"
+            :max-datetime="maxDate"
+            input-style="border-top:0; border-left:0; border-right:0;"
+            :value="labelDate"
+            @confirm="sendDate()"
+        ></datetime>
     </div>
 </template>
 
@@ -15,8 +22,20 @@ export default {
         maxDate: {
             default: '',
             type: String,
-        }
+        },
+        labelDate: {
+            default: '',
+            type: String,
+        },
     },
+
+    methods: {
+        sendDate(datetime){
+            console.log("That is ok whit event")
+            const myDate = datetime.value;
+            this.$emit('confirm-date', {date: this.myDate})
+        }
+    }
 }
 </script>
 
