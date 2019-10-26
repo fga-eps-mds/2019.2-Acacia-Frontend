@@ -6,15 +6,15 @@
     <font-awesome-icon
       v-if="iconleft"
       :icon="iconleft"
-      :class: "color"
-      @click="selectLeft()"
+      :class="color"
+      @click="selectLeft"
     />
 
     <font-awesome-icon
       v-if="iconright"
       :icon="iconright"
-      :class: "color"
-      @click="selectRight()"
+      :class="color"
+      @click="selectRight"
     />
   </div>
 </template>

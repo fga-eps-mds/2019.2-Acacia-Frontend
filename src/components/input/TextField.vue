@@ -137,8 +137,11 @@ export default {
 }
 
 /* Hidden placeholder when focus */
-input::-webkit-input-placeholder {
+input.white-placeholder::-webkit-input-placeholder {
   color: #ffffff;
+}
+input.black-placeholder::-webkit-input-placeholder {
+  color: #949090;
 }
 input:focus::-webkit-input-placeholder {
   color: rgba(0, 0, 0, 0);

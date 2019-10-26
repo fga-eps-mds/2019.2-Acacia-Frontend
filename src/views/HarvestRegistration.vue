@@ -7,24 +7,24 @@
     />
     <div class="content-container">
       <div class="content-title raleway-thin">
-        <h3> Cadastrar colheita </h3>
+        <h3> {{ $t('HarvestRegister.register') }} </h3>
       </div>
       <div class="content-form">
         <DatePicker 
           v-model="date"
-          label="Data da colheita"
+          :label="$t('HarvestRegister.date')"
         />
         <TextField 
           v-model="description" 
           class="mt-3" 
-          label="Descrição" 
+          :label="$t('HarvestRegister.description')" 
           color="#949090"
           bordercolor="#C4C4C4"
         />
         <TextField 
           v-model="equipment" 
           class="mt-3" 
-          label="Equipamentos" 
+          :label="$t('HarvestRegister.equipment')" 
           color="#949090"
           bordercolor="#C4C4C4"
         />
@@ -33,7 +33,7 @@
             cols="12" 
             class="roboto-light color-secundary-text number-volunteers"
           >
-            Número de voluntários
+            {{ $t('HarvestRegister.volunteerNumber') }}
           </v-col>
           <v-col  
             cols="6" 
@@ -44,8 +44,8 @@
               color="#949090"
               bordercolor="#C4C4C4"
               type="number"
-              placeholder="Mínimo"
-              placeholderBlack
+              :placeholder="$t('HarvestRegister.minimum')"
+              :placeholderBlack="true"
             />       
           </v-col>
           <v-col 
@@ -57,14 +57,14 @@
               color="#949090"
               bordercolor="#C4C4C4"
               type="number"
-              placeholder="Máximo"
-              placeholderBlack
+              :placeholder="$t('HarvestRegister.maximum')"
+              :placeholderBlack="true"
             />
           </v-col>
         </v-row>
         <div style="padding: 0px 20px">
           <div class="col-12 text-color-default text-label">
-            Regras da colheita
+            {{ $t('HarvestRegister.rules') }}
           </div>
           <StringList
             v-model="rules"
@@ -74,7 +74,7 @@
       </div>
       <div class="content-button">
         <SignButton
-          label="Cadastrar" 
+          :label="$t('HarvestRegister.create')" 
           padding="small"
           direction="right"
           @action="registerHarvest"
@@ -126,45 +126,18 @@
           date: this.date,
           description: this.description,
           equipment: this.equipment,
-          max_volunteers: parseInt(this.max_volunteers),
-          min_volunteers: parseInt(this.min_volunteers),
+          max_volunteers: this.max_volunteers,
+          min_volunteers: this.min_volunteers,
           status: 'Open',
           rules: rules
         }
 
-        console.log(typeof(parseInt(this.max_volunteers)))
-        console.log('FAZENDO A REQUEST')
-
         this.$store.state.authRequest('harvests', 'POST', data)
           .then((response) => {
-            console.log('FOI:', response)
             this.$toasted.show('Colheita cadastrada').goAway(2000)
             router.push({name: 'home'})
           })
           .catch((error) => {
-            console.log('Erro:', error)
-            console.log('Erro:', error.response)
-            if(error.response.data.email){
-              this.$toasted.show(error.response.data.date).goAway(2000)
-            }
-            if(error.response.data.username){
-              this.$toasted.show(error.response.data.max_volunteers).goAway(2000)
-            }
-            if(error.response.data.password){
-              this.$toasted.show(error.response.data.min_volunteers).goAway(2000)
-            }
-            if(error.response.data.email){
-              this.$toasted.show(error.response.data.description).goAway(2000)
-            }
-            if(error.response.data.username){
-              this.$toasted.show(error.response.data.equipment).goAway(2000)
-            }
-            if(error.response.data.password){
-              this.$toasted.show(error.response.data.rules).goAway(2000)
-            }
-            if(error.response.data.password){
-              this.$toasted.show(error.response.data.status).goAway(2000)
-            }
           })
       },
 

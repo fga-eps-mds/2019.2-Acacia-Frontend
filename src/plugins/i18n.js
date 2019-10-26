@@ -26,6 +26,20 @@ const messages = {
         RootPage: {
             title: "This is root page"
         },
+        HarvestRegister: {
+            register: "Harvest Registration",
+            date: "Date",
+            description: "Descritpion",
+            equipment: "Equipment",
+            volunteerNumber: "Volunteer numbers",
+            minimum: "Minimum",
+            maximum: "Maximum",
+            rules: " Rules",
+            create: "Register"
+        },
+        Global: {
+            locale: "en",
+        }
     },
     'pt': {
           SignPages: {
@@ -49,6 +63,21 @@ const messages = {
         RootPage: {
             title: "Essa é a pagina root"
         },
+        HarvestRegister: {
+            register: "Criar colhieta",
+            date: "Data de colheita",
+            description: "Descrição",
+            equipment: "Equipamento",
+            volunteerNumber: "Número de voluntários",
+            minimum: "Mínimo",
+            maximum: "Maximo",
+            rules: " Regras da colheita",
+            create: "Cadastrar"
+        },
+        Global: {
+            locale: "pt-br",
+        }
+
     },
 }
 
