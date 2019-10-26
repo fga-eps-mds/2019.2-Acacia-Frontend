@@ -22,7 +22,7 @@
         class="date-picker"
         scrollable
       >
-        <v-spacer/>
+        <v-spacer />
         <v-btn
           color="#376996"
           class="date-picker-button"
