@@ -44,6 +44,7 @@
             </TextField>
             <DateField
                 class="datefield-container"
+                v-model="date"
                 :label="this.$t('ProfilePage.birthdate')"
                 :maxDate="getLimitDate()"
                 :labelDate="birthdate"
@@ -86,7 +87,7 @@ export default {
             bio: '',
             birthdate: '',
             username: '',
-
+            date: '',
         }
     },
 
@@ -95,8 +96,9 @@ export default {
             this.profileImage = event
         },
 
-        setDate(payload) {
-            this.birthdate = payload.date
+        setDate() {
+            this.birthdate = this.date
+            this.birthdate = this.birthdate.substr(0 , 10)
             console.log(this.birthdate)
         },
 

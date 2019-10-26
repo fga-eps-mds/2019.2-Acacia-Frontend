@@ -3,6 +3,8 @@
         <div v-if="label" class="p-0 col-12 text-color-secundary datefield-label">{{ label }}</div>
         <datetime
             class="datefield-format"
+            v-model="dateLocal"
+            color="#376996"
             input-class="input-format"
             :max-datetime="maxDate"
             input-style="border-top:0; border-left:0; border-right:0;"
@@ -14,6 +16,11 @@
 
 <script>
 export default {
+    model: {
+        prop: 'date',
+        event: 'confirm-date'
+    },
+
     props: {
         label: {
             default: '',
@@ -27,15 +34,26 @@ export default {
             default: '',
             type: String,
         },
+        date: {
+            default: '',
+            type: String,
+        }
     },
 
-    methods: {
-        sendDate(datetime){
-            console.log("That is ok whit event")
-            const myDate = datetime.value;
-            this.$emit('confirm-date', {date: this.myDate})
+    computed: {
+        dateLocal: {
+            get: function(){
+                return this.date
+            },
+            set: function(value){
+                this.$emit('confirm-date', value)
+            }
         }
-    }
+    },
+
+    created() {
+        this.dateLocal = new Date().toISOString().substr(0, 10)
+    },
 }
 </script>
 
