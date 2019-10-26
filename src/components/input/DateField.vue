@@ -1,7 +1,7 @@
 <template>
     <div class="datefield-container"> 
         <div v-if="label" class="p-0 col-12 text-color-secundary datefield-label">{{ label }}</div>
-        <datetime class="datefield-format" input-class="input-format" :max-datetime="getDateToday()" input-style="border-top:0; border-left:0; border-right:0;"></datetime>
+        <datetime class="datefield-format" input-class="input-format" :max-datetime="maxDate" input-style="border-top:0; border-left:0; border-right:0;"></datetime>
     </div>
 </template>
 
@@ -12,14 +12,11 @@ export default {
             default: '',
             type: String,
         },
+        maxDate: {
+            default: '',
+            type: String,
+        }
     },
-
-    methods: {
-        getDateToday() { // Return the current day in ISO 8601
-            let today = new Date()
-            return today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate()
-        } 
-    }
 }
 </script>
 

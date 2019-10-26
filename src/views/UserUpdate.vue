@@ -45,6 +45,7 @@
             <DateField
                 class="datefield-container"
                 :label="this.$t('ProfilePage.birthdate')"
+                :maxDate="getLimitDate()"
             />
             <div class="content-button">
                 <SignButton
@@ -89,6 +90,12 @@ export default {
     methods: {
         onFileSelected(event){
             this.profileImage = event
+        },
+
+        
+        getLimitDate() { // Return the current day in ISO 8601
+            let today = new Date()
+            return (today.getFullYear() - 14) + '-' + (today.getMonth()+1) + '-' + today.getDate()
         },
 
 
