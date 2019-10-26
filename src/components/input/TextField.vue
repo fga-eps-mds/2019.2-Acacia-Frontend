@@ -1,10 +1,14 @@
 <template>
-	<div id="textfield" class="textfield-container">
+	<div 
+    id="textfield"
+    class="textfield-container">
 		<div class="row ml-1 mr-1">
 			<div 
 				v-if="label" 
 				class="col-12 p-0 text-color-default textfield-label" 
-				:style="componentStyle">{{ label }}
+				:style="componentStyle"
+      >
+        {{ label }}
 			</div>
 			<input 
 				v-model="variableLocal" 
@@ -42,6 +46,10 @@
 
 <script>
 export default {
+  model: {
+		prop: 'variable',
+		event: 'textfield-change'
+	},
 	props: {
 		label: {
 			default: '',
@@ -71,10 +79,6 @@ export default {
       default: false
     }
 	},
-	model: {
-		prop: 'variable',
-		event: 'textfield-change'
-	},
 	computed: {
 		variableLocal: {
 			get: function() {
@@ -95,62 +99,70 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-	@import "../../assets/stylesheets/colors.scss";
+@import "../../assets/stylesheets/colors.scss";
 
-	.textfield-label {
-		text-align: left;
-		font-size: 90%;
-	}
+.textfield-label {
+  text-align: left;
+  font-size: 90%;
+}
 
-	.textfield-container {
-		width: 100%;
-		padding-right: 20px;
-		padding-left: 20px;
-		margin-right: auto;
-		margin-left: auto;
-	}
+.textfield-container {
+  width: 100%;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-right: auto;
+  margin-left: auto;
+}
 
-	.text-input {
-		background-color: rgba(7, 37, 37,0 );
-		border-top: 0;
-		border-left: 0;
-		border-right: 0;
-		border-bottom: 1px solid; 
-		border-bottom-color: '#bbbbbb';
-		width: 80%;
-		padding: 1%;
-	}
+.text-input {
+  background-color: rgba(7, 37, 37,0 );
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 1px solid; 
+  border-bottom-color: '#bbbbbb';
+  width: 80%;
+  padding: 1%;
+}
 
-	.text-input:focus {
-		outline: none;
-		border-bottom-color: $color-default-text;
-	}
+.text-input:focus {
+  outline: none;
+  border-bottom-color: $color-default-text;
+}
 
-	.text-field-border {
-		height: 1px;
-		width: 100%;
-		background-color: #ffffff;
-	}
+.text-field-border {
+  height: 1px;
+  width: 100%;
+  background-color: #ffffff;
+}
 
-	/* Hidden placeholder when focus */
-  /* Chrome */
-	input.white-placeholder::-webkit-input-placeholder {
-		color: #ffffff;
-	}
-	input.black-placeholder::-webkit-input-placeholder {
-		color: #949090;
-	}
-	input:focus::-webkit-input-placeholder {
-		color: rgba(0,0,0,0);
-	}
-		/* Firefox > 19 */
-	input.white-placeholder::-moz-placeholder {
-		color: #ffffff;
-	}
-	input.black-placeholder::-moz-placeholder {
-		color: #949090;
-	}
-	input:focus::-moz-placeholder {
-		color: rgba(0,0,0,0);
-	}
+/* Hidden placeholder when focus */
+input::-webkit-input-placeholder {
+  color: #ffffff;
+}
+input:focus::-webkit-input-placeholder {
+  color: rgba(0, 0, 0, 0);
+}
+/* Firefox < 19 */
+input:-moz-placeholder {
+  color: #ffffff;
+}
+input:focus:-moz-placeholder {
+  color: rgba(0, 0, 0, 0);
+}
+/* Firefox > 19 */
+input::-moz-placeholder {
+  color: #ffffff;
+}
+input:focus::-moz-placeholder {
+  color: rgba(0, 0, 0, 0);
+}
+
+/* Internet Explorer 10 */
+input:-ms-input-placeholder {
+  color: #ffffff;
+}
+input:focus:-ms-input-placeholder {
+  color: rgba(0, 0, 0, 0);
+}
 </style>

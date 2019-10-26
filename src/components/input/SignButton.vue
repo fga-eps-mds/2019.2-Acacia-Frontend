@@ -34,11 +34,12 @@
             }
         },
     }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-    @import "../../assets/stylesheets/colors.scss";
-
+@import "../../assets/stylesheets/colors.scss";
     button {
         background-color: $color-primary;
         padding: 8px 65px;
@@ -84,5 +85,4 @@
     .small{
         padding: 8px 15px;
     }
-
 </style>
