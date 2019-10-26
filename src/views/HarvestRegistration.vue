@@ -119,20 +119,45 @@
           date: this.date,
           description: this.description,
           equipment: this.equipment,
-          max_volunteers: this.max_volunteers,
-          min_volunteers: this.min_volunteers,
-          status: this.status,
+          max_volunteers: parseInt(this.max_volunteers),
+          min_volunteers: parseInt(this.min_volunteers),
+          status: 'Open',
           rules: rules
         }
 
+        console.log(typeof(parseInt(this.max_volunteers)))
         console.log('FAZENDO A REQUEST')
 
         this.$store.state.authRequest('harvests', 'POST', data)
           .then((response) => {
             console.log('FOI:', response)
+            this.$toasted.show('Colheita cadastrada').goAway(2000)
+            router.push({name: 'home'})
           })
           .catch((error) => {
-            console.log(error)
+            console.log('Erro:', error)
+            console.log('Erro:', error.response)
+            if(error.response.data.email){
+              this.$toasted.show(error.response.data.date).goAway(2000)
+            }
+            if(error.response.data.username){
+              this.$toasted.show(error.response.data.max_volunteers).goAway(2000)
+            }
+            if(error.response.data.password){
+              this.$toasted.show(error.response.data.min_volunteers).goAway(2000)
+            }
+            if(error.response.data.email){
+              this.$toasted.show(error.response.data.description).goAway(2000)
+            }
+            if(error.response.data.username){
+              this.$toasted.show(error.response.data.equipment).goAway(2000)
+            }
+            if(error.response.data.password){
+              this.$toasted.show(error.response.data.rules).goAway(2000)
+            }
+            if(error.response.data.password){
+              this.$toasted.show(error.response.data.status).goAway(2000)
+            }
           })
       },
 
@@ -149,7 +174,7 @@
           this.$toasted.show('Insira o número máximo de voluntários').goAway(2000)
           return false
         }
-        if (this.min_volunteers > this.max_volunteers) {
+        if (parseInt(this.min_volunteers) > parseInt(this.max_volunteers)) {
           this.$toasted.show('Insira corretamente o número de voluntários').goAway(2000)
           return false
         }
