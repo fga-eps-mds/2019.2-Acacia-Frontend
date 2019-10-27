@@ -5,7 +5,23 @@ import HomePage from '@/views/HomePage.vue'
 import Signin from '@/views/Signin.vue'
 import Signup from '@/views/Signup.vue'
 import PropertyRegistration from '@/views/PropertyRegistration.vue'
+import store from './store'
 
+const ifNotAuthenticated = (to, from, next) => {
+  if (!store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/')
+}
+
+const ifAuthenticated = (to, from, next) => {
+  if (store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/signin')
+}
 
 Vue.use(Router)
 
@@ -20,6 +36,7 @@ export default new Router({
             path: '/signin',
             name: 'signin',
             component: Signin,
+            beforeEnter: ifNotAuthenticated,
         },
         {
             path: '/signup',
@@ -29,7 +46,8 @@ export default new Router({
         {
             name: 'propertyRegistration',
             path: '/property/registration',
-            component: PropertyRegistration
+            component: PropertyRegistration,
+            beforeEnter: ifAuthenticated,
         }
     ]
 })

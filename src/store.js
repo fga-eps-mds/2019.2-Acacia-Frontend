@@ -9,6 +9,7 @@ import { API_URL } from './config'
 
 export default new Vuex.Store({
   getters: {
+    isAuthenticated: state => !!state.getAccessToken()
   },
   state: {
     defaultLanguage: 'en',
