@@ -7,6 +7,7 @@
       <div
         v-if="label"
         class="col-12 p-0 text-color-default textfield-label"
+        :style="'color: ' + color"
       >
         {{ label }}
       </div>
@@ -17,6 +18,8 @@
         :type="getFieldType()"
         class="text-input col-12"
         :placeholder="placeholder"
+        :style="'border-bottom-color: ' + bordercolor + ';'
+          + 'color: ' + color + ';'"
       >
 
       <div
@@ -68,7 +71,15 @@ export default {
     variable: {
       default: "",
       type: String
-    }
+    },
+    color: {
+      default: "#ffffff",
+      type: String
+    },
+    bordercolor: {
+      default: "#bbbbbb",
+      type: String
+    },
   },
   computed: {
     variableLocal: {

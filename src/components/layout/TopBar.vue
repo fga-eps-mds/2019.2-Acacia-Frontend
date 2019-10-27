@@ -3,19 +3,39 @@
     id="topbar"
     class="navbar fixed-top"
   >
-    <font-awesome-icon
-      v-if="iconleft"
-      :icon="iconleft"
-      style="color: white;"
-      @click="selectLeft()"
-    />
+    <div 
+      v-if="color=='white'"
+    >
+      <font-awesome-icon 
+        v-if="iconleft" 
+        :icon="iconleft" 
+        style="color: white;"
+        @click="selectLeft()" 
+      />
+      <font-awesome-icon 
+        v-if="iconright" 
+        :icon="iconright" 
+        style="color: white;"
+        @click="selectRight()" 
+      />
+    </div>
 
-    <font-awesome-icon
-      v-if="iconright"
-      :icon="iconright"
-      style="color: white;"
-      @click="selectRight()"
-    />
+    <div 
+      v-else
+    >
+      <font-awesome-icon 
+        v-if="iconleft" 
+        :icon="iconleft" 
+        style="color: #2D9CDB;"
+        @click="selectLeft()" 
+      />
+      <font-awesome-icon 
+        v-if="iconright" 
+        :icon="iconright" 
+        style="color: #2D9CDB;"
+        @click="selectRight()" 
+      />
+    </div>
   </div>
 </template>
 
@@ -24,13 +44,16 @@ export default {
   props: {
     iconleft: {
       default: "",
-      type: String
+      type: String,
     },
-
     iconright: {
       default: "",
-      type: String
-    }
+      type: String,
+    },
+    color: {
+      default: "white",
+      type: String,
+    },
   },
 
   methods: {

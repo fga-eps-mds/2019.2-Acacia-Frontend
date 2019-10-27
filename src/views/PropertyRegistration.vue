@@ -347,7 +347,7 @@
 
 
   .content-button {
-    margin-top: 20px;
+    margin-top: 40px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
