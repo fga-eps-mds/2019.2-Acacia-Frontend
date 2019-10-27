@@ -7,6 +7,7 @@
       <div
         v-if="label"
         class="col-12 p-0 text-color-default textfield-label"
+        :style="'color: ' + color"
       >
         {{ label }}
       </div>
@@ -17,6 +18,8 @@
         :type="getFieldType()"
         class="text-input col-12"
         :placeholder="placeholder"
+        :style="'border-bottom-color: ' + bordercolor + ';'
+          + 'color: ' + color + ';'"
       >
 
       <div
@@ -68,7 +71,15 @@ export default {
     variable: {
       default: "",
       type: String
-    }
+    },
+    color: {
+      default: "#ffffff",
+      type: String
+    },
+    bordercolor: {
+      default: "#bbbbbb",
+      type: String
+    },
   },
   computed: {
     variableLocal: {
@@ -94,12 +105,10 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../assets/stylesheets/colors.scss";
-
 .textfield-label {
   text-align: left;
   font-size: 90%;
 }
-
 .textfield-container {
   width: 100%;
   padding-right: 20px;
@@ -107,7 +116,6 @@ export default {
   margin-right: auto;
   margin-left: auto;
 }
-
 .text-input {
   background-color: rgba(7, 37, 37, 0);
   border-top: 0;
@@ -119,18 +127,15 @@ export default {
   padding: 1%;
   color: $color-default-text;
 }
-
 .text-input:focus {
   outline: none;
   border-bottom-color: $color-default-text;
 }
-
 .text-field-border {
   height: 1px;
   width: 100%;
   background-color: #ffffff;
 }
-
 /* Hidden placeholder when focus */
 input::-webkit-input-placeholder {
   color: #ffffff;
@@ -152,7 +157,6 @@ input::-moz-placeholder {
 input:focus::-moz-placeholder {
   color: rgba(0, 0, 0, 0);
 }
-
 /* Internet Explorer 10 */
 input:-ms-input-placeholder {
   color: #ffffff;
