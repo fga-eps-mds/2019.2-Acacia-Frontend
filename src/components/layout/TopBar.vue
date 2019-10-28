@@ -1,39 +1,41 @@
 <template>
   <div
-    id="topbar"
+    id="container-topbar"
     class="navbar fixed-top"
   >
-    <div 
+    <div
+      class="topbar"
       v-if="color=='white'"
     >
-      <font-awesome-icon 
-        v-if="iconleft" 
-        :icon="iconleft" 
+      <font-awesome-icon
+        v-if="iconleft"
+        :icon="iconleft"
         style="color: white;"
-        @click="selectLeft()" 
+        @click="selectLeft()"
       />
-      <font-awesome-icon 
-        v-if="iconright" 
-        :icon="iconright" 
+      <font-awesome-icon
+        v-if="iconright"
+        :icon="iconright"
         style="color: white;"
-        @click="selectRight()" 
+        @click="selectRight()"
       />
     </div>
 
-    <div 
+    <div
+      class="topbar"
       v-else
     >
-      <font-awesome-icon 
-        v-if="iconleft" 
-        :icon="iconleft" 
+      <font-awesome-icon
+        v-if="iconleft"
+        :icon="iconleft"
         style="color: #2D9CDB;"
-        @click="selectLeft()" 
+        @click="selectLeft()"
       />
-      <font-awesome-icon 
-        v-if="iconright" 
-        :icon="iconright" 
+      <font-awesome-icon
+        v-if="iconright"
+        :icon="iconright"
         style="color: #2D9CDB;"
-        @click="selectRight()" 
+        @click="selectRight()"
       />
     </div>
   </div>
@@ -79,7 +81,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#topbar {
+
+.topbar{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#container-topbar {
   padding: 15px;
 }
 </style>
