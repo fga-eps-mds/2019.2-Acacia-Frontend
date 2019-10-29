@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "build:stage": "vue-cli-service build --mode staging",
     "lint": "eslint \"src/**/*.{js,vue}\"",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit "
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
@@ -39,6 +39,7 @@
     "@vue/cli-plugin-unit-jest": "^3.11.0",
     "@vue/cli-service": "^3.11.0",
     "@vue/test-utils": "1.0.0-beta.29",
+    "axios-mock-adapter": "^1.17.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^22.4.3",
@@ -46,6 +47,8 @@
     "eslint-plugin-eslint-plugin": "^2.1.0",
     "eslint-plugin-vue": "^5.2.3",
     "jest": "^22.4.3",
+    "moxios": "^0.4.0",
+    "sinon": "^7.5.0",
     "vue-jest": "^3.0.5",
     "vue-template-compiler": "^2.6.10"
   },

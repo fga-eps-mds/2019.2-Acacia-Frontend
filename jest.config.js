@@ -3,6 +3,7 @@ module.exports = {
     'js',
     'jsx',
     'json',
+    'ts',
     'vue'
   ],
   transform: {
