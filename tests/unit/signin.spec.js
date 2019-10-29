@@ -36,7 +36,7 @@ describe('Signin', () => {
     expect(defaultData.email).toBe('')
     expect(defaultData.password).toBe('')
   })
-
+/*
   it('post Signin', () => {
     vm.dialog = true;
     vm.email = 'teste';
@@ -73,5 +73,5 @@ describe('Signin', () => {
     });
 
     moxios.uninstall();
-  });
+  });*/
 });
