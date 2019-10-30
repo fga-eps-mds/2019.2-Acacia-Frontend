@@ -5,11 +5,14 @@
       iconright="plus"
       color="white"
     />
+
     <div :class="'content-container ' + height">
       <vc-calendar
         id="calendar"
         locale="pt-BR"
+        :attributes="atributos"
       />
+
 
       <div id="container-bottom-bar">
         <font-awesome-icon
@@ -27,10 +30,47 @@
 import TopBar from '@/components/layout/TopBar'
 
 export default {
+  computed: {
+    atributos: function() {
+      if (this.iconBottomBar == "chevron-up") {
+        return this.attrs2;
+      }
+
+      else if (this.iconBottomBar == "chevron-down") {
+        return this.attrs1;
+      }
+    },
+  },
   data() {
     return {
       height: "height-100",
       iconBottomBar: "chevron-up",
+
+      attrs1: [
+        {
+          highlight: {
+            color: 'purple',
+            class: 'detail-highlight'
+          },
+          dates: [
+            new Date(2019, 9, 1),
+            new Date(2019, 9, 2),
+          ]
+        }
+      ],
+
+      attrs2: [
+        {
+          highlight: {
+            color: 'purple',
+            class: 'highlight'
+          },
+          dates: [
+            new Date(2019, 9, 1),
+            new Date(2019, 9, 2),
+          ]
+        }
+      ],
     }
   },
 
@@ -39,8 +79,9 @@ export default {
   },
 
   methods: {
+
     select() {
-      console.log(this.iconBottomBar);
+
       if (this.iconBottomBar == "chevron-up") {
         this.height = "height-60";
         this.iconBottomBar = "chevron-down";
@@ -50,12 +91,23 @@ export default {
         this.height = "height-100";
         this.iconBottomBar = "chevron-up";
       }
+
     },
   }
 }
 </script>
 
 <style>
+
+  .detail-highlight {
+    margin-bottom: 30%;
+    transition-duration: 0.4s;
+  }
+
+  .highlight {
+    margin-bottom: 120%;
+    transition-duration: 0.4s;
+  }
 
   .height-60 {
     height: 60%;
