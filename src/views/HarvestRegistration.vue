@@ -138,6 +138,7 @@
             router.push({name: 'home'})
           })
           .catch((error) => {
+            this.$toasted.show('Algum erro aconteceu, tente de novo').goAway(2000)
           })
       },
 

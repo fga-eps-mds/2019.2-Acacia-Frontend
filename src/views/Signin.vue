@@ -11,7 +11,7 @@
       >
       <TextField 
         v-model="email" 
-        class="mt-5" 
+        class="mt-5 mb-5" 
         texticon="user" 
         :placeholder="this.$t('SignPages.email').toLowerCase()"
       />
