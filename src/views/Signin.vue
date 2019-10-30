@@ -1,36 +1,45 @@
 <template>
   <div class="signin gradient">
-		<TopBar 
+    <TopBar 
       :iconleft="'chevron-left'"
     />
-		<div class="content-container">
-			<img 
+    <div class="content-container">
+      <img 
         width="45%" 
         class="max-width-500 mb-4" 
-        src="../assets/images/logo.svg">
-			<TextField 
-        class="mt-5" 
+        src="../assets/images/logo.svg"
+      >
+      <TextField 
         v-model="email" 
-        texticon="user" 
-        :placeholder="this.$t('SignPages.email').toLowerCase()"/>
-			<TextField 
         class="mt-5" 
+        texticon="user" 
+        :placeholder="this.$t('SignPages.email').toLowerCase()"
+      />
+      <TextField 
         v-model="password" 
+        class="mt-5" 
         texticon="lock" 
         :placeholder="this.$t('SignPages.password').toLowerCase()" 
-        type="password"/>
-			<SignButton 
+        :password="true"
+      />
+      <SignButton 
         :label="this.$t('SignPages.login')" 
         class="mt-5" 
-        @action="login"/>
+        @action="login"
+      />
     </div>
-		<div href="/signup" class="signup-button fixed-bottom">
-			<a href="/signup" class="button-link">
+    <div 
+      href="/signup" 
+      class="signup-button fixed-bottom"
+    >
+      <a 
+        href="/signup"
+        class="button-link"
+      >
         {{ this.$t('SignPages.createAccount') }}
       </a>
-		</div>
-
-	</div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -144,6 +153,6 @@ export default {
     text-decoration: none;
   }
 	.gradient {
-		background-image: linear-gradient(180deg, rgba(86, 163, 166, 1), rgba(75s, 125, 170, 105));
+		background-image: linear-gradient(180deg, rgba(86, 163, 166, 1), rgba(75, 125, 170, 105));
 	}
 </style>

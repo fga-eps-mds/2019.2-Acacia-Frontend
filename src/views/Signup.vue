@@ -1,6 +1,8 @@
 <template>
   <div class="signup gradient">
-    <TopBar :iconleft="'chevron-left'"/>
+    <TopBar
+      :iconleft="'chevron-left'"
+    />
     <div class="content-container">
       <div class="content-title">
         <a style="font-size: 40px"> 
@@ -8,37 +10,46 @@
         </a>
       </div>
       <div class="content-form">
-
         <TextField 
-          class="mt-3" 
           v-model="username" 
+          color="white"
+          bordercolor="white"
           :label="this.$t('SignPages.name')"/>
         <TextField 
           class="mt-3" 
           v-model="email" 
-          :label="this.$t('SignPages.email')"/>
+          color="white"
+          bordercolor="white"
+          :label="this.$t('SignPages.email')"
+        />
         <TextField 
+          v-model="email" 
           class="mt-3" 
+          :label="this.$t('SignPages.email')"
+        />
+        <TextField 
           v-model="password" 
+          color="white"
+          bordercolor="white"
           :label="this.$t('SignPages.password')" 
-          type="password"/>
+          type="password"
+        />
         <TextField 
-          class="mt-3" 
           v-model="confirm_password" 
+          color="white"
+          bordercolor="white"
           :label="this.$t('SignPages.confirmPassword')" 
-          type="password"/>
-
+          type="password"
+        />
       </div>
       <div class="content-button">
-
         <SignButton 
           class="mt-4" 
           :label="this.$t('SignPages.createAccount')" 
-          @action="signup"/>
-          
+          @action="signup"
+        />
       </div>
     </div>
-
   </div>
 </template>
 
@@ -176,6 +187,6 @@ export default {
   }
 
   .gradient {
-    background-image: linear-gradient(180deg, rgba(86, 163, 166, 1), rgba(75s, 125, 170, 105));
+    background-image: linear-gradient(180deg, rgba(86, 163, 166, 1), rgba(75, 125, 170, 105));
   }
 </style>

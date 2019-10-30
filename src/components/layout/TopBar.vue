@@ -1,17 +1,20 @@
 <template>
-  <div 
-    id="topbar" 
-    :class="'navbar fixed-top ' + color"
+  <div
+    id="topbar"
+    class="navbar fixed-top"
   >
-    <font-awesome-icon 
-      v-if="iconleft" 
-      :icon="iconleft" 
-      @click="selectLeft()" 
+    <font-awesome-icon
+      v-if="iconleft"
+      :icon="iconleft"
+      :class="color"
+      @click="selectLeft"
     />
-    <font-awesome-icon 
-      v-if="iconright" 
-      :icon="iconright" 
-      @click="selectRight()" 
+
+    <font-awesome-icon
+      v-if="iconright"
+      :icon="iconright"
+      :class="color"
+      @click="selectRight"
     />
   </div>
 </template>
@@ -23,16 +26,15 @@ export default {
       default: "",
       type: String
     },
-
     iconright: {
-      default: "",
+      default: '',
       type: String
     },
-    color: {
-      default: "color-default-text",
+    color:{
+      default: 'color-default-text',
       type: String
     }
-  },
+    },
 
   methods: {
     selectLeft() {
@@ -42,7 +44,6 @@ export default {
         // The sidebar feature will be implemented here
       }
     },
-
     selectRight() {
       if (this.iconright == "pen") {
         // The edit feature will be implemented here
@@ -55,10 +56,20 @@ export default {
   }
 };
 </script>
-
 <style lang="scss" scoped>    
+    @import '@/assets/stylesheets/colors.scss';
     #topbar {
         padding: 15px;
+        z-index: 100 !important;
+    }
+    .color-primary {
+        color: $color-primary;
+    }
+    .color-primary-dark {
+        color: $color-primary-dark;
+    }
+    .color-default-text {
+        color: $color-default-text;
     }
     .color-primary {
         color: $color-primary;
