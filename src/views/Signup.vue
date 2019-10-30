@@ -12,34 +12,32 @@
       <div class="content-form">
         <TextField 
           v-model="username" 
+          class="mt-3"
           color="white"
           bordercolor="white"
           :label="this.$t('SignPages.name')"/>
         <TextField 
-          class="mt-3" 
           v-model="email" 
+          class="mt-3"
           color="white"
           bordercolor="white"
-          :label="this.$t('SignPages.email')"
-        />
-        <TextField 
-          v-model="email" 
-          class="mt-3" 
           :label="this.$t('SignPages.email')"
         />
         <TextField 
           v-model="password" 
+          class="mt-3"
           color="white"
           bordercolor="white"
-          :label="this.$t('SignPages.password')" 
           type="password"
+          :label="this.$t('SignPages.password')" 
         />
         <TextField 
+          class="mt-3"
           v-model="confirm_password" 
           color="white"
           bordercolor="white"
-          :label="this.$t('SignPages.confirmPassword')" 
           type="password"
+          :label="this.$t('SignPages.confirmPassword')" 
         />
       </div>
       <div class="content-button">
