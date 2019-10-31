@@ -12,35 +12,35 @@
 
       <div class="content-form">
         <TextField 
-          v-model="tree.tree_type" 
+          v-model="treeType" 
           class="mt-3" 
           label="Espécie"
           color="black"
           bordercolor="#C4C4C4" 
         />           
         <TextField 
-          v-model="tree.number_of_tree" 
+          v-model="numberTree" 
           class="mt-3" 
           label="Número de árvores" 
           color="black"
           bordercolor="#C4C4C4"
         />
         <TextField 
-          v-model="tree.height_fruit" 
+          v-model="heightFruit" 
           class="mt-3" 
           label="Aultura média dos futros" 
           color="black"
           bordercolor="#C4C4C4" 
         />
         <TextField 
-          v-model="tree.matury_date" 
+          v-model="maturyDate" 
           class="mt-3" 
           label="Possivel data de Colheita" 
           color="black"
           bordercolor="#C4C4C4"
         />
         <TextField 
-          v-model="haverst_for_year" 
+          v-model="haverstForYear" 
           class="mt-3" 
           label="Colheitas por ano" 
           color="black"
@@ -78,7 +78,11 @@
 
     data() {
       return {
-        tree: {},
+        treeType:'',
+        numberTree: '',
+        heightFruit: '',
+        maturyDate: '',
+        haverstForYear: '',
       }
     },
     methods: {
@@ -103,47 +107,47 @@
           this.$router.push({ name: 'home'})
         })
         .catch((error) => {
-          if(error.response.data.tree_type){
-            this.$toasted.show(error.response.data.tree_type).goAway(2000)
+          if(error.response.data.treeType){
+            this.$toasted.show(error.response.data.treeType).goAway(2000)
           }
-          if(error.response.data.number_of_tree){
-            this.$toasted.show(error.response.data.number_of_tree).goAway(2000)
+          if(error.response.data.numberTree){
+            this.$toasted.show(error.response.data.numberTree).goAway(2000)
           }
-          if(error.response.data.height_fruit){
-            this.$toasted.show(error.response.data.height_fruit).goAway(2000)
+          if(error.response.data.heightFruit){
+            this.$toasted.show(error.response.data.heightFruit).goAway(2000)
           }
-          if(error.response.data.matury_date){
-            this.$toasted.show(error.response.data.matury_date).goAway(2000)
+          if(error.response.data.maturyDate){
+            this.$toasted.show(error.response.data.maturyDate).goAway(2000)
           }
-          if(error.response.data.haverst_for_year){
-            this.$toasted.show(error.response.data.haverst_for_year).goAway(2000)
+          if(error.response.data.haverstForYear){
+            this.$toasted.show(error.response.data.haverstForYear).goAway(2000)
           }
         })
         
       },
 
       validateInput(){
-        if (!this.tree_type) {
+        if (!this.treeType) {
           this.$toasted.show('Insira a espécie da árvore').goAway(2000)
           return false
         }
 
-        if (!this.number_of_tree) {
+        if (!this.numberTree) {
           this.$toasted.show('Insira a quantidade de árvores').goAway(2000)
           return false
         }
 
-        if (!this.height_fruit) {
+        if (!this.heightFruit) {
           this.$toasted.show('Insira a altura média dos frutos').goAway(2000)
           return false
         }
 
-        if (!this.matury_date) {
+        if (!this.maturyDate) {
           this.$toasted.show('Insira uma data aproximada de colheita').goAway(2000)
           return false
         }
         
-        if (!this.haverst_for_year) {
+        if (!this.haverstForYear) {
           this.$toasted.show('Insira a numero de colheitas por ano').goAway(2000)
           return false
         }
