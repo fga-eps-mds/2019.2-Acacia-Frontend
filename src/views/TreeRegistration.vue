@@ -47,10 +47,20 @@
           bordercolor="#C4C4C4"
         />
         <label for="File">Propriedade </label>
-          <div class="img-propriedade">
-            <input type="file" @change="onFileChanged">
-            <!-- <button @click="upload">Upload!</button> -->
-          </div>
+        <div class="img-propriedade">
+          <input 
+            type="file" 
+            @change="onFileChanged"
+            accept="image/*"
+          >
+          <img 
+            v-if="treeImage" 
+            :src="treeImageUrl"
+            height="150"
+          />
+        </div>
+      <div>
+      </div>
 
       <div class="content-button">
         <RegisterButton
@@ -83,11 +93,23 @@
         heightFruit: '',
         maturyDate: '',
         haverstForYear: '',
+        treeImage: null,
+        treeImageUrl: null,
       }
     },
     methods: {
       onFileChanged (event) {
-        const file = event.target.files[0]
+        const files = event.target.files
+        //let filename = files[0].name
+        //if (filename.lastIndexOf('.') <= 0 ){
+          //return alert('Please add a valid photo!')
+        //}
+        const fileReader = new FileReader()
+        fileReader.addEventListener('load', () =>{
+          this.treeImageUrl = fileReader.result
+        })
+        fileReader.readAsDataURL(files[0])
+        this.treeImage = files[0]
       },
       upload() {
       // carregar a foto
