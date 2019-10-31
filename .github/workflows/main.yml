@@ -19,6 +19,14 @@ jobs:
         file: ./coverage/clover.xml
         flags: unittests
         name: codecov-umbrella
+  style-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: setup environment
+      run: docker-compose up -d --build
+    - name: Run linter
+      run: docker exec acacia-frontend npm run lint
   build:
     runs-on: ubuntu-latest
     steps:
