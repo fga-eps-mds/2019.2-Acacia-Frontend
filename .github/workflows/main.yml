@@ -26,3 +26,6 @@ jobs:
         file: ./coverage/clover.xml
         flags: unittests
         name: codecov-umbrella
+    - name: Build
+      run: docker exec acacia-frontend npm run build
+          
