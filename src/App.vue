@@ -9,7 +9,7 @@
 
     <!-- the side bar component is implemented here -->
     <v-navigation-drawer
-      v-model="drawer"
+      v-model="sideNav"
       absolute
       temporary
     >
@@ -57,7 +57,6 @@
 export default {
   data() {
     return {
-      sideNav: true,
       navItems: [
         {title: 'Perfil', icon: 'account-outline'},
         {title: 'Dados Abertos', icon: 'shape-circle-plus'},
@@ -75,6 +74,16 @@ export default {
     state.resolveUserLanguage();
   },
   methods: {
+  },
+  computed: {
+    sideNav: {
+      get: function() {
+        return this.$store.state.sideBarOn
+      },
+      set: function(value) {
+        this.$store.state.sideBarOn = value
+      },
+    }
   }
 }
 </script>

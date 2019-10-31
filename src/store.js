@@ -10,6 +10,7 @@ export default new Vuex.Store({
   getters: {
   },
   state: {
+    sideBarOn: false,
     defaultLanguage: 'en',
     baseURL: "http://0.0.0.0:8000/",
 

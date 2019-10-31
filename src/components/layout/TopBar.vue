@@ -5,11 +5,11 @@
   >
     <font-awesome-icon
       v-if="iconleft"
+      v-show="!iconDislay"
       :icon="iconleft"
       :class="color"
       @click="selectLeft"
     />
-
     <font-awesome-icon
       v-if="iconright"
       :icon="iconright"
@@ -33,15 +33,15 @@ export default {
     color:{
       default: 'color-default-text',
       type: String
-    }
     },
+  },
 
   methods: {
     selectLeft() {
       if (this.iconleft == "chevron-left") {
         this.$router.go(-1);
       } else if (this.iconleft == "bars") {
-        // The sidebar feature will be implemented here
+        this.$store.state.sideBarOn = true
       }
     },
     selectRight() {
@@ -52,6 +52,16 @@ export default {
       } else if (this.iconright == "plus") {
         // The add feature will be implemented here
       }
+    }
+  },
+
+  computed: {
+    iconDislay: {
+      get: function() {
+        return this.$store.state.sideBarOn
+      },
+      set: function(value) {
+      },
     }
   }
 };
