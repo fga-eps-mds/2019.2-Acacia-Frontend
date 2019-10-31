@@ -3,10 +3,6 @@
     <h1 class="raleway-bold">
       {{ $t('RootPage.title') }}
     </h1>
-    <SignButton
-      :label="$t('SignPages.logout')"
-      @action="logout"
-    />
     <div>
       <button 
         v-for="entry in languages"
@@ -51,10 +47,6 @@ export default {
     }
   },
   methods: {
-    logout() {
-      this.$store.state.logoutUser()
-      window.location.reload()
-    },
     changeLocale(locale){
       this.$store.state.setUserLanguage(locale)
     },
