@@ -5,12 +5,10 @@ on: push
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
-    
     steps:
     - uses: actions/checkout@master
-    - name: setup environment
+    - name: Setup environment
       run: docker-compose up -d --build
     - name: Run tests
       run: docker exec acacia-frontend npm run test:unit
@@ -21,6 +19,11 @@ jobs:
         file: ./coverage/clover.xml
         flags: unittests
         name: codecov-umbrella
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Setup enviroment
+      run: docker-compose up -d --build
     - name: Build
       run: docker exec acacia-frontend npm run build
-          
