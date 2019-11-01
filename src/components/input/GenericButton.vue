@@ -25,7 +25,7 @@
         padding: 8px 20px;
          
 		height: 50px;
-		width: 200px;
+		width: 130px;
         font-size: 120%;
         font-size: 120%;
         background-color: $color-primary;
@@ -33,7 +33,7 @@
         color: #ffffff;
         border: none;
         border-radius: 15px;
-        margin: 10px;
+        margin: 20px;
         box-shadow: 0 2px 3px 0.5px $color-shadow;
         outline: none;
         cursor: pointer;
@@ -44,7 +44,6 @@
         background-color: green;
         box-shadow: none;
         border: none;
-        margin: 10px 9px 9px 10px;
     }
     .button:hover{
         transform: scale(1.05);
@@ -52,12 +51,15 @@
 
     }
     .button.sb1 {
-        grid: span 2;
-        background-color: red;
+        background-color: #2D9CDB;
         color: $color-default-text;
     }
     .button.sb1:hover{
-        transform: scale(1.1);
+        transform: scale(1.02);
+    }
+    .button.sb1:active {
+        color: greenyellow;
+
     }
     .button.sb2 {
         grid: span 3;
@@ -73,11 +75,6 @@
     .button.sb3 {
         background-color: fuchsia;
         color: $color-default-text;
-
-    }
-    .button.sb1:active {
-        background-color: rgb(0, 0, 0);
-        color: green;
 
     }
   

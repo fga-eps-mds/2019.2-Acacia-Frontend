@@ -1,301 +1,226 @@
 <template>
-  <div class="tree-form">
+  <div class="tree-container">
     <TopBar 
       iconleft="chevron-left"
       color="#2D9CDB"
     />
-
-    <div class="content-container">
+    <div class="tree-content"> 
       <div class="content-title">
         <h3> Cadastrar Arvore </h3>
       </div>
 
-      <div class="content-form">
+      <div class="tree-form">
+
         <TextField 
-          v-model="treeType" 
-          class="mt-3" 
+          v-model="tree_type" 
+          class="mt-1" 
           label="Espécie"
           color="black"
           bordercolor="#C4C4C4" 
         />           
         <TextField 
-          v-model="numberTree" 
-          class="mt-3" 
+          v-model="number_of_tree"
+          type="number"
+          class="mt-1" 
           label="Número de árvores" 
           color="black"
           bordercolor="#C4C4C4"
         />
         <TextField 
-          v-model="heightFruit" 
-          class="mt-3" 
+          v-model="height_fruit"
+          type="number"
+          class="mt-1" 
           label="Aultura média dos futros" 
           color="black"
           bordercolor="#C4C4C4" 
         />
+
         <TextField 
-          v-model="maturyDate" 
-          class="mt-3" 
+          v-model="matury_date"
+          type="date"
+          class="mt-1" 
           label="Possivel data de Colheita" 
           color="black"
-          bordercolor="#C4C4C4"
+          bordercolor="white"
         />
+        <input type="date" v-model="matury_date">
+
         <TextField 
-          v-model="haverstForYear" 
-          class="mt-3" 
+          v-model="haverst_for_year"
+          type="number"
+          class="mt-1" 
           label="Colheitas por ano" 
           color="black"
           bordercolor="#C4C4C4"
         />
-        <label for="File">Propriedade </label>
-        <div class="img-propriedade">
-          <input 
-            type="file" 
-            @change="onFileChanged"
-            accept="image/*"
-          >
-          <img 
-            v-if="treeImage" 
-            :src="treeImageUrl"
-            height="150"
-          />
+        
+        <div class="file-label">
+          <label for="file">Propriedade: Flavio Vieira</label>
+          <a @click="'hideImg = !hideImg'"> 
+            <font-awesome-icon :icon="icon" style="color:black"/>
+          </a>
         </div>
-      <div>
-      </div>
+    
+        <div class="image-container ">
+          <div class="preview-image">
+              <img :src="preview.path" >
+          </div> 
+        </div> 
+        <div class="input">
+          <ImageUpload
+            @upload-complete="uploadImageSuccess"    
+          />   
+        </div>
 
-      <div class="content-button">
-        <RegisterButton
-          class="mt-4" 
-          label="Cadastrar" 
-          @action="register"
-        />        
+          <div class="tree-button">
+            <RegisterButton 
+              @action="register"
+              :label="this.$t('Registar')" >
+            </RegisterButton>
+          </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
 <script>
-  import TopBar from '../components/layout/TopBar'
+  import TopBar from '../components/layout/TopBarBeta'
   import TextField from '../components/input/TextField'
+  import ImageUpload from '../components/input/ImageUpload'
   import RegisterButton from '../components/input/RegisterButton'
 
+  
+  import axios from "axios"
+ 
   export default {
     components: {
       TopBar,
       TextField,
       RegisterButton,
+      ImageUpload,
     },
 
     data() {
       return {
-        treeType:'',
-        numberTree: '',
-        heightFruit: '',
-        maturyDate: '',
-        haverstForYear: '',
-        treeImage: null,
-        treeImageUrl: null,
+        hideImg: true,
+        tree_type: '',
+        number_of_tree: '',
+        height_fruit: '',
+        matury_date: '',
+        haverst_for_year: '',
+        hideImg: true,
+        tree_picture: null,
+        preview: {}
+
+      }
+    },
+    computed: {
+      icon(){
+      return "chevron-right"
+      //                : "chevron-down"
+      // return hideImg ? "chevron-right"
+      //                : "chevron-down"
       }
     },
     methods: {
-      onFileChanged (event) {
-        const files = event.target.files
-        //let filename = files[0].name
-        //if (filename.lastIndexOf('.') <= 0 ){
-          //return alert('Please add a valid photo!')
-        //}
-        const fileReader = new FileReader()
-        fileReader.addEventListener('load', () =>{
-          this.treeImageUrl = fileReader.result
-        })
-        fileReader.readAsDataURL(files[0])
-        this.treeImage = files[0]
+      uploadImageSuccess(imageFile, imagePath){
+        this.tree_picture = imageFile
+        this.preview = imagePath
       },
-      upload() {
-      // carregar a foto
-       },
-
+     
       register(){
-        if (!this.validateInput()) {
+        if (false) {
+          
           return
         }       
-                
-        let state = this.$store.state
-        let toasted = this.$toasted
-
-        state.authRequest("tree/", "POST", this.tree)
-        .then((response) => {
-          toasted.show('Arvore cadastrada com sucesso').goAway(2000)
-          this.$router.push({ name: 'home'})
-        })
-        .catch((error) => {
-          if(error.response.data.treeType){
-            this.$toasted.show(error.response.data.treeType).goAway(2000)
-          }
-          if(error.response.data.numberTree){
-            this.$toasted.show(error.response.data.numberTree).goAway(2000)
-          }
-          if(error.response.data.heightFruit){
-            this.$toasted.show(error.response.data.heightFruit).goAway(2000)
-          }
-          if(error.response.data.maturyDate){
-            this.$toasted.show(error.response.data.maturyDate).goAway(2000)
-          }
-          if(error.response.data.haverstForYear){
-            this.$toasted.show(error.response.data.haverstForYear).goAway(2000)
-          }
-        })
         
+        let formData = new FormData()
+          formData.append('tree_type', this.tree_type)
+          formData.append('number_of_tree', this.number_of_tree)
+          formData.append('height_fruit', this.height_fruit)
+          formData.append('matury_date', this.matury_date)
+          formData.append('haverst_for_year', this.haverst_for_year)
+          formData.append('tree_picture', this.tree_picture)
+
+          // formData.append('_method', 'PUT');
+
+          console.log("terminou de carregar formData")
+          console.log(formData)
+
+          this.$store.dispatch('recordTree', formData)
+          this.$router.push('/home')
+
       },
 
       validateInput(){
-        if (!this.treeType) {
-          this.$toasted.show('Insira a espécie da árvore').goAway(2000)
-          return false
-        }
-
-        if (!this.numberTree) {
-          this.$toasted.show('Insira a quantidade de árvores').goAway(2000)
-          return false
-        }
-
-        if (!this.heightFruit) {
-          this.$toasted.show('Insira a altura média dos frutos').goAway(2000)
-          return false
-        }
-
-        if (!this.maturyDate) {
-          this.$toasted.show('Insira uma data aproximada de colheita').goAway(2000)
-          return false
-        }
-        
-        if (!this.haverstForYear) {
-          this.$toasted.show('Insira a numero de colheitas por ano').goAway(2000)
-          return false
-        }
-
-        return true
+          return true
       },
     }
   }
-
+    
 </script>
 
 <style scoped lang="scss">
-@import "../assets/stylesheets/colors.scss";
+@import "@/assets/stylesheets/colors.scss";
+.text-small {
+  font-size: 10px;
+}
   
-  .tree-form {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    margin-top: 0;
-    text-align: center;
-    background: white
-  }
+.tree-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgb(250, 250, 250);
+}
+.tree-content {
+  width: 100%;
+  max-width:650px;
+  margin: 1px;
+  border-radius: 4px;
+  padding: 20px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+}
+  
+.content-title {
+  display: flex;
+  color: #2D9CDB;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
 
-  .content-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-  }
+  .file-label{
+  display: flex;
+  justify-content: space-between;
+  color: black;
+  margin: 20px;
+  font-size: 1rem;
+  flex-wrap: wrap;
+  align-items: center
+}
 
-  .content-title {
-    width: 100%;
-    padding: 0px 25px;
-    margin-bottom: 10%;
-    color: #2D9CDB;
-    display: flex;
-    justify-content: left; 
-  }
- .img-propriedade {
-      border: 4px;
-      width: 360px;
-      height: 200px;
-      padding: 10px;
-      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
- }
+.tree-button {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
 
-   .content-container label{
-    font-family: RobotoBold;
-    color: black;
-    font-size: 0.8rem;
-    margin-left: 23px;
-    margin-top: 25px;
+.image-container {
+  // width: 100%;
+  max-width: 700px;
+  max-height: 350px;
+  border-radius: 5px;
+  box-sizing: border-box;
 
-  }
+  border: 1px dashed #D6D6D6;
+  border-radius: 4px;
+  background-color: white;
+}
 
-  .content-button {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    width: 100%;
-  }
-
+img{
+  max-width: 100%;
+  height: auto;
+}
 </style>
-
-
-// <style scoped lang="scss">
-// @import "@/assets/stylesheets/colors.scss";
-
-// 	.tree {
-//     height: 100%;
-//     width: 100%;
-// 		display: flex;
-// 		justify-content: center;
-// 		justify-items: center;
-// 	}
-//   .tree-container {
-//       display: flex;
-//       flex-direction: column;
-//       align-items: center;
-//       justify-content: center;
-//       width: 350px;
-//       padding: 10px;
-//       box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-//   }
-//   .tree-container h1{
-//     color: $color-primary-text-title;
-//     font-size: 1.9rem;
-//     padding: 5px 5px;
-//     margin-bottom: 40px;
-//     margin-right: 40px;
-//     margin-top: 70px;
-// 	}
-//  .img-propriedade {
-//       border: 4px;
-//       width: 300px;
-//       height: 200px;
-//       padding: 10px;
-//       box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
-//   }
-// 	.tree-button {
-// 		margin: auto;
-// 		height: 6%;
-// 		width: 80%;
-// 		margin-bottom: 40px;
-// 		margin-left: 110px;
-
-// 		color: $color-default-text;
-// 		font-family: RobotoBold;
-// 		display: flex;
-// 		flex-direction: column;
-// 		justify-content: flex-start
-//   }
-//   .tree-form{
-//     font-family: RobotoBold;
-//     color: black;
-
-//   }
-//  
-//   .button-link {
-//     color: $color-default-text;
-// 		font-family: RobotoBold;
-//     font-size: 130%;
-//     text-decoration: none;
-//   }
-	
-// </style>
