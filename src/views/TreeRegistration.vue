@@ -11,35 +11,23 @@
 
       <div class="tree-form">
         <TextField 
-<<<<<<< HEAD
           v-model="tree_type" 
-=======
-          v-model="treeType" 
->>>>>>> 2f0ba9f12ec0f4ea34de7d809037fed9896b37a7
           class="mt-3" 
           label="Espécie"
           color="black"
           bordercolor="#C4C4C4" 
         />           
         <TextField 
-<<<<<<< HEAD
           v-model="number_of_tree"
           type="number"
-=======
-          v-model="numberTree" 
->>>>>>> 2f0ba9f12ec0f4ea34de7d809037fed9896b37a7
           class="mt-3" 
           label="Número de árvores" 
           color="black"
           bordercolor="#C4C4C4"
         />
         <TextField 
-<<<<<<< HEAD
           v-model="height_fruit"
           type="number"
-=======
-          v-model="heightFruit" 
->>>>>>> 2f0ba9f12ec0f4ea34de7d809037fed9896b37a7
           class="mt-3" 
           label="Aultura média dos futros" 
           color="black"
@@ -47,12 +35,8 @@
         />
 
         <TextField 
-<<<<<<< HEAD
           v-model="matury_date"
           type="date"
-=======
-          v-model="maturyDate" 
->>>>>>> 2f0ba9f12ec0f4ea34de7d809037fed9896b37a7
           class="mt-3" 
           label="Possivel data de Colheita" 
           color="black"
@@ -61,18 +45,13 @@
         <input type="date" v-model="matury_date">
 
         <TextField 
-<<<<<<< HEAD
           v-model="haverst_for_year"
           type="number"
-=======
-          v-model="haverstForYear" 
->>>>>>> 2f0ba9f12ec0f4ea34de7d809037fed9896b37a7
           class="mt-3" 
           label="Colheitas por ano" 
           color="black"
           bordercolor="#C4C4C4"
         />
-<<<<<<< HEAD
         
         <div class="file-label">
           <label for="file">Propriedade: {{ fileName }} </label>
@@ -93,23 +72,6 @@
             @change="onFilePicked"
           >
         </div> 
-=======
-        <label for="File">Propriedade </label>
-        <div class="img-propriedade">
-          <input 
-            type="file" 
-            @change="onFileChanged"
-            accept="image/*"
-          >
-          <img 
-            v-if="treeImage" 
-            :src="treeImageUrl"
-            height="150"
-          />
-        </div>
-      <div>
-      </div>
->>>>>>> 2f0ba9f12ec0f4ea34de7d809037fed9896b37a7
 
           <div class="tree-button">
             <b-button @click="recordTree">Registrar</b-button>
@@ -131,7 +93,6 @@
 
     data() {
       return {
-<<<<<<< HEAD
         tree_type: '',
         number_of_tree: '',
         height_fruit: '',
@@ -166,30 +127,6 @@
         this.tree_picture = files[0]
         console.log("file reader files[0]")
         console.log (files[0])
-=======
-        treeType:'',
-        numberTree: '',
-        heightFruit: '',
-        maturyDate: '',
-        haverstForYear: '',
-        treeImage: null,
-        treeImageUrl: null,
-      }
-    },
-    methods: {
-      onFileChanged (event) {
-        const files = event.target.files
-        //let filename = files[0].name
-        //if (filename.lastIndexOf('.') <= 0 ){
-          //return alert('Please add a valid photo!')
-        //}
-        const fileReader = new FileReader()
-        fileReader.addEventListener('load', () =>{
-          this.treeImageUrl = fileReader.result
-        })
-        fileReader.readAsDataURL(files[0])
-        this.treeImage = files[0]
->>>>>>> 2f0ba9f12ec0f4ea34de7d809037fed9896b37a7
       },
 
       recordTree(){
@@ -244,6 +181,7 @@
         // console.log(fd).tree_picture
         // console.log(fd.tree_picture)
         this.$store.state.noAuthRequest('tree', 'POST', data)
+        this.$store.state.noAuthRequest('tree', 'POST', fdgi)
         // this.$store.state.authRequest('tree', 'POST', data)
        
         .then((response) => {
@@ -252,57 +190,32 @@
         
         })
         .catch((error) => {
-<<<<<<< HEAD
          
-=======
-          if(error.response.data.treeType){
-            this.$toasted.show(error.response.data.treeType).goAway(2000)
-          }
-          if(error.response.data.numberTree){
-            this.$toasted.show(error.response.data.numberTree).goAway(2000)
-          }
-          if(error.response.data.heightFruit){
-            this.$toasted.show(error.response.data.heightFruit).goAway(2000)
-          }
-          if(error.response.data.maturyDate){
-            this.$toasted.show(error.response.data.maturyDate).goAway(2000)
-          }
-          if(error.response.data.haverstForYear){
-            this.$toasted.show(error.response.data.haverstForYear).goAway(2000)
-          }
->>>>>>> 2f0ba9f12ec0f4ea34de7d809037fed9896b37a7
         })
       },
 
       validateInput(){
-        if (!this.treeType) {
+        if (!this.tree_type) {
           this.$toasted.show('Insira a espécie da árvore').goAway(2000)
           return false
         }
 
-        if (!this.numberTree) {
+        if (!this.number_of_tree) {
           this.$toasted.show('Insira a quantidade de árvores').goAway(2000)
           return false
         }
 
-        if (!this.heightFruit) {
+        if (!this.height_fruit) {
           this.$toasted.show('Insira a altura média dos frutos').goAway(2000)
           return false
         }
 
-<<<<<<< HEAD
         // if (!this.matury_date) {
         //   this.$toasted.show('Insira uma data aproximada de colheita').goAway(2000)
         //   return false
         // }
-=======
-        if (!this.maturyDate) {
-          this.$toasted.show('Insira uma data aproximada de colheita').goAway(2000)
-          return false
-        }
->>>>>>> 2f0ba9f12ec0f4ea34de7d809037fed9896b37a7
         
-        if (!this.haverstForYear) {
+        if (!this.haverst_for_year) {
           this.$toasted.show('Insira a numero de colheitas por ano').goAway(2000)
           return false
         }
