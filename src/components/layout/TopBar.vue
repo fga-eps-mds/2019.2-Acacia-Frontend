@@ -24,7 +24,7 @@ export default {
   props: {
     iconleft: {
       default: "",
-      type: String
+      type: String,
     },
     iconright: {
       default: '',
@@ -56,7 +56,7 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>    
+<style lang="scss" scoped>
     @import '@/assets/stylesheets/colors.scss';
     #topbar {
         padding: 15px;

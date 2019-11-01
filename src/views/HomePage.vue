@@ -32,6 +32,7 @@ export default {
   components: {
     SignButton,
   },
+  
   data() {
     return {
       router,
@@ -50,6 +51,7 @@ export default {
       ]
     }
   },
+
   methods: {
     logout() {
       this.$store.state.logoutUser()
