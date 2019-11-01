@@ -11,7 +11,7 @@
       </v-list-item-avatar>
 
       <v-list-item-content>
-        <v-list-item-title>Renato, o lindão</v-list-item-title>
+        <v-list-item-title>Renato, o grande</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
 
@@ -25,9 +25,37 @@
         link
       >
         <v-list-item-icon>
-          <v-icon>
+          <v-icon v-if="!item.flagicon">
             {{ item.icon }}
           </v-icon>
+          <flag 
+            v-else
+            :iso="item.flagicon" 
+            :squared="false"
+          />
+        </v-list-item-icon>
+
+        <a :href="item.link" class="text-dark"> 
+        <v-list-item-content>
+          <v-list-item-title>
+            {{ item.title }} 
+          </v-list-item-title>
+        </v-list-item-content>
+        </a>
+      </v-list-item>
+      <v-divider></v-divider>
+      {{ this.$t('SideBar.languages') }}
+      <v-list-item
+        class="mt-2"
+        v-for="item in languageOptions"
+        :key="item.title"
+        @click="changeLocale(item.language)"
+      >
+        <v-list-item-icon>
+          <flag
+            :iso="item.flagicon" 
+            :squared="false"
+          />
         </v-list-item-icon>
 
         <a :href="item.link" class="text-dark"> 
@@ -61,26 +89,33 @@ export default {
   data() {
     return {
       navItemsAuth: [
-        {title: 'Dashboard', icon: 'mdi-view-dashboard-outline', link: '/'},
-        {title: 'Calendário', icon: 'mdi-calendar-blank-outline', link: '/calendar'},
-        {title: 'Propriedades', icon: 'mdi-home', link: '/property'},
-        {title: 'Meu Perfil', icon: 'mdi-account-outline', link: '/profile'},
-        {title: 'Colheitas', icon: 'mdi-sprout', link: '/harvest'},
-        {title: 'Dados Abertos', icon: 'mdi-shape-circle-plus', link: '/public-data'},
+        {title: this.$t('SideBar.dashboard'), icon: 'mdi-view-dashboard-outline', link: '/'},
+        {title: this.$t('SideBar.calendar'), icon: 'mdi-calendar-blank-outline', link: '/calendar'},
+        {title: this.$t('SideBar.properties'), icon: 'mdi-home', link: '/property'},
+        {title: this.$t('SideBar.profile'), icon: 'mdi-account-outline', link: '/profile'},
+        {title: this.$t('SideBar.harvests'), icon: 'mdi-sprout', link: '/harvest'},
+        {title: this.$t('SideBar.opendata'), icon: 'mdi-shape-circle-plus', link: '/public-data'},
       ],
       navItemsNotAuth: [
-        {title: 'Dashboard', icon: 'mdi-view-dashboard-outline', link: '/'},
-        {title: 'Calendário', icon: 'mdi-calendar-blank-outline', link: '/calendar'},
-        {title: 'Dados Abertos', icon: 'mdi-shape-circle-plus', link: '/public-data'},
-        {title: 'Login', icon: 'mdi-login', link: '/signin'},
-        {title: 'Registro', icon: 'mdi-account-plus', link: '/signup'},
+        {title: this.$t('SideBar.dashboard'), icon: 'mdi-view-dashboard-outline', link: '/'},
+        {title: this.$t('SideBar.calendar'), icon: 'mdi-calendar-blank-outline', link: '/calendar'},
+        {title: this.$t('SideBar.opendata'), icon: 'mdi-shape-circle-plus', link: '/public-data'},
+        {title: this.$t('SideBar.signin'), icon: 'mdi-login', link: '/signin'},
+        {title: this.$t('SideBar.signup'), icon: 'mdi-account-plus', link: '/signup'},
       ],
+      languageOptions: [
+        {title: this.$t('SideBar.english'), flagicon: 'us', language: 'en'},
+        {title: this.$t('SideBar.portuguese'), flagicon: 'br', language: 'pt'},
+      ]
     }
   },
   methods: {
     logout() {
       this.$store.state.logoutUser()
       window.location.reload()
+    },
+    changeLocale(locale){
+      this.$store.state.setUserLanguage(locale)
     },
   },
   computed: {

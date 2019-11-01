@@ -39,6 +39,19 @@ const messages = {
         },
         Global: {
             locale: "en",
+        },
+        SideBar: {
+            dashboard: "Dashboard",
+            calendar: "Calendar",
+            properties: "My Properties",
+            profile: "My Profile",
+            harvests: "Harvests",
+            opendata: "Open Data",
+            signin: "Sign in",
+            signup: "Sign up",
+            portuguese: "Portuguese",
+            english: "English",
+            languages: "Languages"
         }
     },
     'pt': {
@@ -76,8 +89,20 @@ const messages = {
         },
         Global: {
             locale: "pt-br",
+        },
+        SideBar: {
+            dashboard: "Dashboard",
+            calendar: "Calendário",
+            properties: "Propriedades",
+            profile: "Meu Perfil",
+            harvests: "Colheitas",
+            opendata: "Dados Abertos",
+            signin: "Entrar",
+            signup: "Registro",
+            portuguese: "Português",
+            english: "Inglês",
+            languages: "Linguagens"
         }
-
     },
 }
 
