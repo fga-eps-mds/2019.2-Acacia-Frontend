@@ -24,12 +24,6 @@ export default new Router({
                 import ('./views/Signup.vue')
         },
         {
-            path: '/dashboard',
-            name: 'dashboard',
-            component: () =>
-                import ('./views/Dashboard.vue')
-        },
-        {
             path: '/harvest/registration',
             name: 'harvestRegistration',
             component: () =>
