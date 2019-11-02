@@ -20,7 +20,7 @@
       </v-window>
     </div>
     <div
-      class="card-container"
+      class="p-3 card-container"
     >
       <Card
         v-model="window"
@@ -68,6 +68,8 @@ export default {
 
 .card-container {
   margin-top: 15px;
+  padding: 5%;
+  
 }
 
 </style>
