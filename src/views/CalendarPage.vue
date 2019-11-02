@@ -7,13 +7,12 @@
     />
 
     <div :class="'content-container ' + height">
-      <vc-calendar
-        id="calendar"
-        locale="pt-BR"
-        :attributes="atributos"
-        @dayclick="dayClicked"
-      />
-
+        <vc-calendar
+          id="calendar"
+          locale="pt-BR"
+          :attributes="atributos"
+          @dayclick="dayClicked"
+        />
 
       <div id="container-bottom-bar">
         <font-awesome-icon
@@ -22,26 +21,36 @@
           @click="select()"
         />
       </div>
+    </div>
+    
+    <div v-bind:class="hideCards" >
+      <ul>
+        <li v-for="colheita in colheitas">
 
+            <div class="carBody" @click="selectCard(colheita.nome)">
+              <p class="cardTitle">{{colheita.nome}}</p>
+              
+              <!-- 
+                Estamos tentando fazer o chevron de cada colheita funcionar separadamente, então estavamos pensando em fazer um computed com
+                o nome da colheita e assim poder tratar da forma que for conveniente 
+               -->
+              
+              <font-awesome-icon
+                v-if="colheita.nome != colheitaCard"
+                icon="chevron-right"
+                style="color: purple;"
+              /> 
+              <font-awesome-icon
+                v-if="colheita.nome === colheitaCard"
+                icon="chevron-down"
+                style="color: purple;"
+              />              
+            </div>
+
+        </li>
+      </ul>
     </div>
 
-    <div v-bind:class="hideCards">
-      <div class="card" style="width: 18rem;">
-
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-
-      </div>
-    </div>
 
   </div>
 </template>
@@ -59,6 +68,13 @@ export default {
       }
     },
 
+    colheitas: function() {
+      if(!this.selectedDay){
+        return this.allHarvest()
+      }
+      return this.dates_info[this.selectedDay]['colheitas']
+    },
+
     atributos: function() {
       let attrs = [{
         highlight: {
@@ -67,11 +83,6 @@ export default {
         },
 
         dates: this.dates,
-
-        popover: {
-          label: 'Leo lindo',
-          visibility: 'focus'
-        },
       }]
 
       if (this.iconBottomBar == "chevron-up") {
@@ -90,6 +101,8 @@ export default {
       selectedDay: null,
       height: "height-100",
       iconBottomBar: "chevron-up",
+      iconCard: "chevron-right",
+      colheitaCard: "",
 
       dates: [
         new Date(2019, 10, 1),
@@ -100,15 +113,29 @@ export default {
         '2019-11-02': {
           colheitas: [
             {
+              descrição: 'Leo lindo é sensacional, imagina com Durvilhoso que é gado',
               nome: 'Babadeira',
             },
 
             {
+              descrição: 'Leolindo345 é sensacional, imagina com Durvilhoso123 que é gado',
               nome: 'Pisadeira',
             },
           ]
-        }
+        },
+        '2019-11-01': {
+          colheitas: [
+            {
+              descrição: 'Leo linxfghjfghsfdhsddo é sensacional, imagina com Durvilhoso que é gado',
+              nome: 'Babdfgfdgadeira',
+            },
 
+            {
+              descrição: 'Leolindo345 é srthfghsfhsfsensacional, imagina com Durvilhoso123 que é gado',
+              nome: 'Pisadedfgdfira',
+            },
+          ]
+        }
       },
     }
   },
@@ -131,6 +158,35 @@ export default {
         this.iconBottomBar = "chevron-up";
       }
     },
+    
+    selectCard(colheita) {
+
+      if (this.iconCard == "chevron-right") {
+        this.colheitaCard = colheita;
+        this.iconCard = "chevron-down";
+      }
+
+      else if (this.iconCard == "chevron-down") {
+        this.colheitaCard = colheita;
+        this.iconCard = "chevron-right";
+      }
+    },
+
+    allHarvest() {
+      let harvest = []
+
+      for(var[day, colheitas] of Object.entries(this.dates_info)) {
+        for(var[key, colheita] of Object.entries(colheitas)) {
+          for(var[desc, info] of Object.entries(colheita)) {
+            harvest.push(info)
+          }
+        }
+      }
+
+      return harvest;
+
+    },
+
 
     dayClicked(day) {
 
@@ -140,13 +196,8 @@ export default {
 
       // console.log(this.dates_info[day.id]['colheitas']);
       let colheitas = this.dates_info[day.id]['colheitas'];
-
-      console.log(colheitas)
-
-      for (var [key, value] of Object.entries(colheitas)) {
-        console.log(value['nome']);
-      }
-
+      this.selectedDay = day.id;
+      
       this.height = "height-60";
       this.iconBottomBar = "chevron-down";
     }
@@ -154,7 +205,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import "../assets/stylesheets/colors.scss";
+
+  ul{
+    color: purple;
+  }
+
 
   .detail-highlight {
     margin-bottom: 30%;
@@ -201,6 +258,17 @@ export default {
     position: absolute;
     margin-top: 0;
     text-align: center;
+  }
+
+  .cardTitle{
+    margin: 0;
+    color: $color-primary-text;
+  }
+
+  .carBody {
+    padding: 5%;
+    display: flex;
+    justify-content: space-between;
   }
 
   #calendar{
