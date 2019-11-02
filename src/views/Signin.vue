@@ -1,40 +1,50 @@
 <template>
   <div class="signin gradient">
-		<TopBar 
+    <TopBar
       :iconleft="'chevron-left'"
     />
-		<div class="content-container">
-			<img 
-        width="45%" 
-        class="max-width-500 mb-4" 
-        src="../assets/images/logo.svg">
-			<TextField 
-        class="mt-5" 
-        v-model="email" 
-        texticon="user" 
-        :placeholder="this.$t('SignPages.email').toLowerCase()"/>
-			<TextField 
-        class="mt-5" 
-        v-model="password" 
-        texticon="lock" 
-        :placeholder="this.$t('SignPages.password').toLowerCase()" 
-        :password="true"/>
-			<SignButton 
-        :label="this.$t('SignPages.login')" 
-        class="mt-5" 
-        @action="login"/>
+    <div class="content-container">
+      <form method="post">
+        <img
+          width="45%"
+          class="max-width-500 mb-4"
+          src="../assets/images/logo.svg"
+        >
+        <TextField
+          v-model="email"
+          class="mt-5"
+          texticon="user"
+          :placeholder="this.$t('SignPages.email').toLowerCase()"
+        />
+        <TextField
+          v-model="password"
+          class="mt-5"
+          texticon="lock"
+          :placeholder="this.$t('SignPages.password').toLowerCase()"
+          :password="true"
+        />
+        <SignButton
+          :label="this.$t('SignPages.login')"
+          class="mt-5"
+          @action="login"
+        />
+      </form>
     </div>
-		<div href="/signup" class="signup-button fixed-bottom">
-			<a href="/signup" class="button-link">
+    <div
+      href="/signup"
+      class="signup-button fixed-bottom"
+    >
+      <a
+        href="/signup"
+        class="button-link"
+      >
         {{ this.$t('SignPages.createAccount') }}
       </a>
-		</div>
-
-	</div>
+    </div>
+  </div>
 </template>
 
 <script>
-/* Component imports */
 import TextField from '@/components/input/TextField'
 import TopBar from '@/components/layout/TopBar'
 import SignButton from '@/components/input/SignButton'
@@ -68,7 +78,7 @@ export default {
       let state = this.$store.state
       let toasted = this.$toasted
 
-      state.noAuthRequest('users/token', 'POST', data)
+      state.noAuthRequest('users/token/', 'POST', data)
         .then((response) => {
           toasted.show(this.$t('SignPages.positiveStatus')).goAway(2000)
           state.authUser(response.data['access'], response.data['refresh'])

@@ -9,6 +9,7 @@ import { API_URL } from './config'
 
 export default new Vuex.Store({
   getters: {
+    isAuthenticated: state => !!state.getAccessToken()
   },
   state: {
     defaultLanguage: 'en',
@@ -58,8 +59,8 @@ export default new Vuex.Store({
     },
 
     /* === Returns true if both access and refresh token are present in cookies === */
-    userTokensPresent: function() { 
-      return !!(this.getAccessToken() && this.getRefreshToken()) 
+    userTokensPresent: function() {
+      return !!(this.getAccessToken() && this.getRefreshToken())
     },
 
     /* === Token getters === */
@@ -120,7 +121,7 @@ export default new Vuex.Store({
     //  .catch(error => {
     //    [WHEN REQUEST FAILS]
     //    if (error === false) [USER IS NOT LOGGED IN]
-    //    else if (error === {}) [YOU HAVE INPUT A WRONG METHOD, ONLY GET AND POST ARE ALLOWED] 
+    //    else if (error === {}) [YOU HAVE INPUT A WRONG METHOD, ONLY GET AND POST ARE ALLOWED]
     //    else [THIS IS THE SAME AS response, BUT THE SERVER RETURNED AN ERROR INSTEAD OF A 2xx MESSAGE]
     //  })
 
@@ -209,7 +210,7 @@ export default new Vuex.Store({
         }
       })
     },
-    
+
     /* === Setters and getters for cookie languege === */
     setCookieLanguage: (lang) => Vue.cookie.set('prefered-language', lang),
     getCookieLanguage: () => { return Vue.cookie.get('prefered-language') },
