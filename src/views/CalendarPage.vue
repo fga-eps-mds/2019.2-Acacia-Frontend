@@ -11,6 +11,7 @@
         id="calendar"
         locale="pt-BR"
         :attributes="atributos"
+        @dayclick="dayClicked"
       />
 
 
@@ -23,6 +24,25 @@
       </div>
 
     </div>
+
+    <div v-bind:class="hideCards">
+      <div class="card" style="width: 18rem;">
+
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -30,52 +50,71 @@
 import TopBar from '@/components/layout/TopBar'
 
 export default {
+
   computed: {
+
+    hideCards: function () {
+      return {
+        'display-none': this.iconBottomBar === "chevron-up"
+      }
+    },
+
     atributos: function() {
+      let attrs = [{
+        highlight: {
+          color: 'purple',
+          class: 'detail-highlight'
+        },
+
+        dates: this.dates,
+
+        popover: {
+          label: 'Leo lindo',
+          visibility: 'focus'
+        },
+      }]
+
       if (this.iconBottomBar == "chevron-up") {
-        return this.attrs2;
+        attrs[0]['highlight'].class = 'highlight'
+        return attrs
       }
 
       else if (this.iconBottomBar == "chevron-down") {
-        return this.attrs1;
+        return attrs
       }
     },
   },
+
   data() {
     return {
+      selectedDay: null,
       height: "height-100",
       iconBottomBar: "chevron-up",
 
-      attrs1: [
-        {
-          highlight: {
-            color: 'purple',
-            class: 'detail-highlight'
-          },
-          dates: [
-            new Date(2019, 9, 1),
-            new Date(2019, 9, 2),
-          ]
-        }
+      dates: [
+        new Date(2019, 10, 1),
+        new Date(2019, 10, 2),
       ],
 
-      attrs2: [
-        {
-          highlight: {
-            color: 'purple',
-            class: 'highlight'
-          },
-          dates: [
-            new Date(2019, 9, 1),
-            new Date(2019, 9, 2),
+      dates_info: {
+        '2019-11-02': {
+          colheitas: [
+            {
+              nome: 'Babadeira',
+            },
+
+            {
+              nome: 'Pisadeira',
+            },
           ]
         }
-      ],
+
+      },
     }
   },
 
   components: {
-		TopBar,
+    TopBar,
   },
 
   methods: {
@@ -91,8 +130,26 @@ export default {
         this.height = "height-100";
         this.iconBottomBar = "chevron-up";
       }
-
     },
+
+    dayClicked(day) {
+
+      if(!(day.id in this.dates_info)) {
+        return;
+      }
+
+      // console.log(this.dates_info[day.id]['colheitas']);
+      let colheitas = this.dates_info[day.id]['colheitas'];
+
+      console.log(colheitas)
+
+      for (var [key, value] of Object.entries(colheitas)) {
+        console.log(value['nome']);
+      }
+
+      this.height = "height-60";
+      this.iconBottomBar = "chevron-down";
+    }
   }
 }
 </script>
@@ -119,12 +176,16 @@ export default {
     transition-duration: 0.4s;
   }
 
+  .display-none {
+    display: none;
+  }
+
   .content-container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     padding-top: 15%;
     background-image: linear-gradient(
       45deg,
@@ -132,7 +193,7 @@ export default {
       rgba(75, 125, 170, 85),
       rgba(75, 125, 170, 105)
     );
-	}
+  }
 
   .calendar-page{
     width: 100%;
