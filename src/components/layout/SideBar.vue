@@ -3,19 +3,23 @@
     v-model="sideNav"
     absolute
     temporary
-    class="navigation-drawer"
+    color="#56A3A6"
   >
     <v-list-item class="mt-4">
-      <v-list-item-avatar>
+      <v-list-item-avatar
+        large
+      >
         <v-img src="https://secure.gravatar.com/avatar/d39c7a53f244da29da3cd8ccaad6be4c?s=800&d=identicon"></v-img>
       </v-list-item-avatar>
 
       <v-list-item-content>
-        <v-list-item-title>Renato, o grande</v-list-item-title>
+        <v-list-item-title class="white--text">
+          Renato, o grande
+        </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
 
-    <v-divider></v-divider>
+    <v-divider/>
 
     <v-list dense>
 
@@ -25,7 +29,10 @@
         link
       >
         <v-list-item-icon>
-          <v-icon v-if="!item.flagicon">
+          <v-icon 
+            v-if="!item.flagicon"
+            color="#ffffff"
+          >
             {{ item.icon }}
           </v-icon>
           <flag 
@@ -35,7 +42,7 @@
           />
         </v-list-item-icon>
 
-        <a :href="item.link" class="text-dark"> 
+        <a :href="item.link" style="color: #ffffff"> 
         <v-list-item-content>
           <v-list-item-title>
             {{ item.title }} 
@@ -131,13 +138,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-@import "../../assets/stylesheets/colors.scss";
-
-.navigation-drawer {
-  background-color: black;
-  background: black;
-}
-
-</style>
