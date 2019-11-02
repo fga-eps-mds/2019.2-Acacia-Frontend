@@ -44,8 +44,13 @@
                 v-if="colheita.nome === colheitaCard"
                 icon="chevron-down"
                 style="color: purple;"
-              />              
+              />         
             </div>
+            <div class="contentCard"
+              v-if="colheita.nome === colheitaCard"
+              >
+              <p class="cardTitle">{{colheita.descricao}}</p>
+            </div>     
 
         </li>
       </ul>
@@ -113,12 +118,12 @@ export default {
         '2019-11-02': {
           colheitas: [
             {
-              descrição: 'Leo lindo é sensacional, imagina com Durvilhoso que é gado',
+              descricao: 'Leo lindo é sensacional, imagina com Durvilhoso que é gado',
               nome: 'Babadeira',
             },
 
             {
-              descrição: 'Leolindo345 é sensacional, imagina com Durvilhoso123 que é gado',
+              descricao: 'Leolindo345 é sensacional, imagina com Durvilhoso123 que é gado',
               nome: 'Pisadeira',
             },
           ]
@@ -126,12 +131,12 @@ export default {
         '2019-11-01': {
           colheitas: [
             {
-              descrição: 'Leo linxfghjfghsfdhsddo é sensacional, imagina com Durvilhoso que é gado',
+              descricao: 'Leo linxfghjfghsfdhsddo é sensacional, imagina com Durvilhoso que é gado',
               nome: 'Babdfgfdgadeira',
             },
 
             {
-              descrição: 'Leolindo345 é srthfghsfhsfsensacional, imagina com Durvilhoso123 que é gado',
+              descricao: 'Leolindo345 é srthfghsfhsfsensacional, imagina com Durvilhoso123 que é gado',
               nome: 'Pisadedfgdfira',
             },
           ]
@@ -166,8 +171,13 @@ export default {
         this.iconCard = "chevron-down";
       }
 
-      else if (this.iconCard == "chevron-down") {
+      else if (this.iconCard == "chevron-down" && this.colheitaCard != "" && this.colheitaCard != colheita) {
         this.colheitaCard = colheita;
+        this.iconCard = "chevron-right";
+      }
+
+      else {
+        this.colheitaCard = "";
         this.iconCard = "chevron-right";
       }
     },
