@@ -3,41 +3,19 @@
     id="container-topbar"
     class="navbar fixed-top"
   >
-    <div
-      v-if="color=='white'"
-      class="topbar"
-    >
-      <font-awesome-icon
-        v-if="iconleft"
-        :icon="iconleft"
-        style="color: white;"
-        @click="selectLeft()"
-      />
-      <font-awesome-icon
-        v-if="iconright"
-        :icon="iconright"
-        style="color: white;"
-        @click="selectRight()"
-      />
-    </div>
+    <font-awesome-icon
+      v-if="iconleft"
+      :icon="iconleft"
+      :class="color"
+      @click="selectLeft"
+    />
 
-    <div
-      v-else
-      class="topbar"
-    >
-      <font-awesome-icon
-        v-if="iconleft"
-        :icon="iconleft"
-        style="color: #2D9CDB;"
-        @click="selectLeft()"
-      />
-      <font-awesome-icon
-        v-if="iconright"
-        :icon="iconright"
-        style="color: #2D9CDB;"
-        @click="selectRight()"
-      />
-    </div>
+    <font-awesome-icon
+      v-if="iconright"
+      :icon="iconright"
+      :class="color"
+      @click="selectRight"
+    />
   </div>
 </template>
 
@@ -49,14 +27,14 @@ export default {
       type: String,
     },
     iconright: {
-      default: "",
-      type: String,
+      default: '',
+      type: String
     },
-    color: {
-      default: "white",
-      type: String,
+    color:{
+      default: 'color-default-text',
+      type: String
+    }
     },
-  },
 
   methods: {
     selectLeft() {
@@ -66,7 +44,6 @@ export default {
         // The sidebar feature will be implemented here
       }
     },
-
     selectRight() {
       if (this.iconright == "pen") {
         // The edit feature will be implemented here
@@ -79,16 +56,19 @@ export default {
   }
 };
 </script>
-
 <style lang="scss" scoped>
-
-.topbar{
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-#container-topbar {
-  padding: 15px;
-}
+    @import '@/assets/stylesheets/colors.scss';
+    #topbar {
+        padding: 15px;
+        z-index: 100 !important;
+    }
+    .color-primary {
+        color: $color-primary;
+    }
+    .color-primary-dark {
+        color: $color-primary-dark;
+    }
+    .color-default-text {
+        color: $color-default-text;
+    }
 </style>

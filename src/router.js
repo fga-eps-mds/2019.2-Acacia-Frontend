@@ -6,6 +6,7 @@ import Signin from '@/views/Signin.vue'
 import Signup from '@/views/Signup.vue'
 import CalendarPage from '@/views/CalendarPage.vue'
 import PropertyRegistration from '@/views/PropertyRegistration.vue'
+import HarvestRegistration from '@/views/HarvestRegistration'
 import store from './store'
 
 const ifNotAuthenticated = (to, from, next) => {
@@ -28,32 +29,39 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  routes: [{
-    path: '/',
-    name: 'home',
-    component: HomePage,
-  },
-  {
-    path: '/signin',
-    name: 'signin',
-    component: Signin,
-    beforeEnter: ifNotAuthenticated,
-  },
-  {
-    path: '/signup',
-    name: 'signup',
-    component: Signup,
-  },
-  {
-    name: 'propertyRegistration',
-    path: '/property/registration',
-    component: PropertyRegistration,
-    beforeEnter: ifAuthenticated,
-  },
-  {
-    name: 'calendar',
-    path: '/calendar/',
-    component: CalendarPage,
-  }
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: HomePage,
+    },
+    {
+      path: '/signin',
+      name: 'signin',
+      component: Signin,
+      beforeEnter: ifNotAuthenticated,
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: Signup,
+    },
+    {
+      name: 'propertyRegistration',
+      path: '/property/registration',
+      component: PropertyRegistration,
+      beforeEnter: ifAuthenticated,
+    },
+    {
+      name: 'harvestRegistration',
+      path: '/harvest/registration',
+      component: HarvestRegistration,
+      beforeEnter: ifAuthenticated,
+    },
+    {
+      name: 'calendar',
+      path: '/calendar/',
+      component: CalendarPage,
+    }
   ]
 })

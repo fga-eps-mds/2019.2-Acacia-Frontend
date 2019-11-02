@@ -8,25 +8,33 @@
       <div class="content-form">
         <TextField
           v-model="username"
-          class="mt-3"
+          color="white"
+          bordercolor="white"
           :label="this.$t('SignPages.name')"
+          class="mt-2"
         />
         <TextField
           v-model="email"
-          class="mt-3"
+          class="mt-2"
+          color="white"
+          bordercolor="white"
           :label="this.$t('SignPages.email')"
         />
         <TextField
           v-model="password"
-          class="mt-3"
+          color="white"
+          bordercolor="white"
           :label="this.$t('SignPages.password')"
-          :password="true"
+          type="password"
+          class="mt-2"
         />
         <TextField
           v-model="confirm_password"
-          class="mt-3"
+          color="white"
+          bordercolor="white"
           :label="this.$t('SignPages.confirmPassword')"
-          :password="true"
+          type="password"
+          class="mt-2"
         />
       </div>
       <div class="content-button">

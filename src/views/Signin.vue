@@ -1,38 +1,40 @@
 <template>
   <div class="signin gradient">
-    <TopBar 
+    <TopBar
       :iconleft="'chevron-left'"
     />
     <div class="content-container">
-      <img 
-        width="45%" 
-        class="max-width-500 mb-4" 
-        src="../assets/images/logo.svg"
-      >
-      <TextField 
-        v-model="email" 
-        class="mt-5" 
-        texticon="user" 
-        :placeholder="this.$t('SignPages.email').toLowerCase()"
-      />
-      <TextField 
-        v-model="password" 
-        class="mt-5" 
-        texticon="lock" 
-        :placeholder="this.$t('SignPages.password').toLowerCase()" 
-        :password="true"
-      />
-      <SignButton 
-        :label="this.$t('SignPages.login')" 
-        class="mt-5" 
-        @action="login"
-      />
+      <form method="post">
+        <img
+          width="45%"
+          class="max-width-500 mb-4"
+          src="../assets/images/logo.svg"
+        >
+        <TextField
+          v-model="email"
+          class="mt-5"
+          texticon="user"
+          :placeholder="this.$t('SignPages.email').toLowerCase()"
+        />
+        <TextField
+          v-model="password"
+          class="mt-5"
+          texticon="lock"
+          :placeholder="this.$t('SignPages.password').toLowerCase()"
+          :password="true"
+        />
+        <SignButton
+          :label="this.$t('SignPages.login')"
+          class="mt-5"
+          @action="login"
+        />
+      </form>
     </div>
-    <div 
-      href="/signup" 
+    <div
+      href="/signup"
       class="signup-button fixed-bottom"
     >
-      <a 
+      <a
         href="/signup"
         class="button-link"
       >
@@ -152,6 +154,6 @@ export default {
     text-decoration: none;
   }
 	.gradient {
-		background-image: linear-gradient(180deg, rgba(86, 163, 166, 1), rgba(75s, 125, 170, 105));
+		background-image: linear-gradient(180deg, rgba(86, 163, 166, 1), rgba(75, 125, 170, 105));
 	}
 </style>
