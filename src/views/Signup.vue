@@ -15,27 +15,31 @@
           color="white"
           bordercolor="white"
           :label="this.$t('SignPages.name')"
-          class="mt-2"/>
+          class="mt-2"
+        />
         <TextField 
-          class="mt-2" 
           v-model="email" 
+          class="mt-2" 
           color="white"
           bordercolor="white"
-          :label="this.$t('SignPages.email')"/>
+          :label="this.$t('SignPages.email')"
+        />
         <TextField 
           v-model="password" 
           color="white"
           bordercolor="white"
           :label="this.$t('SignPages.password')" 
           type="password"
-          class="mt-2"/>
+          class="mt-2"
+        />
         <TextField 
           v-model="confirm_password" 
           color="white"
           bordercolor="white"
           :label="this.$t('SignPages.confirmPassword')" 
           type="password"
-          class="mt-2"/>
+          class="mt-2"
+        />
       </div>
       <div class="content-button">
         <SignButton 

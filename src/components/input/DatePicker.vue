@@ -17,8 +17,8 @@
         />
       </template>
       <v-date-picker 
-        :locale="$t('DatePicker.locale')"
         v-model="dateLocal"
+        :locale="$t('DatePicker.locale')"
         color="#376996"
         :min="today"
         class="date-picker"
