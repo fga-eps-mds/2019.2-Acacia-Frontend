@@ -4,8 +4,8 @@
     class="navbar fixed-top"
   >
     <div
-      class="topbar"
       v-if="color=='white'"
+      class="topbar"
     >
       <font-awesome-icon
         v-if="iconleft"
@@ -22,8 +22,8 @@
     </div>
 
     <div
-      class="topbar"
       v-else
+      class="topbar"
     >
       <font-awesome-icon
         v-if="iconleft"

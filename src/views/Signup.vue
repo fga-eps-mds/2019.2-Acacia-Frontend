@@ -33,7 +33,7 @@
         <SignButton
           class="mt-4"
           :label="this.$t('SignPages.createAccount')"
-        @action="signup"
+          @action="signup"
         />
       </div>
     </div>

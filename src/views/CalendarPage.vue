@@ -7,12 +7,12 @@
     />
 
     <div :class="'content-container ' + height">
-        <vc-calendar
-          id="calendar"
-          locale="pt-BR"
-          :attributes="atributos"
-          @dayclick="dayClicked"
-        />
+      <vc-calendar
+        id="calendar"
+        locale="pt-BR"
+        :attributes="atributos"
+        @dayclick="dayClicked"
+      />
 
       <div id="container-bottom-bar">
         <font-awesome-icon
@@ -23,40 +23,43 @@
       </div>
     </div>
     
-    <div v-bind:class="hideCards" >
+    <div 
+      :class="hideCards"
+    >
       <ul>
-        <li v-for="colheita in colheitas">
-
-            <div class="carBody" @click="selectCard(colheita.nome)">
-              <p class="cardTitle">{{colheita.nome}}</p>
-              
-              <!-- 
-                Estamos tentando fazer o chevron de cada colheita funcionar separadamente, então estavamos pensando em fazer um computed com
-                o nome da colheita e assim poder tratar da forma que for conveniente 
-               -->
-              
-              <font-awesome-icon
-                v-if="colheita.nome != colheitaCard"
-                icon="chevron-right"
-                style="color: purple;"
-              /> 
-              <font-awesome-icon
-                v-if="colheita.nome === colheitaCard"
-                icon="chevron-down"
-                style="color: purple;"
-              />         
-            </div>
-            <div class="contentCard"
+        <li 
+          v-for="colheita in colheitas" 
+          :key="colheita.id"
+        >
+          <div 
+            class="carBody"
+            @click="selectCard(colheita.nome)"
+          >
+            <p class="cardTitle">
+              {{ colheita.nome }}
+            </p>
+            <font-awesome-icon
+              v-if="colheita.nome != colheitaCard"
+              icon="chevron-right"
+              style="color: purple;"
+            /> 
+            <font-awesome-icon
               v-if="colheita.nome === colheitaCard"
-              >
-              <p class="cardTitle">{{colheita.descricao}}</p>
-            </div>     
-
+              icon="chevron-down"
+              style="color: purple;"
+            />         
+          </div>
+          <div 
+            v-if="colheita.nome === colheitaCard"
+            class="contentCard"
+          >
+            <p class="cardTitle">
+              {{ colheita.descricao }}
+            </p>
+          </div>     
         </li>
       </ul>
     </div>
-
-
   </div>
 </template>
 
@@ -65,40 +68,8 @@ import TopBar from '@/components/layout/TopBar'
 
 export default {
 
-  computed: {
-
-    hideCards: function () {
-      return {
-        'display-none': this.iconBottomBar === "chevron-up"
-      }
-    },
-
-    colheitas: function() {
-      if(!this.selectedDay){
-        return this.allHarvest()
-      }
-      return this.dates_info[this.selectedDay]['colheitas']
-    },
-
-    atributos: function() {
-      let attrs = [{
-        highlight: {
-          color: 'purple',
-          class: 'detail-highlight'
-        },
-
-        dates: this.dates,
-      }]
-
-      if (this.iconBottomBar == "chevron-up") {
-        attrs[0]['highlight'].class = 'highlight'
-        return attrs
-      }
-
-      else if (this.iconBottomBar == "chevron-down") {
-        return attrs
-      }
-    },
+  components: {
+    TopBar,
   },
 
   data() {
@@ -144,10 +115,40 @@ export default {
       },
     }
   },
+  
+  computed: {
+    hideCards: function () {
+      return {
+        'display-none': this.iconBottomBar === "chevron-up"
+      }
+    },
 
-  components: {
-    TopBar,
+    colheitas: function() {
+      if(!this.selectedDay){
+        return this.allHarvest()
+      }
+      return this.dates_info[this.selectedDay]['colheitas']
+    },
+
+    atributos: function() {
+      let attrs = [{
+        highlight: {
+          color: 'purple',
+          class: 'detail-highlight'
+        },
+
+        dates: this.dates,
+      }]
+
+      if (this.iconBottomBar == "chevron-up") {
+        attrs[0]['highlight'].class = 'highlight'
+        return attrs
+      }
+
+      return attrs
+    },
   },
+
 
   methods: {
 
@@ -221,7 +222,6 @@ export default {
   ul{
     color: purple;
   }
-
 
   .detail-highlight {
     margin-bottom: 30%;
