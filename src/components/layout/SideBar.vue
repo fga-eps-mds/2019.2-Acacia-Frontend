@@ -5,21 +5,44 @@
     temporary
     color="#56A3A6"
   >
-    <v-list-item class="mt-4">
-      <v-list-item-avatar
-        large
-      >
-        <v-img src="https://secure.gravatar.com/avatar/d39c7a53f244da29da3cd8ccaad6be4c?s=800&d=identicon"></v-img>
-      </v-list-item-avatar>
+    <div
+      v-if="$store.state.getRefreshToken()"
+    >
+      <v-list-item class="mt-4">
+        <v-list-item-avatar>
+          <v-icon
+            large
+            color="#ffffff"
+          >
+            mdi-account-outline
+          </v-icon>
+        </v-list-item-avatar>
 
-      <v-list-item-content>
-        <v-list-item-title class="white--text">
-          Renato, o grande
-        </v-list-item-title>
-      </v-list-item-content>
-    </v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="white--text">
+            Username
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </div>
+    <div
+      v-else
+    >
+      <v-list-item class="mt-4">
+        <v-list-item-avatar>
+          <v-icon
+            large
+            color="#ffffff"
+          >
+            mdi-account-outline
+          </v-icon>
+        </v-list-item-avatar>
+      </v-list-item>
+    </div>
 
-    <v-divider/>
+    <v-divider
+      class="white"
+    />
 
     <v-list dense>
 
@@ -50,8 +73,15 @@
         </v-list-item-content>
         </a>
       </v-list-item>
-      <v-divider></v-divider>
-      {{ this.$t('SideBar.languages') }}
+      <v-divider
+        class="white"
+      />
+      
+      <a
+        style="color: white;"
+      >
+        {{ this.$t('SideBar.languages') }}
+      </a>
       <v-list-item
         class="mt-2"
         v-for="item in languageOptions"
@@ -65,23 +95,42 @@
           />
         </v-list-item-icon>
 
-        <a :href="item.link" class="text-dark"> 
+        <a :href="item.link"> 
         <v-list-item-content>
-          <v-list-item-title>
+          <v-list-item-title
+            class="white--text"
+          >
             {{ item.title }} 
           </v-list-item-title>
         </v-list-item-content>
         </a>
       </v-list-item>
     </v-list>
+
+
+    
     <template v-slot:append>
-      <div>
-        <SignButton
-          v-if="$store.state.getRefreshToken()"
-          label="Logout"
-          @action="logout"
-        />
-      </div>
+      <v-list dense>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon 
+            color="#ffffff"
+          >
+            mdi-exit-to-app
+          </v-icon>
+          </v-list-item-icon>
+
+          <a>
+            <v-list-item-content>
+              <v-list-item-title
+                class="white--text"
+              >
+                Sair
+              </v-list-item-title>
+            </v-list-item-content>
+          </a>
+        </v-list-item>
+      </v-list>
     </template>
   </v-navigation-drawer>
 </template>
@@ -96,12 +145,12 @@ export default {
   data() {
     return {
       navItemsAuth: [
-        {title: this.$t('SideBar.dashboard'), icon: 'mdi-view-dashboard-outline', link: '/'},
-        {title: this.$t('SideBar.calendar'), icon: 'mdi-calendar-blank-outline', link: '/calendar'},
-        {title: this.$t('SideBar.properties'), icon: 'mdi-home', link: '/property'},
         {title: this.$t('SideBar.profile'), icon: 'mdi-account-outline', link: '/profile'},
-        {title: this.$t('SideBar.harvests'), icon: 'mdi-sprout', link: '/harvest'},
         {title: this.$t('SideBar.opendata'), icon: 'mdi-shape-circle-plus', link: '/public-data'},
+        {title: this.$t('SideBar.properties'), icon: 'mdi-home', link: '/property'},
+        {title: this.$t('SideBar.harvests'), icon: 'mdi-sprout', link: '/harvest'},
+        {title: this.$t('SideBar.calendar'), icon: 'mdi-calendar-blank-outline', link: '/calendar'},
+        {title: this.$t('SideBar.dashboard'), icon: 'mdi-view-dashboard-outline', link: '/'},
       ],
       navItemsNotAuth: [
         {title: this.$t('SideBar.dashboard'), icon: 'mdi-view-dashboard-outline', link: '/'},
@@ -133,6 +182,24 @@ export default {
       },
       set: function(value) {
         this.$store.state.sideBarOn = value
+      },
+    },
+
+    sideNavAuth: {
+      get: function() {
+        return this
+      },
+      set: function(value) {
+
+      },
+    },
+
+    sideNavNotAuth: {
+      get: function() {
+
+      },
+      set: function(value) {
+
       },
     }
   }
