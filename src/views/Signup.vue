@@ -19,7 +19,7 @@
         />
         <TextField 
           v-model="email" 
-          class="mt-3"
+          class="mt-2" 
           color="white"
           bordercolor="white"
           :label="this.$t('SignPages.email')"

@@ -1,40 +1,67 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import HomePage from '@/views/HomePage.vue'
+import Signin from '@/views/Signin.vue'
+import Signup from '@/views/Signup.vue'
+import PropertyRegistration from '@/views/PropertyRegistration.vue'
+import HarvestRegistration from '@/views/HarvestRegistration'
+import Dashboard from '@/views/Dashboard'
+import store from './store'
+
+const ifNotAuthenticated = (to, from, next) => {
+  if (!store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/')
+}
+
+const ifAuthenticated = (to, from, next) => {
+  if (store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/signin')
+}
+
 Vue.use(Router)
 
 export default new Router({
     mode: 'history',
-    routes: [
-        {
+    routes: [{
             path: '/',
             name: 'home',
-            component: () =>
-                import ('./views/HomePage.vue')
+            component: HomePage,
         },
         {
             path: '/signin',
             name: 'signin',
-            component: () =>
-                import ('./views/Signin.vue')
+            component: Signin,
+            beforeEnter: ifNotAuthenticated,
         },
         {
             path: '/signup',
             name: 'signup',
-            component: () =>
-                import ('./views/Signup.vue')
+            component: Signup,
+            beforeEnter: ifNotAuthenticated,
         },
         {
-            path: '/harvest/registration',
-            name: 'harvestRegistration',
-            component: () =>
-                import ('./views/HarvestRegistration.vue')
+        path: '/property/registration',
+        name: 'propertyRegistration',
+        component: PropertyRegistration,
+        beforeEnter: ifAuthenticated,
+		},
+		{
+			path: '/harvest/registration',
+			name: 'harvestRegistration',
+			component: HarvestRegistration,
+			beforeEnter: ifAuthenticated,
         },
         {
             path: '/dashboard',
             name: 'dashboard',
-            component: () =>
-                import ('./views/Dashboard.vue')
+            component: Dashboard,
         },
     ]
 })

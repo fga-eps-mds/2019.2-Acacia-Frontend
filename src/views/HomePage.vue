@@ -51,6 +51,7 @@ export default {
       ]
     }
   },
+
   methods: {
     logout() {
       this.$store.state.logoutUser()

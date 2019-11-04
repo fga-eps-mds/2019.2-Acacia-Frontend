@@ -32,11 +32,11 @@
         @action="login"
       />
     </div>
-    <div 
-      href="/signup" 
+    <div
+      href="/signup"
       class="signup-button fixed-bottom"
     >
-      <a 
+      <a
         href="/signup"
         class="button-link"
       >
@@ -47,7 +47,6 @@
 </template>
 
 <script>
-/* Component imports */
 import TextField from '@/components/input/TextField'
 import TopBar from '@/components/layout/TopBar'
 import SignButton from '@/components/input/SignButton'
@@ -81,7 +80,7 @@ export default {
       let state = this.$store.state
       let toasted = this.$toasted
 
-      state.noAuthRequest('users/token', 'POST', data)
+      state.noAuthRequest('users/token/', 'POST', data)
         .then((response) => {
           toasted.show(this.$t('SignPages.positiveStatus')).goAway(2000)
           state.authUser(response.data['access'], response.data['refresh'])

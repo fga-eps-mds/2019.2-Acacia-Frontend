@@ -24,7 +24,7 @@ export default {
   props: {
     iconleft: {
       default: "",
-      type: String
+      type: String,
     },
     iconright: {
       default: '',
@@ -66,7 +66,7 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>    
+<style lang="scss" scoped>
     @import '@/assets/stylesheets/colors.scss';
     #topbar {
         padding: 15px;
@@ -80,17 +80,5 @@ export default {
     }
     .color-default-text {
         color: $color-default-text;
-    }
-    .color-primary {
-        color: $color-primary;
-    }
-    .color-primary-dark {
-        color: $color-primary-dark;
-    }
-    .color-default-text {
-        color: $color-default-text;
-    }
-    .pink {
-        color: pink;
     }
 </style>

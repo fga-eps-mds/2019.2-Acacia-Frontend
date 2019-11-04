@@ -29,9 +29,9 @@ const messages = {
         HarvestRegister: {
             register: "Harvest Registration",
             date: "Date",
-            description: "Descritpion",
+            description: "Description",
             equipment: "Equipment",
-            volunteerNumber: "Volunteer numbers",
+            volunteerNumber: "Volunteers",
             minimum: "Minimum",
             maximum: "Maximum",
             rules: " Rules",
@@ -51,7 +51,12 @@ const messages = {
             signup: "Sign up",
             languages: "Languages",
             exit: "Exit",
-        }
+        },
+        DatePicker: {
+            locale: "en",
+            cancel: "Cancel",
+            confirm: "Confirm"
+        },
     },
     'pt': {
           SignPages: {
@@ -76,13 +81,13 @@ const messages = {
             title: "Essa é a pagina root"
         },
         HarvestRegister: {
-            register: "Criar colhieta",
+            register: "Criar colheita",
             date: "Data de colheita",
             description: "Descrição",
             equipment: "Equipamento",
             volunteerNumber: "Número de voluntários",
             minimum: "Mínimo",
-            maximum: "Maximo",
+            maximum: "Máximo",
             rules: " Regras da colheita",
             create: "Cadastrar"
         },
@@ -100,7 +105,13 @@ const messages = {
             signup: "Registrar",
             languages: "Linguagens",
             exit: "Sair",
-        }
+        },
+        DatePicker: {
+          locale: "pt-br",
+          cancel: "Cancelar",
+          confirm: "Confirmar"
+        },
+
     },
 }
 
