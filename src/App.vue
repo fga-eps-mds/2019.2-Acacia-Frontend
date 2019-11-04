@@ -8,7 +8,7 @@
     >
 
     <!-- the side bar component is implemented here -->
-    <SideBar/>
+    <SideBar />
 
     <!-- The view from router is shown here -->
     <main>

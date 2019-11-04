@@ -1,7 +1,7 @@
 <template>
   <div class="signup gradient">
     <TopBar
-      :iconleft="'chevron-left'"
+      iconleft="chevron-left"
     />
     <div class="content-container">
       <div class="content-title">
@@ -15,7 +15,8 @@
           class="mt-3"
           color="white"
           bordercolor="white"
-          :label="this.$t('SignPages.name')"/>
+          :label="this.$t('SignPages.name')"
+        />
         <TextField 
           v-model="email" 
           class="mt-3"
@@ -32,8 +33,8 @@
           :label="this.$t('SignPages.password')" 
         />
         <TextField 
-          class="mt-3"
-          v-model="confirm_password" 
+          v-model="confirm_password"
+          class="mt-3" 
           color="white"
           bordercolor="white"
           type="password"

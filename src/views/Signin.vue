@@ -1,7 +1,7 @@
 <template>
   <div class="signin gradient">
     <TopBar 
-      :iconleft="'chevron-left'"
+      iconleft="chevron-left"
     />
     <div class="content-container">
       <img 
@@ -11,16 +11,20 @@
       >
       <TextField 
         v-model="email" 
-        class="mt-5" 
-        texticon="user" 
+        class="mt-5"
+        texticon="user"
+        color="white"
+        bordercolor="white"
         :placeholder="this.$t('SignPages.email').toLowerCase()"
       />
       <TextField 
         v-model="password" 
         class="mt-5" 
-        texticon="lock" 
+        texticon="lock"
+        color="white"
+        bordercolor="white"
+        type="password"
         :placeholder="this.$t('SignPages.password').toLowerCase()" 
-        :password="true"
       />
       <SignButton 
         :label="this.$t('SignPages.login')" 

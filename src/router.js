@@ -5,7 +5,8 @@ Vue.use(Router)
 
 export default new Router({
     mode: 'history',
-    routes: [{
+    routes: [
+        {
             path: '/',
             name: 'home',
             component: () =>
@@ -28,6 +29,12 @@ export default new Router({
             name: 'harvestRegistration',
             component: () =>
                 import ('./views/HarvestRegistration.vue')
+        },
+        {
+            path: '/dashboard',
+            name: 'dashboard',
+            component: () =>
+                import ('./views/Dashboard.vue')
         },
     ]
 })

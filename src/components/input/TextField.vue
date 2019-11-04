@@ -1,47 +1,52 @@
 <template>
-	<div 
+  <div 
     id="textfield"
-    class="textfield-container">
-		<div class="row ml-1 mr-1">
-			<div 
-				v-if="label" 
-				class="col-12 p-0 text-color-default textfield-label" 
-				:style="componentStyle"
+    class="textfield-container"
+  >
+    <div class="row ml-1 mr-1">
+      <div 
+        v-if="label" 
+        class="col-12 p-0 text-color-default textfield-label" 
+        :style="componentStyle"
       >
         {{ label }}
-			</div>
-			<input 
-				v-model="variableLocal" 
-				v-if="!texticon" 
-				:type="type" 
-				:class="{
-					'text-input' : true, 
-					'col-12': true, 
-					'black-placeholder': placeholderBlack, 
-					'white-placeholder': !placeholderBlack}" 
-				:placeholder="placeholder" 
-				:style="componentStyle">
-			<div 	
-				v-else 
-				class="w-100 col p-0">
-				<font-awesome-icon 
-					:icon="texticon" 
-					style="color:white"/>
-				<input 
-					v-model="variableLocal" 
-					:type="type"
-					:class="{
-						'ml-3': true, 
-						'text-input' : true, 
-						'col-12': true, 
-						'black-placeholder': placeholderBlack, 
-						'white-placeholder': !placeholderBlack}" 
-					style="border:none" 
-					:placeholder="placeholder">
-				<div class="text-field-border"></div>
-			</div>
-		</div>
-	</div>
+      </div>
+      <input 
+        v-if="!texticon" 
+        v-model="variableLocal" 
+        :type="type" 
+        :class="{
+          'text-input' : true, 
+          'col-12': true, 
+          'black-placeholder': placeholderBlack, 
+          'white-placeholder': !placeholderBlack}" 
+        :placeholder="placeholder" 
+        :style="componentStyle"
+      >
+      <div 	
+        v-else 
+        class="w-100 col p-0"
+      >
+        <font-awesome-icon 
+          :icon="texticon" 
+          style="color:white"
+        />
+        <input 
+          v-model="variableLocal" 
+          :type="type"
+          :class="{
+            'ml-3': true, 
+            'text-input' : true, 
+            'col-12': true, 
+            'black-placeholder': placeholderBlack, 
+            'white-placeholder': !placeholderBlack}" 
+          style="border:none" 
+          :placeholder="placeholder"
+        >
+        <div class="text-field-border" />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -53,30 +58,31 @@ export default {
 	props: {
 		label: {
 			default: '',
-			type: String
+			type: String,
 		},
 		color: {
 			default: '',
-			type: String
+			type: String,
 		},  
 		placeholder: {
 			default: '',
-			type: String
+			type: String,
 		},
 		type: {
 			default: 'text',
-			type: String
+			type: String,
 		},
 		texticon: {
 			default: '',
-			type: String
+			type: String,
 		},
 		variable: {
-			type: String
+      default: '',
+			type: String,
     },
     placeholderBlack: {
+      default: false,
       type: Boolean,
-      default: false
     }
 	},
 	computed: {

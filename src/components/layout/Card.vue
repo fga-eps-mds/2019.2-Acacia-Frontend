@@ -111,7 +111,10 @@
       </v-col>
   </div> -->
   <div>
-    <v-card flat tile>
+    <v-card
+      flat
+      tile
+    >
       <v-window v-model="localwindow">
         <v-window-item
           v-for="n in length"
@@ -124,7 +127,7 @@
             <div> 
               <div class="col-2"> 
                 <v-list-item-avatar>
-                  <v-img  src="https://secure.gravatar.com/avatar/d39c7a53f244da29da3cd8ccaad6be4c?s=800&d=identicon"></v-img>
+                  <v-img src="https://secure.gravatar.com/avatar/d39c7a53f244da29da3cd8ccaad6be4c?s=800&d=identicon" />
                 </v-list-item-avatar>
               </div>
               <div class="col-9 text-left">
@@ -134,7 +137,7 @@
             <div> 
               <div class="col-2"> 
                 <v-list-item-avatar>
-                  <v-img  src="https://secure.gravatar.com/avatar/d39c7a53f244da29da3cd8ccaad6be4c?s=800&d=identicon"></v-img>
+                  <v-img src="https://secure.gravatar.com/avatar/d39c7a53f244da29da3cd8ccaad6be4c?s=800&d=identicon" />
                 </v-list-item-avatar>
               </div>
               <div class="col-9 text-left">
@@ -172,6 +175,10 @@
 <script>
 export default {
   name: 'CardComponent',
+  model: {
+    prop: "window", 
+    event: "window-change",
+  },
   props: {
     window: {
       default: 0,
@@ -182,10 +189,9 @@ export default {
       type: Number
     },
   },
-  model: {
-    prop: "window", 
-    event: "window-change",
-  },
+  data: () => ({
+      length: 3,
+    }),
   computed: {
     localwindow: {
       get: function() {
@@ -196,9 +202,6 @@ export default {
       }
     }
   },
-  data: () => ({
-      length: 3,
-    }),
 }
 </script>
 

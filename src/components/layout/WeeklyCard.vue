@@ -1,11 +1,11 @@
 <template>
-    <div
-      class="container"
-    >
-      <h4>
-        {{ date }}
-      </h4>
-    </div>
+  <div
+    class="container"
+  >
+    <h4>
+      {{ date }}
+    </h4>
+  </div>
 </template>
 
 <script>

@@ -1,75 +1,64 @@
 <template>
-  <div
-  >
-    <div class="p-3 mt-5">
-      
-      <h1 class="raleway-regular mb-5">Dashboard</h1>
-      <v-window 
-      v-model="step" 
-      class="window-container"
+  <div class="home">
+    <h1 class="raleway-bold">
+      {{ $t('RootPage.title') }}
+    </h1>
+    <SignButton
+      :label="$t('SignPages.logout')"
+      @action="logout"
+    />
+    <div>
+      <button 
+        v-for="entry in languages"
+        :key="entry.title"
+        @click="changeLocale(entry.language)"
       >
-        <v-window-item 
-          v-for="n in 7"
-          :key="n"
-          :value="n"
-        >
-          <WeeklyCard
-            :date="'0' + n.toString() + '/03/2019'"
-          />
-        </v-window-item>
-      </v-window>
-    </div>
-    <div
-      class="p-3 card-container"
-    >
-      <Card
-        v-model="window"
-      />
+        <flag 
+          :iso="entry.flag" 
+          :squared="false"
+        />
+        {{ entry.title }}
+      </button>
     </div>
   </div>
 </template>
 
 <script>
 /* Component imports */
+import SignButton from '@/components/input/SignButton'
 import router from '@/router'
-import WeeklyCard from '../components/layout/WeeklyCard'
-import Card from '../components/layout/Card'
-
 export default {
   name: 'Home',
   components: {
-    WeeklyCard,
-    Card,
+    SignButton,
   },
   
-  data: () => ({
-      step: 1,
-      length: 3,
-      window: 0,
-    }),
+  data() {
+    return {
+      router,
+      lang: 'es',
+      languages: [
+        {
+          flag: 'ca', 
+          language: 'en',
+          title: 'English',
+        },
+        {
+          flag: 'br', 
+          language: 'pt',
+          title: 'Português',
+        },
+      ]
+    }
+  },
   methods: {
+    logout() {
+      this.$store.state.logoutUser()
+      window.location.reload()
+    },
+    changeLocale(locale){
+      this.$store.state.setUserLanguage(locale)
+    },
   }
 }
 </script>
-
-<style scoped lang="scss">
-@import "../assets/stylesheets/colors.scss";
-
-.diva {
-  margin: 10px;
-  background-color: $color-secundary;
-  color: white;
-  border-radius: 10px !important;
-}
-
-.window-container {
-  overflow: hidden;
-}
-
-.card-container {
-  margin-top: 15px;
-  padding: 5%;
-  
-}
-
-</style>

@@ -36,6 +36,16 @@ export default {
     },
   },
 
+  computed: {
+    iconDislay: {
+      get: function() {
+        return this.$store.state.sideBarOn
+      },
+      set: function(value) {
+      },
+    }
+  },
+
   methods: {
     selectLeft() {
       if (this.iconleft == "chevron-left") {
@@ -52,16 +62,6 @@ export default {
       } else if (this.iconright == "plus") {
         // The add feature will be implemented here
       }
-    }
-  },
-
-  computed: {
-    iconDislay: {
-      get: function() {
-        return this.$store.state.sideBarOn
-      },
-      set: function(value) {
-      },
     }
   }
 };
