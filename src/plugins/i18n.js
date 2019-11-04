@@ -49,9 +49,8 @@ const messages = {
             opendata: "Open Data",
             signin: "Sign in",
             signup: "Sign up",
-            portuguese: "Portuguese",
-            english: "English",
-            languages: "Languages"
+            languages: "Languages",
+            exit: "Exit",
         }
     },
     'pt': {
@@ -93,15 +92,14 @@ const messages = {
         SideBar: {
             dashboard: "Dashboard",
             calendar: "Calendário",
-            properties: "Propriedades",
+            properties: "Minhas Propriedades",
             profile: "Meu Perfil",
             harvests: "Colheitas",
             opendata: "Dados Abertos",
             signin: "Entrar",
-            signup: "Registro",
-            portuguese: "Português",
-            english: "Inglês",
-            languages: "Linguagens"
+            signup: "Registrar",
+            languages: "Linguagens",
+            exit: "Sair",
         }
     },
 }
