@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+/* Vuetify configuration */
+import vuetify from './plugins/vuetify';
+
 /* Vue Cookie configuration */
 import VueCookie from 'vue-cookie'
 Vue.use(VueCookie)
@@ -27,16 +30,16 @@ Vue.use(BoostrapVue)
 /* Font awesome configuration */
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome' 
 library.add(fas)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 
 new Vue({
-	i18n,
-	router,
-	store,
-	render: h => h(App)
+    i18n,
+    router,
+    store,
+    vuetify,
+    render: h => h(App)
 }).$mount('#app')

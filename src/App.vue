@@ -1,16 +1,17 @@
 <template>
-  <div id="app">
+  <v-app id="app">
+    <!-- Icons from fontawesome -->
     <link
       rel="stylesheet"
       integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
       crossorigin="anonymous"
     >
+    <!-- The view from router is shown here -->
     <router-view />
-  </div>
+  </v-app>
 </template>
 
 <script>
-
 export default {
   components: {
   },
@@ -45,4 +46,5 @@ export default {
     text-align: center;
     color: #2c3e50;
   }
+  
 </style>

@@ -5,6 +5,7 @@ import HomePage from '@/views/HomePage.vue'
 import Signin from '@/views/Signin.vue'
 import Signup from '@/views/Signup.vue'
 import PropertyRegistration from '@/views/PropertyRegistration.vue'
+import HarvestRegistration from '@/views/HarvestRegistration'
 import store from './store'
 
 const ifNotAuthenticated = (to, from, next) => {
@@ -48,6 +49,12 @@ export default new Router({
             path: '/property/registration',
             component: PropertyRegistration,
             beforeEnter: ifAuthenticated,
-        }
+				},
+				{
+					name: 'harvestRegistration',
+					path: '/harvest/registration',
+					component: HarvestRegistration,
+					beforeEnter: ifAuthenticated,
+				}
     ]
 })
