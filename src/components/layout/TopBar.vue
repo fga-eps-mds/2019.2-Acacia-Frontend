@@ -1,6 +1,6 @@
 <template>
   <div
-    id="topbar"
+    id="container-topbar"
     class="navbar fixed-top"
   >
     <font-awesome-icon
