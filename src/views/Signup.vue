@@ -19,13 +19,13 @@
           bordercolor="white"
           :label="this.$t('SignPages.email')"
         />
-        <TextField 
-          v-model="password" 
+        <TextField
+          v-model="password"
           class="mt-3"
           color="white"
           bordercolor="white"
           type="password"
-          :label="this.$t('SignPages.password')" 
+          :label="this.$t('SignPages.password')"
         />
 
         <TextField
@@ -34,7 +34,7 @@
           class="mt-3"
           bordercolor="white"
           type="password"
-          :label="this.$t('SignPages.confirmPassword')" 
+          :label="this.$t('SignPages.confirmPassword')"
         />
       </div>
       <div class="content-button">
@@ -145,8 +145,8 @@ export default {
         .goAway(2000);
   return false;
 }
-      let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0, 61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0, 61}[a-zA-Z0-9])?)*$/gim;
-      if (!this.email.match(emailRegex)) {
+      let emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i
+      if (emailRegex.test(String(this.email).toLowerCase())) {
       this.$toasted.show(this.$t("SignPages.requireValidEmail")).goAway(2000);
     return false;
   }
