@@ -12,6 +12,7 @@ export default new Vuex.Store({
     isAuthenticated: state => !!state.getAccessToken()
   },
   state: {
+    sideBarOn: false,
     defaultLanguage: 'en',
     baseURL: API_URL,
 

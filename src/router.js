@@ -7,6 +7,7 @@ import Signup from '@/views/Signup.vue'
 import CalendarPage from '@/views/CalendarPage.vue'
 import PropertyRegistration from '@/views/PropertyRegistration.vue'
 import HarvestRegistration from '@/views/HarvestRegistration'
+import Dashboard from '@/views/Dashboard'
 import store from './store'
 
 const ifNotAuthenticated = (to, from, next) => {
@@ -62,6 +63,11 @@ export default new Router({
       name: 'calendar',
       path: '/calendar/',
       component: CalendarPage,
-    }
+    },                          
+    {
+        path: '/dashboard',
+        name: 'dashboard',
+        component: Dashboard,
+    },
   ]
 })

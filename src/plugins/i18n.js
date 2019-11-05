@@ -40,6 +40,18 @@ const messages = {
         Global: {
             locale: "en",
         },
+        SideBar: {
+            dashboard: "Dashboard",
+            calendar: "Calendar",
+            properties: "My Properties",
+            profile: "My Profile",
+            harvests: "Harvests",
+            opendata: "Open Data",
+            signin: "Sign in",
+            signup: "Sign up",
+            languages: "Languages",
+            exit: "Exit",
+        },
         DatePicker: {
             locale: "en",
             cancel: "Cancel",
@@ -81,6 +93,18 @@ const messages = {
         },
         Global: {
             locale: "pt-br",
+        },
+        SideBar: {
+            dashboard: "Dashboard",
+            calendar: "Calendário",
+            properties: "Minhas Propriedades",
+            profile: "Meu Perfil",
+            harvests: "Colheitas",
+            opendata: "Dados Abertos",
+            signin: "Entrar",
+            signup: "Registrar",
+            languages: "Linguagens",
+            exit: "Sair",
         },
         DatePicker: {
           locale: "pt-br",
