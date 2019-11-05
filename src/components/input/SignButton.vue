@@ -14,30 +14,31 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            label: {
-                default: '',
-                type: String
-            },
-            buttonStyle: {
-                default: '',
-                type: String
-            },
-            color: {
-                default: 'primary-blue',
-                type: String
-            },
-            padding: {
-                default: 'big',
-                type: String
-            },
-            direction: {
-                default: '',
-                type: String
-            }
-        },
-    }
+export default {
+  name: "SignButton",
+  props: {
+      label: {
+          default: '',
+          type: String
+      },
+      buttonStyle: {
+          default: '',
+          type: String
+      },
+      color: {
+          default: 'primary-blue',
+          type: String
+      },
+      padding: {
+          default: 'big',
+          type: String
+      },
+      direction: {
+          default: '',
+          type: String
+      }
+  },
+}
 </script>
 
 <style lang="scss" scoped>

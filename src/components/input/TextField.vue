@@ -11,36 +11,36 @@
       >
         {{ label }}
       </div>
-      <input
-        v-if="!texticon"
-        v-model="variableLocal"
-        :type="type"
+      <input 
+        v-if="!texticon" 
+        v-model="variableLocal" 
+        :type="type" 
         :class="{
-          'text-input' : true,
-          'col-12': true,
-          'black-placeholder': placeholderBlack,
-          'white-placeholder': !placeholderBlack}"
-        :placeholder="placeholder"
+          'text-input' : true, 
+          'col-12': true, 
+          'black-placeholder': placeholderBlack, 
+          'white-placeholder': !placeholderBlack}" 
+        :placeholder="placeholder" 
         :style="componentStyle"
       >
-      <div
-        v-else
+      <div 	
+        v-else 
         class="w-100 col p-0"
       >
-        <font-awesome-icon
-          :icon="texticon"
+        <font-awesome-icon 
+          :icon="texticon" 
           style="color:white"
         />
-        <input
-          v-model="variableLocal"
+        <input 
+          v-model="variableLocal" 
           :type="type"
           :class="{
-            'ml-3': true,
-            'text-input' : true,
-            'col-12': true,
-            'black-placeholder': placeholderBlack,
-            'white-placeholder': !placeholderBlack}"
-          style="border:none"
+            'ml-3': true, 
+            'text-input' : true, 
+            'col-12': true, 
+            'black-placeholder': placeholderBlack, 
+            'white-placeholder': !placeholderBlack}" 
+          style="border:none" 
           :placeholder="placeholder"
         >
         <div class="text-field-border" />
@@ -58,37 +58,33 @@ export default {
 	props: {
 		label: {
 			default: '',
-			type: String
+			type: String,
 		},
+		color: {
+			default: '',
+			type: String,
+		},  
 		placeholder: {
 			default: '',
-			type: String
+			type: String,
 		},
 		type: {
 			default: 'text',
-			type: String
+			type: String,
 		},
-    password: {
+		texticon: {
+			default: '',
+			type: String,
+		},
+		variable: {
+      default: '',
+			type: String,
+    },
+    placeholderBlack: {
       default: false,
-      type: Boolean
-    },
-    texticon: {
-      default: "",
-      type: String
-    },
-    variable: {
-      default: "",
-      type: String
-    },
-    color: {
-      default: "#ffffff",
-      type: String
-    },
-    bordercolor: {
-      default: "#bbbbbb",
-      type: String
-    },
-  },
+      type: Boolean,
+    }
+	},
 	computed: {
 		variableLocal: {
 			get: function() {

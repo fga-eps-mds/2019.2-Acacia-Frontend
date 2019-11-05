@@ -21,6 +21,12 @@ import i18n from '@/plugins/i18n'
 import FlagIcon from 'vue-flag-icon'
 Vue.use(FlagIcon)
 
+import VCalendar from 'v-calendar';
+
+Vue.use(VCalendar, {
+  componentPrefix: 'vc',
+});
+
 /* Boostrap configuration */
 import BoostrapVue from 'bootstrap-vue'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
