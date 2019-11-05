@@ -1,24 +1,32 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <!-- Icons from fontawesome -->
-    <link rel="stylesheet" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
-      crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+      crossorigin="anonymous"
+    >
+
+    <!-- the side bar component is implemented here -->
+    <SideBar />
+
     <!-- The view from router is shown here -->
-    <router-view />
-  </div>
+    <main>
+      <router-view />
+    </main>
+  </v-app>
 </template>
 
 <script>
-
+import SideBar from '@/components/layout/SideBar'
 export default {
   components: {
+    SideBar
   },
   mounted() {
     let state = this.$store.state;
     state.resolveUserLanguage();
   },
-  methods: {
-  }
 }
 </script>
 
@@ -44,4 +52,5 @@ export default {
     text-align: center;
     color: #2c3e50;
   }
+  
 </style>

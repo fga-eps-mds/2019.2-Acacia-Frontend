@@ -26,6 +26,37 @@ const messages = {
         RootPage: {
             title: "This is root page"
         },
+        HarvestRegister: {
+            register: "Harvest Registration",
+            date: "Date",
+            description: "Description",
+            equipment: "Equipment",
+            volunteerNumber: "Volunteers",
+            minimum: "Minimum",
+            maximum: "Maximum",
+            rules: " Rules",
+            create: "Register"
+        },
+        Global: {
+            locale: "en",
+        },
+        SideBar: {
+            dashboard: "Dashboard",
+            calendar: "Calendar",
+            properties: "My Properties",
+            profile: "My Profile",
+            harvests: "Harvests",
+            opendata: "Open Data",
+            signin: "Sign in",
+            signup: "Sign up",
+            languages: "Languages",
+            exit: "Exit",
+        },
+        DatePicker: {
+            locale: "en",
+            cancel: "Cancel",
+            confirm: "Confirm"
+        },
     },
     'pt': {
           SignPages: {
@@ -49,6 +80,38 @@ const messages = {
         RootPage: {
             title: "Essa é a pagina root"
         },
+        HarvestRegister: {
+            register: "Criar colheita",
+            date: "Data de colheita",
+            description: "Descrição",
+            equipment: "Equipamento",
+            volunteerNumber: "Número de voluntários",
+            minimum: "Mínimo",
+            maximum: "Máximo",
+            rules: " Regras da colheita",
+            create: "Cadastrar"
+        },
+        Global: {
+            locale: "pt-br",
+        },
+        SideBar: {
+            dashboard: "Dashboard",
+            calendar: "Calendário",
+            properties: "Minhas Propriedades",
+            profile: "Meu Perfil",
+            harvests: "Colheitas",
+            opendata: "Dados Abertos",
+            signin: "Entrar",
+            signup: "Registrar",
+            languages: "Linguagens",
+            exit: "Sair",
+        },
+        DatePicker: {
+          locale: "pt-br",
+          cancel: "Cancelar",
+          confirm: "Confirmar"
+        },
+
     },
 }
 

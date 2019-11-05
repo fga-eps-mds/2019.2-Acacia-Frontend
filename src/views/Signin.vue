@@ -1,40 +1,52 @@
 <template>
   <div class="signin gradient">
-		<TopBar 
-      :iconleft="'chevron-left'"
+    <TopBar 
+      iconleft="chevron-left"
     />
-		<div class="content-container">
-			<img 
+    <div class="content-container">
+      <img 
         width="45%" 
         class="max-width-500 mb-4" 
-        src="../assets/images/logo.svg">
-			<TextField 
-        class="mt-5" 
+        src="../assets/images/logo.svg"
+      >
+      <TextField 
         v-model="email" 
-        texticon="user" 
-        :placeholder="this.$t('SignPages.email').toLowerCase()"/>
-			<TextField 
-        class="mt-5" 
+        class="mt-5"
+        texticon="user"
+        color="white"
+        bordercolor="white"
+        :placeholder="this.$t('SignPages.email').toLowerCase()"
+      />
+      <TextField 
         v-model="password" 
-        texticon="lock" 
+        class="mt-5" 
+        texticon="lock"
+        color="white"
+        bordercolor="white"
+        type="password"
         :placeholder="this.$t('SignPages.password').toLowerCase()" 
-        :password="true"/>
-			<SignButton 
+      />
+      <SignButton 
         :label="this.$t('SignPages.login')" 
         class="mt-5" 
-        @action="login"/>
+        @action="login"
+      />
     </div>
-		<div href="/signup" class="signup-button fixed-bottom">
-			<a href="/signup" class="button-link">
+    <div
+      href="/signup"
+      class="signup-button fixed-bottom"
+    >
+      <a
+        href="/signup"
+        class="button-link"
+      >
         {{ this.$t('SignPages.createAccount') }}
       </a>
-		</div>
-
-	</div>
+    </div>
+  </div>
 </template>
 
 <script>
-/* Component imports */
 import TextField from '@/components/input/TextField'
 import TopBar from '@/components/layout/TopBar'
 import SignButton from '@/components/input/SignButton'
@@ -68,7 +80,7 @@ export default {
       let state = this.$store.state
       let toasted = this.$toasted
 
-      state.noAuthRequest('users/token', 'POST', data)
+      state.noAuthRequest('users/token/', 'POST', data)
         .then((response) => {
           toasted.show(this.$t('SignPages.positiveStatus')).goAway(2000)
           state.authUser(response.data['access'], response.data['refresh'])
@@ -144,6 +156,6 @@ export default {
     text-decoration: none;
   }
 	.gradient {
-		background-image: linear-gradient(180deg, rgba(86, 163, 166, 1), rgba(75s, 125, 170, 105));
+		background-image: linear-gradient(180deg, rgba(86, 163, 166, 1), rgba(75, 125, 170, 105));
 	}
 </style>
