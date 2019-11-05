@@ -27,8 +27,7 @@
 /* Component imports */
 import SignButton from '@/components/input/SignButton'
 import router from '@/router'
-import {API_URL} from '../config'
-console.log(API_URL)
+
 export default {
   name: 'Home',
   components: {
