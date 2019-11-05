@@ -34,16 +34,10 @@
           color="black"
           bordercolor="#C4C4C4" 
         />
-
-        <TextField 
-          v-model="matury_date"
-          type="date"
-          class="mt-1" 
-          label="Possivel data de Colheita" 
-          color="black"
-          bordercolor="white"
+        <DatePicker 
+          v-model="date"
+          :label="$t('HarvestRegister.date')"
         />
-        <input type="date" v-model="matury_date">
 
         <TextField 
           v-model="haverst_for_year"
@@ -62,9 +56,20 @@
         </div>
     
         <div class="image-container ">
-          <div class="preview-image">
+          <v-row align="center" justify="center">
+            <v-img
+              :src="preview.path"
+              lazy-src="preview.path"
+              aspect-ratio="1"
+              max-width="330"
+              max-height="200"
+              class="grey darken-4"
+            ></v-img>
+          </v-row>
+
+          <!-- <div class="preview-image">
               <img :src="preview.path" >
-          </div> 
+          </div>  -->
         </div> 
         <div class="input">
           <ImageUpload
@@ -72,22 +77,26 @@
           />   
         </div>
 
-          <div class="tree-button">
-            <RegisterButton 
-              @action="register"
-              :label="this.$t('Registar')" >
-            </RegisterButton>
-          </div>
+        <div class="content-button">
+          <SignButton
+            :label="$t('HarvestRegister.create')" 
+            padding="small"
+            direction="right"
+            @action="register"
+          />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import TopBar from '../components/layout/TopBarBeta'
+  import TopBar from '../components/layout/TopBar'
   import TextField from '../components/input/TextField'
   import ImageUpload from '../components/input/ImageUpload'
+  import SignButton from '@/components/input/SignButton'
   import RegisterButton from '../components/input/RegisterButton'
+  import DatePicker from '../components/input/DatePicker'
 
   
   import axios from "axios"
@@ -96,19 +105,19 @@
     components: {
       TopBar,
       TextField,
+      SignButton,
+      DatePicker,
       RegisterButton,
       ImageUpload,
     },
 
     data() {
       return {
-        hideImg: true,
         tree_type: '',
         number_of_tree: '',
         height_fruit: '',
-        matury_date: '',
+        date: '',
         haverst_for_year: '',
-        hideImg: true,
         tree_picture: null,
         preview: {}
 
@@ -120,42 +129,66 @@
       //                : "chevron-down"
       // return hideImg ? "chevron-right"
       //                : "chevron-down"
+      },
+      
+      formIsValid () {
+        return this.tree_type !== '' &&
+              this.number_of_tree !== '' &&
+              this.height_fruit !== '' &&
+              this.data !== ''
       }
     },
-    methods: {
-      uploadImageSuccess(imageFile, imagePath){
-        this.tree_picture = imageFile
-        this.preview = imagePath
-      },
+    
+      methods: {
+        uploadImageSuccess(imageFile, imagePath){
+          this.tree_picture = imageFile
+          this.preview = imagePath
+        },
      
       register(){
-        if (false) {
-          
+        if (!this.formIsValid) {
           return
-        }       
+        }     
         
         let formData = new FormData()
           formData.append('tree_type', this.tree_type)
           formData.append('number_of_tree', this.number_of_tree)
           formData.append('height_fruit', this.height_fruit)
-          formData.append('matury_date', this.matury_date)
+          formData.append('matury_date', this.date)
           formData.append('haverst_for_year', this.haverst_for_year)
           formData.append('tree_picture', this.tree_picture)
 
           // formData.append('_method', 'PUT');
 
-          console.log("terminou de carregar formData")
           console.log(formData)
 
-          this.$store.dispatch('recordTree', formData)
-          this.$router.push('/home')
+          // this.$store.dispatch('recordTree', formData)
 
-      },
 
-      validateInput(){
-          return true
+//========== temporario para salvar com o formulario como FormData ==========
+//=> configurar store:
+
+          const baseURL = this.$store.state.baseURL;
+          let config = {
+              headers: {
+                  'Content-Type': 'multipart/form-data',
+                  "Authorization": "Bearer " + this.$store.state.getAccessToken()
+                }
+            }
+            axios.post(baseURL + 'tree/', formData, config)
+              .then((response) => {
+                console.log("response")
+
+              this.$toasted.show(this.$t("SignPages.positiveStatus"))
+              .goAway(2000);
+              router.push({ name: "home" });
+              })
+              .catch(() => {
+                router.push({ name: "" });
+                      })
+//=============================================================================
+       },
       },
-    }
   }
     
 </script>
@@ -187,22 +220,22 @@
   display: flex;
   color: #2D9CDB;
   justify-content: center;
-  margin-top: 40px;
-  margin-bottom: 50px;
+  margin-top: 30px;
+  margin-bottom: 20px;
 }
 
   .file-label{
   display: flex;
   justify-content: space-between;
   color: black;
-  margin: 20px;
+  margin: 10px;
   font-size: 1rem;
   flex-wrap: wrap;
   align-items: center
 }
 
 .tree-button {
-  margin-top: 20px;
+  margin-top: 3px;
   display: flex;
   justify-content: flex-end;
 }

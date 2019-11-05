@@ -7,7 +7,7 @@ import Signup from '@/views/Signup.vue'
 import CalendarPage from '@/views/CalendarPage.vue'
 import PropertyRegistration from '@/views/PropertyRegistration.vue'
 import HarvestRegistration from '@/views/HarvestRegistration'
-import TreeRegistration from '@/views/PropertyRegistration.vue'
+import TreeRegistration from '@/views/TreeRegistration'
 import Dashboard from '@/views/Dashboard'
 import store from './store'
 
@@ -70,11 +70,7 @@ export default new Router({
             name: 'dashboard',
             component: Dashboard,
         },
-        {
-            name: 'propertyRegistration',
-            path: '/property/registration',
-            component: PropertyRegistration
-        },
+
         {
             name: 'treeRegistration',
             path: '/tree/registration',

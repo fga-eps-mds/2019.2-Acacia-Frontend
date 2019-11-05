@@ -1,13 +1,24 @@
 <template>
   <div class="upload">
+    
+    <!-- <v-btn
+      color="blue-grey"
+      class="ma-2 white--text"
+      fab
+      @click="$refs.fileInput.click()"
+      @change="uploadChange"
+    >
+      <v-icon dark>mdi-cloud-upload</v-icon>
+    </v-btn> -->
+
       <a  class="ml-2" @click="$refs.fileInput.click()"> 
         <font-awesome-icon
           icon="upload"
-          size="1x" 
+          size="2x" 
           style="color:black"
         /> 
-      </a> 
-      <span class="ml-2 "> {{ image.name }}</span>
+     </a>
+      <span class="ml-2 "> {{ imageURL.name }}</span>
       <div>
         <input
           style="display: none"
@@ -27,9 +38,9 @@
 
     data(){
       return {
-        image: {},
+        imageURL: {},
         file: null,
-        teste: '',
+        imageFile: '',
       }
     },
 
@@ -41,13 +52,13 @@
         // let fd = new FormData()
         // fd.append('file', file)
         
-        this.teste = file
+        this.imageFile = file
         fr.onload = (event) => {
           let imageURI = event.target.result
           if(imageURI) {
-            this.image = {name: file.name, path: imageURI}
+            this.imageURL = {name: file.name, path: imageURI}
             
-            this.$emit('upload-complete', this.teste, this.image)
+            this.$emit('upload-complete', this.imageFile, this.imageURL)
           }
         }
         fr.readAsDataURL(file)
@@ -73,11 +84,3 @@
   }
 </script>
 
-<style>
-  .upload{
-    display: flex;
-    background: rgb(205, 207, 243);
-   
-  }
-
-</style>
