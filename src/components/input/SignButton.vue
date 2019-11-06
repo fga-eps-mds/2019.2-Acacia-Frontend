@@ -1,12 +1,16 @@
 <template>
-    <div id="signbutton" :class="'container ' + direction">
-        <button 
-            v-on:click="$emit('action')" 
-            :style="buttonStyle" 
-            :class="color + ' ' + padding"> 
-            {{label}}
-        </button>
-    </div>
+  <div
+    id="signbutton"
+    :class="'container ' + direction"
+  >
+    <button 
+      :style="buttonStyle" 
+      :class="color + ' ' + padding" 
+      @click="$emit('action')"
+    > 
+      {{ label }}
+    </button>
+  </div>
 </template>
 
 <script>

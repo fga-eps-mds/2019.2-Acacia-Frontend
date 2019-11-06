@@ -1,6 +1,9 @@
 <template>
   <div>
-    <v-card flat tile>
+    <v-card
+      flat
+      tile
+    >
       <v-window v-model="localwindow">
         <v-window-item
           v-for="n in length"
@@ -82,10 +85,9 @@ export default {
       type: Number,
     },
   },
-  model: {
-    prop: "window", 
-    event: "window-change",
-  },
+  data: () => ({
+      length: 3,
+    }),
   computed: {
     localwindow: {
       get: function() {

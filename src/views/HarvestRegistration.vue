@@ -45,7 +45,7 @@
               bordercolor="#C4C4C4"
               type="number"
               :placeholder="$t('HarvestRegister.minimum')"
-              :placeholderBlack="true"
+              :placeholder-black="true"
             />       
           </v-col>
           <v-col 
@@ -58,7 +58,7 @@
               bordercolor="#C4C4C4"
               type="number"
               :placeholder="$t('HarvestRegister.maximum')"
-              :placeholderBlack="true"
+              :placeholder-black="true"
             />
           </v-col>
         </v-row>
@@ -138,6 +138,7 @@
             router.push({name: 'home'})
           })
           .catch((error) => {
+            this.$toasted.show('Algum erro aconteceu, tente de novo').goAway(2000)
           })
       },
 

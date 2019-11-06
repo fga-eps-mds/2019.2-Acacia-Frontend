@@ -17,8 +17,8 @@
         />
       </template>
       <v-date-picker 
-        :locale="$t('Global.locale')"
         v-model="dateLocal"
+        :locale="$t('DatePicker.locale')"
         color="#376996"
         :min="today"
         class="date-picker"
@@ -30,14 +30,14 @@
           class="date-picker-button"
           @click="modal = false"
         >
-          Cancelar
+          {{ $t('DatePicker.cancel') }}
         </v-btn>
         <v-btn
           color="#376996"
           class="date-picker-button"
           @click="$refs.dialog.save(date)"
         >
-          Confirmar
+          {{ $t('DatePicker.confirm') }}
         </v-btn>
       </v-date-picker>
     </v-dialog>
