@@ -1,115 +1,4 @@
 <template>
-  <!-- <div>
-    <v-card
-      class="mx-auto"
-      max-width="320"
-      min-height= "210"
-      max-height="450"
-      style="overflow: auto;"
-    >
-      <v-col align="center">
-        <v-row>
-          <v-window
-            v-model="localwindow"
-            horizontal
-          >
-            <v-window-item
-              v-for="n in lenght"
-              :key="n"
-              style="overflow: hidden;"
-            >
-              <p>
-                Texto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto textoTexto texto texto texto
-              </p>
-            </v-window-item>
-          </v-window>
-        </v-row>
-      </v-col>
-      <v-card-actions 
-        class="justify-content-center"
-      >
-        <v-item-group
-          v-model="localwindow"
-          mandatory
-          tag="v-flex"
-          class="text-center"
-        >
-          <v-item
-            v-for="n in lenght"
-            :key="n"
-            v-slot:default="{ active, toggle }"
-          >
-            <v-btn
-              :input-value="active"
-              icon
-              @click="toggle"
-              width="15"
-              height="15"
-            >
-              <v-icon
-                size="12"
-              >
-                mdi-record
-              </v-icon>
-            </v-btn>
-          </v-item>
-        </v-item-group>
-      </v-card-actions>
-    </v-card>
-  </div> -->
-  <!-- <div>
-    <v-card-actions class="justify-space-between">
-      <v-item-group 
-        class="text-center"
-        v-model="window"
-        mandatory
-      >
-          <v-item
-            v-for="n in length"
-            :key="n"
-            v-slot:default="{ active, toggle }"
-          >
-            <div>
-              <v-btn
-                :input-value="active"
-                icon
-                @click="toggle"
-              >
-                <v-icon>mdi-record</v-icon>
-              </v-btn>
-            </div>
-          </v-item>
-      </v-item-group>
-      </v-card-actions>
-      <v-col>
-        <v-window
-          v-model="window"
-          class="elevation-1"
-          vertical
-        >
-          <v-window-item
-            v-for="n in length"
-            :key="n"
-          >
-            <v-card flat>
-              <v-card-text>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-              </v-card-text>
-            </v-card>
-          </v-window-item>
-        </v-window>
-      </v-col>
-  </div> -->
   <div>
     <v-card flat tile>
       <v-window v-model="localwindow">
@@ -121,24 +10,34 @@
             height="400"
             style="overflow:auto"
           >
-            <div> 
-              <div class="col-2"> 
-                <v-list-item-avatar>
-                  <v-img  src="https://secure.gravatar.com/avatar/d39c7a53f244da29da3cd8ccaad6be4c?s=800&d=identicon"></v-img>
-                </v-list-item-avatar>
+            <!-- User's harvests -->
+            <div v-if="n == 1">
+              <div> 
+                <div class="col-2"> 
+                  <v-list-item-avatar>
+                    <v-img  src="https://secure.gravatar.com/avatar/d39c7a53f244da29da3cd8ccaad6be4c?s=800&d=identicon"></v-img>
+                  </v-list-item-avatar>
+                </div>
+                <div class="col-9 text-left">
+                  <h6> <b>Projeto:</b>  Colheita de banana </h6>
+                </div>
               </div>
-              <div class="col-9 text-left">
-                <h6> <b>Projeto:</b>  Colheita de banana </h6>
+              <div> 
+                <div class="col-2"> 
+                  <v-list-item-avatar>
+                    <v-img  src="https://secure.gravatar.com/avatar/d39c7a53f244da29da3cd8ccaad6be4c?s=800&d=identicon"></v-img>
+                  </v-list-item-avatar>
+                </div>
+                <div class="col-9 text-left">
+                  <h6> <b>Projeto:</b>  Colhieta de maça </h6>
+                </div>
               </div>
             </div>
-            <div> 
-              <div class="col-2"> 
-                <v-list-item-avatar>
-                  <v-img  src="https://secure.gravatar.com/avatar/d39c7a53f244da29da3cd8ccaad6be4c?s=800&d=identicon"></v-img>
-                </v-list-item-avatar>
-              </div>
-              <div class="col-9 text-left">
-                <h6> <b>Projeto:</b>  Colhieta de maça </h6>
+            <!-- Week's harvests -->
+            <div v-else>
+              <div v-for="(harvest, index) in allHarvests" :key="harvest.date">
+                <HarvestDigest :harvest="harvest"/>
+                <v-divider v-if="index != allHarvests.length - 1"></v-divider>
               </div>
             </div>
           </v-card>
@@ -170,16 +69,17 @@
 </template>
 
 <script>
+import HarvestDigest from '@/components/visualization/HarvestDigest'
+import { all } from 'q';
 export default {
   name: 'CardComponent',
+  components: {
+    HarvestDigest,
+  },
   props: {
     window: {
       default: 0,
       type: Number,
-    },
-    lenght: {
-      default: 2,
-      type: Number
     },
   },
   model: {
@@ -196,8 +96,53 @@ export default {
       }
     }
   },
+  created() {
+    this.getAllHarvests();
+  },
+  methods: {
+    getAllHarvests() {
+      this.$store.state.noAuthRequest('harvests/', 'GET')
+        .then(response => {
+          this.allHarvests = response.data
+          this.validateList()
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    validateList() {
+      // Check if date is out of bounds (front end validation)
+      let filtered = []
+      let dateList = this.generateWeeksDaysList()
+      this.allHarvests.forEach( harvest => {
+        let found = false;
+        dateList.forEach( validDate => {
+          if (validDate == harvest.date) {
+            found = true;
+          }
+        });
+        if (found) {
+          filtered.push(harvest);
+        }
+      })
+      this.allHarvests = filtered;
+    },
+    generateWeeksDaysList() {
+      // Generates a list of the current and the next six days as ISO strings
+      let dateList = [];
+      let today = new Date();
+      let dayInMilissecond = 1000 * 60 * 60 * 24;
+      for (let i = 0; i < 6; i++) {
+        let dateString = today.toISOString().slice(0,10)
+        dateList.push(today.toISOString().slice(0,10))
+        today.setTime(dayInMilissecond + today.valueOf());
+      }
+      return dateList
+    }
+  },
   data: () => ({
-      length: 3,
+      length: 2,
+      allHarvests: [],
     }),
 }
 </script>

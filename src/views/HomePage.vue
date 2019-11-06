@@ -41,7 +41,6 @@ export default {
     WeeklyCard,
     Card,
   },
-  
   data: () => ({
       step: 1,
       length: 3,
