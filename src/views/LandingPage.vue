@@ -1,17 +1,18 @@
 <template>
   <div class="container-landing">
+    <TopBar 
+      iconleft="bars"
+      color="color-default-text"
+      style="background-color: rgba(6, 6, 6, 0)"
+    />
     <div class="landing-page">    
-      <TopBar 
-        iconleft="bars"
-        color="color-default-text"
-        style="background-color: rgba(6, 6, 6, 0)"
-      />
+
+      <div class="title-content">
+        <h2 class="title-landing">Venha se tornar um Voluntário !</h2>
+      </div>
 
       <div class="content-box">
         
-        <div class="title-content">
-          <h2 class="title-landing">Venha se tornar um Voluntário !</h2>
-        </div>
 
         <div
           class="image-content" 
@@ -28,6 +29,29 @@
           >
         </div>
       </div>
+      <div class="container-button">
+        <SignButton
+          label="Entrar" 
+          class="content-button"
+          buttonStyle="color: #376996" 
+          @action="login"
+          color="bg-color-default"
+        />
+        <SignButton
+          label="Cadastrar" 
+          class="content-button" 
+          buttonStyle="color: #376996" 
+          @action="cadastro"
+          color="bg-color-default"
+        />
+      </div>
+    </div>
+    <div class="content-acacia">
+      <p class="left-paragraph">
+        Acácia propõe-se a facilitar a criação de uma comunidade voluntária em torno da agricultura urbana,
+        diminuindo o desperdício de comida e difundindo conhecimento em plantio e colheita neste ambiente.
+        Crie já sua conta e participe desta mudança!
+      </p>
     </div>
     <BottomBar/>
   </div>
@@ -36,13 +60,23 @@
 <script>
 import TopBar from '@/components/layout/TopBar'
 import BottomBar from '@/components/layout/BottomBar'
+import SignButton from '@/components/input/SignButton'
+import router from '@/router'
 
 export default {
   components: {
     TopBar,
     BottomBar,
+    SignButton,
   },
-
+  methods: {
+    login() {
+      router.push({ name: 'signin' })      
+    },
+    cadastro() {
+      router.push({ name: 'signup' })      
+    },
+  },
 }
 
 </script>
@@ -59,6 +93,27 @@ export default {
       rgba(75, 125, 170, 85),
       rgba(75, 125, 170, 105)
     );
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .container-button {
+    padding-top: 25%;
+  }
+
+  .content-acacia {
+    margin: 0% 10%;
+
+  }
+
+  .left-paragraph{
+    font-size: 80%;
+    text-align: left;
+  }
+
+  .content-button {
+    padding: 0px;
   }
 
   .title-landing {
@@ -69,11 +124,6 @@ export default {
 
   .title-content{
     margin: 0% 10%;
-    padding-bottom: 35%; 
-  }
-
-  .content-box {
-    padding: 100px 0px;
   }
 
   .image-content {
