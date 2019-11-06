@@ -10,6 +10,7 @@
       :class="color"
       @click="selectLeft"
     />
+    
     <font-awesome-icon
       v-if="iconright"
       :icon="iconright"

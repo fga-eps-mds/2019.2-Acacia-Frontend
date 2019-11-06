@@ -1,7 +1,7 @@
 <template>
   <div
     id="container-bottombar"
-    :class="backgroundColor + ' fixed-bottom'"
+    :class="backgroundColor + ' static-bottom'"
   >
 
     <div class="container-icon">
@@ -40,11 +40,11 @@ export default {
 
   props: {
     backgroundColor: {
-        default: "bg-color-secundary",
+        default: "bg-transparent",
         type: String
     },
     colorIcon: {
-        default: "text-color-default",
+        default: "text-color-primary-title",
         type: String
     }
   }
@@ -56,10 +56,10 @@ export default {
     @import '@/assets/stylesheets/colors.scss';
 
     #container-bottombar {
-        display: flex;
-        justify-content: flex-end;
-        padding: 15px;
-        z-index: 100 !important;
+      display: flex;
+      justify-content: flex-end;
+      padding: 15px;
+      z-index: 100 !important;
     }
 
     .container-icon {

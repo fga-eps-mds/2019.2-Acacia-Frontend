@@ -3,7 +3,6 @@ import Router from 'vue-router'
 
 import Signin from '@/views/Signin'
 import Signup from '@/views/Signup'
-import HomePage from '@/views/HomePage'
 import LadingPage from '@/views/LandingPage'
 import CalendarPage from '@/views/CalendarPage'
 import PropertyRegistration from '@/views/PropertyRegistration'
@@ -32,11 +31,6 @@ Vue.use(Router)
 export default new Router({
   mode: 'history',
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomePage,
-    },
     {
       path: '/signin',
       name: 'signin',
@@ -71,7 +65,7 @@ export default new Router({
       component: Dashboard,
     },
     {
-      path: '/landing',
+      path: '/',
       name: 'landingPage',
       component: LadingPage,
     },
