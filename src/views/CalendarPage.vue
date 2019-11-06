@@ -3,7 +3,7 @@
     <TopBar
       iconleft="bars"
       iconright="plus"
-      color="white"
+      class="color-default-text"
     />
 
     <div :class="'content-container ' + height">

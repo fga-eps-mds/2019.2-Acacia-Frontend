@@ -4,6 +4,7 @@
     absolute
     temporary
     color="#56A3A6"
+    class="navigation-drawer"
   >
     <div
       v-if="$store.state.getRefreshToken()"
@@ -107,8 +108,9 @@
         class="white"
       />
 
-      <v-list-group>
-        <template 
+      <v-list-group
+      >
+        <template
           v-slot:activator
           color="#ffffff"
           class="white--text"  
@@ -128,7 +130,7 @@
           <v-list-item-icon>
             <flag
               :iso="item.flagicon" 
-              :squared="false"
+              :squared="false"  
             />
           </v-list-item-icon>
           <a :href="item.link"> 
@@ -153,7 +155,7 @@
           @click="logout()"
         >
           <v-list-item-icon>
-            <v-icon 
+            <v-icon
               color="#ffffff"
             >
               mdi-exit-to-app
@@ -264,3 +266,11 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+
+  .navigation-drawer{
+    z-index: 101 !important;
+  }
+
+</style>
