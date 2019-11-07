@@ -4,7 +4,7 @@
     :class="'container ' + direction"
   >
     <button 
-      :style="buttonStyle" 
+      :style="buttonstyle" 
       :class="color + ' ' + padding" 
       @click="$emit('action')"
     > 
@@ -21,7 +21,7 @@ export default {
           default: '',
           type: String
       },
-      buttonStyle: {
+      buttonstyle: {
           default: '',
           type: String
       },

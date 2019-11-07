@@ -6,9 +6,12 @@
       style="background-color: rgba(6, 6, 6, 0)"
     />
     <div class="landing-page">    
-
       <div class="title-content">
-        <h2 class="title-landing">Venha se tornar um Voluntário !</h2>
+        <h2 
+          class="title-landing"
+        >
+          Venha se tornar um Voluntário !
+        </h2>
       </div>
 
       <div class="content-box">
@@ -29,21 +32,22 @@
       </div>
       <div class="container-button">
         <SignButton
+          buttonstyle="color: #376996" 
+          color="bg-color-default"
           label="Entrar" 
           class="content-button"
-          buttonStyle="color: #376996" 
           @action="login"
-          color="bg-color-default"
         />
         <SignButton
+          buttonstyle="color: #376996" 
+          color="bg-color-default"
           label="Cadastrar" 
           class="content-button" 
-          buttonStyle="color: #376996" 
           @action="cadastro"
-          color="bg-color-default"
         />
       </div>
     </div>
+    
     <div class="content-acacia">
       <p class="left-paragraph">
         Acácia propõe-se a facilitar a criação de uma comunidade voluntária em torno da agricultura urbana,
@@ -55,14 +59,18 @@
       >
     </div>
     <div class="content-colheita">
-      <h6 style="font-weigth: bold">Crie já sua conta e participe desta mudança!</h6>
+      <h6 
+        style="font-weigth: bold"
+      >
+        Crie já sua conta e participe desta mudança!
+      </h6>
       <SignButton
         label="Participar" 
         class="content-button"  
         @action="$store.state.getRefreshToken() ? colheitaAuth : colheitaNoAuth"
       />
     </div>
-    <BottomBar/>
+    <BottomBar />
   </div>
 </template>
 

@@ -3,7 +3,6 @@
     id="container-bottombar"
     :class="backgroundColor + ' static-bottom'"
   >
-
     <div class="container-icon">
       <v-list-item
         v-for="item in bottomIcon"
@@ -26,6 +25,16 @@
 <script>
 export default {
   name: 'BottomBar',
+  props: {
+    backgroundColor: {
+        default: "bg-transparent",
+        type: String
+    },
+    colorIcon: {
+        default: "text-color-primary-title",
+        type: String
+    }
+  },
   data() {
     return {
       bottomIcon: [
@@ -37,18 +46,6 @@ export default {
       ],
     }
   },
-
-  props: {
-    backgroundColor: {
-        default: "bg-transparent",
-        type: String
-    },
-    colorIcon: {
-        default: "text-color-primary-title",
-        type: String
-    }
-  }
-  
 };
 </script>
 
