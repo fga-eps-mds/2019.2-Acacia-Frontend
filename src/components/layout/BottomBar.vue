@@ -58,8 +58,9 @@ export default {
     #container-bottombar {
       display: flex;
       justify-content: flex-end;
-      padding: 15px;
+      padding: 8px;
       z-index: 100 !important;
+      box-shadow: 1px 0px 8px 2px rgba(59, 61, 72, 0.2);
     }
 
     .container-icon {

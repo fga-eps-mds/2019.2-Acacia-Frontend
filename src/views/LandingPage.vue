@@ -12,8 +12,6 @@
       </div>
 
       <div class="content-box">
-        
-
         <div
           class="image-content" 
         >
@@ -50,8 +48,19 @@
       <p class="left-paragraph">
         Acácia propõe-se a facilitar a criação de uma comunidade voluntária em torno da agricultura urbana,
         diminuindo o desperdício de comida e difundindo conhecimento em plantio e colheita neste ambiente.
-        Crie já sua conta e participe desta mudança!
       </p>
+      <img 
+        width="30%" 
+        src="../assets/images/logo.svg"
+      >
+    </div>
+    <div class="content-colheita">
+      <h6 style="font-weigth: bold">Crie já sua conta e participe desta mudança!</h6>
+      <SignButton
+        label="Participar" 
+        class="content-button"  
+        @action="$store.state.getRefreshToken() ? colheitaAuth : colheitaNoAuth"
+      />
     </div>
     <BottomBar/>
   </div>
@@ -76,6 +85,12 @@ export default {
     cadastro() {
       router.push({ name: 'signup' })      
     },
+    colheitaAuth() {
+      router.push({ name: 'dashboard' })
+    },
+    colheitaNoAuth() {
+      router.push({ name: 'signup' })      
+    },
   },
 }
 
@@ -98,18 +113,24 @@ export default {
     justify-content: space-around;
   }
 
+  .content-colheita{
+    margin: 0% 0% 10% 0%;
+  }
+
   .container-button {
     padding-top: 25%;
   }
 
   .content-acacia {
-    margin: 0% 10%;
-
+    display: flex;
+    justify-content:space-between;
+    margin: 10% 8%;
   }
 
   .left-paragraph{
     font-size: 80%;
-    text-align: left;
+    text-align: justify;
+    width: 60%;
   }
 
   .content-button {
