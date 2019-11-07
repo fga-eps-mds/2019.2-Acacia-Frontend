@@ -17,7 +17,6 @@
       :class="color"
       @click="selectRight"
     />
-    
   </div>
 </template>
 

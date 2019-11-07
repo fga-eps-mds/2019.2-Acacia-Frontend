@@ -108,8 +108,7 @@
         class="white"
       />
 
-      <v-list-group
-      >
+      <v-list-group>
         <template
           v-slot:activator
           color="#ffffff"
