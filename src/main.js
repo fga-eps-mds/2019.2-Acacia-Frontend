@@ -6,6 +6,10 @@ import store from './store'
 /* Vuetify configuration */
 import vuetify from './plugins/vuetify';
 
+/* Vue Vuelidate configuration */
+import Vuelidate from 'vuelidate'
+Vue.use(Vuelidate)
+
 /* Vue Cookie configuration */
 import VueCookie from 'vue-cookie'
 Vue.use(VueCookie)
@@ -24,7 +28,7 @@ Vue.use(FlagIcon)
 import VCalendar from 'v-calendar';
 
 Vue.use(VCalendar, {
-  componentPrefix: 'vc',
+    componentPrefix: 'vc',
 });
 
 /* Boostrap configuration */
@@ -36,10 +40,8 @@ Vue.use(BoostrapVue)
 /* Font awesome configuration */
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome' 
-
-library.add(fas, fab)
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+library.add(fas)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
