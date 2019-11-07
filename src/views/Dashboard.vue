@@ -5,8 +5,8 @@
       color="#2D9CDB"
     />
     <div class="p-3 mt-5">
-      <h1 class="raleway-regular mb-5">
-        Dashboard
+      <h1 class="title-content mb-5 roboto-regular">
+        {{ this.$t('Dashboard.weekly') }}
       </h1>
       <v-window 
         v-model="step" 
@@ -18,7 +18,7 @@
           :value="n"
         >
           <WeeklyCard
-            :date="'0' + n.toString() + '/03/2019'"
+            :index="n-1"
           />
         </v-window-item>
       </v-window>
@@ -36,9 +36,9 @@
 <script>
 /* Component imports */
 import router from '@/router'
-import WeeklyCard from '../components/layout/WeeklyCard'
-import Card from '../components/layout/Card'
-import TopBar from '../components/layout/TopBar'
+import WeeklyCard from '@/components/layout/WeeklyCard'
+import Card from '@/components/layout/Card'
+import TopBar from '@/components/layout/TopBar'
 
 export default {
   name: 'Home',
@@ -49,12 +49,10 @@ export default {
   },
   
   data: () => ({
-      step: 1,
-      length: 3,
-      window: 0,
-    }),
-  methods: {
-  }
+    step: 1,
+    length: 3,
+    window: 0,
+  }),
 }
 </script>
 
@@ -69,5 +67,12 @@ export default {
     margin-top: 15px;
     padding: 5%;
 
+  }
+
+  .title-content {
+    font-size: 30px;
+    text-align: left;
+    color: #2D9CDB;
+    margin-left: 15px;
   }
 </style>

@@ -55,7 +55,22 @@ const messages = {
         DatePicker: {
             locale: "en",
             cancel: "Cancel",
-            confirm: "Confirm"
+            confirm: "Confirm",
+        },
+        Dashboard: {
+            weekly: "Weekly",
+            jan: "January",
+            feb: "February",
+            mar: "March",
+            apr: "April",
+            may: "May",
+            jun: "June",
+            jul: "July",
+            aug: "August",
+            sep: "September",
+            oct: "October",
+            nov: "November",
+            dec: "December",
         },
     },
     'pt': {
@@ -111,7 +126,21 @@ const messages = {
           cancel: "Cancelar",
           confirm: "Confirmar"
         },
-
+        Dashboard: {
+            weekly: "Semanal",
+            jan: "Janeiro",
+            feb: "Fevereiro",
+            mar: "Março",
+            apr: "Abril",
+            may: "Maio",
+            jun: "Junho",
+            jul: "Julho",
+            aug: "Agosto",
+            sep: "Setembro",
+            oct: "Outubro",
+            nov: "Novembro",
+            dec: "Dezembro",
+        },
     },
 }
 
