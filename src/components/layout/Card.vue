@@ -10,11 +10,15 @@
           :key="`card-${n}`"
         >
           <v-card
-            height="400"
+            min-height="250"
+            max-height="450"
             style="overflow:auto"
           >
             <!-- User's harvests -->
             <div v-if="n == 1">
+              <h3 class="title-content roboto-regular"> 
+                Projetos Inscritos 
+              </h3>
               <div> 
                 <div class="col-2"> 
                   <v-list-item-avatar>
@@ -36,11 +40,18 @@
                 </div>
               </div>
             </div>
+           
             <!-- Week's harvests -->
             <div v-else>
-              <div v-for="(harvest, index) in allHarvests" :key="harvest.date">
-                <HarvestDigest :harvest="harvest"/>
-                <v-divider v-if="index != allHarvests.length - 1"></v-divider>
+              <h3 class="title-content roboto-regular"> 
+                Projetos da Semana
+              </h3>
+              <v-divider/>
+              <div>
+                <div v-for="(harvest, index) in allHarvests" :key="harvest.date">
+                  <HarvestDigest :harvest="harvest"/>
+                  <v-divider v-if="index != allHarvests.length - 1"></v-divider>
+                </div>
               </div>
             </div>
           </v-card>
@@ -73,21 +84,20 @@
 
 <script>
 import HarvestDigest from '@/components/visualization/HarvestDigest'
-import { all } from 'q';
+
 export default {
   name: 'CardComponent',
+  
   components: {
     HarvestDigest,
   },
+
   props: {
     window: {
       default: 0,
       type: Number,
     },
   },
-  data: () => ({
-      length: 3,
-    }),
   computed: {
     localwindow: {
       get: function() {
@@ -134,7 +144,7 @@ export default {
       let dateList = [];
       let today = new Date();
       let dayInMilissecond = 1000 * 60 * 60 * 24;
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 7; i++) {
         let dateString = today.toISOString().slice(0,10)
         dateList.push(today.toISOString().slice(0,10))
         today.setTime(dayInMilissecond + today.valueOf());
@@ -153,6 +163,14 @@ export default {
 
   .card-container {
     padding-bottom: 5%;
+  }
+
+  .title-content {
+    text-align: left;
+    color: #2D9CDB;
+    margin-left: 15px;
+    margin-top: 10px;
+    margin-bottom: 5px;
   }
 
 </style>
