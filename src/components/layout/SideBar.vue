@@ -271,6 +271,8 @@ export default {
 
   .navigation-drawer{
     z-index: 101 !important;
+    height: 100vh;
+    position: fixed;
   }
 
 </style>

@@ -102,7 +102,7 @@ export default {
           this.$toasted
             .show(this.$t("SignPages.positiveStatus"))
             .goAway(2000);
-          router.push({ name: "home" });
+            router.push({ name: 'landingpage' })
         })
         .catch(() => {
           router.push({ name: "signin" });

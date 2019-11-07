@@ -32,6 +32,7 @@
       </div>
       <div class="container-button">
         <SignButton
+          :style="$store.state.getRefreshToken() ? 'display:none' : 'display:inline'"
           buttonstyle="color: #376996" 
           color="bg-color-default"
           label="Entrar" 
@@ -39,11 +40,20 @@
           @action="login"
         />
         <SignButton
+          :style="$store.state.getRefreshToken() ? 'display:none' : 'display:inline'"
           buttonstyle="color: #376996" 
           color="bg-color-default"
           label="Cadastrar" 
           class="content-button" 
           @action="cadastro"
+        />
+        <SignButton
+          :style="$store.state.getRefreshToken() ? 'display:inline' : 'display:none'"
+          buttonstyle="color: #376996" 
+          color="bg-color-default"
+          label="Participar" 
+          class="content-button" 
+          @action="dashboard"
         />
       </div>
     </div>
@@ -64,11 +74,6 @@
       >
         Crie já sua conta e participe desta mudança!
       </h6>
-      <SignButton
-        label="Participar" 
-        class="content-button"  
-        @action="$store.state.getRefreshToken() ? colheitaAuth : colheitaNoAuth"
-      />
     </div>
     <BottomBar />
   </div>
@@ -93,11 +98,8 @@ export default {
     cadastro() {
       router.push({ name: 'signup' })      
     },
-    colheitaAuth() {
+    dashboard() {
       router.push({ name: 'dashboard' })
-    },
-    colheitaNoAuth() {
-      router.push({ name: 'signup' })      
     },
   },
 }

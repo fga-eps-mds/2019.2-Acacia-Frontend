@@ -32,6 +32,11 @@ export default new Router({
   mode: 'history',
   routes: [
     {
+      path: '/',
+      name: 'landingpage',
+      component: LadingPage,
+    },
+    {
       path: '/signin',
       name: 'signin',
       component: Signin,
@@ -63,11 +68,6 @@ export default new Router({
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
-    },
-    {
-      path: '/',
-      name: 'landingPage',
-      component: LadingPage,
     },
   ]
 })

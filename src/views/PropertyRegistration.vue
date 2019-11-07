@@ -257,7 +257,7 @@
         state.authRequest("properties/", "POST", data)
         .then((response) => {
           toasted.show('Propriedade cadastrada com sucesso').goAway(2000)
-          this.$router.push({ name: 'home'})
+          this.$router.push({ name: 'dashboard' })
         })
         .catch((error) => {
           if(error.response.data.BRZipCode){

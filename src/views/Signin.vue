@@ -84,7 +84,7 @@ export default {
         .then((response) => {
           toasted.show(this.$t('SignPages.positiveStatus')).goAway(2000)
           state.authUser(response.data['access'], response.data['refresh'])
-          router.push({ name: 'home' })
+          router.push({ name: 'landingpage' })
         })
         .catch(() => {
           toasted.show(this.$t('SignPages.negativeStatus')).goAway(2000)
