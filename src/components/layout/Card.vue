@@ -1,85 +1,83 @@
 <template>
-  <div>
-    <v-card
-      flat
-      tile
+  <v-card
+    flat
+    tile
+    min-height="250"
+    max-height="450"
+    class="card-container"
+  >
+    <v-window 
+      v-model="localwindow"
     >
-      <v-window v-model="localwindow">
-        <v-window-item
-          v-for="n in length"
-          :key="`card-${n}`"
+      <v-window-item
+        v-for="n in length"
+        :key="`card-${n}`"
+      >
+        <v-sheet
+          min-height="200"
+          max-height="300"
+          style="overflow:auto"
         >
-          <v-card
-            min-height="250"
-            max-height="450"
-            style="overflow:auto"
-          >
-            <!-- User's harvests -->
-            <div v-if="n == 1">
-              <h3 class="title-content roboto-regular"> 
-                Projetos Inscritos 
-              </h3>
-              <div> 
-                <div class="col-2"> 
-                  <v-list-item-avatar>
-                    <v-img  src="https://secure.gravatar.com/avatar/d39c7a53f244da29da3cd8ccaad6be4c?s=800&d=identicon"></v-img>
-                  </v-list-item-avatar>
-                </div>
-                <div class="col-9 text-left">
-                  <h6> <b>Projeto:</b>  Colheita de banana </h6>
-                </div>
-              </div>
-              <div> 
-                <div class="col-2"> 
-                  <v-list-item-avatar>
-                    <v-img  src="https://secure.gravatar.com/avatar/d39c7a53f244da29da3cd8ccaad6be4c?s=800&d=identicon"></v-img>
-                  </v-list-item-avatar>
-                </div>
-                <div class="col-9 text-left">
-                  <h6> <b>Projeto:</b>  Colhieta de maça </h6>
-                </div>
-              </div>
-            </div>
-           
-            <!-- Week's harvests -->
-            <div v-else>
-              <h3 class="title-content roboto-regular"> 
-                Projetos da Semana
-              </h3>
-              <v-divider/>
-              <div>
-                <div v-for="(harvest, index) in allHarvests" :key="harvest.date">
-                  <HarvestDigest :harvest="harvest"/>
-                  <v-divider v-if="index != allHarvests.length - 1"></v-divider>
-                </div>
-              </div>
-            </div>
-          </v-card>
-        </v-window-item>
-      </v-window>
+          <!-- User's harvests -->
+          <div v-if="n == 1">
+            <h3 class="title-content roboto-regular"> 
+              Projetos Inscritos 
+            </h3>
+            <HarvestDigest
+              :harvest="{date: '25/05/19', status: 'Vai acontecer', min_volunteers: 4, max_volunteers: 10}"
+            />
+            <v-divider/>
 
-      <v-card-actions class="justify-content-center">
-        <v-item-group
-          v-model="localwindow"
-          class="text-center"
+            <HarvestDigest
+              :harvest="{date: '25/09/19', status: 'Cancelada', min_volunteers: 1, max_volunteers: 7}"
+            />
+            <v-divider/>
+
+            <HarvestDigest
+              :harvest="{date: '25/11/19', status: 'Vai acontecer', min_volunteers: 8, max_volunteers: 15}"
+            />
+            <v-divider/>
+          </div>
+
+          <!-- Week's harvests -->
+          <div v-else>
+            <h3 class="title-content roboto-regular"> 
+              Projetos da Semana
+            </h3>
+            <div>
+              <div v-for="(harvest, index) in allHarvests" :key="harvest.date">
+                <HarvestDigest :harvest="harvest"/>
+                <v-divider v-if="index != allHarvests.length - 1"></v-divider>
+              </div>
+            </div>
+          </div>
+        </v-sheet>
+      </v-window-item>
+    </v-window>
+
+    <v-card-actions class="justify-content-center">
+      <v-item-group
+        v-model="localwindow"
+        class="text-center"
+      >
+        <v-item
+          v-for="n in length"
+          :key="`btn-${n}`"
+          v-slot:default="{ active, toggle }"
         >
-          <v-item
-            v-for="n in length"
-            :key="`btn-${n}`"
-            v-slot:default="{ active, toggle }"
+          <v-btn
+            :input-value="active"
+            icon
+            @click="toggle"
           >
-            <v-btn
-              :input-value="active"
-              icon
-              @click="toggle"
-            >
-              <v-icon>mdi-record</v-icon>
-            </v-btn>
-          </v-item>
-        </v-item-group>
-      </v-card-actions>
-    </v-card>
-  </div>
+            <v-icon
+              size="15"
+            >mdi-record</v-icon>
+          </v-btn>
+        </v-item>
+      </v-item-group>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>
@@ -92,12 +90,18 @@ export default {
     HarvestDigest,
   },
 
+  model: {
+    prop: "window",
+    event: "window-change",
+  },
+
   props: {
     window: {
       default: 0,
       type: Number,
     },
   },
+
   computed: {
     localwindow: {
       get: function() {
@@ -105,12 +109,14 @@ export default {
       },
       set: function(value) {
         this.$emit("window-change", value);
-      }
-    }
+      },
+    },
   },
+
   created() {
     this.getAllHarvests();
   },
+
   methods: {
     getAllHarvests() {
       this.$store.state.noAuthRequest('harvests/', 'GET')
@@ -152,25 +158,34 @@ export default {
       return dateList
     }
   },
+  
   data: () => ({
-      length: 2,
-      allHarvests: [],
-    }),
+    length: 2,
+    allHarvests: [],
+  }),
 }
 </script>
 
 <style lang="scss" scoped>
 
   .card-container {
-    padding-bottom: 5%;
+    padding-bottom: 15px;
+    overflow: auto;
+    border-radius: 12px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
   }
 
   .title-content {
     text-align: left;
     color: #2D9CDB;
-    margin-left: 15px;
+    margin-left: 5px;
     margin-top: 10px;
     margin-bottom: 5px;
+  }
+
+  .v-btn--icon.v-size--default {
+    height: 20px;
+    width: 20px;
   }
 
 </style>

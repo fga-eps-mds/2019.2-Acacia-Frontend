@@ -72,6 +72,11 @@ const messages = {
             nov: "November",
             dec: "December",
         },
+        HarvestDigest: {
+            volunteer: "Volunteers",
+            date: "Date",
+            to: "to",
+        },
     },
     'pt': {
           SignPages: {
@@ -140,6 +145,11 @@ const messages = {
             oct: "Outubro",
             nov: "Novembro",
             dec: "Dezembro",
+        },
+        HarvestDigest: {
+            volunteer: "Voluntários",
+            date: "Data",
+            to: "até",
         },
     },
 }

@@ -9,8 +9,12 @@
         {{ this.$t('Dashboard.weekly') }}
       </h1>
       <v-window 
-        v-model="step" 
+        v-model="step"
+        dark
         class="window-container"
+        show-arrows
+        next-icon="mdi-chevron-right"
+        style="widht:100%"
       >
         <v-window-item 
           v-for="n in 7"
@@ -73,6 +77,7 @@ export default {
     font-size: 30px;
     text-align: left;
     color: #2D9CDB;
-    margin-left: 15px;
+    margin-left: 10px;
   }
 </style>
+  
