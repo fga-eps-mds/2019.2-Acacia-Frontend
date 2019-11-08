@@ -3,7 +3,7 @@
     <TopBar
       iconleft="bars"
       iconright="plus"
-      color="white"
+      class="color-default-text"
     />
 
     <div :class="'content-container ' + height">
@@ -133,7 +133,7 @@ export default {
     atributos: function() {
       let attrs = [{
         highlight: {
-          color: 'purple',
+          color: 'yellow',
           class: 'detail-highlight'
         },
 
@@ -282,7 +282,7 @@ export default {
   }
 
   #calendar{
-    background-color: rgba(6,6,6, 0);
+    background-color: $transparent;
     border:none ;
     height: 100%;
     width: 100%;

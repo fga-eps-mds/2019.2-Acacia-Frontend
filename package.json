@@ -6,6 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build:stage": "vue-cli-service build --mode staging",
+    "start": "node staging-server.js",
     "lint": "eslint \"src/**/*.{js,vue}\"",
     "test:unit": "vue-cli-service test:unit "
   },
@@ -19,6 +20,8 @@
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.2",
     "core-js": "^2.6.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.0",
     "v-calendar": "^1.0.0-beta.22",
