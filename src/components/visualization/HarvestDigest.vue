@@ -5,7 +5,7 @@
   >
     <div class="col-3 icon-content">
       <img 
-        style="width:60px; height:60px" 
+        style="width:70px; height:70px;" 
         class="rounded-circle" 
         src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fgeographical.co.uk%2Fmedia%2Fk2%2Fitems%2Fcache%2Fbca1dd559f75f65255fb90327f144139_XL.jpg&f=1&nofb=1" 
         alt=""
@@ -45,6 +45,8 @@ export default {
   }
 
   .icon-content {
-    vertical-align: -webkit-baseline-middle;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
   }
 </style>

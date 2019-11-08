@@ -21,35 +21,59 @@
           <!-- User's harvests -->
           <div v-if="n == 1">
             <h3 class="title-content roboto-regular"> 
-              Projetos Inscritos 
+              {{ subHarvests }} 
             </h3>
-            <HarvestDigest
-              :harvest="{date: '25/05/19', status: 'Vai acontecer', min_volunteers: 4, max_volunteers: 10}"
-            />
-            <v-divider/>
+            
+            <div
+              v-if="$store.state.getRefreshToken()"
+            >
+              <HarvestDigest
+                :harvest="{date: '25/05/19', status: 'Vai acontecer', min_volunteers: 4, max_volunteers: 10}"
+              />
+              <v-divider/>
 
-            <HarvestDigest
-              :harvest="{date: '25/09/19', status: 'Cancelada', min_volunteers: 1, max_volunteers: 7}"
-            />
-            <v-divider/>
+              <HarvestDigest
+                :harvest="{date: '25/09/19', status: 'Cancelada', min_volunteers: 1, max_volunteers: 7}"
+              />
+              <v-divider/>
 
-            <HarvestDigest
-              :harvest="{date: '25/11/19', status: 'Vai acontecer', min_volunteers: 8, max_volunteers: 15}"
-            />
-            <v-divider/>
+              <HarvestDigest
+                :harvest="{date: '25/11/19', status: 'Vai acontecer', min_volunteers: 8, max_volunteers: 15}"
+              />
+              <v-divider/>
+            </div>
+
+
+            <div
+              v-else
+              style="margin-top:25px"
+            >
+              <h4> {{ signinMessage }} </h4>
+            </div>
+
           </div>
 
           <!-- Week's harvests -->
           <div v-else>
             <h3 class="title-content roboto-regular"> 
-              Projetos da Semana
+              {{ weekHarvests }}
             </h3>
-            <div>
+            <div
+              v-if="allHarvests.length == 0"
+              style="margin-top:25px"
+            >
+              <h4> {{ noHarvest }} </h4> 
+            </div>
+
+            <div
+              v-else
+            >
               <div v-for="(harvest, index) in allHarvests" :key="harvest.date">
                 <HarvestDigest :harvest="harvest"/>
                 <v-divider v-if="index != allHarvests.length - 1"></v-divider>
               </div>
             </div>
+
           </div>
         </v-sheet>
       </v-window-item>
@@ -110,6 +134,22 @@ export default {
       set: function(value) {
         this.$emit("window-change", value);
       },
+    },
+
+    subHarvests: function() {
+      return this.$t('HarvestDigest.subscribed')
+    },
+
+    weekHarvests: function() {
+      return this.$t('HarvestDigest.weekharvests')
+    },
+
+    signinMessage: function() {
+      return this.$t('HarvestDigest.message')
+    },
+
+    noHarvest: function() {
+      return this.$t('HarvestDigest.noharvest')
     },
   },
 

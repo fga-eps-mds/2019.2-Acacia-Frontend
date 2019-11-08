@@ -76,6 +76,10 @@ const messages = {
             volunteer: "Volunteers",
             date: "Date",
             to: "to",
+            message: "Sign in to subscribe in harvests",
+            noharvest: "No harvests were found this week",
+            subscribed: "Subscribed harvests",
+            weekharvests: "Week harvests",
         },
     },
     'pt': {
@@ -150,6 +154,10 @@ const messages = {
             volunteer: "Voluntários",
             date: "Data",
             to: "até",
+            message: "Entre para poder se inscrever em colheitas",
+            noharvest: "Nenhuma colheita foi encontrada essa semana",    
+            subscribed: "Colheitas inscritas",
+            weekharvests: "Colheitas da semana",
         },
     },
 }
