@@ -1,7 +1,14 @@
 <template>
   <div class="fileupload">
-      <input style="display:none" ref="fileInput" type="file" @change="onFileSelected">
-      <button @click="$refs.fileInput.click()">Leo Lindo</button>
+    <input 
+      ref="fileInput"
+      style="display:none"
+      type="file"
+      @change="onFileSelected"
+    >
+    <button @click="$refs.fileInput.click()">
+      Leo Lindo
+    </button>
   </div>
 </template>
 

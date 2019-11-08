@@ -51,7 +51,7 @@
 
 <script>
 export default {
-  model: {
+ 	model: {
 		prop: 'variable',
 		event: 'textfield-change'
 	},
@@ -77,17 +77,18 @@ export default {
 			type: String,
 		},
 		variable: {
+			default: '',
 			type: String
 		},
 		model: {
+			default: '',
 			prop: 'variable',
-			event: 'textfield-change'
-		default: '',
-				type: String,
+			event: 'textfield-change',
+			type: String,
 		},
 		placeholderBlack: {
-		default: false,
-		type: Boolean,
+			default: false,
+			type: Boolean,
 		}
 	},
 	computed: {
@@ -104,8 +105,6 @@ export default {
 			return componentColor
 		}
 	},
-	methods: {
-	}
 }
 </script>
 
@@ -115,7 +114,6 @@ export default {
 	.textfield-label {
 		text-align: left;
 		font-size: 90%;
-		font-weight: bold;
 	}
 
 	.textfield-container {
@@ -127,12 +125,13 @@ export default {
 	}
 
 	.text-input {
-		background-color: rgba(7, 37, 37,0 );
+		background-color: rgba(7, 37, 37, 0);
 		border-top: 0;
 		border-left: 0;
 		border-right: 0;
-		border-bottom: 1px solid; 
-		width: 100%;
+		border-bottom: 1px solid;
+		border-bottom-color: '#bbbbbb'; 
+		width: 90%;
 		font-size: 90%;
 		padding: 1%;
 		color: $color-default-text;

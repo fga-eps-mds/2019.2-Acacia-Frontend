@@ -20,7 +20,8 @@
         v-model="dateLocal"
         :locale="$t('DatePicker.locale')"
         color="#376996"
-        :min="today"
+        :min="validateQuant() ? today : ''"
+        :max="validateQuant() ? '' : today"
         class="date-picker"
         scrollable
       >
@@ -58,6 +59,10 @@ export default {
     label: {
       type: String,
       default: ''
+    },
+    picked: {
+      type: String,
+      default: ''
     }
   },
   data: () => ({
@@ -87,6 +92,14 @@ export default {
       const [year, month, day] = date.split('-')
       return `${day}/${month}/${year}`
     },
+    validateQuant() {
+      if (this.picked == 'today'){
+        return true
+      }
+      else {
+        return false
+      }
+    }
   },
 }
 </script>
@@ -95,22 +108,22 @@ export default {
     @import "../../assets/stylesheets/colors.scss";
 
     .date-picker-button {
-        margin: 0px 5px 5px 0px;
-        font-size: 12px;
-        color: white;
-        padding: 0px 12px !important;
-        border-radius: 10px !important;
-        background-color: $color-primary;
+      color: white !important;
+      font-size: 12px;
+      margin: 0px 5px 5px 0px;
+      padding: 0px 12px !important;
+      border-radius: 10px !important;
+      background-color: $color-primary;
     }
 
     .date-picker {
-        border-radius: 12px !important;
+      border-radius: 12px !important;
     }
 
     .container-date-picker {
-        font-size: 12px;
-        padding: 0px 65% 0px 20px;
-        margin: 1%;
+      font-size: 12px;
+      padding: 10px 65% 0px 20px;
+      margin: 1%;
     }
 
 </style>

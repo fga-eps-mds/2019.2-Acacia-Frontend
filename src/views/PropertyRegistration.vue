@@ -16,44 +16,40 @@
           v-model="BRZipCode" 
           class="mt-3" 
           label="CEP"
-          color="black"
-          bordercolor="#C4C4C4" 
+          color="#949090"
         />
         <SelectField 
           v-model="state" 
           class="mt-3" 
           label="Estado" 
-          color="black"
-          bordercolor="#C4C4C4"
+          color="#949090"
+          bordercolor="#949090"
           :items="brstates"
         />
         <TextField 
           v-model="city" 
           class="mt-3" 
           label="Cidade" 
-          color="black"
-          bordercolor="#C4C4C4" 
+          color="#949090"
         />
         <TextField 
           v-model="district" 
           class="mt-3" 
           label="Bairro" 
-          color="black"
-          bordercolor="#C4C4C4"
+          color="#949090"
         />
         <TextField 
           v-model="address" 
           class="mt-3" 
           label="Endereço" 
-          color="black"
-          bordercolor="#C4C4C4"
+          color="#949090"
         />
         <SelectField 
           v-model="type_of_address" 
           class="mt-3" 
           label="Tipo de moradia" 
-          color="black"
-          bordercolor="#C4C4C4"
+          color="#949090"
+          bordercolor="#949090"
           :items="adrchoises"
         />
       </div>
@@ -334,13 +330,18 @@
     justify-content: center;
     width: 100%;
     height: 100%;
+    background-color: white;
+    background-image: none;
   }
 
   .content-title {
+    h3{
+      font-weight: bold;
+    }
     width: 100%;
     padding: 0px 25px;
     margin-bottom: 10%;
-    color: #2D9CDB;
+    color: $color-primary;
     display: flex;
     justify-content: left; 
   }
@@ -351,6 +352,10 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    width: 100%;
+  }
+
+  .content-form{
     width: 100%;
   }
 

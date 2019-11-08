@@ -13,20 +13,19 @@
         <DatePicker 
           v-model="date"
           :label="$t('HarvestRegister.date')"
+          picked="today"
         />
         <TextField 
           v-model="description" 
           class="mt-3" 
           :label="$t('HarvestRegister.description')" 
           color="#949090"
-          bordercolor="#C4C4C4"
         />
         <TextField 
           v-model="equipment" 
           class="mt-3" 
           :label="$t('HarvestRegister.equipment')" 
           color="#949090"
-          bordercolor="#C4C4C4"
         />
         <v-row>
           <v-col 
@@ -211,6 +210,8 @@
       width: auto;
       height: auto;
       margin-top: 80px;
+      background-color: white;
+      background-image: none;
     }
 
     .content-title {

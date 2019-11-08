@@ -1,19 +1,47 @@
 <template>
-    <div class="userupdate">
-        <TopBar :iconleft="'chevron-left'" color="#56a3a6"/>
-        <div class="content-container">
-            <div class="content-title">
-                <a style="font-size:35px; color:#56a3a6;"> Editar conta </a>
-            </div>
-            <PhotoUpload style="display:none" @action="onFileSelected" ></PhotoUpload>
-            <TextField class="mt-3" v-model="phone_number" label="Telefone" color="#949090" :placeholder="phone_number"></TextField>
-            <TextField class="mt-3" v-model="bio" label="Bio" color="#949090" :placeholder="bio"></TextField>
-            <DateField class="datefield-container" label="Birthdate"></DateField>
-            <div class="content-button">
-                <SignButton class="mt-5" :label="'Salvar'" @action="updateProfile" color="#56a3a6"/>
-            </div>
-        </div>
+  <div class="userupdate">
+    <TopBar 
+      :iconleft="'chevron-left'"
+      color="#56a3a6"
+    />
+    <div class="content-container">
+      <div class="content-title">
+        <h3> Editar conta </h3>
+      </div>
+      <div class="content-form">
+        <PhotoUpload
+          style="display:none"
+          @action="onFileSelected" 
+        />
+        <TextField
+          v-model="phone_number"
+          class="mt-3"
+          label="Telefone"
+          color="#949090"
+          :placeholder="phone_number"
+        />
+        <TextField 
+          v-model="bio"
+          class="mt-3"
+          label="Bio"
+          color="#949090"
+          :placeholder="bio"
+        />
+        <DatePicker 
+          v-model="birthdate"
+          :label="'Aniversário'"
+        />
+      </div>
+      <div class="content-button">
+        <SignButton 
+          color="#56a3a6"
+          class="mt-5"
+          :label="'Salvar'"
+          @action="updateProfile"
+        />
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -21,7 +49,7 @@
     import TextField from '../components/input/TextField.vue'
     import SignButton from '../components/input/SignButton.vue'
     import TopBar from '../components/layout/TopBar.vue'
-    import DateField from '../components/input/DateField.vue'
+    import DatePicker from '../components/input/DatePicker.vue'
 
 
 export default {
@@ -31,7 +59,7 @@ export default {
         SignButton,
         TextField,
         TopBar,
-        DateField,
+        DatePicker,
     },
     data (){
         return{
@@ -40,6 +68,9 @@ export default {
             bio: '',
             birthdate: '',
         }
+    },
+    beforeMount(){
+        this.uploadProfile()
     },
     methods: {
         onFileSelected(event){
@@ -78,8 +109,7 @@ export default {
 
 
 
-        uploadProfile(){     
-
+        uploadProfile(){    
             let state = this.$store.state
             let toasted = this.$toasted
 
@@ -97,9 +127,6 @@ export default {
         
 
     },
-    beforeMount(){
-        this.uploadProfile()
-    }
 
 }
 </script>
@@ -108,33 +135,47 @@ export default {
 @import "../assets/stylesheets/colors.scss";
 
     .content-title {
+        h3{
+            font-weight: bold;
+        }
         width: 100%;
         padding: 0px 25px;
-        margin-bottom: 40%;
-        color: $color-primary-text-title;
+        margin-bottom: 10%;
+        color: $color-primary;
         display: flex;
         justify-content: left; 
     }
 
     .userupdate{
         width: 100%;
-		height: 100%;
-		position: absolute;
-		margin-top: 0;
-		text-align: center;
+        height: 100%;
+        position: absolute;
+        margin-top: 0;
+        text-align: center;
+        background: white;
     }
 
     .content-container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		height: 100%;
-	}
-    .datefield-container{
-        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         width: 100%;
-		height: 100%;
+        height: 100%;
+        background-color: white;
+        background-image: none;
+	}
+
+    .content-button {
+        margin-top: 40px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        width: 100%;
     }
+
+    .content-form{
+        width: 100%;
+    }
+
 </style>

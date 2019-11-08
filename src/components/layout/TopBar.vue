@@ -40,7 +40,7 @@ export default {
     componentStyle() { 	
         let componentColor = `color:${this.color};`
         return componentColor
-    }
+    },
     iconDislay: {
       get: function() {
         return this.$store.state.sideBarOn

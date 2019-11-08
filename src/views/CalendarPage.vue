@@ -53,7 +53,7 @@
             v-if="colheita.nome === colheitaCard"
             class="contentCard"
           >
-            <p class="cardTitle">
+            <p class="cardDescription">
               {{ colheita.descricao }}
             </p>
           </div>     
@@ -245,6 +245,14 @@ export default {
 
   .display-none {
     display: none;
+  }
+
+  .cardDescription{
+    margin: 0;
+    color: $color-primary-text;
+    margin-right: 5%;
+    text-align: left;
+    font-size: 90%;
   }
 
   .content-container {

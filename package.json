@@ -29,7 +29,6 @@
     "vue": "^2.6.10",
     "vue-cookie": "^1.1.4",
     "vue-cookies": "^1.5.13",
-    "vue-datetime": "^1.0.0-beta.10",
     "vuejs-datepicker": "^1.6.2",
     "vue-flag-icon": "^1.0.6",
     "vue-i18n": "^8.14.1",
