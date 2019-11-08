@@ -9,7 +9,7 @@
         class="rounded-circle" 
         src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fgeographical.co.uk%2Fmedia%2Fk2%2Fitems%2Fcache%2Fbca1dd559f75f65255fb90327f144139_XL.jpg&f=1&nofb=1" 
         alt=""
-        />
+      >
     </div>
     <div 
       class="description-content col-9 roboto-regular "
@@ -31,7 +31,9 @@ export default {
   name: "HarvestDigest",
   props: {
     harvest: {
-      default: {},
+      default: function() {
+        return {}
+      },
       type: Object
     }
   }

@@ -20,6 +20,11 @@ export default {
     },
   },
 
+  data: () => ({
+    weekDays: [],
+    weekMonth: [],
+  }),
+
   created() {
     this.generateWeekDays();
   },
@@ -100,11 +105,6 @@ export default {
       } 
     }
   },
-
-  data: () => ({
-    weekDays: [],
-    weekMonth: [],
-  }),
 }
 </script>
 

@@ -30,17 +30,17 @@
               <HarvestDigest
                 :harvest="{date: '25/05/19', status: 'Vai acontecer', min_volunteers: 4, max_volunteers: 10}"
               />
-              <v-divider/>
+              <v-divider />
 
               <HarvestDigest
                 :harvest="{date: '25/09/19', status: 'Cancelada', min_volunteers: 1, max_volunteers: 7}"
               />
-              <v-divider/>
+              <v-divider />
 
               <HarvestDigest
                 :harvest="{date: '25/11/19', status: 'Vai acontecer', min_volunteers: 8, max_volunteers: 15}"
               />
-              <v-divider/>
+              <v-divider />
             </div>
 
 
@@ -50,7 +50,6 @@
             >
               <h4> {{ signinMessage }} </h4>
             </div>
-
           </div>
 
           <!-- Week's harvests -->
@@ -68,12 +67,14 @@
             <div
               v-else
             >
-              <div v-for="(harvest, index) in allHarvests" :key="harvest.date">
-                <HarvestDigest :harvest="harvest"/>
-                <v-divider v-if="index != allHarvests.length - 1"></v-divider>
+              <div
+                v-for="(harvest, index) in allHarvests"
+                :key="harvest.date"
+              >
+                <HarvestDigest :harvest="harvest" />
+                <v-divider v-if="index != allHarvests.length - 1" />
               </div>
             </div>
-
           </div>
         </v-sheet>
       </v-window-item>
@@ -96,7 +97,9 @@
           >
             <v-icon
               size="15"
-            >mdi-record</v-icon>
+            >
+              mdi-record
+            </v-icon>
           </v-btn>
         </v-item>
       </v-item-group>
@@ -125,6 +128,11 @@ export default {
       type: Number,
     },
   },
+  
+  data: () => ({
+    length: 2,
+    allHarvests: [],
+  }),
 
   computed: {
     localwindow: {
@@ -198,11 +206,6 @@ export default {
       return dateList
     }
   },
-  
-  data: () => ({
-    length: 2,
-    allHarvests: [],
-  }),
 }
 </script>
 
