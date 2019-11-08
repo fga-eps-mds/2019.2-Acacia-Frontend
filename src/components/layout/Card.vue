@@ -46,9 +46,17 @@
 
             <div
               v-else
-              style="margin-top:25px"
+              class="message-content raleway-regular"
             >
-              <h4> {{ signinMessage }} </h4>
+              <div
+                class="centralize-container"
+              >
+                <h4 
+                  style="width: 90%"
+                > 
+                  {{ signinMessage }} 
+                </h4>
+              </div>
             </div>
           </div>
 
@@ -59,9 +67,17 @@
             </h3>
             <div
               v-if="allHarvests.length == 0"
-              style="margin-top:25px"
+              class="message-content raleway-regular"
             >
-              <h4> {{ noHarvest }} </h4> 
+              <div
+                class="centralize-container"
+              >
+                <h4
+                  style="width:90%"
+                > 
+                  {{ noHarvest }} 
+                </h4> 
+              </div>
             </div>
 
             <div
@@ -231,4 +247,15 @@ export default {
     width: 20px;
   }
 
+  .message-content {
+    text-align: justify;
+    margin-top: 25px;
+  }
+
+  .centralize-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
 </style>

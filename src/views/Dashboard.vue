@@ -78,6 +78,7 @@ export default {
     text-align: left;
     color: #2D9CDB;
     margin-left: 10px;
+    margin-top: 20px;
   }
 </style>
   
