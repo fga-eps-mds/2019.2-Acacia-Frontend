@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import HomePage from '@/views/HomePage.vue'
-import Signin from '@/views/Signin.vue'
-import Signup from '@/views/Signup.vue'
-import CalendarPage from '@/views/CalendarPage.vue'
-import PropertyRegistration from '@/views/PropertyRegistration.vue'
+import Signin from '@/views/Signin'
+import Signup from '@/views/Signup'
+import LadingPage from '@/views/LandingPage'
+import CalendarPage from '@/views/CalendarPage'
+import PropertyRegistration from '@/views/PropertyRegistration'
 import HarvestRegistration from '@/views/HarvestRegistration'
 import Dashboard from '@/views/Dashboard'
 import store from './store'
@@ -33,8 +33,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomePage,
+      name: 'landingpage',
+      component: LadingPage,
     },
     {
       path: '/signin',
@@ -65,9 +65,9 @@ export default new Router({
       component: CalendarPage,
     },                          
     {
-        path: '/dashboard',
-        name: 'dashboard',
-        component: Dashboard,
+      path: '/dashboard',
+      name: 'dashboard',
+      component: Dashboard,
     },
   ]
 })

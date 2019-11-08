@@ -10,6 +10,7 @@
       :class="color"
       @click="selectLeft"
     />
+    
     <font-awesome-icon
       v-if="iconright"
       :icon="iconright"
@@ -68,7 +69,7 @@ export default {
 </script>
 <style lang="scss" scoped>
     @import '@/assets/stylesheets/colors.scss';
-    #topbar {
+    #container-topbar {
         padding: 15px;
         z-index: 100 !important;
     }
