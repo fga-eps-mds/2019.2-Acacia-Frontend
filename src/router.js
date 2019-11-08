@@ -31,51 +31,44 @@ const ifAuthenticated = (to, from, next) => {
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
-  routes: [
-    {
-      path: '/',
-      name: 'landingpage',
-      component: LadingPage,
-    },
-    {
-      path: '/signin',
-      name: 'signin',
-      component: Signin,
-      beforeEnter: ifNotAuthenticated,
-    },
-    {
-      path: '/signup',
-      name: 'signup',
-      component: Signup,
-    },
-    {
-      name: 'propertyRegistration',
-      path: '/property/registration',
-      component: PropertyRegistration,
-      beforeEnter: ifAuthenticated,
-    },
-    {
-      name: 'harvestRegistration',
-      path: '/harvest/registration',
-      component: HarvestRegistration,
-      beforeEnter: ifAuthenticated,
-    },
-    {
-      name: 'calendar',
-      path: '/calendar/',
-      component: CalendarPage,
-    },
-    {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: Dashboard,
-    },
-    {
-        name: 'treeRegistration',
-        path: '/tree/registration',
-        component: TreeRegistration,
-        beforeEnter: ifAuthenticated,
-    },
-  ]
+    mode: 'history',
+    routes: [{
+            path: '/',
+            name: 'home',
+            component: HomePage,
+        },
+        {
+            path: '/signin',
+            name: 'signin',
+            component: Signin,
+            // beforeEnter: ifNotAuthenticated,
+        },
+        {
+            path: '/signup',
+            name: 'signup',
+            component: Signup,
+        },
+        {
+            name: 'propertyRegistration',
+            path: '/property/registration',
+            component: PropertyRegistration,
+            // beforeEnter: ifAuthenticated,
+        },
+        {
+            name: 'harvestRegistration',
+            path: '/harvest/registration',
+            component: HarvestRegistration,
+            // beforeEnter: ifAuthenticated,
+        },
+        {
+            name: 'calendar',
+            path: '/calendar/',
+            component: CalendarPage,
+        },
+        {
+            path: '/dashboard',
+            name: 'dashboard',
+            component: Dashboard,
+        },
+    ]
 })
