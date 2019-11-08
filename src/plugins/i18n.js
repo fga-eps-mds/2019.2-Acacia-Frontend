@@ -3,7 +3,7 @@ import VueI18n from 'vue-i18n'
 
 Vue.use(VueI18n)
 
-const messages = { 
+const messages = {
     'en': {
         SignPages: {
             name: "Name",
@@ -34,8 +34,13 @@ const messages = {
             volunteerNumber: "Volunteers",
             minimum: "Minimum",
             maximum: "Maximum",
-            rules: " Rules",
-            create: "Register"
+            rules: "Rules",
+            creation: "Register"
+        },
+        TreeRegister:{
+            fruit_height: "Fruits average height",
+            image: "Image file",
+
         },
         Global: {
             locale: "en",
@@ -76,7 +81,7 @@ const messages = {
             requirePassword: "Digite sua senha",
             requreValidPassword: "Digite uma senha com, ao menos, 8 caracteres",
             requireValidEmail: "Digite um email válido"
-        },         
+        },
         RootPage: {
             title: "Essa é a pagina root"
         },
@@ -90,6 +95,11 @@ const messages = {
             maximum: "Máximo",
             rules: " Regras da colheita",
             create: "Cadastrar"
+        },
+        TreeRegister:{
+            fruit_height: "Altura média dos frutos",
+            image: "Arquivo de Imagem",
+
         },
         Global: {
             locale: "pt-br",
@@ -115,8 +125,8 @@ const messages = {
     },
 }
 
-const i18n = new VueI18n({ 
-    locale: 'pt', 
+const i18n = new VueI18n({
+    locale: 'pt',
     fallbackLocale: 'en',
     messages
 })

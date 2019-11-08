@@ -1,60 +1,59 @@
 <template>
   <div class="tree-container">
-    <TopBar 
+    <TopBar
       iconleft="chevron-left"
       color="#2D9CDB"
     />
-    <div class="tree-content"> 
+    <div class="tree-content">
       <div class="content-title">
         <h3> Cadastrar Arvore </h3>
       </div>
 
       <div class="tree-form">
 
-        <TextField 
-          v-model="tree_type" 
-          class="mt-1" 
+        <TextField
+          v-model="tree_type"
+          class="mt-1"
           label="Espécie"
-          color="black"
-          bordercolor="#C4C4C4" 
-        />           
-        <TextField 
-          v-model="number_of_tree"
-          type="number"
-          class="mt-1" 
-          label="Número de árvores" 
           color="black"
           bordercolor="#C4C4C4"
         />
-        <TextField 
+        <TextField
+          v-model="number_of_tree"
+          type="number"
+          class="mt-1"
+          label="Número de árvores"
+          color="black"
+          bordercolor="#C4C4C4"
+        />
+        <TextField
           v-model="height_fruit"
           type="number"
-          class="mt-1" 
-          label="Aultura média dos futros" 
+          class="mt-1"
+          label="$t('TreeRegister.fruit_height')"
           color="black"
-          bordercolor="#C4C4C4" 
+          bordercolor="#C4C4C4"
         />
-        <DatePicker 
+        <DatePicker
           v-model="date"
           :label="$t('HarvestRegister.date')"
         />
 
-        <TextField 
+        <TextField
           v-model="haverst_for_year"
           type="number"
-          class="mt-1" 
-          label="Colheitas por ano" 
+          label="Colheitas por ano"
           color="black"
           bordercolor="#C4C4C4"
         />
-        
+
         <div class="file-label">
           <label for="file">Propriedade: Flavio Vieira</label>
-          <a @click="'hideImg = !hideImg'"> 
+          <a @click="'hideImg = !hideImg'">
             <font-awesome-icon :icon="icon" style="color:black"/>
           </a>
         </div>
-    
+
         <div class="image-container ">
           <v-row align="center" justify="center">
             <v-img
@@ -70,21 +69,20 @@
           <!-- <div class="preview-image">
               <img :src="preview.path" >
           </div>  -->
-        </div> 
+        </div>
         <div class="input">
           <ImageUpload
-            @upload-complete="uploadImageSuccess"    
-          />   
+            @upload-complete="uploadImageSuccess"
+          />
         </div>
 
-        <div class="content-button">
           <SignButton
-            :label="$t('HarvestRegister.create')" 
+            :label="$t('HarvestRegister.creation')"
             padding="small"
             direction="right"
             @action="register"
+            background-color="#2D9CDB"
           />
-        </div>
       </div>
     </div>
   </div>
@@ -98,9 +96,9 @@
   import RegisterButton from '../components/input/RegisterButton'
   import DatePicker from '../components/input/DatePicker'
 
-  
+
   import axios from "axios"
- 
+
   export default {
     components: {
       TopBar,
@@ -110,7 +108,20 @@
       RegisterButton,
       ImageUpload,
     },
+    created() {
+      console.log('Component has been created!');
+      let state = this.$store.state
+      let toasted = this.$toasted
 
+      state.authRequest("properties/", "GET")
+      .then((response) => {
+        console.log(response)
+        // this.$router.push({ name: 'dashboard' })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
     data() {
       return {
         tree_type: '',
@@ -126,11 +137,8 @@
     computed: {
       icon(){
       return "chevron-right"
-      //                : "chevron-down"
-      // return hideImg ? "chevron-right"
-      //                : "chevron-down"
       },
-      
+
       formIsValid () {
         return this.tree_type !== '' &&
               this.number_of_tree !== '' &&
@@ -138,18 +146,18 @@
               this.data !== ''
       }
     },
-    
+
       methods: {
         uploadImageSuccess(imageFile, imagePath){
           this.tree_picture = imageFile
           this.preview = imagePath
         },
-     
+
       register(){
         if (!this.formIsValid) {
           return
-        }     
-        
+        }
+
         let formData = new FormData()
           formData.append('tree_type', this.tree_type)
           formData.append('number_of_tree', this.number_of_tree)
@@ -190,7 +198,7 @@
        },
       },
   }
-    
+
 </script>
 
 <style scoped lang="scss">
@@ -198,13 +206,11 @@
 .text-small {
   font-size: 10px;
 }
-  
+
 .tree-container {
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   background: rgb(250, 250, 250);
 }
 .tree-content {
@@ -215,11 +221,10 @@
   padding: 20px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 }
-  
+
 .content-title {
   display: flex;
   color: #2D9CDB;
-  justify-content: center;
   margin-top: 30px;
   margin-bottom: 20px;
 }
