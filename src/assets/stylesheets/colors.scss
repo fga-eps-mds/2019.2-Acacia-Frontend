@@ -17,6 +17,7 @@ $color-primary-dark: #364259;
 $color-secundary:  #56a3a6;
 $color-accent: #ef476f;
 $color-accent-secundary: #ffd131;
+$transparent: rgba(6,6,6,0);
 
 $color-primary-text-title: #376996;
 $color-secundary-text-title: #56a3a6;
@@ -54,6 +55,9 @@ $color-ice-background: #f7f8fc;
 
 .bg-color-accent-secundary {
 	background-color: $color-accent-secundary
+}
+.bg-transparent {
+    background-color: $transparent;
 }
 
 

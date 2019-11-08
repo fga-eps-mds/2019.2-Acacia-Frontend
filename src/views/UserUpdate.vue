@@ -48,7 +48,6 @@ export default {
 
 
         updateProfile(){     
-            console.log(this.profileImage)
             
             let formData = new FormData()
             formData.append("photo", this.profileImage)
@@ -56,19 +55,15 @@ export default {
             formData.append("bio", this.bio)
             formData.append("birthdate", this.birthdate)
 
-            console.log(formData)
-
             let state = this.$store.state
             let toasted = this.$toasted
 
             state.authRequest('users/profile/', 'PATCH', formData)
                 .then((response) => {
-                    console.log(response)
-                    toasted.show('SignPages.positiveStatus').goAway(2000)
+                    toasted.show(response).goAway(2000)
                 })
                 .catch((errors) => {
-                    console.log(errors)
-                    toasted.show('SignPages.negativeStatus').goAway(2000)
+                    toasted.show(errors).goAway(2000)
                 })
         },
 
@@ -96,7 +91,7 @@ export default {
                     this.birthdate = response.birthdate
                 })
                 .catch((errors) => {
-                    console.log(errors)
+                    toasted.show(errors).goAway(2000)
                 })
         },
         

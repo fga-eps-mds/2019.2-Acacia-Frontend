@@ -1,47 +1,94 @@
 <template>
-	<div id="textfield" class="textfield-container">
-		<div class="row ml-1 mr-1 centralize-div">
-			<div v-if="label" class="col-12 p-0 text-color-default textfield-label" :style="componentStyle">{{ label }}</div>
-			<input v-model="variableLocal" v-if="!texticon" :type="getFieldType()" class=" text-input col-12" :placeholder="placeholder" :style="componentStyle">
-			<div v-else class="w-100 col p-0">
-				<font-awesome-icon :icon="texticon" style="color:white"/>
-				<input v-model="variableLocal" :type="getFieldType()" class=" ml-3 text-input col-12" :placeholder="placeholder">
-				<div class="text-field-border"></div>
-			</div>
-		</div>
-	</div>
+  <div
+    id="textfield"
+    class="textfield-container"
+  >
+    <div class="row ml-1 mr-1">
+      <div
+        v-if="label"
+        class="col-12 p-0 text-color-default textfield-label"
+        :style="componentStyle"
+      >
+        {{ label }}
+      </div>
+      <input 
+        v-if="!texticon" 
+        v-model="variableLocal" 
+        :type="type" 
+        :class="{
+          'text-input' : true, 
+          'col-12': true, 
+          'black-placeholder': placeholderBlack, 
+          'white-placeholder': !placeholderBlack}" 
+        :placeholder="placeholder" 
+        :style="componentStyle"
+      >
+      <div 	
+        v-else 
+        class="w-100 col p-0"
+      >
+        <font-awesome-icon 
+          :icon="texticon" 
+          style="color:white"
+        />
+        <input 
+          v-model="variableLocal" 
+          :type="type"
+          :class="{
+            'ml-3': true, 
+            'text-input' : true, 
+            'col-12': true, 
+            'black-placeholder': placeholderBlack, 
+            'white-placeholder': !placeholderBlack}" 
+          style="border:none" 
+          :placeholder="placeholder"
+        >
+        <div class="text-field-border" />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
+  model: {
+		prop: 'variable',
+		event: 'textfield-change'
+	},
 	props: {
 		label: {
 			default: '',
-			type: String
-		}, 
+			type: String,
+		},
 		color: {
 			default: '',
-			type: String
-		}, 
+			type: String,
+		},  
 		placeholder: {
 			default: '',
-			type: String
+			type: String,
 		},
-		password: {
-			default: false,
-			type: Boolean
+		type: {
+			default: 'text',
+			type: String,
 		},
 		texticon: {
 			default: '',
-			type: String
+			type: String,
 		},
 		variable: {
 			type: String
+		},
+		model: {
+			prop: 'variable',
+			event: 'textfield-change'
+		default: '',
+				type: String,
+		},
+		placeholderBlack: {
+		default: false,
+		type: Boolean,
 		}
-	},
-	model: {
-		prop: 'variable',
-		event: 'textfield-change'
 	},
 	computed: {
 		variableLocal: {
@@ -52,19 +99,12 @@ export default {
 					this.$emit('textfield-change', value)
 			}
 		},
-		componentStyle() { 	
+		componentStyle() {
 			let componentColor = `color:${this.color}; border-color:${this.color};`
 			return componentColor
 		}
 	},
 	methods: {
-		getFieldType() {
-			if (this.password) {
-				return 'password'
-			} else {
-				return 'text'
-			}
-		},
 	}
 }
 </script>

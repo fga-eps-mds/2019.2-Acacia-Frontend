@@ -1,4 +1,4 @@
-<p align="center">  <img src="src/assets/wordmark_1.svg" width="400"></p>
+<p align="center">  <img src="src/assets/images/wordmark_1.svg" width="400"></p>
 
 ## Visão geral
 

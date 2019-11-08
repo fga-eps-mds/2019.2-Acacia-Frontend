@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+/* Vuetify configuration */
+import vuetify from './plugins/vuetify';
+
 /* Vue Cookie configuration */
 import VueCookie from 'vue-cookie'
 Vue.use(VueCookie)
@@ -10,6 +13,19 @@ Vue.use(VueCookie)
 /* Vue Toasted configuration */
 import Toasted from 'vue-toasted'
 Vue.use(Toasted)
+
+/* i18n configuration (internationalization) */
+import i18n from '@/plugins/i18n'
+
+/* Flag-Icon configuration */
+import FlagIcon from 'vue-flag-icon'
+Vue.use(FlagIcon)
+
+import VCalendar from 'v-calendar';
+
+Vue.use(VCalendar, {
+  componentPrefix: 'vc',
+});
 
 /* Boostrap configuration */
 import BoostrapVue from 'bootstrap-vue'
@@ -20,7 +36,9 @@ Vue.use(BoostrapVue)
 /* Font awesome configuration */
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome' 
+library.add(fas, fab)
 
 /*Datepicker configuration*/
 import Datepicker from 'vuejs-datepicker'
@@ -29,7 +47,6 @@ import Datepicker from 'vuejs-datepicker'
 import { Datetime } from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.css'
 
-library.add(fas)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('datepicker', Datepicker)
 Vue.component('datetime', Datetime)
@@ -37,7 +54,9 @@ Vue.component('datetime', Datetime)
 Vue.config.productionTip = false
 
 new Vue({
-	router,
-	store,
-	render: h => h(App)
+    i18n,
+    router,
+    store,
+    vuetify,
+    render: h => h(App)
 }).$mount('#app')

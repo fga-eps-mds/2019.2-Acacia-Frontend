@@ -14,7 +14,6 @@ export default {
     },
     methods: {
         onFileSelected(event){
-            console.log(event)
             this.$emit('action', this.selectedFile = event.target.files[0])
         }
     },
