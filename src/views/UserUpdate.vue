@@ -64,9 +64,12 @@ export default {
     data (){
         return{
             profileImage: null,
+            email: '',
             phone_number: '',
             bio: '',
             birthdate: '',
+            username: '',
+            date: '',
         }
     },
     beforeMount(){
@@ -75,6 +78,18 @@ export default {
     methods: {
         onFileSelected(event){
             this.profileImage = event
+        },
+
+        setDate() {
+            this.birthdate = this.date
+            this.birthdate = this.birthdate.substr(0 , 10)
+            console.log(this.birthdate)
+        },
+
+        
+        getLimitDate() { // Return the current day in ISO 8601
+            let today = new Date()
+            return (today.getFullYear() - 14) + '-' + (today.getMonth()+1) + '-' + today.getDate()
         },
 
 
@@ -115,10 +130,14 @@ export default {
 
             state.authRequest('users/profile/', 'GET')
                 .then((response) => {
-                    this.phone_number = response.phone_number
-                    this.bio = response.bio
-                    this.profileImage = response.photo
-                    this.birthdate = response.birthdate
+                    console.log(response)
+                    this.phone_number = response.data.phone_number
+                    this.bio = response.data.bio
+                    this.profileImage = response.data.photo
+                    this.birthdate = response.data.birthdate
+                    this.date = this.birthdate
+                    this.username = response.data.username
+                    this.email = response.data.email
                 })
                 .catch((errors) => {
                     toasted.show(errors).goAway(2000)
@@ -127,7 +146,6 @@ export default {
         
 
     },
-
 }
 </script>
 
@@ -146,7 +164,7 @@ export default {
         justify-content: left; 
     }
 
-    .userupdate{
+    .user-update{
         width: 100%;
         height: 100%;
         position: absolute;

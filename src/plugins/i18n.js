@@ -57,6 +57,13 @@ const messages = {
             cancel: "Cancel",
             confirm: "Confirm"
         },
+        ProfilePage: {
+            username: "Username",
+            phoneNumber: "Phone number",
+            bio: "Bio",
+            birthdate: "Birthdate",
+            email: "Email",
+        }
     },
     'pt': {
           SignPages: {
@@ -112,6 +119,13 @@ const messages = {
           confirm: "Confirmar"
         },
 
+        ProfilePage: {
+            username: "Nome de usuário",
+            phoneNumber: "Número de telefone",
+            bio: "Bio",
+            birthdate: "Data de nascimento",
+            email: "Email",
+        }
     },
 }
 
