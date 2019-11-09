@@ -1,5 +1,5 @@
-
 <template>
+<<<<<<< HEAD
   <div class="property-form">
     <TopBar
       iconleft="chevron-left"
@@ -89,8 +89,117 @@
           label="Cadastrar"
           @action="registerProperty"
         />
+=======
+  <div class="property">
+    <TopBar 
+      iconleft="chevron-left"
+      color="#2D9CDB"
+    />
+    <v-cad>
+      <div class="property-container">
+        <div class="property-title">
+          <a> Register property </a>
+        </div>
+        
+        <form class="property-form">
+          
+
+          <v-row>
+            <v-col cols="6">
+              <v-text-field
+                ref="BRZipCode"
+                v-model="BRZipCode"
+                type="number"
+                :error-messages="zipCodeErrors"
+                label="ZIP Code"
+                @input="$v.BRZipCode.$touch()"
+                @blur="$v.BRZipCode.$touch()"
+              ></v-text-field>
+            </v-col>   
+            <v-col cols="6"> 
+              <v-autocomplete
+                v-model="typeAddress"
+                :items="adrchoises"
+                label="Type of address"
+                required
+              ></v-autocomplete>
+            </v-col>   
+          </v-row> 
+          
+          <v-text-field
+            ref="address"
+            v-model="address"
+            :error-messages="addressErrors"
+            label="Address"
+            @input="$v.address.$touch()"
+            @blur="$v.address.$touch()"
+          ></v-text-field>
+          
+          <v-text-field
+            ref="district"
+            v-model="district"
+            :error-messages="districtErrors"
+            label="District"
+            @input="$v.district.$touch()"
+            @blur="$v.district.$touch()"
+          ></v-text-field>
+
+          <v-row>
+            <v-col
+              cols="6"
+            >
+              <v-text-field
+                ref="city"
+                v-model="city"
+                :error-messages="cityErrors"
+                label="City"
+                @input="$v.city.$touch()"
+                @blur="$v.city.$touch()"
+              ></v-text-field>
+            </v-col>
+            <v-col
+              cols="6"
+            >
+              <v-autocomplete
+                ref="state"
+                v-model="state"
+                :items="brstates"
+                label="State"
+                required
+              ></v-autocomplete>
+            </v-col>
+          </v-row>
+
+        </form>
+
+        <div class="image-container ">
+          <v-row align="center" justify="center">
+            <v-img
+              :src="preview.path"
+              lazy-src="preview.path"
+              aspect-ratio="1"
+              max-width="330"
+              max-height="200"
+              class="grey lighten-2"
+            ></v-img>
+          </v-row>
+        </div> 
+        <div class="input">
+          <ImageUpload
+            @upload-complete="uploadImageSuccess"    
+          />   
+        </div>
+
+        <div class="property-button">
+          <RegisterButton
+            class="mt-4" 
+            label="Cadastrar" 
+            @action="registerProperty"
+          />        
+        </div>
+>>>>>>> #153 add validation signin and property form
       </div>
-    </div>
+    </v-cad>    
   </div>
 </template>
 
@@ -99,12 +208,18 @@
   import TextField from '../components/input/TextField'
   import SelectField from '../components/input/SelectField'
   import RegisterButton from '../components/input/RegisterButton'
+<<<<<<< HEAD
   import { required, numeric } from 'vuelidate/lib/validators'
+=======
+  import ImageUpload from '../components/input/ImageUpload'
+  import { required } from 'vuelidate/lib/validators'
+>>>>>>> #153 add validation signin and property form
 
   export default {
     components: {
       TopBar,
       RegisterButton,
+<<<<<<< HEAD
     },
 
     props: {
@@ -152,27 +267,73 @@
           return Object.values(type_of_address)
         },
       },
+=======
+      ImageUpload,
+>>>>>>> #153 add validation signin and property form
     },
 
     data() {
       return {
-        type_of_address: '',
+        typeAddress: '',
         BRZipCode: '',
         state: '',
         city: '',
         district: '',
         address: '',
+        tree_picture: null,
+        preview: {},
+        brstates: [
+          'Acre',
+          'Alagoas',
+          'Amapá',
+          'Amazonas',
+          'Bahia',
+          'Ceará',
+          'Distrito Federal',
+          'Espírito Santo',
+          'Goiás',
+          'Maranhão',
+          'Mato Grosso',
+          'Mato Grosso do Sul',
+          'Minas Gerais',
+          'Pará',
+          'Paraíba',
+          'Paraná',
+          'Pernambuco',
+          'Piauí',
+          'Rio de Janeiro',
+          'Rio Grande do Norte',
+          'Rio Grande do Sul',
+          'Rondônia',
+          'Roraima',
+          'Santa Catarina',
+          'São Paulo',
+          'Sergipe',
+          'Tocantins',
+        ],
+        adrchoises: [
+          'Apartamento',
+          'Casa',
+          'Fazenda',
+          'Outro',
+         ]
       }
     },
 
     validations: {
+<<<<<<< HEAD
       type_of_address: { required },
       BRZipCode: { required, numeric },
+=======
+      typeAddress: { required },
+      BRZipCode: { required },
+>>>>>>> #153 add validation signin and property form
       state: { required },
       city: { required },
       district: { required },
       address: { required },
     },
+<<<<<<< HEAD
 
     computed: {
       type_of_addressErrors () {
@@ -337,6 +498,60 @@
         }
 
         let data = {
+=======
+    computed: {
+      zipCodeErrors () {
+        const errors = []
+        if (!this.$v.BRZipCode.$dirty) return errors
+        !this.$v.BRZipCode.required && errors.push('Zip Vode is required.!')
+        return errors
+      },
+      cityErrors () {
+        const errors = []
+        if (!this.$v.city.$dirty) return errors
+        !this.$v.city.required && errors.push('City is required.')
+        return errors
+      },
+      districtErrors () {
+        const errors = []
+        if (!this.$v.district.$dirty) return errors
+         !this.$v.district.required && errors.push('District is required.')
+        return errors
+      },
+      addressErrors () {
+        const errors = []
+        if (!this.$v.address.$dirty) return errors
+         !this.$v.address.required && errors.push('Address is required.')
+        return errors
+      },      
+
+    },
+    methods: {
+      clearForm () {
+        this.$v.$reset(),
+        this.type_of_address= ''
+        this.BRZipCode= ''
+        this.state= ''
+        this.city= ''
+        this.district= ''
+        this.address= ''
+      }, 
+      
+      uploadImageSuccess(imageFile, imagePath){
+          this.tree_picture = imageFile
+          this.preview = imagePath
+      },
+
+      registerProperty(){
+        this.$v.$touch()
+      
+        if (this.$v.$invalid) {
+          console.log("formulário inválido")
+          return
+        }  
+          console.log("formulário valido")
+          let data = {
+>>>>>>> #153 add validation signin and property form
           BRZipCode: this.BRZipCode,
           state: this.state,
           city: this.city,
@@ -345,6 +560,7 @@
           type_of_address: this.type_of_address,
         }
 
+<<<<<<< HEAD
         this.$store.state.authRequest('propertyRegustration', 'POST', data)
           .then((response) => {
             alert("Property Registrated")
@@ -354,6 +570,17 @@
             alert("Error to register property!")
           })
       }
+=======
+        let state = this.$store.state
+        let toasted = this.$toasted
+
+        state.authRequest("properties/", "POST", data)
+        .then((response) => {
+          // toasted.show('Propriedade cadastrada com sucesso').goAway(2000)
+          this.$router.push({ name: 'home'})
+        })
+      },
+>>>>>>> #153 add validation signin and property form
     }
   }
 
@@ -361,6 +588,7 @@
 
 <style scoped lang="scss">
 @import "../assets/stylesheets/colors.scss";
+<<<<<<< HEAD
 
   .property-form {
     width: 100%;
@@ -397,5 +625,73 @@
     justify-content: flex-end;
     width: 100%;
   }
+=======
+
+
+.property{
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+.property-container{
+  width: 100%;
+  max-width:500px;
+  margin: 1px;
+}
+
+.property-title {
+  width: 100%;
+  padding: 0px 25px;
+  margin-top: 10%;
+  margin-bottom: 5%;
+  display: flex;
+  justify-content: left;
+  font-size: 30px;
+  font-weight: bold;
+  color: $color-primary-text-title;
+}
+
+.property-form {
+  width: 100%;
+  padding-right: 40px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.property-button {
+  margin-top: 10%;
+  margin-bottom: 0;
+  color: $color-default-text;
+  font-family: RobotoBold;
+ 
+}
+
+.image-container {
+  // width: 100%;
+  max-width: 700px;
+  max-height: 300px;
+  border-radius: 5px;
+  box-sizing: border-box;
+
+  border: 1px dashed #D6D6D6;
+  border-radius: 4px;
+  background-color: white;
+}
+
+img{
+  max-width: 100%;
+  height: auto;
+}
+
+.gradient {
+  background-image: linear-gradient(
+    180deg,
+    rgba(86, 163, 166, 1),
+    rgba(75, 125, 170, 105)
+  );
+}
+>>>>>>> #153 add validation signin and property form
 
 </style>

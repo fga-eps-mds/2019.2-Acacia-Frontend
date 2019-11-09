@@ -139,6 +139,7 @@ export default {
         })
         .catch(() => {
           // toasted.show(this.$t('SignPages.negativeStatus')).goAway(2000)
+          // The email and password you entered don't match
         })
     },
   }
@@ -190,15 +191,6 @@ export default {
   margin-bottom: 0;
   color: $color-default-text;
   font-family: RobotoBold;
-}
-
-.button-link {
-  background-color: $color-primary;
-  color: $color-default-text;
-  font-family: RobotoBold;
-  font-size: 130%;
-  text-decoration: none;
-  display: block;
 }
 
 .button-link {

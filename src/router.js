@@ -41,7 +41,7 @@ export default new Router({
             path: '/signin',
             name: 'signin',
             component: Signin,
-            // beforeEnter: ifNotAuthenticated,
+            beforeEnter: ifNotAuthenticated,
         },
         {
             path: '/signup',
@@ -52,13 +52,13 @@ export default new Router({
             name: 'propertyRegistration',
             path: '/property/registration',
             component: PropertyRegistration,
-            // beforeEnter: ifAuthenticated,
+            beforeEnter: ifAuthenticated,
         },
         {
             name: 'harvestRegistration',
             path: '/harvest/registration',
             component: HarvestRegistration,
-            // beforeEnter: ifAuthenticated,
+            beforeEnter: ifAuthenticated,
         },
         {
             name: 'calendar',
