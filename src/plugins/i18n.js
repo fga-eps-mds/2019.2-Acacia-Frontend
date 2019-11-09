@@ -55,7 +55,31 @@ const messages = {
         DatePicker: {
             locale: "en",
             cancel: "Cancel",
-            confirm: "Confirm"
+            confirm: "Confirm",
+        },
+        Dashboard: {
+            weekly: "Weekly",
+            jan: "January",
+            feb: "February",
+            mar: "March",
+            apr: "April",
+            may: "May",
+            jun: "June",
+            jul: "July",
+            aug: "August",
+            sep: "September",
+            oct: "October",
+            nov: "November",
+            dec: "December",
+        },
+        HarvestDigest: {
+            volunteer: "Volunteers",
+            date: "Date",
+            to: "to",
+            message: "Sign in to subscribe in harvests",
+            noharvest: "No harvests were found this week",
+            subscribed: "Subscribed harvests",
+            weekharvests: "Week harvests",
         },
     },
     'pt': {
@@ -111,7 +135,30 @@ const messages = {
           cancel: "Cancelar",
           confirm: "Confirmar"
         },
-
+        Dashboard: {
+            weekly: "Semanal",
+            jan: "Janeiro",
+            feb: "Fevereiro",
+            mar: "Março",
+            apr: "Abril",
+            may: "Maio",
+            jun: "Junho",
+            jul: "Julho",
+            aug: "Agosto",
+            sep: "Setembro",
+            oct: "Outubro",
+            nov: "Novembro",
+            dec: "Dezembro",
+        },
+        HarvestDigest: {
+            volunteer: "Voluntários",
+            date: "Data",
+            to: "até",
+            message: "Entre para poder se inscrever em colheitas",
+            noharvest: "Nenhuma colheita foi encontrada essa semana",    
+            subscribed: "Colheitas inscritas",
+            weekharvests: "Colheitas da semana",
+        },
     },
 }
 
