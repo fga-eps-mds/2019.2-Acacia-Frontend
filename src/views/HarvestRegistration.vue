@@ -60,6 +60,7 @@
               label="Maximum"
               type="number"
               required
+              
               @input="$v.max_volunteers.$touch()"
               @blur="$v.max_volunteers.$touch()"
             ></v-text-field>
@@ -149,6 +150,15 @@
         this.status= ''
         this.rules= []
       },
+      
+      delayTouch($v) {
+        $v.$reset()
+        if (touchMap.has($v)) {
+          clearTimeout(touchMap.get($v))
+        }
+        touchMap.set($v, setTimeout($v.$touch, 1000))
+      },
+
       registerHarvest(){
         this.$v.$touch()
       

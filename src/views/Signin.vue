@@ -1,245 +1,221 @@
+ 
 <template>
-  <div class="signup">
-          
-    <TopBar :iconleft="'chevron-left'" />
-    <div class="signup-container">
-      <div class="signup-title raleway-thin">
-        <a>{{ $t('SignPages.createAccount') }}</a>
-      </div>
+  <div class="signin gradient">
+    <TopBar 
+      iconleft="chevron-left"
+    />
+    <div class="signin-container">
+      <img 
+        width="45%" 
+        class="max-width-500 mb-4" 
+        src="../assets/images/logo.svg"
+      >
       
-      <form class="signup-form">
-        <v-text-field
-          v-model="username"
-          :error-messages="usernameErrors"
-          label="Name"
-          dark
-          color="indigo darken-4"
-          required
-          @input="$v.username.$touch()"
-          @blur="$v.username.$touch()"
-        ></v-text-field>
-
-        <v-text-field
+      <form class="signin-form">
+        <v-text-field class="mt-10"
+          prepend-icon="mdi-account"
           v-model="email"
           :error-messages="emailErrors"
           label="E-mail"
           dark
           color="indigo darken-4"
-          required
           @input="$v.email.$touch()"
           @blur="$v.email.$touch()"
         ></v-text-field>
-        
-        <v-text-field
-          v-model="password"
-          :error-messages="passwordErrors"
-          label="Password"
-          dark
-          color="indigo darken-4"
-          type="password"
-          required
-          @input="$v.password.$touch()"
-          @blur="$v.password.$touch()"
-        ></v-text-field>
 
-        <v-text-field
-          v-model="confirmPassword"
-          :error-messages="confirmPasswordErrors"
-          label="Confirm Password"
-          type="password"
-          dark
-          color="indigo darken-4"
-          required
-          @input="$v.confirmPassword.$touch()"
-          @blur="$v.confirmPassword.$touch()"
-        ></v-text-field>
-        
+        <v-text-field class="mt-3"
+            v-model="password"
+            :error-messages="passwordErrors"
+            prepend-icon="mdi-lock"
+            label="Senha"
+            dark
+            color="indigo darken-4"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="showPassword ? 'text' : 'password'"
+            @click:append="showPassword = !showPassword"
+            @input="$v.password.$touch()"
+            @blur="$v.password.$touch()"
+          ></v-text-field>
       </form>
-      <div class="signup-button">
-        <SignButton
-          class="mt-4"
-          :label="this.$t('SignPages.createAccount')"
-          @action="signup"
-        />
-      </div>
+
+      <SignButton class="signin-button"
+        :label="this.$t('SignPages.login')" 
+        @action="login"
+      />
+    </div>
+
+    <div
+      href="/signup"
+      class="fixed-bottom"
+    >
+      <a
+        href="/signup"
+        class="button-link"
+      >
+        {{ this.$t('SignPages.createAccount') }}
+      </a>
     </div>
   </div>
 </template>
 
 <script>
-  import TopBar from '@/components/layout/TopBar'
-  import TextField from '@/components/input/TextField'
-  import SignButton from '@/components/input/SignButton'
-  import { required, email, sameAs, minLength } from 'vuelidate/lib/validators'
-  // import { validationMixin } from 'vuelidate'
+import TextField from '@/components/input/TextField'
+import TopBar from '@/components/layout/TopBar'
+import SignButton from '@/components/input/SignButton'
+import { email, minLength } from 'vuelidate/lib/validators'
 
-  /* External library */
-  import axios from "axios";
+const touchMap = new WeakMap()
 
-  export default {
-        components: {
-        TopBar,
-        TextField,
-        SignButton
-      },
-    data() {
-      return {
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
+export default {
+	components: {
+		TextField,
+		TopBar,
+		SignButton
+  },
+  
+	data() {
+		return {
+			email: '',
+      password: '',
+      showPassword: false
+		}
+  },
+  
+  validations: {
+    email: { email },
+    password: { minLength: minLength(8) },
+  },
+
+  computed: {
+    emailErrors () {
+      const errors = []
+      if (!this.$v.email.$dirty) return errors
+      !this.$v.email.email && errors.push('Must be valid e-mail')
+      return errors
+    },
+    passwordErrors () {
+      const errors = []
+      if (!this.$v.password.$dirty) return errors
+      !this.$v.password.minLength && errors.push('Password must be minumum of 8 characters.')
+      return errors
+    }
+  },
+
+  methods: {
+    clearForm () {
+      this.$v.$reset()
+      this.email = ''
+      this.password = ''
+    },
+
+    delayTouch($v) {
+      $v.$reset()
+      if (touchMap.has($v)) {
+        clearTimeout(touchMap.get($v))
       }
+      touchMap.set($v, setTimeout($v.$touch, 1000))
     },
 
-    validations: {
-      username: { required },
-      email: { required, email },
-      password: { required, minLength: minLength(8) },
-      confirmPassword: { required, sameAsPassword: sameAs('password') },
-    },
-
-    computed: {
-      usernameErrors () {
-        const errors = []
-        if (!this.$v.username.$dirty) return errors
-        !this.$v.username.required && errors.push('Name is required.')
-        return errors
-      },
-      emailErrors () {
-        const errors = []
-        if (!this.$v.email.$dirty) return errors
-        !this.$v.email.email && errors.push('Must be valid e-mail')
-        !this.$v.email.required && errors.push('E-mail is required')
-        return errors
-      },
-      passwordErrors () {
-        const errors = []
-        if (!this.$v.password.$dirty) return errors
-        !this.$v.password.required && errors.push('Password is required.')
-        !this.$v.password.minLength && errors.push('Password must be minumum of 8 characters.')
-        return errors
-      },
-      confirmPasswordErrors () {
-        const errors = []
-        if (!this.$v.confirmPassword.$dirty) return errors
-        !this.$v.confirmPassword.required && errors.push(' Confirm Password is required.')
-        !this.$v.confirmPassword.sameAsPassword && errors.push('Puts! Digita a mesma senha!!')
-        return errors
-      },
-    },
-    
-    methods: {
-      clearForm () {
-        this.$v.$reset()
-        this.username = ''
-        this.email = ''
-        this.password = ''
-        this.confirmPassword = ''
-      },
-      signup() {
-        this.$v.$touch();
+    login() {
+      this.$v.$touch();
       
-        // if (!this.$v.$dirty) {
-        if (this.$v.$invalid) {
-          console.log("formulario inválido")
-          return
-        }
-        console.log("formulario válido")
-        let data = {
-          email: this.email,
-          username: this.username,
-          password: this.password,
-          confirmPassword: this.confirmPassword
-        }
+      if (this.$v.$invalid) {
+        console.log("formulario inválido")
+        return
+      }
+      console.log("formulario válido")
+      let data = {
+        email: this.email,
+        password: this.password
+      }
+      let state = this.$store.state
+      let toasted = this.$toasted
       
-        let dataToken = {
-          email: this.email,
-          password: this.password
-        }
-        const baseURL = this.$store.state.baseURL;
-        axios.post(baseURL + "users/signup/", data)
-          .then(() => {
-            axios.post(baseURL + "users/token/", dataToken)
-            .then(response => {
-              this.$store.state.authUser(
-                response.data["access"],
-                response.data["refresh"]
-              );
-              // this.$toasted
-              //   .show(this.$t("SignPages.positiveStatus"))
-              //   .goAway(2000);
-              router.push({ name: "home" });
-            })
-            .catch(() => {
-              router.push({ name: "signin" });
-            });
-          })
-                //         .catch(error => {
-                //           if (error.response.data.email) {
-                //       this.$toasted.show(error.response.data.email).goAway(2000);
-                //   }
-                //           if (error.response.data.username) {
-                //       this.$toasted.show(error.response.data.username).goAway(2000);
-                //   }
-                //           if (error.response.data.password) {
-                //       this.$toasted.show(error.response.data.password).goAway(2000);
-                //   }
-                // });
-                // },
-                //       let emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i
-                //       if (emailRegex.test(String(this.email).toLowerCase())) {
-                //       this.$toasted.show(this.$t("SignPages.requireValidEmail")).goAway(2000);
-        } 
-      } 
-    // }
+      state.noAuthRequest('users/token/', 'POST', data)
+        .then((response) => {
+          // toasted.show(this.$t('SignPages.positiveStatus')).goAway(2000)
+          state.authUser(response.data['access'], response.data['refresh'])
+          router.push({ name: 'dashboard' })
+        })
+        .catch(() => {
+          // toasted.show(this.$t('SignPages.negativeStatus')).goAway(2000)
+        })
+    },
   }
+}
 </script>
 
-<style lang="scss" scoped>
-
+<style scoped lang="scss">
 @import "../assets/stylesheets/colors.scss";
 
-.signup {
-  display: flex;
-  height: 100vh;
-  align-items: flex-start;
-  justify-content: center;
-  background-image: linear-gradient(
-    180deg,
-    rgba(86, 163, 166, 1),
-    rgba(75, 125, 170, 105)
-  );
+.max-width-500 {
+    max-width: 400px;
 }
 
-.signup-container{
+.signin {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.signin-container{
   width: 100%;
   max-width:500px;
   margin: 1px;
-  
 }
 
-.signup-title {
+.signin-title {
   width: 100%;
   padding: 0px 25px;
-  margin-top: 20%;
+  margin-top: 40%;
   margin-bottom: 20%;
   display: flex;
   justify-content: left;
-  font-size: 30px;
+  font-size: 35px;
   font-weight: bold;
   color: $color-default-text;
 }
 
-.signup-form {
+.signin-form {
   width: 100%;
-  padding-right: 30px;
+  padding-right: 40px;
   padding-left: 30px;
   margin-right: auto;
   margin-left: auto;
 }
 
-.signup-button {
-  margin-top: 90px;
+.signin-button {
+  margin-top: 70px;
+  margin-bottom: 0;
+  color: $color-default-text;
+  font-family: RobotoBold;
+}
+
+.button-link {
+  background-color: $color-primary;
+  color: $color-default-text;
+  font-family: RobotoBold;
+  font-size: 130%;
+  text-decoration: none;
+  display: block;
+}
+
+.button-link {
+  background-color: $color-primary;
+  color: $color-default-text;
+  font-family: RobotoBold;
+  font-size: 130%;
+  text-decoration: none;
+  display: block;
+}
+
+.gradient {
+  background-image: linear-gradient(
+    180deg,
+    rgba(86, 163, 166, 1),
+    rgba(75, 125, 170, 105)
+  );
 }
 
 </style>

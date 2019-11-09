@@ -1,43 +1,61 @@
 <template>
   <div class="signup gradient">
+          
     <TopBar :iconleft="'chevron-left'" />
-    <div class="content-container">
-      <div class="content-title">
-        <a style="font-size: 40px">{{ $t('SignPages.createAccount') }}</a>
+    <div class="signup-container">
+      <div class="signup-title raleway-thin">
+        <a>{{ $t('SignPages.createAccount') }}</a>
       </div>
-      <div class="content-form">
-        <TextField
+      
+      <form class="signup-form">
+        <v-text-field
           v-model="username"
-          color="white"
-          bordercolor="white"
-          :label="this.$t('SignPages.name')"
-        />
-        <TextField
-          v-model="email"
-          class="mt-2"
-          color="white"
-          bordercolor="white"
-          :label="this.$t('SignPages.email')"
-        />
-        <TextField
-          v-model="password"
-          class="mt-3"
-          color="white"
-          bordercolor="white"
-          type="password"
-          :label="this.$t('SignPages.password')"
-        />
+          :error-messages="usernameErrors"
+          label="Name"
+          dark
+          color="indigo darken-4"
+          required
+          @input="$v.username.$touch()"
+          @blur="$v.username.$touch()"
+        ></v-text-field>
 
-        <TextField
-          v-model="confirm_password"
-          color="white"
-          class="mt-3"
-          bordercolor="white"
+        <v-text-field
+          v-model="email"
+          :error-messages="emailErrors"
+          label="E-mail"
+          dark
+          color="indigo darken-4"
+          required
+          @input="$v.email.$touch()"
+          @blur="$v.email.$touch()"
+        ></v-text-field>
+        
+        <v-text-field
+          v-model="password"
+          :error-messages="passwordErrors"
+          label="Password"
+          dark
+          color="indigo darken-4"
           type="password"
-          :label="this.$t('SignPages.confirmPassword')"
-        />
-      </div>
-      <div class="content-button">
+          required
+          @input="$v.password.$touch()"
+          @blur="$v.password.$touch()"
+        ></v-text-field>
+
+        <v-text-field
+          v-model="confirmPassword"
+          :error-messages="confirmPasswordErrors"
+          label="Confirm Password"
+          type="password"
+          dark
+          color="indigo darken-4"
+          required
+          @input="$v.confirmPassword.$touch()"
+          @blur="$v.confirmPassword.$touch()"
+        ></v-text-field>
+        
+      </form>
+      <div class="signup-button">
         <SignButton
           class="mt-4"
           :label="this.$t('SignPages.createAccount')"
@@ -48,148 +66,180 @@
   </div>
 </template>
 
-  <script>
-    import TopBar from "@/components/layout/TopBar";
-    import TextField from "@/components/input/TextField";
-    import SignButton from "@/components/input/SignButton";
+<script>
+  import TopBar from '@/components/layout/TopBar'
+  import TextField from '@/components/input/TextField'
+  import SignButton from '@/components/input/SignButton'
+  import { required, email, sameAs, minLength } from 'vuelidate/lib/validators'
 
-    /* Local scripts imports */
-    import router from "@/router";
+  import axios from "axios";
 
-    /* External library */
-    import axios from "axios";
-
-export default {
-      components: {
-      TopBar,
-      TextField,
-      SignButton
+  export default {
+        components: {
+        TopBar,
+        TextField,
+        SignButton
+      },
+    data() {
+      return {
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+      }
     },
-  data() {
-    return {
-      username: "",
-    email: "",
-    password: "",
-    confirm_password: ""
-  };
-},
-  methods: {
+
+    validations: {
+      username: { required },
+      email: { required, email },
+      password: { required, minLength: minLength(8) },
+      confirmPassword: { required, sameAsPassword: sameAs('password') },
+    },
+
+    computed: {
+      usernameErrors () {
+        const errors = []
+        if (!this.$v.username.$dirty) return errors
+        !this.$v.username.required && errors.push('Name is required.')
+        return errors
+      },
+      emailErrors () {
+        const errors = []
+        if (!this.$v.email.$dirty) return errors
+        !this.$v.email.email && errors.push('Must be valid e-mail')
+        !this.$v.email.required && errors.push('E-mail is required')
+        return errors
+      },
+      passwordErrors () {
+        const errors = []
+        if (!this.$v.password.$dirty) return errors
+        !this.$v.password.required && errors.push('Password is required.')
+        !this.$v.password.minLength && errors.push('Password must be minumum of 8 characters.')
+        return errors
+      },
+      confirmPasswordErrors () {
+        const errors = []
+        if (!this.$v.confirmPassword.$dirty) return errors
+        !this.$v.confirmPassword.required && errors.push(' Confirm Password is required.')
+        !this.$v.confirmPassword.sameAsPassword && errors.push('Puts! Digita a mesma senha!!')
+        return errors
+      },
+    },
+    
+    methods: {
+      clearForm () {
+        this.$v.$reset()
+        this.username = ''
+        this.email = ''
+        this.password = ''
+        this.confirmPassword = ''
+      },
       signup() {
-      if (!this.validateInput()) {
-        return;
+        this.$v.$touch();
+      
+        // if (!this.$v.$dirty) {
+        if (this.$v.$invalid) {
+          console.log("formulario inválido")
+          return
+        }
+        console.log("formulario válido")
+        let data = {
+          email: this.email,
+          username: this.username,
+          password: this.password,
+          confirmPassword: this.confirmPassword
+        }
+      
+        let dataToken = {
+          email: this.email,
+          password: this.password
+        }
+        const baseURL = this.$store.state.baseURL;
+        axios.post(baseURL + "users/signup/", data)
+          .then(() => {
+            axios.post(baseURL + "users/token/", dataToken)
+            .then(response => {
+              this.$store.state.authUser(
+                response.data["access"],
+                response.data["refresh"]
+              );
+              
+              // this.$toasted
+              //   .show(this.$t("SignPages.positiveStatus"))
+              //   .goAway(2000);
+              router.push({ name: "home" });
+            })
+            .catch(() => {
+              router.push({ name: "signin" });
+            });
+          })
+                //         .catch(error => {
+                //           if (error.response.data.email) {
+                //       this.$toasted.show(error.response.data.email).goAway(2000);
+                //   }
+                //           if (error.response.data.username) {
+                //       this.$toasted.show(error.response.data.username).goAway(2000);
+                //   }
+                //           if (error.response.data.password) {
+                //       this.$toasted.show(error.response.data.password).goAway(2000);
+                //   }
+                // });
+                // },
+                //       let emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i
+                //       if (emailRegex.test(String(this.email).toLowerCase())) {
+                //       this.$toasted.show(this.$t("SignPages.requireValidEmail")).goAway(2000);
+        } 
+      } 
+    // }
   }
-      let data = {
-      email: this.email,
-    username: this.username,
-    password: this.password,
-    confirm_password: this.confirm_password
-  };
-      let dataToken = {
-      email: this.email,
-    password: this.password
-  };
-  const baseURL = this.$store.state.baseURL;
-  axios
-    .post(baseURL + "users/signup/", data)
-        .then(() => {
-      axios
-        .post(baseURL + "users/token/", dataToken)
-        .then(response => {
-          this.$store.state.authUser(
-            response.data["access"],
-            response.data["refresh"]
-          );
-          this.$toasted
-            .show(this.$t("SignPages.positiveStatus"))
-            .goAway(2000);
-            router.push({ name: 'dashboard' })
-        })
-        .catch(() => {
-          router.push({ name: "signin" });
-        });
-})
-        .catch(error => {
-          if (error.response.data.email) {
-      this.$toasted.show(error.response.data.email).goAway(2000);
-  }
-          if (error.response.data.username) {
-      this.$toasted.show(error.response.data.username).goAway(2000);
-  }
-          if (error.response.data.password) {
-      this.$toasted.show(error.response.data.password).goAway(2000);
-  }
-});
-},
-    validateInput() {
-      if (!this.username) {
-      this.$toasted.show(this.$t("SignPages.requireName")).goAway(2000);
-    return false;
-  }
-      if (!this.email) {
-      this.$toasted.show(this.$t("SignPages.requireEmail")).goAway(2000);
-    return false;
-  }
-      if (!this.password) {
-      this.$toasted.show(this.$t("SignPages.requirePassword")).goAway(2000);
-    return false;
-  }
-      if (this.password.length < 8) {
-      this.$toasted
-        .show(this.$t("SignPages.requreValidPassword"))
-        .goAway(2000);
-  return false;
-}
-      if (this.confirm_password != this.password) {
-      this.$toasted
-        .show(this.$t("SignPages.requirePasswordCorrespondance"))
-        .goAway(2000);
-  return false;
-}
-      let emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i
-      if (emailRegex.test(String(this.email).toLowerCase())) {
-      this.$toasted.show(this.$t("SignPages.requireValidEmail")).goAway(2000);
-    return false;
-  }
-  return true;
-}
-}
-};
 </script>
 
 <style lang="scss" scoped>
 
 @import "../assets/stylesheets/colors.scss";
 
-.content-button {
-  margin-top: 90px;
+.signup {
+  display: flex;
+  height: 100vh;
+  align-items: flex-start;
+  justify-content: center;
+  // background-image: linear-gradient(
+  //   180deg,
+  //   rgba(86, 163, 166, 1),
+  //   rgba(75, 125, 170, 105)
+  // );
 }
 
-.content-title {
+.signup-container{
+  width: 100%;
+  max-width:500px;
+  margin: 1px;
+  
+}
+
+.signup-title {
   width: 100%;
   padding: 0px 25px;
+  margin-top: 20%;
   margin-bottom: 20%;
-  color: $color-default-text;
   display: flex;
   justify-content: left;
+  font-size: 35px;
+  font-weight: bold;
+  color: $color-default-text;
 }
 
-.content-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.signup-form {
   width: 100%;
-  height: 100%;
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
-.signup {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  margin-top: 0;
-  text-align: center;
+.signup-button {
+  margin-top: 90px;
 }
-
 .gradient {
   background-image: linear-gradient(
     180deg,
