@@ -11,12 +11,15 @@
         <h3> Cadastrar propriedade </h3>
       </div>
 
-      <div class="content-form">
-        <TextField style = "padding-bottom: 10px"
-          v-model="BRZipCode"
+      <form class="property-registration-form">
+        <v-text-field 
+          v-model="BRZipCode" 
+          class="mt-3" 
           label="CEP"
-          color="#949090"
-          bordercolor="#949090"
+          color="black"
+          required
+          @input="$v.BRZipCode.$touch()"
+          @blur="$v.BRZipCode.$touch()"
         />
         <SelectField style = "padding-bottom: 10px"
           v-model="state"
@@ -25,23 +28,29 @@
           bordercolor="#C4C4C4"
           :items="brstates"
         />
-        <TextField style = "padding-bottom: 10px"
-          v-model="city"
-          label="Cidade"
-          color="#949090"
+        <v-text-field 
+          v-model="city" 
+          class="mt-3" 
+          label="Cidade" 
+          color="black"
+          required
+          @input="$v.city.$touch()"
+          @blur="$v.city.$touch()" 
+        />
+        <v-text-field 
+          v-model="district" 
+          class="mt-3" 
+          label="Bairro" 
+          color="black"
           bordercolor="#C4C4C4"
         />
-        <TextField style = "padding-bottom: 10px"
-          v-model="district"
-          label="Bairro"
-          color="#949090"
-          bordercolor="#C4C4C4"
-        />
-        <TextField style = "padding-bottom: 10px"
-          v-model="address"
-          label="Endereço"
-          color="#949090"
-          bordercolor="#C4C4C4"
+        <v-text-field 
+          v-model="address" 
+          class="mt-3" 
+          label="Endereço" 
+          required
+          @input="$v.address.$touch()"
+          @blur="$v.address.$touch()"
         />
         <SelectField
           v-model="type_of_address"
@@ -50,7 +59,7 @@
           bordercolor="#C4C4C4"
           :items="adrchoises"
         />
-      </div>
+      </form>
 
       <div class="content-button">
         <RegisterButton
@@ -68,6 +77,7 @@
   import TextField from '../components/input/TextField'
   import SelectField from '../components/input/SelectField'
   import RegisterButton from '../components/input/RegisterButton'
+  import { required, numeric } from 'vuelidate/lib/validators'
 
   export default {
     components: {
@@ -133,12 +143,80 @@
       }
     },
 
+    validations: {
+      type_of_address: { required },
+      BRZipCode: { required, numeric },
+      state: { required },
+      city: { required },
+      district: { required },
+      address: { required },
+    },
+
+    computed: {
+      type_of_addressErrors () {
+        const errors = []
+        if (!this.$v.type_of_address.$dirty) return errors
+        !this.$v.type_of_address.required && errors.push('Type of address is required.')
+        return errors        
+      },
+      BRZipCodeErrors () {
+        const errors = []
+        if (!this.$v.BRZipCode.$dirty) return errors
+        !this.$v.BRZipCode.required && errors.push('CEP is required.')
+        !this.$v.BRZipCode.numeric && errors.push('Only numbers are allow')
+        return errors        
+      },      
+      stateErrors () {
+        const errors = []
+        if (!this.$v.state.$dirty) return errors
+        !this.$v.state.required && errors.push('State is required.')
+        return errors        
+      }, 
+      cityErrors () {     
+        const errors = []
+        if (!this.$v.city.$dirty) return errors
+        !this.$v.city.required && errors.push('City is required.')
+        return errors        
+      },   
+      districtErrors () {     
+        const errors = []
+        if (!this.$v.district.$dirty) return errors
+        !this.$v.district.required && errors.push('District is required.')
+        return errors        
+      },
+      AddressErrors () {     
+        const errors = []
+        if (!this.$v.Address.$dirty) return errors
+        !this.$v.Address.required && errors.push('Address is required.')
+        return errors        
+      },                       
+    },
+
     methods: {
+      clearFrom () {
+        this.$v.reset()
+        this.type_of_address = ''
+        this.BRZipCode = ''
+        this.state = ''
+        this.city = ''
+        this.district = ''
+        this.address =''
+      },
       registerProperty(){
-        if (!this.validateInput()) {
+        this.$v.$touch();
+
+        if (!this.$v.$invalid) {
+          console.log("formulario válido")
+        }
+        else {
+          console.log("formulario inválido")
           return
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> Change toasted for vuelidate, it doesnt save if there're invalid fields
         // Code snipet to update the value of 'type_of_address'
         if (this.type_of_address == "Apartamento") {
           this.type_of_address = "Apartment"
@@ -236,7 +314,7 @@
           this.state = "TO"
         }
 
-          let data = {
+        let data = {
           BRZipCode: this.BRZipCode,
           state: this.state,
           city: this.city,
@@ -245,65 +323,15 @@
           type_of_address: this.type_of_address,
         }
 
-        let state = this.$store.state
-        let toasted = this.$toasted
-
-        state.authRequest("properties/", "POST", data)
-        .then((response) => {
-          toasted.show('Propriedade cadastrada com sucesso').goAway(2000)
-          this.$router.push({ name: 'dashboard' })
-        })
-        .catch((error) => {
-          if(error.response.data.BRZipCode){
-            this.$toasted.show(error.response.data.BRZipCode).goAway(2000)
-          }
-          if(error.response.data.state){
-            this.$toasted.show(error.response.data.state).goAway(2000)
-          }
-          if(error.response.data.city){
-            this.$toasted.show(error.response.data.city).goAway(2000)
-          }
-          if(error.response.data.district){
-            this.$toasted.show(error.response.data.district).goAway(2000)
-          }
-          if(error.response.data.address){
-            this.$toasted.show(error.response.data.address).goAway(2000)
-          }
-          if(error.response.data.type_of_address){
-            this.$toasted.show(error.response.data.type_of_address).goAway(2000)
-          }
-        })
-
-      },
-
-      validateInput(){
-        if (!this.BRZipCode) {
-          this.$toasted.show('Insira seu CEP').goAway(2000)
-          return false
-        }
-
-        if (!this.state) {
-          this.$toasted.show('Selecione um estado').goAway(2000)
-          return false
-        }
-
-        if (!this.city) {
-          this.$toasted.show('Insira uma cidade').goAway(2000)
-          return false
-        }
-
-        if (!this.district) {
-          this.$toasted.show('Insira um bairro').goAway(2000)
-          return false
-        }
-
-        if (!this.address) {
-          this.$toasted.show('Insira um endereço').goAway(2000)
-          return false
-        }
-
-        return true
-      },
+        this.$store.state.authRequest('propertyRegustration', 'POST', data)
+          .then((response) => {
+            alert("Property Registrated")
+            router.push({name: 'dashboard'})
+          })
+          .catch((error) => {
+            alert("Error to register property!")
+          })
+      }
     }
   }
 
