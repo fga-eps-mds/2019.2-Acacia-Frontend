@@ -14,6 +14,7 @@
       <form class="property-registration-form">
         <v-text-field 
           v-model="BRZipCode" 
+          :error-messages="BRZipCodeErrors"
           class="mt-3" 
           label="CEP"
           color="black"
@@ -21,15 +22,25 @@
           @input="$v.BRZipCode.$touch()"
           @blur="$v.BRZipCode.$touch()"
         />
+<<<<<<< HEAD
         <SelectField style = "padding-bottom: 10px"
           v-model="state"
           label="Estado"
           color="#949090"
+=======
+        <v-select
+          v-model="state" 
+          :error-messages="stateErrors"
+          class="mt-3" 
+          label="Estado" 
+          color="black"
+>>>>>>> Validated all fields of property registration
           bordercolor="#C4C4C4"
           :items="brstates"
         />
         <v-text-field 
           v-model="city" 
+          :error-messages="cityErrors"
           class="mt-3" 
           label="Cidade" 
           color="black"
@@ -39,23 +50,34 @@
         />
         <v-text-field 
           v-model="district" 
+          :error-messages="districtErrors"
           class="mt-3" 
           label="Bairro" 
           color="black"
           bordercolor="#C4C4C4"
         />
         <v-text-field 
-          v-model="address" 
+          v-model="address"
+          :error-messages="addressErrors"
           class="mt-3" 
           label="Endereço" 
           required
           @input="$v.address.$touch()"
           @blur="$v.address.$touch()"
         />
+<<<<<<< HEAD
         <SelectField
           v-model="type_of_address"
           label="Tipo de moradia"
           color="#949090"
+=======
+        <v-select
+          v-model="type_of_address" 
+          :error-messages="type_of_addressErrors"
+          class="mt-3" 
+          label="Tipo de moradia" 
+          color="black"
+>>>>>>> Validated all fields of property registration
           bordercolor="#C4C4C4"
           :items="adrchoises"
         />
@@ -184,10 +206,10 @@
         !this.$v.district.required && errors.push('District is required.')
         return errors        
       },
-      AddressErrors () {     
+      addressErrors () {     
         const errors = []
-        if (!this.$v.Address.$dirty) return errors
-        !this.$v.Address.required && errors.push('Address is required.')
+        if (!this.$v.address.$dirty) return errors
+        !this.$v.address.required && errors.push('Address is required.')
         return errors        
       },                       
     },
