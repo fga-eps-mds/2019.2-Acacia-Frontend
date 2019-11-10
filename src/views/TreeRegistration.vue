@@ -47,11 +47,44 @@
           bordercolor="#C4C4C4"
         />
 
-        <div class="file-label">
-          <label for="file">Propriedade: Flavio Vieira</label>
-          <a @click="'hideImg = !hideImg'">
-            <font-awesome-icon :icon="icon" style="color:black"/>
-          </a>
+        <div class="property">
+          <label>Propriedades:</label>
+            <ul>
+              <li
+                v-for="property in properties"
+                :key="property.id"
+              >
+                <div
+                  class="carBody"
+                  @click="selectCard(property.pk)"
+                >
+                  <p class="cardTitle">
+                    {{ property.address }}
+                  </p>
+                  <font-awesome-icon
+                    v-if="property.pk != propertyCard"
+                    icon="chevron-right"
+                    style="color: purple;"
+                  />
+                  <font-awesome-icon
+                    v-if="property.pk === propertyCard"
+                    icon="chevron-down"
+                    style="color: purple;"
+                  />
+                </div>
+                <div
+                  v-if="property.pk === propertyCard"
+                  class="contentCard"
+                >
+                  <p class="cardTitle">
+                    {{ property.type_of_address }}
+                    {{ property.BRZipCode }}
+                    {{ property.state }}
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div class="image-container ">
@@ -89,15 +122,15 @@
 </template>
 
 <script>
-  import TopBar from '../components/layout/TopBar'
-  import TextField from '../components/input/TextField'
-  import ImageUpload from '../components/input/ImageUpload'
-  import SignButton from '@/components/input/SignButton'
-  import RegisterButton from '../components/input/RegisterButton'
-  import DatePicker from '../components/input/DatePicker'
+import TopBar from '../components/layout/TopBar'
+import TextField from '../components/input/TextField'
+import ImageUpload from '../components/input/ImageUpload'
+import SignButton from '@/components/input/SignButton'
+import RegisterButton from '../components/input/RegisterButton'
+import DatePicker from '../components/input/DatePicker'
+import router from "@/router"
 
-
-  import axios from "axios"
+import axios from "axios"
 
   export default {
     components: {
@@ -116,7 +149,10 @@
       state.authRequest("properties/", "GET")
       .then((response) => {
         console.log(response)
-        // this.$router.push({ name: 'dashboard' })
+        let property_array = response.data
+        console.log(property_array)
+        console.log(this.properties)
+        this.properties = property_array
       })
       .catch((error) => {
         console.log(error)
@@ -130,7 +166,9 @@
         date: '',
         haverst_for_year: '',
         tree_picture: null,
-        preview: {}
+        preview: {},
+        propertyCard: '',
+        properties: [],
 
       }
     },
@@ -143,58 +181,55 @@
         return this.tree_type !== '' &&
               this.number_of_tree !== '' &&
               this.height_fruit !== '' &&
-              this.data !== ''
+              this.data !== '' &&
+              this.propertyCard !== ''
       }
     },
 
-      methods: {
-        uploadImageSuccess(imageFile, imagePath){
-          this.tree_picture = imageFile
-          this.preview = imagePath
-        },
+    methods: {
+      uploadImageSuccess(imageFile, imagePath){
+        this.tree_picture = imageFile
+        this.preview = imagePath
+      },
+      selectCard(property) {
 
+        if (this.iconCard == "chevron-right") {
+          this.propertyCard = property;
+          this.iconCard = "chevron-down";
+        }
+
+        else if (this.iconCard == "chevron-down" && this.propertyCard != "" && this.propertyCard != property) {
+          this.propertyCard = property;
+          this.iconCard = "chevron-right";
+        }
+
+        else {
+          this.propertyCard = "";
+          this.iconCard = "chevron-right";
+        }
+      },
       register(){
         if (!this.formIsValid) {
           return
         }
 
-        let formData = new FormData()
-          formData.append('tree_type', this.tree_type)
-          formData.append('number_of_tree', this.number_of_tree)
-          formData.append('height_fruit', this.height_fruit)
-          formData.append('matury_date', this.date)
-          formData.append('haverst_for_year', this.haverst_for_year)
-          formData.append('tree_picture', this.tree_picture)
+        let data ={
+          tree_type: this.tree_type,
+          number_of_tree: this.number_of_tree,
+          height_fruit: this.number_of_tree,
+          matury_date: this.date,
+          haverst_for_year: this.haverst_for_year,
+        }
+        let state = this.$store.state
+        state.authRequest('properties/' + this.propertyCard + '/trees/', "POST", data)
+        .then((response) => {
+          toasted.show('Propriedade cadastrada com sucesso').goAway(2000)
+          this.$router.push({ name: 'dashboard' })
+        })
+        .catch((error) => {
+          console.log(error)
+        })
 
-          // formData.append('_method', 'PUT');
-
-          console.log(formData)
-
-          // this.$store.dispatch('recordTree', formData)
-
-
-//========== temporario para salvar com o formulario como FormData ==========
-//=> configurar store:
-
-          const baseURL = this.$store.state.baseURL;
-          let config = {
-              headers: {
-                  'Content-Type': 'multipart/form-data',
-                  "Authorization": "Bearer " + this.$store.state.getAccessToken()
-                }
-            }
-            axios.post(baseURL + 'tree/', formData, config)
-              .then((response) => {
-                console.log("response")
-
-              this.$toasted.show(this.$t("SignPages.positiveStatus"))
-              .goAway(2000);
-              router.push({ name: "home" });
-              })
-              .catch(() => {
-                router.push({ name: "" });
-                      })
-//=============================================================================
        },
       },
   }

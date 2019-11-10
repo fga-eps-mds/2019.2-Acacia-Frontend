@@ -74,7 +74,8 @@ export default new Router({
     {
         name: 'treeRegistration',
         path: '/tree/registration',
-        component: TreeRegistration
+        component: TreeRegistration,
+        beforeEnter: ifAuthenticated,
     },
   ]
 })

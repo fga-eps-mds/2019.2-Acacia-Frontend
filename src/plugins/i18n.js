@@ -35,7 +35,7 @@ const messages = {
             minimum: "Minimum",
             maximum: "Maximum",
             rules: "Rules",
-            creation: "Register"
+            creation: "Register",
         },
         TreeRegister:{
             fruit_height: "Fruits average height",
@@ -94,7 +94,7 @@ const messages = {
             minimum: "Mínimo",
             maximum: "Máximo",
             rules: " Regras da colheita",
-            create: "Cadastrar"
+            creation: "Cadastrar",
         },
         TreeRegister:{
             fruit_height: "Altura média dos frutos",
