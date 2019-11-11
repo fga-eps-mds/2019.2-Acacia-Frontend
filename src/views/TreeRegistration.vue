@@ -199,6 +199,7 @@ import axios from "axios"
       },
       register(){
         if (!this.formIsValid) {
+          this.$toasted.show('Formulário preenchido incorretamente').goAway(2000)
           return
         }
 
@@ -207,9 +208,18 @@ import axios from "axios"
           number_of_tree: this.number_of_tree,
           tree_height: this.number_of_tree,
         }
+        let formData = new FormData()
+        Object.keys(data).map(e => {
+            formData.append(e, data[e])
+        })
+
+        if (this.tree_picture !== null){
+          formData.append('picture', this.tree_picture, this.preview.name)
+        }
+
         let state = this.$store.state
 
-        state.authRequest('properties/' + this.propertyCard + '/trees/', "POST", data)
+        state.authRequest('properties/' + this.propertyCard + '/trees/', "POST", formData)
         .then((response) => {
           let tree_pk = response.data.pk
 
