@@ -39,7 +39,8 @@ const messages = {
         },
         TreeRegister:{
             fruit_height: "Fruits average height",
-            image: "Image file",
+            image: "Tree image file",
+            months: "Tree fruinting months",
 
         },
         Global: {
@@ -122,7 +123,8 @@ const messages = {
         },
         TreeRegister:{
             fruit_height: "Altura média dos frutos",
-            image: "Arquivo de Imagem",
+            image: "Arquivo de Imagem da árvore",
+            months: "Meses da frutificação da árvore",
 
         },
         Global: {
@@ -165,7 +167,7 @@ const messages = {
             date: "Data",
             to: "até",
             message: "Entre para poder se inscrever em colheitas",
-            noharvest: "Nenhuma colheita foi encontrada essa semana",    
+            noharvest: "Nenhuma colheita foi encontrada essa semana",
             subscribed: "Colheitas inscritas",
             weekharvests: "Colheitas da semana",
         },

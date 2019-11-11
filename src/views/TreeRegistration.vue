@@ -10,31 +10,40 @@
       </div>
 
       <div class="tree-form">
-
         <v-select
+          v-model="tree_type"
           :items="tree_types"
           label="Espécie"
-          v-model="tree_type"
-        ></v-select>
-        <TextField
-          v-model="number_of_tree"
-          type="number"
-          class="mt-1"
-          label="Número de árvores"
-          color="black"
-          bordercolor="#C4C4C4"
         />
-        <TextField
-          v-model="height_fruit"
-          type="number"
-          class="mt-1"
-          label="$t('TreeRegister.fruit_height')"
-          color="black"
-          bordercolor="#C4C4C4"
-        />
-        <DatePicker
-          v-model="date"
-          :label="$t('HarvestRegister.date')"
+        <v-row>
+          <v-col cols="6">
+            <TextField
+              v-model="number_of_tree"
+              type="number"
+              label="Número de árvores"
+              color="black"
+              bordercolor="#C4C4C4"
+              style="padding: 0px;"
+            />
+          </v-col>
+          <v-col cols="6">
+            <TextField
+              v-model="height_fruit"
+              type="number"
+              :label="$t('TreeRegister.fruit_height')"
+              color="black"
+              bordercolor="#C4C4C4"
+              style="padding: 0px;"
+            />
+          </v-col>
+        </v-row>
+        <v-select
+          v-model="months"
+          :items="month_items"
+          attach
+          chips
+          :label="$t('TreeRegister.months')"
+          multiple
         />
 
         <TextField
@@ -43,79 +52,68 @@
           label="Colheitas por ano"
           color="black"
           bordercolor="#C4C4C4"
+          style="padding: 0px;"
         />
 
-        <div class="property">
-          <label>Propriedades:</label>
-            <ul>
-              <li
-                v-for="property in properties"
-                :key="property.id"
+        <label style="display: flex; padding-top: 15px;">Propriedades:</label>
+        <div
+          class="property"
+          style="border-bottom: 1px solid black;"
+        >
+          <ul>
+            <li
+              v-for="property in properties"
+              :key="property.id"
+            >
+              <div
+                class="carBody"
+                @click="selectCard(property.pk)"
               >
-                <div
-                  class="carBody"
-                  @click="selectCard(property.pk)"
-                >
-                  <p class="cardTitle">
-                    {{ property.address }}
-                  </p>
-                  <font-awesome-icon
-                    v-if="property.pk != propertyCard"
-                    icon="chevron-right"
-                    style="color: purple;"
-                  />
-                  <font-awesome-icon
-                    v-if="property.pk === propertyCard"
-                    icon="chevron-down"
-                    style="color: purple;"
-                  />
-                </div>
-                <div
+                <p class="cardTitle">
+                  {{ property.address }}
+                </p>
+                <font-awesome-icon
+                  v-if="property.pk != propertyCard"
+                  icon="circle"
+                  style="color: purple;"
+                />
+                <font-awesome-icon
                   v-if="property.pk === propertyCard"
-                  class="contentCard"
-                >
-                  <p class="cardTitle">
-                    {{ property.type_of_address }}
-                    {{ property.BRZipCode }}
-                    {{ property.state }}
-                  </p>
-                </div>
-              </li>
-            </ul>
-          </div>
+                  icon="check-circle"
+                  style="color: purple;"
+                />
+              </div>
+              <div
+                v-if="property.pk === propertyCard"
+                class="contentCard"
+              >
+                <p class="cardTitle">
+                  {{ property.type_of_address }}
+                  {{ property.BRZipCode }}
+                  {{ property.state }}
+                </p>
+              </div>
+            </li>
+          </ul>
         </div>
-
-        <div class="image-container ">
-          <v-row align="center" justify="center">
-            <v-img
-              :src="preview.path"
-              lazy-src="preview.path"
-              aspect-ratio="1"
-              max-width="330"
-              max-height="200"
-              class="grey darken-4"
-            ></v-img>
-          </v-row>
-
-          <!-- <div class="preview-image">
-              <img :src="preview.path" >
-          </div>  -->
-        </div>
-        <div class="input">
-          <ImageUpload
-            @upload-complete="uploadImageSuccess"
-          />
-        </div>
-
-          <SignButton
-            :label="$t('HarvestRegister.creation')"
-            padding="small"
-            direction="right"
-            @action="register"
-            background-color="#2D9CDB"
-          />
       </div>
+      <div class="input">
+        <ImageUpload
+          @upload-complete="uploadImageSuccess"
+        />
+      </div>
+
+      <SignButton
+        :label="$t('HarvestRegister.creation')"
+        padding="small"
+        direction="right"
+        background-color="#2D9CDB"
+        @action="register"
+      />
     </div>
+  </div>
+
+  </div>
   </div>
 </template>
 
@@ -139,6 +137,37 @@ import axios from "axios"
       RegisterButton,
       ImageUpload,
     },
+    data() {
+      return {
+        tree_type: '',
+        number_of_tree: '',
+        height_fruit: '',
+        months: '',
+        haverst_for_year: '',
+        tree_picture: null,
+        preview: {},
+        propertyCard: '',
+        properties: [],
+        tree_types: ['Avocado', 'Pineapple', 'Banana', 'Persimmon', 'Coconut',
+                     'FIG', 'Guava', 'Jabuticaba', 'Orange', 'Lemon', 'Apple'],
+        month_items: ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+                      'August', 'September', 'October', 'November', 'December'],
+
+      }
+    },
+    computed: {
+      icon(){
+      return "chevron-right"
+      },
+
+      formIsValid () {
+        return this.tree_type !== '' &&
+              this.number_of_tree !== '' &&
+              this.height_fruit !== '' &&
+              this.months !== '' &&
+              this.propertyCard !== ''
+      }
+    },
     created() {
       console.log('Component has been created!');
       let state = this.$store.state
@@ -156,35 +185,6 @@ import axios from "axios"
       .catch((error) => {
         console.log(error)
       })
-    },
-    data() {
-      return {
-        tree_type: '',
-        number_of_tree: '',
-        height_fruit: '',
-        date: '',
-        haverst_for_year: '',
-        tree_picture: null,
-        preview: {},
-        propertyCard: '',
-        properties: [],
-        tree_types: ['Avocado', 'Pineapple', 'Banana', 'Persimmon', 'Coconut',
-                     'FIG', 'Guava', 'Jabuticaba', 'Orange', 'Lemon', 'Apple']
-
-      }
-    },
-    computed: {
-      icon(){
-      return "chevron-right"
-      },
-
-      formIsValid () {
-        return this.tree_type !== '' &&
-              this.number_of_tree !== '' &&
-              this.height_fruit !== '' &&
-              this.data !== '' &&
-              this.propertyCard !== ''
-      }
     },
 
     methods: {
@@ -212,6 +212,7 @@ import axios from "axios"
       register(){
         console.log("TIpo da árvore")
         console.log(this.tree_type)
+        console.log(this.months)
         if (!this.formIsValid) {
           return
         }
@@ -219,19 +220,29 @@ import axios from "axios"
           tree_type: this.tree_type,
           number_of_tree: this.number_of_tree,
           tree_height: this.number_of_tree,
-        //  haverst_for_year: this.haverst_for_year,
         }
+        console.log(data)
         let state = this.$store.state
         state.authRequest('properties/' + this.propertyCard + '/trees/', "POST", data)
         .then((response) => {
           console.log(response)
-          toasted.show('Árvore cadastrada com sucesso').goAway(2000)
-          this.$router.push({ name: 'dashboard' })
+          let tree_pk = response.data.pk
+          console.log(tree_pk)
+          console.log('Árvore cadastrada com sucesso')
+          for (var i = 0; i < this.months.length; i++) {
+            let month_data = {'harvest_month': this.months[i]}
+            state.authRequest('properties/' + this.propertyCard + '/trees/' + tree_pk + '/harvest_months/',
+                              "POST", month_data)
+            .then((response) =>{
+                                console.log(response)})
+            .catch((error) => {console.log(error)})
+          }
+          //toasted.show('Árvore cadastrada com sucesso').goAway(2000)
         })
         .catch((error) => {
           console.log(error)
         })
-
+        this.$router.push({ name: 'dashboard' })
        },
       },
   }

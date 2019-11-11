@@ -1,30 +1,43 @@
 <template>
-	<div id="textfield" class="textfield-container">
-		<div class="row ml-1 mr-1 centralize-div">
+  <div
+    id="textfield"
+    class="textfield-container"
+  >
+    <div class="row ml-1 mr-1 centralize-div">
+      <div
+        v-if="label"
+        class="col-12 p-0 textfield-label"
+        :style="'color: ' + hexcolor"
+      >
+        {{ label }}
+      </div>
 
-			<div v-if="label" class="col-12 p-0 textfield-label"
-        		:style="'color: ' + hexcolor">
-        		{{ label }}
-      		</div>
-
-			<input 
-				v-model="variableLocal" 
-				v-if="!texticon" 
-				:type="getFieldType()" 
-				:class="'text-input col-12 ' + color" 
-				:placeholder="placeholder"
-				:style="'text-color: ' + hexcolor + '; border-bottom-color: ' + hexcolor"
+      <input 
+        v-if="!texticon" 
+        v-model="variableLocal" 
+        :type="getFieldType()" 
+        :class="'text-input col-12 ' + color" 
+        :placeholder="placeholder"
+        :style="'text-color: ' + hexcolor + '; border-bottom-color: ' + hexcolor"
       >
 
-			<div v-else class="w-100 col p-0">
-        
-        <div v-if="color == 'white'" style="display: inline">
+      <div
+        v-else
+        class="w-100 col p-0"
+      >
+        <div
+          v-if="color == 'white'"
+          style="display: inline"
+        >
           <font-awesome-icon 
             style="color: #ffffff"
             :icon="texticon" 
           />
         </div>
-        <div v-else style="display: inline">
+        <div
+          v-else
+          style="display: inline"
+        >
           <font-awesome-icon 
             style="color: #000000"
             :icon="texticon" 
@@ -43,16 +56,17 @@
           class="text-field-border"
           :style="'background-color: ' + hexcolor"  
         />
-
-
-			</div>
-
-		</div>
-	</div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
+	model: {
+		prop: 'variable',
+		event: 'textfield-change'
+	},
 	props: {
 		label: {
 			default: '',
@@ -88,10 +102,6 @@ export default {
       hexcolor: '#ffffff',
     }
   },
-	model: {
-		prop: 'variable',
-		event: 'textfield-change'
-	},
 	computed: {
 		variableLocal: {
 			get: function() {

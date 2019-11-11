@@ -1,9 +1,11 @@
 <template>
-    <button class="button " :class="{ sb1, sb2, sb3, sb4}"
-       @click="$emit('action')"> 
-        {{ label }} 
-        
-    </button>
+  <button
+    class="button "
+    :class="{ sb1, sb2, sb3, sb4}"
+    @click="$emit('action')"
+  > 
+    {{ label }}
+  </button>
 </template>
 
 <script>

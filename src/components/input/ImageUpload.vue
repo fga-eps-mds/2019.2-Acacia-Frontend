@@ -1,22 +1,21 @@
 <template>
   <div class="upload">
-      <span class="ml-2 "> {{ imageURL.name }}</span>
-      <div>
-        <v-file-input
-          label="$t('TreeRegister.image')"
-          accept="image/*"
-          @change="uploadChange"
-          filled
-          prepend-icon="mdi-camera"
-        >
-      </v-file-input>
-      </div>
+    <span class="ml-2 "> {{ imageURL.name }}</span>
+    <div>
+      <v-file-input
+        :label="$t('TreeRegister.image')"
+        accept="image/*"
+        filled
+        prepend-icon="mdi-camera"
+        @change="uploadChange"
+      />
+    </div>
   </div>
 </template>
 
 <script>
   export default {
-    name:'imageUpload',
+    name:'ImageUpload',
 
     data(){
       return {

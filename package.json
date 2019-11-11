@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "build:stage": "vue-cli-service build --mode staging",
     "start": "node staging-server.js",
-    "lint": "eslint \"src/**/*.{js,vue}\"",
+    "lint": "eslint --fix \"src/**/*.{js,vue}\"",
     "test:unit": "vue-cli-service test:unit "
   },
   "dependencies": {

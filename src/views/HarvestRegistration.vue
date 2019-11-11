@@ -12,6 +12,7 @@
       <div class="content-form">
         <DatePicker
           v-model="date"
+          min="true"
           :label="$t('HarvestRegister.date')"
         />
         <TextField
@@ -74,7 +75,7 @@
       </div>
       <div class="content-button">
         <SignButton
-          :label="$t('HarvestRegister.creation')" 
+          :label="$t('HarvestRegister.creation')"
           padding="small"
           direction="right"
           @action="registerHarvest"
@@ -211,6 +212,7 @@
       width: auto;
       height: auto;
       margin-top: 80px;
+      background: white;
     }
 
     .content-title {
