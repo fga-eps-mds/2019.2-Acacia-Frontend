@@ -10,18 +10,26 @@
       :class="color"
       @click="selectLeft"
     />
-    
     <font-awesome-icon
       v-if="iconright"
       :icon="iconright"
       :class="color"
       @click="selectRight"
     />
+    <ModalCard
+      :valuemodel="changeDialog"
+    />
   </div>
 </template>
 
 <script>
+import ModalCard from '@/components/layout/ModalCard'
 export default {
+
+  components: {
+    ModalCard
+  },
+
   props: {
     iconleft: {
       default: "",
@@ -38,12 +46,16 @@ export default {
   },
 
   computed: {
-    iconDislay: {
+    iconDislay: function() {
+      return this.$store.state.sideBarOn
+    },
+    changeDialog: {
       get: function() {
-        return this.$store.state.sideBarOn
+        return this.$store.state.modalCardOn
       },
       set: function(value) {
-      },
+        this.$store.state.modalCardOn = value
+      }
     }
   },
 
@@ -61,7 +73,9 @@ export default {
       } else if (this.iconright == "comment-alt") {
         // The chat feature will be implemented here
       } else if (this.iconright == "plus") {
-        // The add feature will be implemented here
+        console.log(this.changeDialog)
+        this.changeDialog = true
+        console.log(this.changeDialog)
       }
     }
   }
