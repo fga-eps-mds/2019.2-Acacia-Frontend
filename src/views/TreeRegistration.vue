@@ -11,13 +11,11 @@
 
       <div class="tree-form">
 
-        <TextField
-          v-model="tree_type"
-          class="mt-1"
+        <v-select
+          :items="tree_types"
           label="Espécie"
-          color="black"
-          bordercolor="#C4C4C4"
-        />
+          v-model="tree_type"
+        ></v-select>
         <TextField
           v-model="number_of_tree"
           type="number"
@@ -148,6 +146,7 @@ import axios from "axios"
 
       state.authRequest("properties/", "GET")
       .then((response) => {
+        console.log('Populando as propriedades...')
         console.log(response)
         let property_array = response.data
         console.log(property_array)
@@ -169,6 +168,8 @@ import axios from "axios"
         preview: {},
         propertyCard: '',
         properties: [],
+        tree_types: ['Avocado', 'Pineapple', 'Banana', 'Persimmon', 'Coconut',
+                     'FIG', 'Guava', 'Jabuticaba', 'Orange', 'Lemon', 'Apple']
 
       }
     },
@@ -209,21 +210,22 @@ import axios from "axios"
         }
       },
       register(){
+        console.log("TIpo da árvore")
+        console.log(this.tree_type)
         if (!this.formIsValid) {
           return
         }
-
         let data ={
           tree_type: this.tree_type,
           number_of_tree: this.number_of_tree,
-          height_fruit: this.number_of_tree,
-          matury_date: this.date,
-          haverst_for_year: this.haverst_for_year,
+          tree_height: this.number_of_tree,
+        //  haverst_for_year: this.haverst_for_year,
         }
         let state = this.$store.state
         state.authRequest('properties/' + this.propertyCard + '/trees/', "POST", data)
         .then((response) => {
-          toasted.show('Propriedade cadastrada com sucesso').goAway(2000)
+          console.log(response)
+          toasted.show('Árvore cadastrada com sucesso').goAway(2000)
           this.$router.push({ name: 'dashboard' })
         })
         .catch((error) => {
