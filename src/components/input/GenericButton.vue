@@ -3,7 +3,7 @@
     class="button "
     :class="{ sb1, sb2, sb3, sb4}"
     @click="$emit('action')"
-  > 
+  >
     {{ label }}
   </button>
 </template>
@@ -11,7 +11,7 @@
 <script>
     export default {
         props: {
-            label: {},
+            label: {type: String, default: ''},
             sb1: {type: Boolean},
             sb2: {type: Boolean},
             sb3: {type: Boolean},
@@ -25,7 +25,7 @@
 
     .button{
         padding: 8px 20px;
-         
+
 		height: 50px;
 		width: 130px;
         font-size: 120%;
@@ -40,7 +40,7 @@
         outline: none;
         cursor: pointer;
         transition: all 10ms;
-        
+
     }
     .button:active{
         background-color: green;
@@ -79,7 +79,7 @@
         color: $color-default-text;
 
     }
-  
+
     .button.sb3:active {
         background-color: rgb(64, 66, 78);
         color: rgb(214, 161, 45);

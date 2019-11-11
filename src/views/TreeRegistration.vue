@@ -112,9 +112,6 @@
       />
     </div>
   </div>
-
-  </div>
-  </div>
 </template>
 
 <script>
@@ -122,8 +119,6 @@ import TopBar from '../components/layout/TopBar'
 import TextField from '../components/input/TextField'
 import ImageUpload from '../components/input/ImageUpload'
 import SignButton from '@/components/input/SignButton'
-import RegisterButton from '../components/input/RegisterButton'
-import DatePicker from '../components/input/DatePicker'
 import router from "@/router"
 
 import axios from "axios"
@@ -133,8 +128,6 @@ import axios from "axios"
       TopBar,
       TextField,
       SignButton,
-      DatePicker,
-      RegisterButton,
       ImageUpload,
     },
     data() {
@@ -169,17 +162,12 @@ import axios from "axios"
       }
     },
     created() {
-      console.log('Component has been created!');
       let state = this.$store.state
       let toasted = this.$toasted
 
       state.authRequest("properties/", "GET")
       .then((response) => {
-        console.log('Populando as propriedades...')
-        console.log(response)
         let property_array = response.data
-        console.log(property_array)
-        console.log(this.properties)
         this.properties = property_array
       })
       .catch((error) => {
@@ -210,25 +198,22 @@ import axios from "axios"
         }
       },
       register(){
-        console.log("TIpo da árvore")
-        console.log(this.tree_type)
-        console.log(this.months)
         if (!this.formIsValid) {
           return
         }
+
         let data ={
           tree_type: this.tree_type,
           number_of_tree: this.number_of_tree,
           tree_height: this.number_of_tree,
         }
-        console.log(data)
         let state = this.$store.state
+
         state.authRequest('properties/' + this.propertyCard + '/trees/', "POST", data)
         .then((response) => {
-          console.log(response)
           let tree_pk = response.data.pk
-          console.log(tree_pk)
-          console.log('Árvore cadastrada com sucesso')
+
+          // after tree is created, creates harvest_months objects
           for (var i = 0; i < this.months.length; i++) {
             let month_data = {'harvest_month': this.months[i]}
             state.authRequest('properties/' + this.propertyCard + '/trees/' + tree_pk + '/harvest_months/',
@@ -237,7 +222,7 @@ import axios from "axios"
                                 console.log(response)})
             .catch((error) => {console.log(error)})
           }
-          //toasted.show('Árvore cadastrada com sucesso').goAway(2000)
+          this.$toasted.show('Árvore cadastrada com sucesso').goAway(2000)
         })
         .catch((error) => {
           console.log(error)
