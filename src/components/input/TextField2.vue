@@ -1,95 +1,77 @@
 <template>
-  <div
-    id="textfield"
-    class="textfield-container"
-  >
-    <div class="row ml-1 mr-1 centralize-div">
-      <div
-        v-if="label"
-        class="col-12 p-0 textfield-label"
-        :style="'color: ' + hexcolor"
-      >
-        {{ label }}
-      </div>
+	<div id="textfield" class="textfield-container">
+		<div class="row ml-1 mr-1 centralize-div">
 
-      <input
-        v-if="!texticon"
-        v-model="variableLocal"
-        :type="getFieldType()"
-        :class="'text-input col-12 ' + color"
-        :placeholder="placeholder"
-        :style="'text-color: ' + hexcolor + '; border-bottom-color: ' + hexcolor"
+			<div v-if="label" class="col-12 p-0 textfield-label"
+        		:style="'color: ' + hexcolor">
+        		{{ label }}
+      		</div>
+
+			<input 
+				v-model="variableLocal" 
+				v-if="!texticon" 
+				:type="getFieldType()" 
+				:class="'text-input col-12 ' + color" 
+				:placeholder="placeholder"
+				:style="'text-color: ' + hexcolor + '; border-bottom-color: ' + hexcolor"
       >
 
-      <div
-        v-else
-        class="w-100 col p-0"
-      >
-        <div
-          v-if="color == 'white'"
-          style="display: inline"
-        >
-          <font-awesome-icon
+			<div v-else class="w-100 col p-0">
+        
+        <div v-if="color == 'white'" style="display: inline">
+          <font-awesome-icon 
             style="color: #ffffff"
-            :icon="texticon"
+            :icon="texticon" 
           />
         </div>
-
-        <div
-          v-else
-          style="display: inline"
-        >
-          <font-awesome-icon
+        <div v-else style="display: inline">
+          <font-awesome-icon 
             style="color: #000000"
-            :icon="texticon"
+            :icon="texticon" 
           />
         </div>
-
-        <input
-          v-model="variableLocal"
-          :type="getFieldType()"
-          :class="color + ' ml-3 text-input col-12'"
-          :style="'border:none; text-color: ' + hexcolor"
+				
+        <input 
+          v-model="variableLocal" 
+          :type="getFieldType()" 
+          :class="color + ' ml-3 text-input col-12'" 
+          :style="'border:none; text-color: ' + hexcolor" 
           :placeholder="placeholder"
         >
-
-        <div
+				
+        <div 
           class="text-field-border"
-          :style="'background-color: ' + hexcolor"
+          :style="'background-color: ' + hexcolor"  
         />
-      </div>
-    </div>
-  </div>
+
+
+			</div>
+
+		</div>
+	</div>
 </template>
 
 <script>
 export default {
-
-  model: {
-    prop: "variable",
-    event: "textfield-change"
-  },
-
-  props: {
-    label: {
-      default: "",
-      type: String
-    },
-    placeholder: {
-      default: "",
-      type: String
-    },
-    password: {
-      default: false,
-      type: Boolean
-    },
-    texticon: {
-      default: "",
-      type: String
-    },
-    variable: {
-      default: "",
-      type: String
+	props: {
+		label: {
+			default: '',
+			type: String
+    }, 
+		placeholder: {
+			default: '',
+			type: String
+		},
+		password: {
+			default: false,
+			type: Boolean
+		},
+		texticon: {
+			default: '',
+			type: String
+		},
+		variable: {
+			type: String
     },
     /*
       Supported colors:
@@ -97,94 +79,95 @@ export default {
       White
     */
     color: {
-      default: "white",
+      default: 'white',
       type: String
     }
   },
-
-  data() {
+  data () {
     return {
-      hexcolor: "#ffffff"
-    };
-  },
-
-  computed: {
-    variableLocal: {
-      get: function() {
-        return this.variable;
-      },
-      set: function(value) {
-        this.$emit("textfield-change", value);
-      }
+      hexcolor: '#ffffff',
     }
   },
-
+	model: {
+		prop: 'variable',
+		event: 'textfield-change'
+	},
+	computed: {
+		variableLocal: {
+			get: function() {
+					return this.variable
+			},
+			set: function(value) {
+					this.$emit('textfield-change', value)
+			}
+    },
+  },
   mounted() {
-    if (this.color == "white") {
-      this.hexcolor = "#ffffff";
+    if (this.color == 'white') {
+      this.hexcolor = '#ffffff'
     } else {
-      this.color = "black";
-      this.hexcolor = "#000000";
+      this.color = 'black'
+      this.hexcolor = '#000000'
     }
   },
-
-  methods: {
-    getFieldType() {
-      if (this.password) {
-        return "password";
-      } else {
-        return "text";
-      }
-    }
-  }
-};
+	methods: {
+		getFieldType() {
+			if (this.password) {
+				return 'password'
+			} else {
+				return 'text'
+			}
+		},
+	}
+}
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/stylesheets/colors.scss";
+	@import "../../assets/stylesheets/colors.scss";
 
-.textfield-label {
-  text-align: left;
-  font-size: 90%;
-}
+	.textfield-label {
+		text-align: left;
+		font-size: 90%;
+	}
 
-.textfield-container {
-  width: 100%;
-  padding-right: 20px;
-  padding-left: 20px;
-  margin-right: auto;
-  margin-left: auto;
-}
+	.textfield-container {
+		width: 100%;
+		padding-right: 20px;
+		padding-left: 20px;
+		margin-right: auto;
+		margin-left: auto;
+	}
 
-.text-input {
-  background-color: rgba(7, 37, 37, 0);
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
-  border-bottom: 1px solid;
+	.text-input {
+		background-color: rgba(7, 37, 37,0 );
+		border-top: 0;
+		border-left: 0;
+		border-right: 0;
+		border-bottom: 1px solid; 
+		
+		width: 80%;
+		padding: 1%;
+		
+	}
 
-  width: 80%;
-  padding: 1%;
-}
+	.text-input:focus {
+		outline: none;
+		border-bottom-color: $color-default-text;
+	}
 
-.text-input:focus {
-  outline: none;
-  border-bottom-color: $color-default-text;
-}
+	.text-field-border {
+		height: 1px;
+		width: 100%;
+  }
 
-.text-field-border {
-  height: 1px;
-  width: 100%;
-}
-
-/* Hidden placeholder when focus */
-input.white::-webkit-input-placeholder {
-  color: #ffffff;
-}
-input.black::-webkit-input-placeholder {
-  color: #000000;
-}
-input:focus::-webkit-input-placeholder {
-  color: rgba(0, 0, 0, 0);
-}
+	/* Hidden placeholder when focus */
+	input.white::-webkit-input-placeholder {
+		color: #ffffff;
+  }
+  input.black::-webkit-input-placeholder {
+		color: #000000;
+  }
+	input:focus::-webkit-input-placeholder {
+		color: rgba(0,0,0,0);
+	}
 </style>
