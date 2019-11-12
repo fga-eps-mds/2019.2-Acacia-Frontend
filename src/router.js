@@ -71,7 +71,7 @@ export default new Router({
       component: Dashboard,
     },
     {
-      path: '/property/:id',
+      path: '/property/:pk',
       name: 'property',
       component: Property,
       beforeEnter: ifAuthenticated,
