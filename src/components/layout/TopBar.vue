@@ -50,7 +50,7 @@ export default {
   methods: {
     selectLeft() {
       if (this.iconleft == "chevron-left") {
-        this.$router.go(-1);
+        window.history.length>1 ? this.$router.go(-1) : this.$router.push('/')  
       } else if (this.iconleft == "bars") {
         this.$store.state.sideBarOn = true
       }

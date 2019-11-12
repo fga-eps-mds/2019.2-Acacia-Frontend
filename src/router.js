@@ -8,6 +8,7 @@ import CalendarPage from '@/views/CalendarPage'
 import PropertyRegistration from '@/views/PropertyRegistration'
 import HarvestRegistration from '@/views/HarvestRegistration'
 import Dashboard from '@/views/Dashboard'
+import Property from '@/views/Property'
 import store from './store'
 
 const ifNotAuthenticated = (to, from, next) => {
@@ -48,8 +49,8 @@ export default new Router({
       component: Signup,
     },
     {
-      name: 'propertyRegistration',
       path: '/property/registration',
+      name: 'propertyRegistration',
       component: PropertyRegistration,
       beforeEnter: ifAuthenticated,
     },
@@ -69,5 +70,11 @@ export default new Router({
       name: 'dashboard',
       component: Dashboard,
     },
+    {
+      path: '/property/:id',
+      name: 'property',
+      component: Property,
+      beforeEnter: ifAuthenticated,
+    }
   ]
 })
