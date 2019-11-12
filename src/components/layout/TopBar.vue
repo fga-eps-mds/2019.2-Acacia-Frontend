@@ -73,9 +73,7 @@ export default {
       } else if (this.iconright == "comment-alt") {
         // The chat feature will be implemented here
       } else if (this.iconright == "plus") {
-        console.log(this.changeDialog)
         this.changeDialog = true
-        console.log(this.changeDialog)
       }
     }
   }

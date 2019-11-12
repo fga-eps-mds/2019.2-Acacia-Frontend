@@ -3,37 +3,44 @@
     v-model="changeModel"
     width="500"
   >
-  <v-card>
-    <v-card-title
-      class="headline grey lighten-2"
-      primary-title
+  <v-card
+    class="content-card"
+  >
+    <v-card-text 
+      class="text-card"
     >
-      Privacy Policy
-    </v-card-title>
-
-    <v-card-text>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      Para cadastrar uma colheita você precisa cadastrar uma propriedade antes.  
     </v-card-text>
 
     <v-divider></v-divider>
 
     <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn
-        color="primary"
-        text
-        @click="changeModel = false"
-      >
-        I accept
-      </v-btn>
+      <SignButton
+        buttonstyle="color: white"
+        color="bg-color-primary"
+        label="Cadastrar"
+        class="content-button"
+        @action="cadastrar"
+      />
     </v-card-actions>
   </v-card>
   </v-dialog>
 </template>
 
 <script>
-export default {
+import SignButton from '@/components/input/SignButton'
+import router from '@/router'
 
+export default {
+  components: {
+    SignButton,
+  },
+  methods: {
+    cadastrar() {
+      this.changeModel = false
+      router.push({ name: 'propertyRegistration' })   
+    }
+  },
   computed:{
     changeModel: {
       get: function() {
@@ -47,6 +54,21 @@ export default {
 }
 </script>
 
-<style>
+<style scoped lang="scss">
+@import "../../assets/stylesheets/colors.scss";
+
+  .content-card {
+    border-radius: 12px !important;
+  }
+
+  .text-card {
+    font-size: 120%;
+    padding: 20px 20px 15px 20px !important;
+    color: $color-primary !important;
+  }
+
+  .content-button {
+    padding: 0px;
+  }
 
 </style>
