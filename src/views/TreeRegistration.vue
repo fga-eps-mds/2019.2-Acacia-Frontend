@@ -67,24 +67,24 @@
             >
               <div
                 class="carBody"
-                @click="selectCard(property.pk)"
+                @click="selectCard(property)"
               >
                 <p class="cardTitle">
                   {{ property.address }}
                 </p>
                 <font-awesome-icon
-                  v-if="property.pk != propertyCard"
+                  v-if="property != propertyCard"
                   icon="circle"
                   style="color: purple;"
                 />
                 <font-awesome-icon
-                  v-if="property.pk === propertyCard"
+                  v-if="property === propertyCard"
                   icon="check-circle"
                   style="color: purple;"
                 />
               </div>
               <div
-                v-if="property.pk === propertyCard"
+                v-if="property === propertyCard"
                 class="contentCard"
               >
                 <p class="cardTitle">
@@ -139,12 +139,13 @@ import axios from "axios"
         haverst_for_year: '',
         tree_picture: null,
         preview: {},
-        propertyCard: '',
         properties: [],
+        iconCard: 'circle',
         tree_types: ['Avocado', 'Pineapple', 'Banana', 'Persimmon', 'Coconut',
                      'FIG', 'Guava', 'Jabuticaba', 'Orange', 'Lemon', 'Apple'],
         month_items: ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                       'August', 'September', 'October', 'November', 'December'],
+        propertyCard: 'circle',
 
       }
     },
@@ -181,20 +182,36 @@ import axios from "axios"
         this.preview = imagePath
       },
       selectCard(property) {
+        let lan = this.$store.state.getCookieLanguage()
 
-        if (this.iconCard == "chevron-right") {
-          this.propertyCard = property;
-          this.iconCard = "chevron-down";
+        if (lan !== 'en'){
+          // Code snipet to update the value of 'type_of_address'
+          if (property.type_of_address == "Apartment") {
+            property.type_of_address = "Apartamento"
+
+          } else if (property.type_of_address == "House") {
+            property.type_of_address = "Casa"
+
+          } else if (property.type_of_address == "Farm") {
+            property.type_of_address = "Fazenda"
+
+          } else if (property.type_of_address ==  "Other") {
+            property.type_of_address = "Outro"
+          }
         }
 
-        else if (this.iconCard == "chevron-down" && this.propertyCard != "" && this.propertyCard != property) {
+        if (this.iconCard == "circle") {
           this.propertyCard = property;
-          this.iconCard = "chevron-right";
+          this.iconCard = "check-circle";
         }
-
+        else if (this.iconCard == "check-circle" && this.propertyCard != ""
+                  && this.propertyCard != property) {
+          this.propertyCard = property;
+          this.iconCard = "circle";
+        }
         else {
           this.propertyCard = "";
-          this.iconCard = "chevron-right";
+          this.iconCard = "circle";
         }
       },
       register(){
@@ -219,25 +236,26 @@ import axios from "axios"
 
         let state = this.$store.state
 
-        state.authRequest('properties/' + this.propertyCard + '/trees/', "POST", formData)
+        state.authRequest('properties/' + this.propertyCard.pk + '/trees/', "POST", formData)
         .then((response) => {
           let tree_pk = response.data.pk
 
           // after tree is created, creates harvest_months objects
           for (var i = 0; i < this.months.length; i++) {
             let month_data = {'harvest_month': this.months[i]}
-            state.authRequest('properties/' + this.propertyCard + '/trees/' + tree_pk + '/harvest_months/',
+            state.authRequest('properties/' + this.propertyCard.pk + '/trees/' + tree_pk + '/harvest_months/',
                               "POST", month_data)
             .then((response) =>{
                                 console.log(response)})
             .catch((error) => {console.log(error)})
           }
           this.$toasted.show('Árvore cadastrada com sucesso').goAway(2000)
+          this.$router.push({ name: 'dashboard' })
+
         })
         .catch((error) => {
-          console.log(error)
+          this.$toasted.show(JSON.stringify(error.response.data)).goAway(2000)
         })
-        this.$router.push({ name: 'dashboard' })
        },
       },
   }
