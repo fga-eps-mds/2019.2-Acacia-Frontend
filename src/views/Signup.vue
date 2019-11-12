@@ -74,20 +74,20 @@ export default {
   };
 },
   methods: {
-      signup() {
-      if (!this.validateInput()) {
-        return;
-  }
-      let data = {
+    signup() {
+    if (!this.validateInput()) {
+      return;
+    }
+    let data = {
       email: this.email,
-    username: this.username,
-    password: this.password,
-    confirm_password: this.confirm_password
-  };
-      let dataToken = {
+      username: this.username,
+      password: this.password,
+      confirm_password: this.confirm_password
+    };
+    let dataToken = {
       email: this.email,
-    password: this.password
-  };
+      password: this.password
+    };
   const baseURL = this.$store.state.baseURL;
   axios
     .post(baseURL + "users/signup/", data)

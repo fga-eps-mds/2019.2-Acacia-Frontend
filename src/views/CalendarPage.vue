@@ -41,12 +41,12 @@
             <font-awesome-icon
               v-if="colheita.nome != colheitaCard"
               icon="chevron-right"
-              style="color: purple;"
+              style="color: #376996;"
             /> 
             <font-awesome-icon
               v-if="colheita.nome === colheitaCard"
               icon="chevron-down"
-              style="color: purple;"
+              style="color: #376996;"
             />         
           </div>
           <div 
@@ -220,7 +220,7 @@ export default {
 @import "../assets/stylesheets/colors.scss";
 
   ul{
-    color: purple;
+    color: $color-primary;
   }
 
   .detail-highlight {

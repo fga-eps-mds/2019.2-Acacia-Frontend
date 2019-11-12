@@ -10,12 +10,16 @@
       :class="color"
       @click="selectLeft"
     />
-    <font-awesome-icon
-      v-if="iconright"
-      :icon="iconright"
-      :class="color"
-      @click="selectRight"
-    />
+    <div
+      :style="$store.state.getRefreshToken() ? 'display:inline' : 'display:none'"
+    >
+      <font-awesome-icon
+        v-if="iconright"
+        :icon="iconright"
+        :class="color"
+        @click="selectRight"
+      />
+    </div>
     <ModalCard
       :valuemodel="changeDialog"
     />
@@ -24,6 +28,8 @@
 
 <script>
 import ModalCard from '@/components/layout/ModalCard'
+import router from '@/router'
+
 export default {
 
   components: {
@@ -56,7 +62,7 @@ export default {
       set: function(value) {
         this.$store.state.modalCardOn = value
       }
-    }
+    },
   },
 
   methods: {
@@ -70,12 +76,26 @@ export default {
     selectRight() {
       if (this.iconright == "pen") {
         // The edit feature will be implemented here
-      } else if (this.iconright == "comment-alt") {
-        // The chat feature will be implemented here
-      } else if (this.iconright == "plus") {
-        this.changeDialog = true
       }
-    }
+      else if (this.iconright == "comment-alt") {
+        // The chat feature will be implemented here
+      }
+      else if (this.iconright == "plus") {
+        this.$store.state.authRequest('properties/', 'GET')
+        .then(response => {
+          if(response.data != 0){
+            router.push({ name: 'harvestRegistration' })
+          }
+          else{
+            this.changeDialog = true
+          }
+        })
+        .catch(error => {
+          console.log(error.response)
+        })
+      
+      }
+    },
   }
 };
 </script>

@@ -9,7 +9,7 @@
     <v-card-text 
       class="text-card"
     >
-      Para cadastrar uma colheita você precisa cadastrar uma propriedade antes.  
+      Cadastre uma propriedade para cadastrar uma colheita. 
     </v-card-text>
 
     <v-divider></v-divider>
