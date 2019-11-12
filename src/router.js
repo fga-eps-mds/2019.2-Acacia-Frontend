@@ -9,6 +9,7 @@ import PropertyRegistration from '@/views/PropertyRegistration'
 import HarvestRegistration from '@/views/HarvestRegistration'
 import Dashboard from '@/views/Dashboard'
 import store from './store'
+import HarvestView from '@/views/HarvestView'
 
 const ifNotAuthenticated = (to, from, next) => {
   if (!store.getters.isAuthenticated) {
@@ -68,6 +69,12 @@ export default new Router({
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
+    },
+    {
+      path: '/harvest/:id/',
+      name: 'harvestView',
+      component: HarvestView,
+      props: true,
     },
   ]
 })
