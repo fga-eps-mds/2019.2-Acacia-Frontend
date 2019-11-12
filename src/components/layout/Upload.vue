@@ -18,7 +18,7 @@
               <i class="fas fa-upload" />
             </span>
             <span class="file-label">
-              chose a file..
+              choose a file..
             </span>
           </span>
 

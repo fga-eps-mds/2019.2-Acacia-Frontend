@@ -6,7 +6,7 @@
     />
     <div class="tree-content">
       <div class="content-title">
-        <h3> Cadastrar Arvore </h3>
+        <h3> Cadastrar Árvore </h3>
       </div>
 
       <div class="tree-form">
@@ -20,8 +20,8 @@
             <TextField
               v-model="number_of_tree"
               type="number"
-              label="Número de árvores"
-              color="black"
+              label="Número de árvores disponíveis"
+              color="#949090"
               bordercolor="#C4C4C4"
               style="padding: 0px;"
             />
@@ -31,7 +31,7 @@
               v-model="height_fruit"
               type="number"
               :label="$t('TreeRegister.fruit_height')"
-              color="black"
+              color="#949090"
               bordercolor="#C4C4C4"
               style="padding: 0px;"
             />
@@ -50,15 +50,15 @@
           v-model="haverst_for_year"
           type="number"
           label="Colheitas por ano"
-          color="black"
+          color="#949090"
           bordercolor="#C4C4C4"
           style="padding: 0px;"
         />
 
-        <label style="display: flex; padding-top: 15px;">Propriedades:</label>
+        <label style="display: flex; padding-top: 15px; margin-left: 3px; color: #949090">Propriedades:</label>
         <div
           class="property"
-          style="border-bottom: 1px solid black;"
+          style="border-bottom: 1px solid;"
         >
           <ul>
             <li
