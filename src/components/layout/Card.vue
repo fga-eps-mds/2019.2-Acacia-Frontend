@@ -191,7 +191,6 @@ export default {
           this.validateList()
         })
         .catch(error => {
-          console.log(error)
         })
     },
     validateList() {
@@ -214,7 +213,6 @@ export default {
     addId() {
       for (let i = 0; i < this.allHarvests.length; i++) {
         this.allHarvests[i].id = i + 1;
-        console.log(this.allHarvests[i])
       }
     },
     generateWeeksDaysList() {

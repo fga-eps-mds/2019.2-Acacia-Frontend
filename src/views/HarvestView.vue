@@ -61,7 +61,7 @@
       <div class>
         <h5 class="harvest-rules-title">Regras e Avisos</h5>
         <v-card class="mx-auto rules-container" max-width="330" tile>
-          <div v-for="rule in rules" :key="rule" class="row rule-container">
+          <div v-for="rule in harvest.rules" :key="rule" class="row rule-container">
             <div class="col-1 dot-container">
               <div class="dot-icon" />
             </div>
@@ -74,8 +74,8 @@
         <div class="harvest-info-title">
           <h5 class="text-white text-left">Informações da colheita</h5>
         </div>
-        <!-- <p>{{ harvest.description }}</p> -->
-        <p class="info-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p class="info-text">{{ harvest.description }}</p>
+        <!-- <p class="info-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> -->
       </div>
     </div>
   </div>
@@ -98,22 +98,14 @@ export default {
         .then(response => {
           this.harvestFound = true;
           this.harvest = response.data;
-          console.log(this.harvest);
         })
         .catch(() => {});
-    }
+    },
   },
   data() {
     return {
       harvestFound: false,
       harvest: {},
-      rules: [
-        "Drinking alcohol is not ok",
-        "Don't bring any weapons or knifes",
-        "Discrimation is not allowed at all",
-        "You may bring friends",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-      ]
     };
   },
   props: {
