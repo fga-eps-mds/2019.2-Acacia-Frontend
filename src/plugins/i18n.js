@@ -41,6 +41,11 @@ const messages = {
             fruit_height: "Fruits average height",
             image: "Tree image file",
             months: "Tree fruinting months",
+            number_tree: "Number of trees available",
+            type: "Tree type",
+            register: "Register tree",
+            property: "Property",
+            harvest_average: "Average harvests per year",
 
         },
         Global: {
@@ -125,6 +130,11 @@ const messages = {
             fruit_height: "Altura média dos frutos",
             image: "Arquivo de Imagem da árvore",
             months: "Meses da frutificação da árvore",
+            number_tree: "Número de árvores disponíveis",
+            type: "Espécie da árvore/fruta",
+            register: "Cadastrar áŕvore",
+            property: "Propriedade",
+            harvest_average: "Média de colheitas por ano",
 
         },
         Global: {

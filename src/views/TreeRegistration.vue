@@ -6,21 +6,21 @@
     />
     <div class="tree-content">
       <div class="content-title">
-        <h3> Cadastrar Árvore </h3>
+        <h3> {{ $t('TreeRegister.register') }}   </h3>
       </div>
 
       <div class="tree-form">
         <v-select
           v-model="tree_type"
           :items="tree_types"
-          label="Espécie"
+          :label="$t('TreeRegister.type')"
         />
         <v-row>
           <v-col cols="6">
             <TextField
               v-model="number_of_tree"
               type="number"
-              label="Número de árvores disponíveis"
+              :label="$t('TreeRegister.number_tree')"
               color="#949090"
               bordercolor="#C4C4C4"
               style="padding: 0px;"
@@ -49,13 +49,14 @@
         <TextField
           v-model="haverst_for_year"
           type="number"
-          label="Colheitas por ano"
+          :label="$t('TreeRegister.harvest_average')"
           color="#949090"
           bordercolor="#C4C4C4"
           style="padding: 0px;"
         />
 
-        <label style="display: flex; padding-top: 15px; margin-left: 3px; color: #949090">Propriedades:</label>
+        <label style="display: flex; padding-top: 15px; margin-left: 3px; color: #949090">
+          {{ $t('TreeRegister.property') }} </label>
         <div
           class="property"
           style="border-bottom: 1px solid;"
@@ -145,7 +146,7 @@ import axios from "axios"
                      'FIG', 'Guava', 'Jabuticaba', 'Orange', 'Lemon', 'Apple'],
         month_items: ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                       'August', 'September', 'October', 'November', 'December'],
-        propertyCard: 'circle',
+        propertyCard: '',
 
       }
     },
