@@ -135,7 +135,7 @@
         this.$store.state.authRequest('harvests', 'POST', data)
           .then((response) => {
             this.$toasted.show('Colheita cadastrada').goAway(2000)
-            router.push({name: 'home'})
+            router.push({name: 'dashboard'})
           })
           .catch((error) => {
             this.$toasted.show('Algum erro aconteceu, tente de novo').goAway(2000)
