@@ -40,7 +40,6 @@
               <HarvestDigest
                 :harvest="{date: '25/11/19', status: 'Vai acontecer', min_volunteers: 8, max_volunteers: 15}"
               />
-              <v-divider />
             </div>
 
 
@@ -87,7 +86,9 @@
                 v-for="(harvest, index) in allHarvests"
                 :key="harvest.date"
               >
-                <HarvestDigest :harvest="harvest" />
+                <a :href="'/harvest/' + harvest.id">
+                  <HarvestDigest :harvest="harvest" />
+                </a>
                 <v-divider v-if="index != allHarvests.length - 1" />
               </div>
             </div>
@@ -186,6 +187,7 @@ export default {
       this.$store.state.noAuthRequest('harvests/', 'GET')
         .then(response => {
           this.allHarvests = response.data
+          this.addId()
           this.validateList()
         })
         .catch(error => {
@@ -208,6 +210,12 @@ export default {
         }
       })
       this.allHarvests = filtered;
+    },
+    addId() {
+      for (let i = 0; i < this.allHarvests.length; i++) {
+        this.allHarvests[i].id = i + 1;
+        console.log(this.allHarvests[i])
+      }
     },
     generateWeeksDaysList() {
       // Generates a list of the current and the next six days as ISO strings
