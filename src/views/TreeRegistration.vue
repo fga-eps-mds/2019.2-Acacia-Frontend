@@ -10,7 +10,7 @@
       </div>
 
       <div class="tree-form">
-        <v-select
+        <v-select style="margin-left: 5px;"
           v-model="tree_type"
           :items="tree_types"
           :label="$t('TreeRegister.type')"
@@ -37,7 +37,7 @@
             />
           </v-col>
         </v-row>
-        <v-select
+        <v-select style="margin-left: 5px;"
           v-model="months"
           :items="month_items"
           attach
@@ -55,11 +55,11 @@
           style="padding: 0px;"
         />
 
-        <label style="display: flex; padding-top: 15px; margin-left: 3px; color: #949090">
+        <label style="display: flex; padding-top: 15px; margin-left: 5px; color: #949090">
           {{ $t('TreeRegister.property') }} </label>
         <div
           class="property"
-          style="border-bottom: 1px solid;"
+          style="border-bottom: 1px solid gray;"
         >
           <ul>
             <li

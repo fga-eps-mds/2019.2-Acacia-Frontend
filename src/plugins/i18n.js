@@ -132,8 +132,8 @@ const messages = {
             months: "Meses da frutificação da árvore",
             number_tree: "Número de árvores disponíveis",
             type: "Espécie da árvore/fruta",
-            register: "Cadastrar áŕvore",
-            property: "Propriedade",
+            register: "Cadastrar árvore",
+            property: "Selecione a propriedade:",
             harvest_average: "Média de colheitas por ano",
 
         },
