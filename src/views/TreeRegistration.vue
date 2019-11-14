@@ -9,51 +9,66 @@
         <h3> {{ $t('TreeRegister.register') }}   </h3>
       </div>
 
-      <div class="tree-form">
-        <v-select style="margin-left: 5px;"
+      <form class="tree-form">
+        <v-autocomplete
           v-model="tree_type"
           :items="tree_types"
+          :error-messages="tree_type_errors"
           :label="$t('TreeRegister.type')"
-        />
+          @input="$v.tree_type.$touch()"
+          @blur="$v.tree_type.$touch()"
+
+          required
+        ></v-autocomplete>
+
         <v-row>
           <v-col cols="6">
-            <TextField
+            <v-text-field
               v-model="number_of_tree"
               type="number"
+              :error-messages="number_of_tree_errors"
               :label="$t('TreeRegister.number_tree')"
-              color="#949090"
-              bordercolor="#C4C4C4"
-              style="padding: 0px;"
-            />
+              @input="$v.number_of_tree.$touch()"
+              @blur="$v.number_of_tree.$touch()"
+              required
+            ></v-text-field>     
+            
           </v-col>
-          <v-col cols="6">
-            <TextField
-              v-model="height_fruit"
-              type="number"
-              :label="$t('TreeRegister.fruit_height')"
-              color="#949090"
-              bordercolor="#C4C4C4"
-              style="padding: 0px;"
-            />
+            <v-col cols="6">
+              <v-text-field
+                v-model="height_fruit"
+                type="number"
+                :error-messages="height_fruit_errors"
+                :label="$t('TreeRegister.fruit_height')"
+                @input="$v.height_fruit.$touch()"
+                @blur="$v.height_fruit.$touch()"
+                required
+              ></v-text-field>  
           </v-col>
         </v-row>
+        
         <v-select style="margin-left: 5px;"
           v-model="months"
-          :items="month_items"
-          attach
-          chips
-          :label="$t('TreeRegister.months')"
+            :items="month_items"
+            attach
+            chips
+            :error-messages="months_errors"
+            :label="$t('TreeRegister.months')"
+            @input="$v.months.$touch()"
+            @blur="$v.months.$touch()"
+            required
           multiple
         />
 
-        <TextField
+        <v-text-field
           v-model="haverst_for_year"
           type="number"
+          :error-messages="haverst_for_year_errors"
           :label="$t('TreeRegister.harvest_average')"
-          color="#949090"
-          bordercolor="#C4C4C4"
-          style="padding: 0px;"
-        />
+          @input="$v.haverst_for_year.$touch()"
+          @blur="$v.haverst_for_year.$touch()"
+          required
+        ></v-text-field>  
 
         <label style="display: flex; padding-top: 15px; margin-left: 5px; color: #949090">
           {{ $t('TreeRegister.property') }} </label>
@@ -97,8 +112,9 @@
             </li>
           </ul>
         </div>
-      </div>
+      </form>
       <div class="input">
+        
         <ImageUpload
           @upload-complete="uploadImageSuccess"
         />
@@ -112,24 +128,27 @@
         @action="register"
       />
     </div>
+    <Snackbar @reset="clearForm" ></Snackbar>
   </div>
 </template>
 
 <script>
-import TopBar from '../components/layout/TopBar'
-import TextField from '../components/input/TextField'
-import ImageUpload from '../components/input/ImageUpload'
-import SignButton from '@/components/input/SignButton'
-import router from "@/router"
-
-import axios from "axios"
-
+  import TopBar from '../components/layout/TopBar'
+  import TextField from '../components/input/TextField'
+  import ImageUpload from '../components/input/ImageUpload'
+  import SignButton from '@/components/input/SignButton'
+  import { required, numeric } from 'vuelidate/lib/validators'
+  import Snackbar from '@/components/input/Snackbar'
+  import router from "@/router"
+  import axios from "axios"
+  
   export default {
     components: {
       TopBar,
       TextField,
       SignButton,
       ImageUpload,
+      Snackbar,
     },
     data() {
       return {
@@ -147,26 +166,60 @@ import axios from "axios"
         month_items: ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                       'August', 'September', 'October', 'November', 'December'],
         propertyCard: '',
-
       }
     },
+    
+    validations: {
+      tree_type: { required },
+      number_of_tree: { required },
+      height_fruit: { required },
+      months: { required },
+      haverst_for_year: { required },
+    },
+    
     computed: {
       icon(){
       return "chevron-right"
       },
-
-      formIsValid () {
-        return this.tree_type !== '' &&
-              this.number_of_tree !== '' &&
-              this.height_fruit !== '' &&
-              this.months !== '' &&
-              this.propertyCard !== ''
-      }
+      tree_type_errors () {
+        const errors = []
+        if (!this.$v.tree_type.$dirty) return errors
+        !this.$v.tree_type.required && errors
+          .push('Tree type cant be black!')
+        return errors
+      },
+      number_of_tree_errors () {
+        const errors = []
+        if (!this.$v.number_of_tree.$dirty) return errors
+        !this.$v.number_of_tree.required && errors
+          .push('Number of tree cant be black.')
+        return errors
+      },
+      height_fruit_errors () {
+        const errors = []
+        if (!this.$v.height_fruit.$dirty) return errors
+         !this.$v.height_fruit.required && errors
+         .push('Height fruits cant be black.')
+        return errors
+      },
+      months_errors () {
+        const errors = []
+        if (!this.$v.months.$dirty) return errors
+         !this.$v.months.required && errors
+          .push('Fruinting Months is required.')
+        return errors
+      }, 
+      haverst_for_year_errors () {
+        const errors = []
+        if (!this.$v.haverst_for_year.$dirty) return errors
+         !this.$v.haverst_for_year.required && errors
+          .push('Haverst fo year cant be black')
+        return errors
+      }, 
     },
     created() {
       let state = this.$store.state
       let toasted = this.$toasted
-
       state.authRequest("properties/", "GET")
       .then((response) => {
         let property_array = response.data
@@ -176,31 +229,41 @@ import axios from "axios"
         console.log(error)
       })
     },
-
     methods: {
+      clearForm(){
+        this.$v.$reset(),
+        this.tree_type= '',
+        this.number_of_tree= '',
+        this.height_fruit= '',
+        this.months= '',
+        this.haverst_for_year= '',
+        this.tree_picture= null,
+        this.preview= {},
+        this.properties= [],
+        this.iconCard= '',
+        this.tree_types= [],
+        this.month_items= [],
+        this.propertyCard= ''
+      }, 
+      
       uploadImageSuccess(imageFile, imagePath){
         this.tree_picture = imageFile
         this.preview = imagePath
       },
       selectCard(property) {
         let lan = this.$store.state.getCookieLanguage()
-
         if (lan !== 'en'){
           // Code snipet to update the value of 'type_of_address'
           if (property.type_of_address == "Apartment") {
             property.type_of_address = "Apartamento"
-
           } else if (property.type_of_address == "House") {
             property.type_of_address = "Casa"
-
           } else if (property.type_of_address == "Farm") {
             property.type_of_address = "Fazenda"
-
           } else if (property.type_of_address ==  "Other") {
             property.type_of_address = "Outro"
           }
         }
-
         if (this.iconCard == "circle") {
           this.propertyCard = property;
           this.iconCard = "check-circle";
@@ -216,11 +279,13 @@ import axios from "axios"
         }
       },
       register(){
-        if (!this.formIsValid) {
-          this.$toasted.show('Formulário preenchido incorretamente').goAway(2000)
+       this.$v.$touch()
+      
+        if (this.$v.$invalid) {
+          console.log("formulário inválido")
           return
-        }
-
+        }  
+        console.log("formulário válido")
         let data ={
           tree_type: this.tree_type,
           number_of_tree: this.number_of_tree,
@@ -230,37 +295,42 @@ import axios from "axios"
         Object.keys(data).map(e => {
             formData.append(e, data[e])
         })
-
         if (this.tree_picture !== null){
           formData.append('picture', this.tree_picture, this.preview.name)
         }
-
         let state = this.$store.state
-
         state.authRequest('properties/' + this.propertyCard.pk + '/trees/', "POST", formData)
         .then((response) => {
           let tree_pk = response.data.pk
-
           // after tree is created, creates harvest_months objects
           for (var i = 0; i < this.months.length; i++) {
             let month_data = {'harvest_month': this.months[i]}
             state.authRequest('properties/' + this.propertyCard.pk + '/trees/' + tree_pk + '/harvest_months/',
                               "POST", month_data)
             .then((response) =>{
+              console.log('primeiro then')
                                 console.log(response)})
             .catch((error) => {console.log(error)})
+            console.log('dentro primeiro catch')
           }
-          this.$toasted.show('Árvore cadastrada com sucesso').goAway(2000)
+          this.$store.commit('snackbar/showMessage', {
+            message: 'Tree successfully registered!',
+            color: 'success',
+          })
           this.$router.push({ name: 'dashboard' })
-
         })
         .catch((error) => {
-          this.$toasted.show(JSON.stringify(error.response.data)).goAway(2000)
+          this.$store.commit('snackbar/showMessage', {
+            message: 'Deu ruim',
+            color: 'error',
+            // message: (JSON.stringify(error.response.data),
+            // message: 'Deu ruim',
+          })
+          // this.$toasted.show(JSON.stringify(error.response.data)).goAway(2000)
         })
        },
       },
   }
-
 </script>
 
 <style scoped lang="scss">
@@ -268,7 +338,6 @@ import axios from "axios"
 .text-small {
   font-size: 10px;
 }
-
 .tree-container {
   height: 100%;
   display: flex;
@@ -283,14 +352,12 @@ import axios from "axios"
   padding: 20px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 }
-
 .content-title {
   display: flex;
   color: #2D9CDB;
   margin-top: 30px;
   margin-bottom: 20px;
 }
-
   .file-label{
   display: flex;
   justify-content: space-between;
@@ -300,25 +367,21 @@ import axios from "axios"
   flex-wrap: wrap;
   align-items: center
 }
-
 .tree-button {
   margin-top: 3px;
   display: flex;
   justify-content: flex-end;
 }
-
 .image-container {
   // width: 100%;
   max-width: 700px;
   max-height: 350px;
   border-radius: 5px;
   box-sizing: border-box;
-
   border: 1px dashed #D6D6D6;
   border-radius: 4px;
   background-color: white;
 }
-
 img{
   max-width: 100%;
   height: auto;

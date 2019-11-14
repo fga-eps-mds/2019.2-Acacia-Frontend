@@ -34,8 +34,8 @@ export default new Router({
     mode: 'history',
     routes: [{
             path: '/',
-            name: 'home',
-            component: HomePage,
+            name: 'landingpage',
+            component: LadingPage,
         },
         {
             path: '/signin',
@@ -69,6 +69,12 @@ export default new Router({
             path: '/dashboard',
             name: 'dashboard',
             component: Dashboard,
+        },
+        {
+            name: 'treeRegistration',
+            path: '/tree/registration',
+            component: TreeRegistration,
+            beforeEnter: ifAuthenticated,
         },
     ]
 })

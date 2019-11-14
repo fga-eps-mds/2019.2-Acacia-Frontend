@@ -13,7 +13,7 @@
           :error-messages="usernameErrors"
           label="Name"
           dark
-          color="amber"
+          color="light-green accent-3"
           required
           @input="$v.username.$touch()"
           @blur="$v.username.$touch()"
@@ -24,7 +24,7 @@
           :error-messages="emailErrors"
           label="E-mail"
           dark
-          color="amber"
+          color="light-green accent-3"
           required
           @input="$v.email.$touch()"
           @blur="$v.email.$touch()"
@@ -35,7 +35,7 @@
           :error-messages="passwordErrors"
           label="Password"
           dark
-          color="amber"
+          color="light-green accent-3"
           type="password"
           required
           @input="$v.password.$touch()"
@@ -48,7 +48,7 @@
           label="Confirm Password"
           type="password"
           dark
-          color="amber"
+          color="light-green accent-3"
           required
           @input="$v.confirmPassword.$touch()"
           @blur="$v.confirmPassword.$touch()"

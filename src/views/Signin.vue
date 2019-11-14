@@ -18,7 +18,7 @@
           :error-messages="emailErrors"
           label="E-mail"
           dark
-          color="indigo darken-4"
+          color="light-green accent-3"
           @input="$v.email.$touch()"
           @blur="$v.email.$touch()"
         ></v-text-field>
@@ -29,13 +29,13 @@
             prepend-icon="mdi-lock"
             label="Senha"
             dark
-            color="indigo darken-4"
+            color="light-green accent-3"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :type="showPassword ? 'text' : 'password'"
             @click:append="showPassword = !showPassword"
             @input="$v.password.$touch()"
             @blur="$v.password.$touch()"
-          ></v-text-field>
+        ></v-text-field>
       </form>
 
       <SignButton class="signin-button"
@@ -43,9 +43,7 @@
         @action="login"
       />
     </div>
-    
-    <Snackbar @reset="clearForm" ></Snackbar>
-
+    <Snackbar @reset="clearForm"></Snackbar>
     <div
       href="/signup"
       class="fixed-bottom"
@@ -61,7 +59,6 @@
 </template>
 
 <script>
-import TextField from '@/components/input/TextField'
 import TopBar from '@/components/layout/TopBar'
 import SignButton from '@/components/input/SignButton'
 import { email, minLength } from 'vuelidate/lib/validators'
@@ -71,7 +68,6 @@ const touchMap = new WeakMap()
 
 export default {
 	components: {
-		TextField,
 		TopBar,
     SignButton,
     Snackbar,
