@@ -7,24 +7,26 @@ import LadingPage from '@/views/LandingPage'
 import CalendarPage from '@/views/CalendarPage'
 import PropertyRegistration from '@/views/PropertyRegistration'
 import HarvestRegistration from '@/views/HarvestRegistration'
+import TreeRegistration from '@/views/TreeRegistration'
 import Dashboard from '@/views/Dashboard'
 import store from './store'
 
 const ifNotAuthenticated = (to, from, next) => {
-  if (!store.getters.isAuthenticated) {
-    next()
-    return
-  }
-  next('/')
+    if (!store.getters.isAuthenticated) {
+        next()
+        return
+    }
+    next('/')
 }
 
 const ifAuthenticated = (to, from, next) => {
-  if (store.getters.isAuthenticated) {
-    next()
-    return
-  }
-  next('/signin')
+    if (store.getters.isAuthenticated) {
+        next()
+        return
+    }
+    next('/signin')
 }
+
 
 Vue.use(Router)
 
@@ -63,11 +65,17 @@ export default new Router({
       name: 'calendar',
       path: '/calendar/',
       component: CalendarPage,
-    },                          
+    },
     {
       path: '/dashboard',
       name: 'dashboard',
       component: Dashboard,
+    },
+    {
+        name: 'treeRegistration',
+        path: '/tree/registration',
+        component: TreeRegistration,
+        beforeEnter: ifAuthenticated,
     },
   ]
 })

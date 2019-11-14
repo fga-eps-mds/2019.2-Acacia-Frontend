@@ -3,11 +3,11 @@
     id="signbutton"
     :class="'container ' + direction"
   >
-    <button 
-      :style="buttonstyle" 
-      :class="color + ' ' + padding" 
+    <button
+      :style="buttonstyle"
+      :class="color + ' ' + padding"
       @click="$emit('action')"
-    > 
+    >
       {{ label }}
     </button>
   </div>
@@ -42,8 +42,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/stylesheets/colors.scss";
-    button {
+    @import "../../assets/stylesheets/colors.scss";
+
+    button{
         background-color: $color-primary;
         padding: 8px 65px;
         font-size: 120%;
@@ -55,37 +56,12 @@ export default {
         margin: 10px;
         box-shadow: 0 2px 3px 0.5px $color-shadow;
         outline: none;
-    }
 
-    button:active {
+    }
+    button:active{
         box-shadow: none;
         border: none;
         margin: 10px 9px 9px 10px;
     }
 
-    .right {
-        display: flex;
-        justify-content: flex-end;
-    }
-
-    .left {
-        display: flex;
-        justify-content: flex-start;
-    }
-
-    .dark-blue{
-        background-color: $color-primary-dark;
-    }
-
-    .primary-blue{
-        background-color: $color-primary; 
-    }
-
-    .big{
-        padding: 8px 65px;
-    }
-
-    .small{
-        padding: 8px 15px;
-    }
 </style>
