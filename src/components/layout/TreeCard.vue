@@ -25,17 +25,20 @@
 
 <style>
   .tree-card{
-    height: 130px;
-    width: 265px;
+    height: 129px;
+    width: 268px;
     border-radius: 12px;
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
-    margin-left: 30px;
-    background: white;
+    background-color: #56A3A6;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .justify-right{
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    background-color: white !important;
+    border-radius: 12px !important;
   }
 </style>

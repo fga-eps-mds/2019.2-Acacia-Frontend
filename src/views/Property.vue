@@ -25,9 +25,8 @@
           class="justify-left subheader-content"
           id="user-info"
         >
-        <a> Árvores </a>
-        <a> Propriedades </a>
-        <a> Colheitas </a>
+        <a> {{ numOfTrees }} Árvores </a>
+        <a> {{ numOfHarvests }} Colheitas </a>
         </div>
       </div>
     </div>
@@ -37,7 +36,6 @@
     >
 
       <div
-        class="slider-sheet"
         id="slider-sheet"
       >
         <div
@@ -46,19 +44,20 @@
         >
           <h3> Árvores </h3>
         </div>
-      
+
         <v-window
-          style="margin-top:10px"
+          show-arrows
+          dark
         >
           <v-window-item
-            v-for="n in 3"
+            v-for="n in numOfTrees"
             :key="n"
             :value="n"
           >
             <TreeCard/>
           </v-window-item>
         </v-window>
-      </div>
+      </div>    
     </div>
 
     <div
@@ -76,18 +75,21 @@
           Colheitas 
         </a>
       </div>
-
       <v-list>
-        <v-list-item>
+        <v-list-item
+          v-for="n in numOfHarvests"
+          :key="n"
+          :value="n"
+        >
           <v-list-item-icon>
             <v-icon
-              color="red"
+              small
+              color="#EF476F"
             >
               mdi-checkbox-blank-circle
             </v-icon>
           </v-list-item-icon>
-
-          <v-list-item-title>Colheita babadeira</v-list-item-title>
+          <v-list-item-content>Colheita babadeira</v-list-item-content>
         </v-list-item>
       </v-list>
     
@@ -108,11 +110,10 @@
       WeeklyCard,
     },
 
-    data() {
-      return{
-        numOfTrees,
-      }
-    }
+    data: () => ({
+      numOfHarvests: 5,
+      numOfTrees: 4,
+    }),
   }
 </script>
 
@@ -154,7 +155,7 @@
   }
 
   .trees-title{
-    margin-left:30px;
+    margin-left: 60px;
     margin-top: 40px;
     color: #56A3A6;
   }
@@ -192,6 +193,11 @@
 
   .title-style{
     margin: 12px 0px 0px 24px;
+  }
+
+  .in-center{
+    justify-content: center;
+    margin-top: 10px;
   }
 
 </style>
