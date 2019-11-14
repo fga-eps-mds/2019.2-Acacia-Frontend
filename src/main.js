@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+// import store from './store/store.js'
 
 /* Vuetify configuration */
 import vuetify from './plugins/vuetify';
@@ -15,8 +16,8 @@ import VueCookie from 'vue-cookie'
 Vue.use(VueCookie)
 
 /* Vue Toasted configuration */
-import Toasted from 'vue-toasted'
-Vue.use(Toasted)
+// import Toasted from 'vue-toasted'
+// Vue.use(Toasted)
 
 /* i18n configuration (internationalization) */
 import i18n from '@/plugins/i18n'

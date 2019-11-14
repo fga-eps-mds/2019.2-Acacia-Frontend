@@ -81,6 +81,7 @@
         />
       </div>
     </div>
+    <Snackbar @reset="clearForm" ></Snackbar>
   </div>
 </template>
 
@@ -90,6 +91,7 @@
   import SignButton from '@/components/input/SignButton'
   import DatePicker from '@/components/input/DatePicker'
   import StringList from '@/components/input/StringList'
+  import Snackbar from '@/components/input/Snackbar.vue'
   import { required, minValue, maxValue } from 'vuelidate/lib/validators'
 
   export default {
@@ -99,7 +101,9 @@
       SignButton,
       DatePicker,
       StringList,
+      Snackbar,
     },
+
     data() {
       return {
         date: '',
@@ -111,12 +115,14 @@
         rules: [],
       }
     },
+
     validations: {
       date: { required },
       description: { required },
       min_volunteers: { required, minValue: minValue(2) },
       max_volunteers: { maxValue: maxValue(20) },
     },
+    
     computed: {
       descriptionErrors () {
         const errors = []
@@ -185,11 +191,17 @@
 
         this.$store.state.authRequest('harvests', 'POST', data)
           .then((response) => {
-            alert("Harvest record - Temporario!")
+            this.$store.commit('snackbar/showMessage', {
+                message: 'harvest successfully registered',
+                color: 'success',
+            })
             router.push({name: 'home'})
           })
           .catch((error) => {
-            alert("Error to register harvest! - Temporario")
+            this.$store.commit('snackbar/showMessage', {
+              message: 'There was a problem registering your harvest',
+              color: 'error',
+            })
           })
         }
       }

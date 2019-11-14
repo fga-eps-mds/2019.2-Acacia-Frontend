@@ -6,14 +6,14 @@
       <div class="signup-title raleway-thin">
         <a>{{ $t('SignPages.createAccount') }}</a>
       </div>
-      
+     
       <form class="signup-form">
         <v-text-field
           v-model="username"
           :error-messages="usernameErrors"
           label="Name"
           dark
-          color="indigo darken-4"
+          color="amber"
           required
           @input="$v.username.$touch()"
           @blur="$v.username.$touch()"
@@ -24,7 +24,7 @@
           :error-messages="emailErrors"
           label="E-mail"
           dark
-          color="indigo darken-4"
+          color="amber"
           required
           @input="$v.email.$touch()"
           @blur="$v.email.$touch()"
@@ -35,7 +35,7 @@
           :error-messages="passwordErrors"
           label="Password"
           dark
-          color="indigo darken-4"
+          color="amber"
           type="password"
           required
           @input="$v.password.$touch()"
@@ -48,13 +48,13 @@
           label="Confirm Password"
           type="password"
           dark
-          color="indigo darken-4"
+          color="amber"
           required
           @input="$v.confirmPassword.$touch()"
           @blur="$v.confirmPassword.$touch()"
         ></v-text-field>
-        
       </form>
+        
       <div class="signup-button">
         <SignButton
           class="mt-4"
@@ -62,24 +62,27 @@
           @action="signup"
         />
       </div>
+      <Snackbar @reset="clearForm" ></Snackbar>
     </div>
   </div>
 </template>
 
 <script>
-  import TopBar from '@/components/layout/TopBar'
-  import TextField from '@/components/input/TextField'
-  import SignButton from '@/components/input/SignButton'
+  import TopBar from '@/components/layout/TopBar.vue'
+  import TextField from '@/components/input/TextField.vue'
+  import SignButton from '@/components/input/SignButton.vue'
+  import Snackbar from '@/components/input/Snackbar.vue'
   import { required, email, sameAs, minLength } from 'vuelidate/lib/validators'
 
   import axios from "axios";
 
   export default {
-        components: {
-        TopBar,
-        TextField,
-        SignButton
-      },
+    components: {
+    TopBar,
+    TextField,
+    SignButton,
+    Snackbar,
+    },
     data() {
       return {
         username: '',
@@ -88,40 +91,45 @@
         confirmPassword: ''
       }
     },
-
     validations: {
       username: { required },
       email: { required, email },
       password: { required, minLength: minLength(8) },
       confirmPassword: { required, sameAsPassword: sameAs('password') },
     },
-
     computed: {
       usernameErrors () {
         const errors = []
         if (!this.$v.username.$dirty) return errors
-        !this.$v.username.required && errors.push('Name is required.')
+        !this.$v.username.required && errors
+          .push('Name is required.')
         return errors
       },
       emailErrors () {
         const errors = []
         if (!this.$v.email.$dirty) return errors
-        !this.$v.email.email && errors.push('Must be valid e-mail')
-        !this.$v.email.required && errors.push('E-mail is required')
+        !this.$v.email.email && errors
+          .push('Must be valid e-mail')
+        !this.$v.email.required && errors
+          .push('E-mail is required')
         return errors
       },
       passwordErrors () {
         const errors = []
         if (!this.$v.password.$dirty) return errors
-        !this.$v.password.required && errors.push('Password is required.')
-        !this.$v.password.minLength && errors.push('Password must be minumum of 8 characters.')
+        !this.$v.password.required && errors
+          .push('Password is required.')
+        !this.$v.password.minLength && errors
+          .push('Password must be minumum of 8 characters.')
         return errors
       },
       confirmPasswordErrors () {
         const errors = []
         if (!this.$v.confirmPassword.$dirty) return errors
-        !this.$v.confirmPassword.required && errors.push(' Confirm Password is required.')
-        !this.$v.confirmPassword.sameAsPassword && errors.push('Puts! Digita a mesma senha!!')
+        !this.$v.confirmPassword.required && errors
+          .push(' Confirm Password is required.')
+        !this.$v.confirmPassword.sameAsPassword && errors
+          .push('Your password and confirmation password do not match.')
         return errors
       },
     },
@@ -137,7 +145,6 @@
       signup() {
         this.$v.$touch();
       
-        // if (!this.$v.$dirty) {
         if (this.$v.$invalid) {
           console.log("formulario inválido")
           return
@@ -149,7 +156,6 @@
           password: this.password,
           confirmPassword: this.confirmPassword
         }
-      
         let dataToken = {
           email: this.email,
           password: this.password
@@ -157,40 +163,39 @@
         const baseURL = this.$store.state.baseURL;
         axios.post(baseURL + "users/signup/", data)
           .then(() => {
-            axios.post(baseURL + "users/token/", dataToken)
-            .then(response => {
-              this.$store.state.authUser(
-                response.data["access"],
-                response.data["refresh"]
-              );
-              
-              // this.$toasted
-              //   .show(this.$t("SignPages.positiveStatus"))
-              //   .goAway(2000);
-              router.push({ name: "home" });
+            this.$store.commit('snackbar/showMessage', {
+                message: 'Account successfully created',
+                color: 'success',
             })
-            .catch(() => {
-              router.push({ name: "signin" });
-            });
+
+            axios.post(baseURL + "users/token/", dataToken)
+              .then(response => {
+                this.$store.commit('snackbar/showMessage', {
+                  message: this.$t('SignPages.positiveStatus'),
+                  color: 'error',
+                })    
+                this.$store.state.authUser(
+                  response.data["access"],
+                  response.data["refresh"]
+                );
+                router.push({ name: "home" })
+              })
+              .catch(() => {
+                this.$store.commit('snackbar/showMessage', {
+                  message: 'There was a problem signing in to your account',
+                  color: 'error',
+                })
+                router.push({ name: "signin" })
+              })
           })
-                //         .catch(error => {
-                //           if (error.response.data.email) {
-                //       this.$toasted.show(error.response.data.email).goAway(2000);
-                //   }
-                //           if (error.response.data.username) {
-                //       this.$toasted.show(error.response.data.username).goAway(2000);
-                //   }
-                //           if (error.response.data.password) {
-                //       this.$toasted.show(error.response.data.password).goAway(2000);
-                //   }
-                // });
-                // },
-                //       let emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i
-                //       if (emailRegex.test(String(this.email).toLowerCase())) {
-                //       this.$toasted.show(this.$t("SignPages.requireValidEmail")).goAway(2000);
-        } 
-      } 
-    // }
+          .catch(() => {
+            this.$store.commit('snackbar/showMessage', {
+              message: 'There were problems creating your account',
+              color: 'error',
+            })          
+          })
+      },
+    },  
   }
 </script>
 
@@ -203,18 +208,12 @@
   height: 100vh;
   align-items: flex-start;
   justify-content: center;
-  // background-image: linear-gradient(
-  //   180deg,
-  //   rgba(86, 163, 166, 1),
-  //   rgba(75, 125, 170, 105)
-  // );
 }
 
 .signup-container{
   width: 100%;
   max-width:500px;
   margin: 1px;
-  
 }
 
 .signup-title {

@@ -199,7 +199,8 @@
         </div>
 >>>>>>> #153 add validation signin and property form
       </div>
-    </v-cad>    
+    </v-cad>
+    <Snackbar @reset="clearForm" ></Snackbar>    
   </div>
 </template>
 
@@ -213,13 +214,22 @@
 =======
   import ImageUpload from '../components/input/ImageUpload'
   import { required } from 'vuelidate/lib/validators'
+<<<<<<< HEAD
 >>>>>>> #153 add validation signin and property form
+=======
+  import Snackbar from '@/components/input/Snackbar.vue'
+>>>>>>> #153 add snackbar to show mensagens
 
   export default {
     components: {
       TopBar,
       RegisterButton,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+      ImageUpload,
+      Snackbar,
+>>>>>>> #153 add snackbar to show mensagens
     },
 
     props: {
@@ -576,8 +586,17 @@
 
         state.authRequest("properties/", "POST", data)
         .then((response) => {
-          // toasted.show('Propriedade cadastrada com sucesso').goAway(2000)
+            this.$store.commit('snackbar/showMessage', {
+                message: 'Property successfully registered!',
+                color: 'success',
+            })
           this.$router.push({ name: 'home'})
+        })
+        .catch((error) => {
+            this.$store.commit('snackbar/showMessage', {
+              message: 'There was a problem registering your property',
+              color: 'error',
+            })
         })
       },
 >>>>>>> #153 add validation signin and property form

@@ -43,6 +43,8 @@
         @action="login"
       />
     </div>
+    
+    <Snackbar @reset="clearForm" ></Snackbar>
 
     <div
       href="/signup"
@@ -63,6 +65,7 @@ import TextField from '@/components/input/TextField'
 import TopBar from '@/components/layout/TopBar'
 import SignButton from '@/components/input/SignButton'
 import { email, minLength } from 'vuelidate/lib/validators'
+import Snackbar from '@/components/input/Snackbar.vue'
 
 const touchMap = new WeakMap()
 
@@ -70,7 +73,8 @@ export default {
 	components: {
 		TextField,
 		TopBar,
-		SignButton
+    SignButton,
+    Snackbar,
   },
   
 	data() {
@@ -90,13 +94,15 @@ export default {
     emailErrors () {
       const errors = []
       if (!this.$v.email.$dirty) return errors
-      !this.$v.email.email && errors.push('Must be valid e-mail')
+      !this.$v.email.email && errors
+        .push('Must be valid e-mail')
       return errors
     },
     passwordErrors () {
       const errors = []
       if (!this.$v.password.$dirty) return errors
-      !this.$v.password.minLength && errors.push('Password must be minumum of 8 characters.')
+      !this.$v.password.minLength && errors
+        .push('Password must be minumum of 8 characters.')
       return errors
     }
   },
@@ -133,13 +139,23 @@ export default {
       
       state.noAuthRequest('users/token/', 'POST', data)
         .then((response) => {
-          // toasted.show(this.$t('SignPages.positiveStatus')).goAway(2000)
+          console.log('entrou them')
+          console.log('response')
+          this.$store.commit('snackbar/showMessage', {
+            message: this.$t('SignPages.positiveStatus'),
+            color: 'success',
+          })
           state.authUser(response.data['access'], response.data['refresh'])
           router.push({ name: 'dashboard' })
         })
         .catch(() => {
-          // toasted.show(this.$t('SignPages.negativeStatus')).goAway(2000)
-          // The email and password you entered don't match
+          console.log('entrou catch')
+          this.$store.commit('snackbar/showMessage', {
+            message: "teste catch",
+            // message: this.$t('SignPages.negativeStatus'),
+            color: 'error',
+          })
+          router.push({ name: "signin" })
         })
     },
   }
