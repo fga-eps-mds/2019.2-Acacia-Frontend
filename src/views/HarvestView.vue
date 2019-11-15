@@ -58,7 +58,7 @@
         </div>
       </div>
 
-      <div class>
+      <div v-if="harvest.rules.length > 0">
         <h5 class="harvest-rules-title">Regras e Avisos</h5>
         <v-card class="mx-auto rules-container" max-width="330" tile>
           <div v-for="rule in harvest.rules" :key="rule" class="row rule-container">
@@ -94,7 +94,7 @@ export default {
   methods: {
     getHarvest() {
       this.$store.state
-        .noAuthRequest("harvests/" + this.id + "/", "GET")
+        .authRequest("properties/" + this.property_id + "/harvests/" + this.harvest_id + '/', "GET")
         .then(response => {
           this.harvestFound = true;
           this.harvest = response.data;
@@ -109,7 +109,11 @@ export default {
     };
   },
   props: {
-    id: {
+    harvest_id: {
+      type: String,
+      default: "-1"
+    },
+    property_id: {
       type: String,
       default: "-1"
     }

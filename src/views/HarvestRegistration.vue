@@ -10,6 +10,17 @@
         <h3> {{ $t('HarvestRegister.register') }} </h3>
       </div>
       <div class="content-form">
+        <v-select
+          :items="properties.map((property) => { return {
+            pk: property.pk,
+            address: property.address
+          }})"
+          label="Solo field"
+          solo
+          item-text="address"
+          item-value="pk"
+          v-model="selectedProperty"
+        ></v-select>
         <DatePicker 
           v-model="date"
           :label="$t('HarvestRegister.date')"
@@ -108,7 +119,12 @@
         min_volunteers: null,
         status: '',
         rules: [],
+        properties: ["batata", "cebola"],
+        selectedProperty: '',
       }
+    },
+    created() {
+      this.getUserProperties();
     },
     methods: {
       registerHarvest(){
@@ -132,7 +148,7 @@
           rules: rules
         }
 
-        this.$store.state.authRequest('harvests', 'POST', data)
+        this.$store.state.authRequest('properties/' + this.selectedProperty + '/harvests/', 'POST', data)
           .then((response) => {
             this.$toasted.show('Colheita cadastrada').goAway(2000)
             router.push({name: 'home'})
@@ -141,7 +157,18 @@
             this.$toasted.show('Algum erro aconteceu, tente de novo').goAway(2000)
           })
       },
-
+      getUserProperties() {
+        this.$store.state.authRequest('properties/', 'GET')
+          .then((response) => {
+            this.properties = response.data
+            if (this.properties.length == 0) {
+              this.$toasted.show('Você não possue propriedades para realizar colheita').goAway(2000)  
+            }
+          })
+          .catch((error) => {
+            this.$toasted.show('Algum erro aconteceu ao recuperar suas propriedades').goAway(2000)
+          })
+      },
       validateInput(){
         if (!this.date) {
           this.$toasted.show('Insira a data').goAway(2000)

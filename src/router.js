@@ -71,7 +71,7 @@ export default new Router({
       component: Dashboard,
     },
     {
-      path: '/harvest/:id/',
+      path: '/harvest/:property_id/:harvest_id',
       name: 'harvestView',
       component: HarvestView,
       props: true,
