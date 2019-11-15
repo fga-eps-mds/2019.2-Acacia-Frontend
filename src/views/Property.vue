@@ -25,8 +25,8 @@
           class="justify-left subheader-content"
           id="user-info"
         >
-        <a> {{ numOfTrees }} Árvores </a>
-        <a> {{ numOfHarvests }} Colheitas </a>
+          <a> {{ this.propertyTrees.length }} Árvores </a>
+          <a> {{ this.propertyHarvests.length }} Colheitas </a>
         </div>
       </div>
     </div>
@@ -34,7 +34,6 @@
     <div
       id="trees-list"
     >
-
       <div
         id="slider-sheet"
       >
@@ -42,7 +41,9 @@
           class="justify-left trees-title"
           id="trees-title"
         >
-          <h3> Árvores </h3>
+          <h3>
+            Árvores
+          </h3>
         </div>
 
         <v-window
@@ -50,7 +51,7 @@
           dark
         >
           <v-window-item
-            v-for="n in numOfTrees"
+            v-for="n in 3"
             :key="n"
             :value="n"
           >
@@ -77,7 +78,7 @@
       </div>
       <v-list>
         <v-list-item
-          v-for="n in numOfHarvests"
+          v-for="n in 3"
           :key="n"
           :value="n"
         >
@@ -92,7 +93,6 @@
           <v-list-item-content>Colheita babadeira</v-list-item-content>
         </v-list-item>
       </v-list>
-    
     </div>
   </div>
 </template>
@@ -111,9 +111,47 @@
     },
 
     data: () => ({
-      numOfHarvests: 5,
-      numOfTrees: 4,
+      propertyHarvests: [],
+      propertyTrees: [],
     }),
+
+    computed: {
+      propertyRoute: function() {
+        return 'properties/' + this.$route.params.pk.toString()
+      },
+      treeRoute: function() {
+        return 'properties/' + this.$route.params.pk.toString() + '/trees'
+      },
+      harvestRoute: function() {
+        return 'properties/' + this.$route.params.pk.toString() + '/harvests'
+      }
+    },
+
+    mounted() {
+      this.getPropertyTrees();
+      this.getPropertyHarvests();
+    },
+
+    methods: {
+      getPropertyTrees(){
+        this.$store.state.authRequest(this.treeRoute, 'GET')
+        .then(response => {
+          this.propertyTrees = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      },
+      getPropertyHarvests(){
+        this.$store.state.authRequest(this.harvestRoute)
+        .then(response => {
+          this.propertyHarvests = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      },
+    },
   }
 </script>
 
@@ -152,6 +190,7 @@
   .subheader-content{
     color: rgba(242, 242, 242, 0.65);
     font-size: 14px;
+    margin-top: 5px;
   }
 
   .trees-title{
