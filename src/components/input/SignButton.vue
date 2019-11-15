@@ -1,18 +1,44 @@
 <template>
-    <div id="signbutton" class="container">
-        <button v-on:click="$emit('action')"> {{label}} </button>
-    </div>
+  <div
+    id="signbutton"
+    :class="'container ' + direction"
+  >
+    <button
+      :style="buttonstyle"
+      :class="color + ' ' + padding"
+      @click="$emit('action')"
+    >
+      {{ label }}
+    </button>
+  </div>
 </template>
 
 <script>
-    export default {
-        props: {
-            label: {
-                default: '',
-                type: String
-            },
-        },
-    }
+export default {
+  name: "SignButton",
+  props: {
+      label: {
+          default: '',
+          type: String
+      },
+      buttonstyle: {
+          default: '',
+          type: String
+      },
+      color: {
+          default: 'primary-blue',
+          type: String
+      },
+      padding: {
+          default: 'big',
+          type: String
+      },
+      direction: {
+          default: '',
+          type: String
+      }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
@@ -30,7 +56,7 @@
         margin: 10px;
         box-shadow: 0 2px 3px 0.5px $color-shadow;
         outline: none;
-        
+
     }
     button:active{
         box-shadow: none;

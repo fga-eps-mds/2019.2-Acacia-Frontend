@@ -5,8 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    command: "npm run serve"
     ports:
-    - "8000:8080"
+    - "8080:8080"
     volumes:
     - .:/app
     - /app/node_modules
