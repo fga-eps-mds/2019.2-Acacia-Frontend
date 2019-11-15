@@ -3,7 +3,7 @@ import VueI18n from 'vue-i18n'
 
 Vue.use(VueI18n)
 
-const messages = { 
+const messages = {
     'en': {
         SignPages: {
             name: "Name",
@@ -34,8 +34,19 @@ const messages = {
             volunteerNumber: "Volunteers",
             minimum: "Minimum",
             maximum: "Maximum",
-            rules: " Rules",
-            create: "Register"
+            rules: "Rules",
+            creation: "Register",
+        },
+        TreeRegister:{
+            fruit_height: "Fruits average height",
+            image: "Tree image file",
+            months: "Tree fruinting months",
+            number_tree: "Number of trees available",
+            type: "Tree type",
+            register: "Register tree",
+            property: "Property",
+            harvest_average: "Average harvests per year",
+
         },
         Global: {
             locale: "en",
@@ -55,7 +66,31 @@ const messages = {
         DatePicker: {
             locale: "en",
             cancel: "Cancel",
-            confirm: "Confirm"
+            confirm: "Confirm",
+        },
+        Dashboard: {
+            weekly: "Weekly",
+            jan: "January",
+            feb: "February",
+            mar: "March",
+            apr: "April",
+            may: "May",
+            jun: "June",
+            jul: "July",
+            aug: "August",
+            sep: "September",
+            oct: "October",
+            nov: "November",
+            dec: "December",
+        },
+        HarvestDigest: {
+            volunteer: "Volunteers",
+            date: "Date",
+            to: "to",
+            message: "Sign in to subscribe in harvests",
+            noharvest: "No harvests were found this week",
+            subscribed: "Subscribed harvests",
+            weekharvests: "Week harvests",
         },
         ProfilePage: {
             username: "Username",
@@ -83,7 +118,7 @@ const messages = {
             requirePassword: "Digite sua senha",
             requreValidPassword: "Digite uma senha com, ao menos, 8 caracteres",
             requireValidEmail: "Digite um email válido"
-        },         
+        },
         RootPage: {
             title: "Essa é a pagina root"
         },
@@ -96,7 +131,18 @@ const messages = {
             minimum: "Mínimo",
             maximum: "Máximo",
             rules: " Regras da colheita",
-            create: "Cadastrar"
+            creation: "Cadastrar",
+        },
+        TreeRegister:{
+            fruit_height: "Altura média dos frutos",
+            image: "Arquivo de Imagem da árvore",
+            months: "Meses da frutificação da árvore",
+            number_tree: "Número de árvores disponíveis",
+            type: "Espécie da árvore/fruta",
+            register: "Cadastrar árvore",
+            property: "Selecione a propriedade:",
+            harvest_average: "Média de colheitas por ano",
+
         },
         Global: {
             locale: "pt-br",
@@ -125,12 +171,36 @@ const messages = {
             bio: "Bio",
             birthdate: "Data de nascimento",
             email: "Email",
-        }
+        },
+        Dashboard: {
+            weekly: "Semanal",
+            jan: "Janeiro",
+            feb: "Fevereiro",
+            mar: "Março",
+            apr: "Abril",
+            may: "Maio",
+            jun: "Junho",
+            jul: "Julho",
+            aug: "Agosto",
+            sep: "Setembro",
+            oct: "Outubro",
+            nov: "Novembro",
+            dec: "Dezembro",
+        },
+        HarvestDigest: {
+            volunteer: "Voluntários",
+            date: "Data",
+            to: "até",
+            message: "Entre para poder se inscrever em colheitas",
+            noharvest: "Nenhuma colheita foi encontrada essa semana",
+            subscribed: "Colheitas inscritas",
+            weekharvests: "Colheitas da semana",
+        },
     },
 }
 
-const i18n = new VueI18n({ 
-    locale: 'pt', 
+const i18n = new VueI18n({
+    locale: 'pt',
     fallbackLocale: 'en',
     messages
 })

@@ -16,12 +16,14 @@
           v-on="on"
         />
       </template>
-      <v-date-picker 
+      <v-date-picker
         v-model="dateLocal"
+        :type="type"
         :locale="$t('DatePicker.locale')"
         color="#376996"
-        :min="validateQuant() ? today : ''"
-        :max="validateQuant() ? '' : today"
+        :min="validateQuant() ? today() : ''"
+        :max="validateQuant() ? '' : today()"
+        :multiple="multiple"
         class="date-picker"
         scrollable
       >
@@ -63,10 +65,21 @@ export default {
     picked: {
       type: String,
       default: ''
+    },
+    type: {
+      type: String,
+      default: 'date'
+    },
+    min: {
+      type: String,
+      default: undefined
+    },
+    multiple: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
-    today: new Date().toISOString().slice(0,10),
     modal: false,
   }),
   computed: {
@@ -79,18 +92,34 @@ export default {
       }
     },
     computedDateFormatted () {
-        return this.formatDate(this.date)
+        return this.formatDate(this.dateLocal)
     },
   },
   created() {
-    this.dateLocal = new Date().toISOString().substr(0, 10)
+    if(this.type === 'date'){
+      this.dateLocal = new Date().toISOString().substr(0, 10)
+    }
+    else{
+      this.dateLocal = ''
+    }
   },
   methods: {
     formatDate (date) {
       if (!date) return null
-
-      const [year, month, day] = date.split('-')
-      return `${day}/${month}/${year}`
+      console.log('formatando...')
+      console.log(this.dateLocal)
+      if(this.type === 'date'){
+        console.log('oi')
+        const [year, month, day] = date.split('-')
+        return `${day}/${month}/${year}`
+      } else{
+        let month = new Date(date).getMonth()
+        console.log(month)
+        return "January"
+      }
+    },
+    today (){
+      return this.min ? new Date().toISOString().slice(0,10) : undefined
     },
     validateQuant() {
       if (this.picked == 'today'){
