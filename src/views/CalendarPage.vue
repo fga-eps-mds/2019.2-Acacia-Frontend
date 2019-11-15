@@ -205,7 +205,6 @@ export default {
         return;
       }
 
-      // console.log(this.dates_info[day.id]['colheitas']);
       let colheitas = this.dates_info[day.id]['colheitas'];
       this.selectedDay = day.id;
       

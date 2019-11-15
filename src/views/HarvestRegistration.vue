@@ -15,11 +15,14 @@
             pk: property.pk,
             address: property.address
           }})"
-          label="Solo field"
-          solo
+          label="Select a property"
           item-text="address"
           item-value="pk"
+          color="white"
+          dense
+          outlined
           v-model="selectedProperty"
+          class="ml-5 mr-5"
         ></v-select>
         <DatePicker 
           v-model="date"
@@ -131,13 +134,6 @@
         if (!this.validateInput()) {
           return
         }
-
-        let rules = []
-
-        for (let i = 0; i < this.rules.length; i++) {
-          rules.push({"description" : this.rules[i]})
-        }
-        
         let data = {
           date: this.date,
           description: this.description,
@@ -145,13 +141,27 @@
           max_volunteers: this.max_volunteers,
           min_volunteers: this.min_volunteers,
           status: 'Open',
-          rules: rules
         }
-
-        this.$store.state.authRequest('properties/' + this.selectedProperty + '/harvests/', 'POST', data)
+        let rulelist = this.rules
+        this.$store.state
+          .authRequest(
+            'properties/' + this.selectedProperty + '/harvests/', 
+            'POST', data)
           .then((response) => {
+            let ruleURL = 'properties/' + this.selectedProperty + '/harvests/' + response.data.pk + '/rules/'
+            for (let i = 0; i < rulelist.length; i++) {
+              let data = {
+                description: rulelist[i]
+              }
+              this.$store.state.authRequest(ruleURL, "POST", data )
+                .then(() => {})
+                .catch(() => {})
+            }
             this.$toasted.show('Colheita cadastrada').goAway(2000)
-            router.push({name: 'home'})
+            router.push({
+              path:
+                '/harvest/' + this.selectedProperty + '/' + response.data.pk + '/'
+            })
           })
           .catch((error) => {
             this.$toasted.show('Algum erro aconteceu, tente de novo').goAway(2000)

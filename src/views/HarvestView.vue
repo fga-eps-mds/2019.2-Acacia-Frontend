@@ -1,23 +1,29 @@
 <template>
   <div>
-    <TopBar iconleft="chevron-left" class="top-bar"/>
-    <div v-if="!harvestFound">
-      <h1 class="raleway-regular mt-5">Harvest was not found</h1>
+    <TopBar iconleft="chevron-left" iconright="comment" class="top-bar"/>
+    <div v-if="!harvestFound" class="container mt-5">
+      <h1 class="raleway-regular mt-5">{{ $t('HarvestView.harvestNotFound') }}</h1>
+      <SignButton 
+        label="Dashboard"
+        @action="goToDashboard"
+      />
     </div>
     <div v-else class="harvest-view-body">
       <div class="harvest-header roboto-regular text-white text-left">
         <!-- {{ harvest.description }} -->
-        <h4 class="roboto-regular text-white text-left">Colheita de Jaca</h4>
+        <h4 class="roboto-regular text-white text-left">
+          {{ harvest.title ? harvest.title : $t('HarvestView.placeholderTitle') }}
+        </h4>
         <div style="font-size: 0.8em" class="mt-3 mb-3">
           <div class="row mb-0 p-0">
             <div class="col-3 pl-3 p-0">
-              <b>Proprietário</b>
+              <b>{{ $t('HarvestView.owner') }}</b>
             </div>
             <div class="col-9 pl-3 p-0">Nome do Proprietário</div>
           </div>
           <div class="row mt-0 p-0">
             <div class="col-3 pl-3 p-0">
-              <b>Líder</b>
+              <b>{{ $t('HarvestView.leader') }}</b>
             </div>
             <div class="col-9 pl-3 p-0">Nome do líder</div>
           </div>
@@ -26,16 +32,18 @@
         <div style="font-size: 0.8em" class="mt-3 mb-3">
           <div class="row mb-0 p-0">
             <div class="col-3 pl-3 p-0">
-              <b>Onde</b>
+              <b>{{ $t('HarvestView.where') }}</b>
             </div>
-            <div class="col-7 pl-3 p-0">QE 32 Conjunto K casa 33, Guará 2 Brasília DF</div>
-            <div class="col-2 pt-0">
+            <div class="col-7 pl-3 p-0">
+                {{ getAddressString(property) }}
+            </div>
+            <div class="col-2 pt-0" @click="searchAddress">
               <v-icon color="white">mdi-map</v-icon>
             </div>
           </div>
           <div class="row mt-0 p-0">
             <div class="col-3 pl-3 p-0">
-              <b>Quando</b>
+              <b>{{ $t('HarvestView.when') }}</b>
             </div>
             <div class="col-9 pl-3 p-0">{{ harvest.date.replace(/-/g, '/') }}</div>
           </div>
@@ -51,28 +59,28 @@
             class="col-3"
           >{{ harvest.min_volunteers }}</v-progress-circular>
           <div class="col-9 pt-2">
-            Volunteers: {{ harvest.min_volunteers }}
+            {{ $t('HarvestView.volunteers') }}: {{ harvest.min_volunteers }}
             <br />
-            Minimum: {{ harvest.min_volunteers }} | Maximum: {{ harvest.max_volunteers }}
+            {{ $t('HarvestView.minimum') }}: {{ harvest.min_volunteers }} | {{ $t('HarvestView.maximum') }}: {{ harvest.max_volunteers }}
           </div>
         </div>
       </div>
 
       <div v-if="harvest.rules.length > 0">
-        <h5 class="harvest-rules-title">Regras e Avisos</h5>
+        <h5 class="harvest-rules-title">{{ $t('HarvestView.rules') }}</h5>
         <v-card class="mx-auto rules-container" max-width="330" tile>
-          <div v-for="rule in harvest.rules" :key="rule" class="row rule-container">
+          <div v-for="rule in harvest.rules" :key="rule.description" class="row rule-container">
             <div class="col-1 dot-container">
               <div class="dot-icon" />
             </div>
-            <div class="col-10 p-0 m-0 text-left rule-text">{{ rule }}</div>
+            <div class="col-10 p-0 m-0 text-left rule-text">{{ rule.description }}</div>
           </div>
         </v-card>
       </div>
 
       <div class="harvest-info-container">
         <div class="harvest-info-title">
-          <h5 class="text-white text-left">Informações da colheita</h5>
+          <h5 class="text-white text-left">{{ $t('HarvestView.info') }}</h5>
         </div>
         <p class="info-text">{{ harvest.description }}</p>
         <!-- <p class="info-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> -->
@@ -83,29 +91,58 @@
 
 <script>
 import TopBar from "@/components/layout/TopBar";
+import SignButton from '@/components/input/SignButton'
+import router from '@/router'
 export default {
   name: "HarvestView",
   created() {
     this.getHarvest();
   },
   components: {
-    TopBar
+    TopBar,
+    SignButton
   },
   methods: {
+    goToDashboard() {
+      router.push({ name: 'dashboard' })
+    },
     getHarvest() {
       this.$store.state
         .authRequest("properties/" + this.property_id + "/harvests/" + this.harvest_id + '/', "GET")
         .then(response => {
           this.harvestFound = true;
           this.harvest = response.data;
+          this.getProperty()
         })
         .catch(() => {});
     },
+    getProperty() {
+      this.$store.state
+        .authRequest("properties/" + this.property_id, "GET")
+        .then(response => {
+          this.property = response.data;
+        })
+        .catch(() => {});
+    },
+    getAddressString() {
+      return  (this.property.address) + 
+              (this.property.complement ? ', ' + this.property.complement : '') + ', ' +
+              this.property.city + ' - ' + this.property.state + ', ' +
+              this.property.BRZipCode
+    },
+    searchAddress() {
+      let address = this.getAddressString()
+      address = address.replace(/ /g, '+').replace(/,/g, '')
+      let url = 'https://www.google.com.br/maps/search/' + address + '/'
+      let win = window.open(url, '_blank');
+      win.focus();
+    }
   },
   data() {
     return {
       harvestFound: false,
       harvest: {},
+      property: {},
     };
   },
   props: {

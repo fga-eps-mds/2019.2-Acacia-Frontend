@@ -9,7 +9,7 @@ import { API_URL } from './config'
 
 export default new Vuex.Store({
   getters: {
-    isAuthenticated: state => !!state.getAccessToken()
+    isAuthenticated: state => !!state.getRefreshToken()
   },
   state: {
     sideBarOn: false,
@@ -65,8 +65,8 @@ export default new Vuex.Store({
     },
 
     /* === Token getters === */
-    getAccessToken: () => { return Vue.cookie.get('access-token') },
-    getRefreshToken: () => { return Vue.cookie.get('refresh-token') },
+    getAccessToken: () => { return Vue.cookie.get('access-token') || '' },
+    getRefreshToken: () => { return Vue.cookie.get('refresh-token') || '' },
 
     /* === Token setters === */
     setAccessToken: (accessToken) => Vue.cookie.set('access-token', accessToken, { expires: '5m' }),
@@ -82,6 +82,7 @@ export default new Vuex.Store({
               store.setAccessToken(response.data['access']);
               resolveBase();
             } else {
+              store.setRefreshToken(null)
               rejectBase();
             }
           })
@@ -165,7 +166,7 @@ export default new Vuex.Store({
       let store = this
       if (url.substr(-1) != '/') { url += '/' }
       return new Promise(function (resolveBase, rejectBase) {
-        if (!store.userTokensPresent()) {
+        if (!store.getRefreshToken()) {
           rejectBase();
         } else {
           store.testAndRefreshAccessToken()
