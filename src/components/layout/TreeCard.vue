@@ -14,6 +14,15 @@
       >
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
+      <div
+        class="centralize-title raleway-regular"
+      >
+        <h4
+          style="color:black"
+        > 
+          {{ treeType }}
+        </h4>
+      </div>
     </v-card>
 
     <v-card
@@ -22,12 +31,11 @@
       width="265"
       class="card-style"
     >
-    
-    <div
-      class="centralize-message raleway-regular"
-    >
-      <h4> Nenhuma árvore encontrada </h4>
-    </div>
+      <div
+        class="centralize-message raleway-regular"
+      >
+        <h4> Nenhuma árvore encontrada </h4>
+      </div>
     </v-card>
   </div>
 </template>
@@ -39,6 +47,11 @@
       hasTree: {
         default: true,
         type: Boolean,
+      },
+
+      treeType: {
+        default: '',
+        type: String,
       },
     },
   }
@@ -71,6 +84,15 @@
     width: 80%;
     height: 100%;
     margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .centralize-title{
+    text-align: justify;
+    width: 80%;
+    height: 40%;
     display: flex;
     flex-direction: column;
     justify-content: center;

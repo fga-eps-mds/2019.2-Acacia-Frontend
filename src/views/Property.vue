@@ -18,7 +18,7 @@
         id="username"
       >
         <h2>
-          Nome
+          {{ this.username }}
         </h2>
         
         <div
@@ -54,15 +54,17 @@
             dark
           >
             <v-window-item
-              v-for="n in this.propertyTrees.length"
+              v-for="(n, index) in this.propertyTrees.length"
               :key="n"
               :value="n"
             >
-              <TreeCard/>
+              <TreeCard
+                :treeType="propertyTrees[index].tree_type"
+              />
             </v-window-item>
           </v-window>
         </div>
-
+        
         <div
           v-else
         >
@@ -70,8 +72,6 @@
             :hasTree="false"
           />
         </div>
-
-
       </div>    
     </div>
 
@@ -85,7 +85,7 @@
       >
         
         <a
-          class="title-style"
+          style="margin: 12px 0px 0px 24px"
         > 
           Colheitas 
         </a>
@@ -106,7 +106,7 @@
               mdi-checkbox-blank-circle
             </v-icon>
           </v-list-item-icon>
-          <v-list-item-content>Colheita babadeira</v-list-item-content>
+          <v-list-item-content>Colheita</v-list-item-content>
         </v-list-item>
       </v-list>
       <v-list
@@ -122,9 +122,37 @@
             </v-icon>
           </v-list-item-icon>
 
-          <v-list-item-content>Nenhuma colheita encontrada</v-list-item-content>
+          <v-list-item-content
+            class="raleway-regular"
+          >
+            Nenhuma colheita encontrada
+          </v-list-item-content>
         </v-list-item>
       </v-list>
+
+      <div
+        class="justify-down"
+      >
+        <div
+          class="justify-right"
+        >
+          <v-btn
+            class="bg-color"
+            height="45"
+            width="30"
+            rounded
+            style="margin: 0 20px 15px 0"
+            href="/harvest/registration"
+          >
+            <v-icon
+              color="white"
+              large
+            >
+              mdi-plus
+            </v-icon>
+          </v-btn>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -145,12 +173,10 @@
     data: () => ({
       propertyHarvests: [],
       propertyTrees: [],
+      username: '',
     }),
 
     computed: {
-      propertyRoute: function() {
-        return 'properties/' + this.$route.params.pk.toString()
-      },
       treeRoute: function() {
         return 'properties/' + this.$route.params.pk.toString() + '/trees'
       },
@@ -162,6 +188,7 @@
     mounted() {
       this.getPropertyTrees();
       this.getPropertyHarvests();
+      this.getUsername();
     },
 
     methods: {
@@ -175,9 +202,18 @@
         })
       },
       getPropertyHarvests(){
-        this.$store.state.authRequest(this.harvestRoute)
+        this.$store.state.authRequest(this.harvestRoute, 'GET')
         .then(response => {
           this.propertyHarvests = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      },
+      getUsername(){
+        this.$store.state.authRequest('users/profile/', 'GET')
+        .then(response =>{
+          this.username = response.data.username
         })
         .catch(error => {
           console.log(error)
@@ -230,12 +266,6 @@
     margin-top: 40px;
     color: #56A3A6;
   }
-  
-  .justify-left{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
 
   .footer-title{
     width: 100%;
@@ -262,13 +292,38 @@
     font-size: 18px;
   }
 
-  .title-style{
-    margin: 12px 0px 0px 24px;
-  }
-
   .in-center{
     justify-content: center;
     margin-top: 10px;
+  }
+
+  .justify-down{
+    height: 70%;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+  }
+
+  .justify-right{
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+  }
+  
+  .justify-left{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bg-color{
+    background-image: linear-gradient(
+      45deg,
+      rgba(86, 163, 166, 1),
+      rgba(75, 125, 170, 85),
+      rgba(75, 125, 170, 105)
+    );
   }
 
 </style>
