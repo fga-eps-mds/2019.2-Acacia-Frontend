@@ -13,7 +13,7 @@
             required
             @input="$v.textfield.$touch()"
             @blur="$v.textfield.$touch()"
-          ></v-text-field>
+          />
         </v-col>
         <v-col 
           cols="2"
@@ -52,12 +52,8 @@
 </template>
 
 <script>
-import TextField from '@/components/input/TextField'
 import { required } from 'vuelidate/lib/validators'
 export default {
-  components: {
-    TextField,
-  },
   model: {
     prop: 'list',
     event: 'textfield-change'

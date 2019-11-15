@@ -10,40 +10,41 @@
         class="max-width-500 mb-4" 
         src="../assets/images/logo.svg"
       >
-      
       <form class="signin-form">
-        <v-text-field class="mt-10"
-          prepend-icon="mdi-account"
+        <v-text-field 
           v-model="email"
+          class="mt-10"
+          prepend-icon="mdi-account"
           :error-messages="emailErrors"
           label="E-mail"
           dark
           color="light-green accent-3"
           @input="$v.email.$touch()"
           @blur="$v.email.$touch()"
-        ></v-text-field>
-
-        <v-text-field class="mt-3"
-            v-model="password"
-            :error-messages="passwordErrors"
-            prepend-icon="mdi-lock"
-            label="Senha"
-            dark
-            color="light-green accent-3"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="showPassword ? 'text' : 'password'"
-            @click:append="showPassword = !showPassword"
-            @input="$v.password.$touch()"
-            @blur="$v.password.$touch()"
-        ></v-text-field>
+        />
+        <v-text-field 
+          v-model="password"
+          class="mt-3"
+          :error-messages="passwordErrors"
+          prepend-icon="mdi-lock"
+          label="Senha"
+          dark
+          color="light-green accent-3"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="showPassword ? 'text' : 'password'"
+          @click:append="showPassword = !showPassword"
+          @input="$v.password.$touch()"
+          @blur="$v.password.$touch()"
+        />
       </form>
 
-      <SignButton class="signin-button"
+      <SignButton 
+        class="signin-button"
         :label="this.$t('SignPages.login')" 
         @action="login"
       />
     </div>
-    <Snackbar @reset="clearForm"></Snackbar>
+    <Snackbar @reset="clearForm" />
     <div
       href="/signup"
       class="fixed-bottom"

@@ -23,12 +23,12 @@
           required
           @input="$v.description.$touch()"
           @blur="$v.description.$touch()"
-        ></v-text-field>  
+        />  
 
         <v-text-field
           v-model="equipment"
           label="Equipment"
-        ></v-text-field>  
+        />
         <v-row>
           <v-col 
             cols="12" 
@@ -48,7 +48,7 @@
               required
               @input="$v.min_volunteers.$touch()"
               @blur="$v.min_volunteers.$touch()"
-            ></v-text-field>
+            />
           </v-col>
           <v-col
             cols="6"
@@ -63,7 +63,7 @@
               
               @input="$v.max_volunteers.$touch()"
               @blur="$v.max_volunteers.$touch()"
-            ></v-text-field>
+            />
           </v-col>
           <v-col cols="12">         
             <StringList
@@ -81,13 +81,12 @@
         />
       </div>
     </div>
-    <Snackbar @reset="clearForm" ></Snackbar>
+    <Snackbar @reset="clearForm" />
   </div>
 </template>
 
 <script>
   import TopBar from '@/components/layout/TopBar'
-  import TextField from '@/components/input/TextField'
   import SignButton from '@/components/input/SignButton'
   import DatePicker from '@/components/input/DatePicker'
   import StringList from '@/components/input/StringList'
@@ -97,7 +96,6 @@
   export default {
     components: {
       TopBar,
-      TextField,
       SignButton,
       DatePicker,
       StringList,

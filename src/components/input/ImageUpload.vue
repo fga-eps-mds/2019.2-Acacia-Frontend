@@ -56,7 +56,6 @@
     // }
   }
 </script>
-</script>
 
 <style scoped lang="scss">
 @import "@/assets/stylesheets/colors.scss";

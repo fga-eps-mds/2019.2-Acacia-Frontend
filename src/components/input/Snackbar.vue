@@ -12,7 +12,12 @@
     :absolute="absolute"
   >
     {{ message }}
-    <v-btn text @click="show=false ; $emit('reset')">Reset</v-btn>
+    <v-btn 
+      text 
+      @click="show=false; $emit('reset')"
+    >
+      Reset
+    </v-btn>
   </v-snackbar>
 </template>
 
@@ -28,8 +33,7 @@ export default {
       timeout: 5000,
       x: 'right',
       y: 'top',
-      absolute: true,
-      
+      absolute: false,
     }
   },
  

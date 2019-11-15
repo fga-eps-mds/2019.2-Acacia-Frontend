@@ -9,54 +9,52 @@
         <div class="property-title">
           <a> Register property </a>
         </div>
-        
         <form class="property-form">
-
           <v-row>
             <v-col cols="6">
               <v-text-field
                 ref="BRZipCode"
                 v-model="BRZipCode"
                 type="number"
+                required
                 :error-messages="BRZipCode_errors"
                 label="ZIP Code"
                 @input="$v.BRZipCode.$touch()"
                 @blur="$v.BRZipCode.$touch()"
-                required
-              ></v-text-field>
+              />
             </v-col>   
             <v-col cols="6"> 
               <v-autocomplete
                 v-model="type_of_address"
+                required
                 :error-messages="type_of_address_errors"
                 :items="adrchoises"
                 label="Type of address"
                 @input="$v.type_of_address.$touch()"
                 @blur="$v.type_of_address.$touch()"
-                required
-              ></v-autocomplete>
+              />
             </v-col>   
           </v-row> 
           
           <v-text-field
             ref="address"
             v-model="address"
+            required
             :error-messages="address_errors"
             label="Address"
             @input="$v.address.$touch()"
             @blur="$v.address.$touch()"
-            required
-          ></v-text-field>
+          />
           
           <v-text-field
             ref="district"
             v-model="district"
+            required
             :error-messages="district_errors"
             label="District"
             @input="$v.district.$touch()"
             @blur="$v.district.$touch()"
-            required
-          ></v-text-field>
+          />
 
           <v-row>
             <v-col
@@ -65,12 +63,12 @@
               <v-text-field
                 ref="city"
                 v-model="city"
+                required
                 :error-messages="city_errors"
                 label="City"
                 @input="$v.city.$touch()"
                 @blur="$v.city.$touch()"
-                required
-              ></v-text-field>
+              />
             </v-col>
             <v-col
               cols="6"
@@ -78,20 +76,21 @@
               <v-autocomplete
                 ref="state"
                 v-model="state"
+                required
                 :items="brstates"
                 label="State"
                 :error-messages="state_errors"
                 @input="$v.state.$touch()"
                 @blur="$v.state.$touch()"
-                required
-              ></v-autocomplete>
+              />
             </v-col>
           </v-row>
-
         </form>
-
         <div class="image-container ">
-          <v-row align="center" justify="center">
+          <v-row 
+            align="center" 
+            justify="center"
+          >
             <v-img
               :src="preview.path"
               lazy-src="preview.path"
@@ -99,7 +98,7 @@
               max-width="330"
               max-height="200"
               class="grey lighten-2"
-            ></v-img>
+            />
           </v-row>
         </div> 
         <div class="input">
@@ -117,7 +116,7 @@
         </div>
       </div>
     </v-card>
-    <Snackbar @reset="clearForm" ></Snackbar>    
+    <Snackbar @reset="clearForm" />    
   </div>
 </template>
 

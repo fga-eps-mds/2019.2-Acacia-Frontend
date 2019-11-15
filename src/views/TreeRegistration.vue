@@ -15,60 +15,59 @@
           :items="tree_types"
           :error-messages="tree_type_errors"
           :label="$t('TreeRegister.type')"
+          required
           @input="$v.tree_type.$touch()"
           @blur="$v.tree_type.$touch()"
-
-          required
-        ></v-autocomplete>
+        />
 
         <v-row>
           <v-col cols="6">
             <v-text-field
               v-model="number_of_tree"
               type="number"
+              required
               :error-messages="number_of_tree_errors"
               :label="$t('TreeRegister.number_tree')"
               @input="$v.number_of_tree.$touch()"
               @blur="$v.number_of_tree.$touch()"
-              required
-            ></v-text-field>     
-            
+            />     
           </v-col>
-            <v-col cols="6">
-              <v-text-field
-                v-model="height_fruit"
-                type="number"
-                :error-messages="height_fruit_errors"
-                :label="$t('TreeRegister.fruit_height')"
-                @input="$v.height_fruit.$touch()"
-                @blur="$v.height_fruit.$touch()"
-                required
-              ></v-text-field>  
+          <v-col cols="6">
+            <v-text-field
+              v-model="height_fruit"
+              type="number"
+              required
+              :error-messages="height_fruit_errors"
+              :label="$t('TreeRegister.fruit_height')"
+              @input="$v.height_fruit.$touch()"
+              @blur="$v.height_fruit.$touch()"
+            />  
           </v-col>
         </v-row>
         
-        <v-select style="margin-left: 5px;"
+        <v-select 
           v-model="months"
-            :items="month_items"
-            attach
-            chips
-            :error-messages="months_errors"
-            :label="$t('TreeRegister.months')"
-            @input="$v.months.$touch()"
-            @blur="$v.months.$touch()"
-            required
+          attach
+          chips
+          required
           multiple
+          style="margin-left: 5px;"
+          :items="month_items"
+          :error-messages="months_errors"
+          :label="$t('TreeRegister.months')"
+          @input="$v.months.$touch()"
+          @blur="$v.months.$touch()"
         />
 
         <v-text-field
           v-model="haverst_for_year"
           type="number"
+          required
           :error-messages="haverst_for_year_errors"
           :label="$t('TreeRegister.harvest_average')"
           @input="$v.haverst_for_year.$touch()"
           @blur="$v.haverst_for_year.$touch()"
-          required
-        ></v-text-field>  
+        />  
 
         <label style="display: flex; padding-top: 15px; margin-left: 5px; color: #949090">
           {{ $t('TreeRegister.property') }} </label>
@@ -114,7 +113,6 @@
         </div>
       </form>
       <div class="input">
-        
         <ImageUpload
           @upload-complete="uploadImageSuccess"
         />
@@ -128,13 +126,14 @@
         @action="register"
       />
     </div>
-    <Snackbar @reset="clearForm" ></Snackbar>
+    <Snackbar 
+      @reset="clearForm"
+    />
   </div>
 </template>
 
 <script>
   import TopBar from '../components/layout/TopBar'
-  import TextField from '../components/input/TextField'
   import ImageUpload from '../components/input/ImageUpload'
   import SignButton from '@/components/input/SignButton'
   import { required, numeric } from 'vuelidate/lib/validators'
@@ -145,7 +144,6 @@
   export default {
     components: {
       TopBar,
-      TextField,
       SignButton,
       ImageUpload,
       Snackbar,

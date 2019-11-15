@@ -1,6 +1,5 @@
 <template>
   <div class="signup gradient">
-          
     <TopBar :iconleft="'chevron-left'" />
     <div class="signup-container">
       <div class="signup-title raleway-thin">
@@ -17,7 +16,7 @@
           required
           @input="$v.username.$touch()"
           @blur="$v.username.$touch()"
-        ></v-text-field>
+        />
 
         <v-text-field
           v-model="email"
@@ -28,7 +27,7 @@
           required
           @input="$v.email.$touch()"
           @blur="$v.email.$touch()"
-        ></v-text-field>
+        />
         
         <v-text-field
           v-model="password"
@@ -40,7 +39,7 @@
           required
           @input="$v.password.$touch()"
           @blur="$v.password.$touch()"
-        ></v-text-field>
+        />
 
         <v-text-field
           v-model="confirmPassword"
@@ -52,7 +51,7 @@
           required
           @input="$v.confirmPassword.$touch()"
           @blur="$v.confirmPassword.$touch()"
-        ></v-text-field>
+        />
       </form>
         
       <div class="signup-button">
@@ -62,14 +61,13 @@
           @action="signup"
         />
       </div>
-      <Snackbar @reset="clearForm" ></Snackbar>
+      <Snackbar @reset="clearForm" />
     </div>
   </div>
 </template>
 
 <script>
   import TopBar from '@/components/layout/TopBar.vue'
-  import TextField from '@/components/input/TextField.vue'
   import SignButton from '@/components/input/SignButton.vue'
   import Snackbar from '@/components/input/Snackbar.vue'
   import { required, email, sameAs, minLength } from 'vuelidate/lib/validators'
@@ -79,7 +77,6 @@
   export default {
     components: {
     TopBar,
-    TextField,
     SignButton,
     Snackbar,
     },
