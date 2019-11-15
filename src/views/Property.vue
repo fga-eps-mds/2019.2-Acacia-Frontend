@@ -46,18 +46,32 @@
           </h3>
         </div>
 
-        <v-window
-          show-arrows
-          dark
+        <div
+          v-if="this.propertyTrees.length > 0"
         >
-          <v-window-item
-            v-for="n in 3"
-            :key="n"
-            :value="n"
+          <v-window
+            show-arrows
+            dark
           >
-            <TreeCard/>
-          </v-window-item>
-        </v-window>
+            <v-window-item
+              v-for="n in this.propertyTrees.length"
+              :key="n"
+              :value="n"
+            >
+              <TreeCard/>
+            </v-window-item>
+          </v-window>
+        </div>
+
+        <div
+          v-else
+        >
+          <TreeCard
+            :hasTree="false"
+          />
+        </div>
+
+
       </div>    
     </div>
 
@@ -76,9 +90,11 @@
           Colheitas 
         </a>
       </div>
-      <v-list>
+      <v-list
+        v-if="this.propertyHarvests.length>0"
+      >
         <v-list-item
-          v-for="n in 3"
+          v-for="n in this.propertyHarvests.length"
           :key="n"
           :value="n"
         >
@@ -91,6 +107,22 @@
             </v-icon>
           </v-list-item-icon>
           <v-list-item-content>Colheita babadeira</v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <v-list
+        v-else
+      >
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon
+              small
+              color="#364259"
+            >
+              mdi-checkbox-blank-circle
+            </v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>Nenhuma colheita encontrada</v-list-item-content>
         </v-list-item>
       </v-list>
     </div>
