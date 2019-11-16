@@ -5,8 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build:stage": "vue-cli-service build --mode staging",
-    "start": "node staging-server.js",
+    "build-stage": "vue-cli-service build --mode staging",
+    "build-prod": "vue-cli-service build --mode production",
+    "start": "node server.js",
     "lint": "eslint --fix \"src/**/*.{js,vue}\"",
     "test:unit": "vue-cli-service test:unit "
   },
