@@ -84,7 +84,9 @@ import TopBar from '@/components/layout/TopBar'
 import BottomBar from '@/components/layout/BottomBar'
 import SignButton from '@/components/input/SignButton'
 import router from '@/router'
-
+console.log(process.env.VUE_APP_API_URL)
+console.log("VUE_APP_MODE"+process.env.VUE_APP_MODE)
+console.log("NODE_ENV:"+process.env.NODE_ENV)
 export default {
   components: {
     TopBar,
