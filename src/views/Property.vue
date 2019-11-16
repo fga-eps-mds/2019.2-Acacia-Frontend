@@ -25,8 +25,8 @@
           class="justify-left subheader-content"
           id="user-info"
         >
-          <a> {{ this.propertyTrees.length }} Árvores </a>
-          <a> {{ this.propertyHarvests.length }} Colheitas </a>
+          <a> {{ this.propertyTrees.length }} {{ this.$t('PropertyView.trees') }} </a>
+          <a> {{ this.propertyHarvests.length }} {{ this.$t('PropertyView.harvests') }} </a>
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
           id="trees-title"
         >
           <h3>
-            Árvores
+            {{ this.$t('PropertyView.trees') }}
           </h3>
         </div>
 
@@ -87,7 +87,7 @@
         <a
           style="margin: 12px 0px 0px 24px"
         > 
-          Colheitas 
+          {{ this.$t('PropertyView.harvests') }}
         </a>
       </div>
       <v-list
@@ -125,7 +125,7 @@
           <v-list-item-content
             class="raleway-regular"
           >
-            Nenhuma colheita encontrada
+            {{ this.$t('PropertyView.noharvests') }}
           </v-list-item-content>
         </v-list-item>
       </v-list>

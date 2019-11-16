@@ -18,9 +18,140 @@
         class="centralize-title raleway-regular"
       >
         <h4
-          style="color:black"
+          v-if="treeType=='Avocado'"
         > 
-          {{ treeType }}
+          {{ avocadoTranslation }}
+        </h4>
+        <h4
+          v-else-if="treeType=='Pineapple'"
+        >
+          {{ pineappleTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='Banana'"
+        >
+          {{ bananaTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='Persimmon'"
+        >
+          {{ persimmonTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='Coconut'"
+        >
+          {{ coconutTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='FIG'"
+        >
+          {{ figTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='Guava'"
+        >
+          {{ guavaTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='Jabuticaba'"
+        >
+          {{ jabuticabaTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='Orange'"
+        >
+          {{ orangeTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='Lemon'"
+        >
+          {{ lemonTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='Apple'"
+        >
+          {{ appleTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='Papaya'"
+        >
+          {{ papayaTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='Mango'"
+        >
+          {{ mangoTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='Passion Fruit'"
+        >
+          {{ passionfruitTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='Quince'"
+        >
+          {{ quinceTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='Nectarine'"
+        >
+          {{ nectarineTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='Loquat'"
+        >
+          {{ loquatTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='Pear'"
+        >
+          {{ pearTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='Pequizeiro'"
+        >
+          {{ pequizeiroTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='Tangerine'"
+        >
+          {{ tangerineTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='Peach'"
+        >
+          {{ peachTranslation }}
+        </h4>
+
+        <h4
+          v-else-if="treeType=='Vine'"
+        >
+          {{ vineTranslation }}
+        </h4>
+
+        <h4
+          v-else
+        >
+          Lula Livre
         </h4>
       </div>
     </v-card>
@@ -34,7 +165,7 @@
       <div
         class="centralize-message raleway-regular"
       >
-        <h4> Nenhuma árvore encontrada </h4>
+        <h4> {{ this.$t('PropertyView.notrees') }} </h4>
       </div>
     </v-card>
   </div>
@@ -54,6 +185,96 @@
         type: String,
       },
     },
+
+    computed: {
+      avocadoTranslation: function() {
+        return this.$t('TypeOfTrees.avocado')
+      },
+      
+      pineappleTranslation: function() {
+        return this.$t('TypeOfTrees.pineapple')        
+      },
+
+      bananaTranslation: function() {
+        return this.$t('TypeOfTrees.banana')
+      },
+
+      persimmonTranslation: function() {
+        return this.$t('TypeOfTrees.persimmon')
+      },
+
+      coconutTranslation: function() {
+        return this.$t('TypeOfTrees.coconut')
+      },
+
+      figTranslation: function() {
+        return this.$t('TypeOfTrees.fig')
+      },
+
+      guavaTranslation: function() {
+        return this.$t('TypeOfTrees.guava')
+      },
+
+      jabuticabaTranslation: function() {
+        return this.$t('TypeOfTrees.jabuticaba')
+      },
+
+      orangeTranslation: function() {
+        return this.$t('TypeOfTrees.orange')        
+      },
+
+      lemonTranslation: function() {
+        return this.$t('TypeOfTrees.lemon')        
+      },
+
+      appleTranslation: function() {
+        return this.$t('TypeOfTrees.apple')        
+      },
+
+      papayaTranslation: function() {
+        return this.$t('TypeOfTrees.papaya')
+      },
+
+      mangoTranslation: function() {
+        return this.$t('TypeOfTrees.mango')
+      },
+
+      passionfruitTranslation: function() {
+        return this.$t('TypeOfTrees.passionfruit')
+      },
+
+      quinceTranslation: function() {
+        return this.$t('TypeOfTrees.quince')
+      },
+
+      nectarineTranslation: function() {
+        return this.$t('TypeOfTrees.nectarine')
+      },
+
+      loquatTranslation: function() {
+        return this.$t('TypeOfTrees.loquat')
+      },
+
+      pearTranslation: function() {
+        return this.$t('TypeOfTrees.pear')
+      },
+
+      pequizeiroTranslation: function() {
+        return this.$t('TypeOfTrees.pequizeiro')
+      },
+
+      tangerineTranslation: function() {
+        return this.$t('TypeOfTrees.tangerine')        
+      },
+
+      peachTranslation: function() {
+        return this.$t('TypeOfTrees.peach')
+      },
+
+      vineTranslation: function() {
+        return this.$t('TypeOfTrees.vine')
+      },
+    }
   }
 </script>
 
@@ -96,5 +317,9 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+  }
+
+  h4{
+    color: black;
   }
 </style>

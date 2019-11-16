@@ -81,6 +81,36 @@ const messages = {
             subscribed: "Subscribed harvests",
             weekharvests: "Week harvests",
         },
+        PropertyView: {
+            trees: 'Trees',
+            harvests: 'Harvests',
+            notrees: "No tree was found",
+            noharvests: "No harvest was found"
+        },
+        TypeOfTrees: {
+            avocado: 'Avocado',
+            pineapple: 'Pineapple',
+            banana: 'Banana',
+            persimmon: 'Persimmon',
+            coconut: 'Coconut',
+            fig: 'FIG',
+            guava: 'Guava',
+            jabuticaba: 'Jabuticaba',
+            orange: 'Orange',
+            lemon: 'Lemon',
+            apple: 'Apple',
+            papaya: 'Papaya',
+            mango: 'Mango',
+            passionfruit: 'Passion Fruit',
+            quince: 'Quince',
+            nectarine: 'Nectarine',
+            loquat: 'Loquat',
+            pear: 'Pear',
+            pequizeiro: 'Pequizeiro',
+            tangerine: 'Tangerine',
+            peach: 'Peach',
+            vine: 'Vine',
+        }
     },
     'pt': {
           SignPages: {
@@ -159,6 +189,36 @@ const messages = {
             subscribed: "Colheitas inscritas",
             weekharvests: "Colheitas da semana",
         },
+        PropertyView: {
+            trees: 'Árvores',
+            harvests: 'Colheitas',
+            notrees: "Nenhuma árvore encontrada",
+            noharvests: "Nenhuma colheita encontrada"
+        },
+        TypeOfTrees: {
+            avocado: 'Abacate',
+            pineapple: 'Abacaxi',
+            banana: 'Banana',
+            persimmon: 'Caqui',
+            coconut: 'Coco',
+            fig: 'Figo',
+            guava: 'Goiaba',
+            jabuticaba: 'Jabuticaba',
+            orange: 'Laranja',
+            lemon: 'Limão',
+            apple: 'Maçã',
+            papaya: 'Mamão',
+            mango: 'Manga',
+            passionfruit: 'Maracujá',
+            quince: 'Marmelo',
+            nectarine: 'Nectarina',
+            loquat: 'Nêspera',
+            pear: 'Pera',
+            pequizeiro: 'Pequizeiro',
+            tangerine: 'Tangerina',
+            peach: 'Pêssego',
+            vine: 'Videira',
+        }
     },
 }
 
