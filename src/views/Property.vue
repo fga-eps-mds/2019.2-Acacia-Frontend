@@ -4,8 +4,8 @@
     class="property-view"
   >
     <div
-      class="top-content"
       id="top-content"
+      class="top-content"
     >
       <TopBar 
         iconleft="bars"
@@ -14,19 +14,19 @@
       />
 
       <div
-        class="justify-left header-content"
         id="username"
+        class="justify-left header-content"
       >
         <h2>
-          {{ this.username }}
+          {{ username }}
         </h2>
         
         <div
-          class="justify-left subheader-content"
           id="user-info"
+          class="justify-left subheader-content"
         >
-          <a> {{ this.propertyTrees.length }} {{ this.$t('PropertyView.trees') }} </a>
-          <a> {{ this.propertyHarvests.length }} {{ this.$t('PropertyView.harvests') }} </a>
+          <a> {{ propertyTrees.length }} {{ this.$t('PropertyView.trees') }} </a>
+          <a> {{ propertyHarvests.length }} {{ this.$t('PropertyView.harvests') }} </a>
         </div>
       </div>
     </div>
@@ -38,8 +38,8 @@
         id="slider-sheet"
       >
         <div
-          class="justify-left trees-title"
           id="trees-title"
+          class="justify-left trees-title"
         >
           <h3>
             {{ this.$t('PropertyView.trees') }}
@@ -47,19 +47,19 @@
         </div>
 
         <div
-          v-if="this.propertyTrees.length > 0"
+          v-if="propertyTrees.length > 0"
         >
           <v-window
             show-arrows
             dark
           >
             <v-window-item
-              v-for="(n, index) in this.propertyTrees.length"
+              v-for="(n, index) in propertyTrees.length"
               :key="n"
               :value="n"
             >
               <TreeCard
-                :treeType="propertyTrees[index].tree_type"
+                :tree-type="propertyTrees[index].tree_type"
               />
             </v-window-item>
           </v-window>
@@ -69,7 +69,7 @@
           v-else
         >
           <TreeCard
-            :hasTree="false"
+            :has-tree="false"
           />
         </div>
       </div>    
@@ -83,7 +83,6 @@
         id="footer-title"
         class="justify-left footer-title"
       >
-        
         <a
           style="margin: 12px 0px 0px 24px"
         > 
@@ -91,10 +90,10 @@
         </a>
       </div>
       <v-list
-        v-if="this.propertyHarvests.length>0"
+        v-if="propertyHarvests.length>0"
       >
         <v-list-item
-          v-for="n in this.propertyHarvests.length"
+          v-for="n in propertyHarvests.length"
           :key="n"
           :value="n"
         >
@@ -161,13 +160,11 @@
   /* Components imports */
   import TopBar from '@/components/layout/TopBar'
   import TreeCard from '@/components/layout/TreeCard'
-  import WeeklyCard from '../components/layout/WeeklyCard'
 
   export default {
     components: {
       TopBar,
       TreeCard,
-      WeeklyCard,
     },
 
     data: () => ({

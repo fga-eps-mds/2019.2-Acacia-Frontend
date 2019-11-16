@@ -93,7 +93,7 @@ const messages = {
             banana: 'Banana',
             persimmon: 'Persimmon',
             coconut: 'Coconut',
-            fig: 'FIG',
+            fig: 'Fig',
             guava: 'Guava',
             jabuticaba: 'Jabuticaba',
             orange: 'Orange',
