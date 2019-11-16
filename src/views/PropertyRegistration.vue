@@ -1,58 +1,57 @@
 
 <template>
   <div class="property-form">
-    <TopBar 
+    <TopBar
       iconleft="chevron-left"
       color="#2D9CDB"
     />
-    
+
     <div class="content-container">
       <div class="content-title">
         <h3> Cadastrar propriedade </h3>
       </div>
 
       <div class="content-form">
-        <TextField 
-          v-model="BRZipCode" 
-          class="mt-3" 
+        <TextField
+          v-model="BRZipCode"
+          style="padding-bottom: 10px"
           label="CEP"
-          color="black"
-          bordercolor="#C4C4C4" 
+          color="#949090"
+          bordercolor="#949090"
         />
-        <SelectField 
-          v-model="state" 
-          class="mt-3" 
-          label="Estado" 
-          color="black"
+        <SelectField
+          v-model="state"
+          style="padding-bottom: 10px"
+          label="Estado"
+          color="#949090"
           bordercolor="#C4C4C4"
           :items="brstates"
         />
-        <TextField 
-          v-model="city" 
-          class="mt-3" 
-          label="Cidade" 
-          color="black"
-          bordercolor="#C4C4C4" 
-        />
-        <TextField 
-          v-model="district" 
-          class="mt-3" 
-          label="Bairro" 
-          color="black"
+        <TextField
+          v-model="city"
+          style="padding-bottom: 10px"
+          label="Cidade"
+          color="#949090"
           bordercolor="#C4C4C4"
         />
-        <TextField 
-          v-model="address" 
-          class="mt-3" 
-          label="Endereço" 
-          color="black"
+        <TextField
+          v-model="district"
+          style="padding-bottom: 10px"
+          label="Bairro"
+          color="#949090"
           bordercolor="#C4C4C4"
         />
-        <SelectField 
-          v-model="type_of_address" 
-          class="mt-3" 
-          label="Tipo de moradia" 
-          color="black"
+        <TextField
+          v-model="address"
+          style="padding-bottom: 10px"
+          label="Endereço"
+          color="#949090"
+          bordercolor="#C4C4C4"
+        />
+        <SelectField
+          v-model="type_of_address"
+          label="Tipo de moradia"
+          color="#949090"
           bordercolor="#C4C4C4"
           :items="adrchoises"
         />
@@ -60,10 +59,10 @@
 
       <div class="content-button">
         <RegisterButton
-          class="mt-4" 
-          label="Cadastrar" 
+          class="mt-4"
+          label="Cadastrar"
           @action="registerProperty"
-        />        
+        />
       </div>
     </div>
   </div>
@@ -143,100 +142,100 @@
       registerProperty(){
         if (!this.validateInput()) {
           return
-        }       
-        
+        }
+
         // Code snipet to update the value of 'type_of_address'
         if (this.type_of_address == "Apartamento") {
           this.type_of_address = "Apartment"
-        
+
         } else if (this.type_of_address == "Casa") {
           this.type_of_address = "House"
 
         } else if (this.type_of_address == "Fazenda") {
           this.type_of_address = "Farm"
-        
+
         } else if (this.type_of_address == "Outro") {
           this.type_of_address = "Other"
         }
-    
+
         // Code snipet to update the value of 'state'
         if (this.state == "Acre") {
-          this.state = "AC"          
+          this.state = "AC"
 
         } else if (this.state == "Alagoas") {
-          this.state = "AL"          
+          this.state = "AL"
 
         } else if (this.state == "Amapá") {
-          this.state = "AP"          
+          this.state = "AP"
 
         } else if (this.state == "Amazonas") {
-          this.state = "AM"          
+          this.state = "AM"
 
         } else if (this.state == "Bahia") {
-          this.state = "BA"          
+          this.state = "BA"
 
         } else if (this.state == "Ceará") {
-          this.state = "CE"          
+          this.state = "CE"
 
         } else if (this.state == "Distrito Federal") {
-          this.state = "DF"          
+          this.state = "DF"
 
         } else if (this.state == "Espírito Santo") {
-          this.state = "ES"          
+          this.state = "ES"
 
         } else if (this.state == "Goiás") {
-          this.state = "GO"          
+          this.state = "GO"
 
         } else if (this.state == "Maranhão") {
-          this.state = "MA"          
+          this.state = "MA"
 
         } else if (this.state == "Mato Grosso") {
-          this.state = "MT"          
+          this.state = "MT"
 
         } else if (this.state == "Mato Grosso do Sul") {
-          this.state = "MS"          
+          this.state = "MS"
 
         } else if (this.state == "Minas Gerais") {
-          this.state = "MG"          
+          this.state = "MG"
 
         } else if (this.state == "Pará") {
-          this.state = "PA"          
+          this.state = "PA"
 
         } else if (this.state == "Paraíba") {
-          this.state = "PB"          
+          this.state = "PB"
 
         } else if (this.state == "Paraná") {
-          this.state = "PR"          
+          this.state = "PR"
 
         } else if (this.state == "Pernambuco") {
-          this.state = "PE"          
+          this.state = "PE"
 
         } else if (this.state == "Piauí") {
-          this.state = "PI"          
+          this.state = "PI"
 
         } else if (this.state == "Rio de Janeiro") {
-          this.state = "RJ"          
+          this.state = "RJ"
 
         } else if (this.state == "Rio Grande do Norte") {
-          this.state = "RN"          
+          this.state = "RN"
 
         } else if (this.state == "Rio Grande do Sul") {
-          this.state = "RS"          
+          this.state = "RS"
 
         } else if (this.state == "Rondônia") {
-          this.state = "RO"          
+          this.state = "RO"
 
         } else if (this.state == "Roraima") {
-          this.state = "RR"          
+          this.state = "RR"
 
         } else if (this.state == "Santa Catarina") {
-          this.state = "SC"          
+          this.state = "SC"
 
         } else if (this.state == "São Paulo") {
-          this.state = "SP"          
+          this.state = "SP"
 
         } else if (this.state == "Sergipe") {
-          this.state = "SE"          
+          this.state = "SE"
 
         } else if (this.state == "Tocantins") {
           this.state = "TO"
@@ -279,7 +278,7 @@
             this.$toasted.show(error.response.data.type_of_address).goAway(2000)
           }
         })
-        
+
       },
 
       validateInput(){
@@ -302,7 +301,7 @@
           this.$toasted.show('Insira um bairro').goAway(2000)
           return false
         }
-        
+
         if (!this.address) {
           this.$toasted.show('Insira um endereço').goAway(2000)
           return false
@@ -317,14 +316,13 @@
 
 <style scoped lang="scss">
 @import "../assets/stylesheets/colors.scss";
-  
+
   .property-form {
     width: 100%;
     height: 100%;
     position: absolute;
     margin-top: 0;
     text-align: center;
-    background: white
   }
 
   .content-container {
@@ -334,6 +332,7 @@
     justify-content: center;
     width: 100%;
     height: 100%;
+    background-image: none;
   }
 
   .content-title {
@@ -342,7 +341,7 @@
     margin-bottom: 10%;
     color: #2D9CDB;
     display: flex;
-    justify-content: left; 
+    justify-content: left;
   }
 
 
