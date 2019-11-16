@@ -132,21 +132,22 @@ export default {
         password: this.password
       }
       let state = this.$store.state
-      let toasted = this.$toasted
       
-      state.noAuthRequest('users/token/', 'POST', data)
+      this.$store.state.noAuthRequest('users/token/', 'POST', data)
         .then((response) => {
           console.log('entrou them')
           console.log('response')
           this.$store.commit('snackbar/showMessage', {
-            message: this.$t('SignPages.positiveStatus'),
+            message: "Deu bom",
+            //message: this.$t('SignPages.positiveStatus'),
             color: 'success',
           })
-          state.authUser(response.data['access'], response.data['refresh'])
-          router.push({ name: 'dashboard' })
+          this.$store.state.authUser(response.data['access'], response.data['refresh'])
+          this.$router.push({ name: 'dashboard' })
+          
         })
         .catch(() => {
-          console.log('entrou catch')
+          console.log('entrou catch- deu ruim')
           this.$store.commit('snackbar/showMessage', {
             message: "teste catch",
             // message: this.$t('SignPages.negativeStatus'),

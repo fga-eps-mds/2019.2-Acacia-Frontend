@@ -151,7 +151,7 @@
           email: this.email,
           username: this.username,
           password: this.password,
-          confirmPassword: this.confirmPassword
+          confirm_password: this.confirmPassword
         }
         let dataToken = {
           email: this.email,
@@ -175,19 +175,21 @@
                   response.data["access"],
                   response.data["refresh"]
                 );
-                router.push({ name: "home" })
+                this.$router.push({ name: "dashboard" })
               })
-              .catch(() => {
+              .catch((error) => {
+                console.log(error)
                 this.$store.commit('snackbar/showMessage', {
-                  message: 'There was a problem signing in to your account',
+                  message: '1There was a problem signing in to your account',
                   color: 'error',
                 })
-                router.push({ name: "signin" })
+                this.$router.push({ name: "signin" })
               })
           })
-          .catch(() => {
+          .catch((error) => {
+            console.log(error)
             this.$store.commit('snackbar/showMessage', {
-              message: 'There were problems creating your account',
+              message: '2There were problems creating your account',
               color: 'error',
             })          
           })
