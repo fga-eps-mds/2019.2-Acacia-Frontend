@@ -143,10 +143,8 @@
         this.$v.$touch();
       
         if (this.$v.$invalid) {
-          console.log("formulario inválido")
           return
         }
-        console.log("formulario válido")
         let data = {
           email: this.email,
           username: this.username,
@@ -178,7 +176,6 @@
                 this.$router.push({ name: "dashboard" })
               })
               .catch((error) => {
-                console.log(error)
                 this.$store.commit('snackbar/showMessage', {
                   message: '1There was a problem signing in to your account',
                   color: 'error',
@@ -187,7 +184,6 @@
               })
           })
           .catch((error) => {
-            console.log(error)
             this.$store.commit('snackbar/showMessage', {
               message: '2There were problems creating your account',
               color: 'error',

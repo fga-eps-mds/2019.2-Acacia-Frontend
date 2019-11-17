@@ -97,12 +97,10 @@ export default {
       this.$v.$touch()
       
       if (this.$v.$invalid) {
-        console.log("formulário inválido")
         return
       }
-      console.log('formulário válido')
+
       this.list.push(this.textfield)
-      // clearForm()
       this.$v.$reset()
       this.textfield = ''
       

@@ -26,8 +26,6 @@
     methods: {
       addImage(file){
         let fr = new FileReader()
-        // let fd = new FormData()
-        // fd.append('file', file)
         this.imageFile = file
         fr.onload = (event) => {
           let imageURI = event.target.result
@@ -50,10 +48,6 @@
         this.addImage(this.file)
       },
     },
-      // sempre limpar as imagens antes de criar uma nova instância
-    // created () {
-    //   this.images = []
-    // }
   }
 </script>
 

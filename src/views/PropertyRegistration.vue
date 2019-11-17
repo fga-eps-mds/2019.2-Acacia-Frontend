@@ -229,11 +229,9 @@
         this.$v.$touch()
       
         if (this.$v.$invalid) {
-          console.log("formulário inválido")
           return
         }  
-          console.log("formulário valido")
-          let data = {
+        let data = {
           BRZipCode: this.BRZipCode,
           state: this.state,
           city: this.city,

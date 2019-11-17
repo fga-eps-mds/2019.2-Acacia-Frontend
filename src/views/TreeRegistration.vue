@@ -224,7 +224,6 @@
         this.properties = property_array
       })
       .catch((error) => {
-        console.log(error)
       })
     },
     methods: {
@@ -280,10 +279,8 @@
        this.$v.$touch()
       
         if (this.$v.$invalid) {
-          console.log("formulário inválido")
           return
         }  
-        console.log("formulário válido")
         let data ={
           tree_type: this.tree_type,
           number_of_tree: this.number_of_tree,
@@ -306,10 +303,8 @@
             state.authRequest('properties/' + this.propertyCard.pk + '/trees/' + tree_pk + '/harvest_months/',
                               "POST", month_data)
             .then((response) =>{
-              console.log('primeiro then')
-                                console.log(response)})
-            .catch((error) => {console.log(error)})
-            console.log('dentro primeiro catch')
+              })
+            .catch((error) => {})
           }
           this.$store.commit('snackbar/showMessage', {
             message: 'Tree successfully registered!',
@@ -321,10 +316,7 @@
           this.$store.commit('snackbar/showMessage', {
             message: 'Deu ruim',
             color: 'error',
-            // message: (JSON.stringify(error.response.data),
-            // message: 'Deu ruim',
           })
-          // this.$toasted.show(JSON.stringify(error.response.data)).goAway(2000)
         })
        },
       },
@@ -371,7 +363,6 @@
   justify-content: flex-end;
 }
 .image-container {
-  // width: 100%;
   max-width: 700px;
   max-height: 350px;
   border-radius: 5px;

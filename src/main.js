@@ -15,10 +15,6 @@ Vue.use(Vuelidate)
 import VueCookie from 'vue-cookie'
 Vue.use(VueCookie)
 
-/* Vue Toasted configuration */
-// import Toasted from 'vue-toasted'
-// Vue.use(Toasted)
-
 /* i18n configuration (internationalization) */
 import i18n from '@/plugins/i18n'
 

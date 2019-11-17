@@ -167,10 +167,8 @@
         this.$v.$touch()
       
         if (this.$v.$invalid) {
-          console.log("formulário inválido")
           return
         }
-        console.log('formulário válido')
         let rules = []
 
         for (let i = 0; i < this.rules.length; i++) {
@@ -216,11 +214,6 @@
   align-items: flex-start;
   justify-content: center;
   background: white;
-  // background-image: linear-gradient(
-  //   180deg,
-  //   rgba(86, 163, 166, 1),
-  //   rgba(75, 125, 170, 105)
-  // );
 }
 
 .harvest-container{
@@ -231,8 +224,6 @@
 }
 
 .harvest-title {
-   
-  // color: $color-secundary-text-title;
   width: 100%;
   padding: 0px 25px;
   margin-top: 20%;

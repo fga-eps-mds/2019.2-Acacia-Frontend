@@ -38,8 +38,6 @@ export default {
   },
  
   created () {
-    console.log('entrou no created')
-   
    this.$store.subscribe((mutation, state) => {
       
       if (mutation.type === 'snackbar/showMessage') {
