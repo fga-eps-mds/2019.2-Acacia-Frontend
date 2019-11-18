@@ -1,7 +1,7 @@
 <template>
   <div class="harvest-form">
-    <TopBar 
-      iconleft="chevron-left" 
+    <TopBar
+      iconleft="chevron-left"
       color="color-primary"
       style="background-color: white"
     />
@@ -10,50 +10,51 @@
         <h3> {{ $t('HarvestRegister.register') }} </h3>
       </div>
       <div class="content-form">
-        <DatePicker 
+        <DatePicker
           v-model="date"
+          min="true"
           :label="$t('HarvestRegister.date')"
         />
-        <TextField 
-          v-model="description" 
-          class="mt-3" 
-          :label="$t('HarvestRegister.description')" 
+        <TextField
+          v-model="description"
+          class="mt-3"
+          :label="$t('HarvestRegister.description')"
           color="#949090"
           bordercolor="#C4C4C4"
         />
-        <TextField 
-          v-model="equipment" 
-          class="mt-3" 
-          :label="$t('HarvestRegister.equipment')" 
+        <TextField
+          v-model="equipment"
+          class="mt-3"
+          :label="$t('HarvestRegister.equipment')"
           color="#949090"
           bordercolor="#C4C4C4"
         />
         <v-row>
-          <v-col 
-            cols="12" 
+          <v-col
+            cols="12"
             class="roboto-light color-secundary-text number-volunteers"
           >
             {{ $t('HarvestRegister.volunteerNumber') }}
           </v-col>
-          <v-col  
-            cols="6" 
+          <v-col
+            cols="6"
             class="volunteer-quantity"
           >
-            <TextField  
-              v-model="min_volunteers"  
+            <TextField
+              v-model="min_volunteers"
               color="#949090"
               bordercolor="#C4C4C4"
               type="number"
               :placeholder="$t('HarvestRegister.minimum')"
               :placeholder-black="true"
-            />       
+            />
           </v-col>
-          <v-col 
-            cols="6" 
+          <v-col
+            cols="6"
             class="volunteer-quantity"
           >
-            <TextField  
-              v-model="max_volunteers" 
+            <TextField
+              v-model="max_volunteers"
               color="#949090"
               bordercolor="#C4C4C4"
               type="number"
@@ -74,11 +75,11 @@
       </div>
       <div class="content-button">
         <SignButton
-          :label="$t('HarvestRegister.create')" 
+          :label="$t('HarvestRegister.creation')"
           padding="small"
           direction="right"
           @action="registerHarvest"
-        />        
+        />
       </div>
     </div>
   </div>
@@ -121,7 +122,7 @@
         for (let i = 0; i < this.rules.length; i++) {
           rules.push({"description" : this.rules[i]})
         }
-        
+
         let data = {
           date: this.date,
           description: this.description,
@@ -211,6 +212,7 @@
       width: auto;
       height: auto;
       margin-top: 80px;
+      background: white;
     }
 
     .content-title {
@@ -222,10 +224,10 @@
       margin-bottom: 10%;
       color: $color-primary;
       display: flex;
-      justify-content: left; 
+      justify-content: left;
     }
 
-    .content-button { 
+    .content-button {
       margin-top: 20px;
       width: 100%;
       display: flex;
