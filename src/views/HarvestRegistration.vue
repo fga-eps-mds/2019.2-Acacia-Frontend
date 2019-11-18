@@ -1,16 +1,16 @@
 <template>
   <div class="harvest">
-    <TopBar 
-      iconleft="chevron-left" 
+    <TopBar
+      iconleft="chevron-left"
       color="color-primary"
     />
     <div class="harvest-container">
       <div class="harvest-title raleway-thin">
         <a> {{ $t('HarvestRegister.register') }} </a>
       </div>
-      
+
       <form class="harvest-form">
-        <DatePicker 
+        <DatePicker
           v-model="date"
           min="true"
           :label="$t('HarvestRegister.date')"
@@ -23,15 +23,15 @@
           required
           @input="$v.description.$touch()"
           @blur="$v.description.$touch()"
-        />  
+        />
 
         <v-text-field
           v-model="equipment"
           label="Equipment"
         />
         <v-row>
-          <v-col 
-            cols="12" 
+          <v-col
+            cols="12"
             class="label-volunteers"
           >
             {{ $t('HarvestRegister.volunteerNumber') }}
@@ -60,12 +60,12 @@
               label="Maximum"
               type="number"
               required
-              
+
               @input="$v.max_volunteers.$touch()"
               @blur="$v.max_volunteers.$touch()"
             />
           </v-col>
-          <v-col cols="12">         
+          <v-col cols="12">
             <StringList
               v-model="rules"
             />
@@ -120,7 +120,7 @@
       min_volunteers: { required, minValue: minValue(2) },
       max_volunteers: { maxValue: maxValue(20) },
     },
-    
+
     computed: {
       descriptionErrors () {
         const errors = []
@@ -153,7 +153,7 @@
         this.status= ''
         this.rules= []
       },
-      
+
       delayTouch($v) {
         $v.$reset()
         if (touchMap.has($v)) {
@@ -164,7 +164,7 @@
 
       registerHarvest(){
         this.$v.$touch()
-      
+
         if (this.$v.$invalid) {
           return
         }
@@ -190,9 +190,10 @@
                 message: 'harvest successfully registered',
                 color: 'success',
             })
-            router.push({name: 'home'})
+            this.$router.push({name: 'dashboard'})
           })
           .catch((error) => {
+            console.log(error)
             this.$store.commit('snackbar/showMessage', {
               message: 'There was a problem registering your harvest',
               color: 'error',
@@ -219,7 +220,7 @@
   width: 100%;
   max-width:500px;
   margin: 1px;
-  
+
 }
 
 .harvest-title {
