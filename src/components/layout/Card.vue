@@ -16,7 +16,7 @@
         <v-sheet
           min-height="200"
           max-height="300"
-          style="overflow:auto"
+          class="sheet-contailer"
         >
           <!-- User's harvests -->
           <div v-if="n == 1">
@@ -27,20 +27,6 @@
             <div
               v-if="$store.state.getRefreshToken()"
             >
-              <HarvestDigest
-                :harvest="{date: '25/05/19', status: 'Vai acontecer', min_volunteers: 4, max_volunteers: 10, pk: 1}"
-              />
-              <v-divider />
-
-              <HarvestDigest
-                :harvest="{date: '25/09/19', status: 'Cancelada', min_volunteers: 1, max_volunteers: 7, pk: 2}"
-              />
-              <v-divider />
-
-              <HarvestDigest
-                :harvest="{date: '25/11/19', status: 'Vai acontecer', min_volunteers: 8, max_volunteers: 15, pk: 3}"
-              />
-              <v-divider />
             </div>
 
             <div
@@ -71,17 +57,22 @@
               v-if="$store.state.getRefreshToken()"
             >
               <HarvestDigest
-                :harvest="{date: '25/05/19', status: 'Vai acontecer', min_volunteers: 4, max_volunteers: 10}"
+                :harvest="{date: '25/05/19', status: 'Open', min_volunteers: 4, max_volunteers: 10, pk: 1}"
               />
               <v-divider />
 
               <HarvestDigest
-                :harvest="{date: '25/09/19', status: 'Cancelada', min_volunteers: 1, max_volunteers: 7}"
+                :harvest="{date: '25/09/19', status: 'Enough', min_volunteers: 1, max_volunteers: 7, pk: 2}"
               />
               <v-divider />
 
               <HarvestDigest
-                :harvest="{date: '25/11/19', status: 'Vai acontecer', min_volunteers: 8, max_volunteers: 15}"
+                :harvest="{date: '25/11/19', status: 'Done', min_volunteers: 8, max_volunteers: 15, pk: 3}"
+              />
+              <v-divider />
+
+              <HarvestDigest
+                :harvest="{date: '25/11/19', status: 'Cancelled', min_volunteers: 8, max_volunteers: 15, pk: 3}"
               />
               <v-divider />
             </div>
@@ -282,7 +273,7 @@ export default {
     color: #2D9CDB;
     margin-left: 5px;
     margin-top: 10px;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
   }
 
   .v-btn--icon.v-size--default {
@@ -301,4 +292,12 @@ export default {
     flex-direction: row;
     justify-content: center;
   }
+
+  .sheet-contailer {
+    overflow: auto;
+  }
+/*
+  .sheet-contailer::-webkit-scrollbar{
+    width: 0px !important;
+  }*/
 </style>
