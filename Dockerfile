@@ -6,7 +6,3 @@ RUN mkdir -p /app && cp -a /tmp/node_modules /app/
 
 WORKDIR /app
 ADD . /app
-
-EXPOSE 8080
-
-CMD npm run build:stage; npm start
