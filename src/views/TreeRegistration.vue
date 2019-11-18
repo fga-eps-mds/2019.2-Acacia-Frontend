@@ -267,62 +267,74 @@ import axios from "axios"
 
 <style scoped lang="scss">
 @import "@/assets/stylesheets/colors.scss";
-.text-small {
-  font-size: 10px;
-}
+  .text-small {
+    font-size: 10px;
+  }
 
-.tree-container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  background: rgb(250, 250, 250);
-}
-.tree-content {
-  width: 100%;
-  max-width:650px;
-  margin: 1px;
-  border-radius: 4px;
-  padding: 20px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
-}
+  .tree-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    margin-top: 0;
+    text-align: center;
+    background: white;
+  }
 
-.content-title {
-  display: flex;
-  color: #2D9CDB;
-  margin-top: 30px;
-  margin-bottom: 20px;
-}
+  .tree-content {
+    max-width:650px;
+    margin: 1px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    background-image: none;
+  }
+
+  .content-title {
+    h3{
+      font-weight: bold;
+    }
+    width: 100%;
+    margin-bottom: 10%;
+    color: $color-primary;
+    display: flex;
+    justify-content: left;
+  }
 
   .file-label{
-  display: flex;
-  justify-content: space-between;
-  color: black;
-  margin: 10px;
-  font-size: 1rem;
-  flex-wrap: wrap;
-  align-items: center
-}
+    display: flex;
+    justify-content: space-between;
+    color: black;
+    margin: 10px;
+    font-size: 1rem;
+    flex-wrap: wrap;
+    align-items: center
+  }
 
-.tree-button {
-  margin-top: 3px;
-  display: flex;
-  justify-content: flex-end;
-}
+  .tree-button {
+    margin-top: 3px;
+    display: flex;
+    justify-content: center;
+  }
 
-.image-container {
-  // width: 100%;
-  max-width: 700px;
-  max-height: 350px;
-  border-radius: 5px;
-  box-sizing: border-box;
+  .image-container {
+    // width: 100%;
+    max-width: 700px;
+    max-height: 350px;
+    border-radius: 5px;
+    box-sizing: border-box;
 
-  border: 1px dashed #D6D6D6;
-  border-radius: 4px;
-  background-color: white;
-}
+    border: 1px dashed #D6D6D6;
+    border-radius: 4px;
+    background-color: white;
+  }
 
-img{
-  max-width: 100%;
-  height: auto;
-}
+  img{
+    max-width: 100%;
+    height: auto;
+  }
 </style>

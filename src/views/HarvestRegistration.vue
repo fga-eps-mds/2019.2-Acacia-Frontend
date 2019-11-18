@@ -6,7 +6,7 @@
       style="background-color: white"
     />
     <div class="content-container">
-      <div class="content-title raleway-thin">
+      <div class="content-title">
         <h3> {{ $t('HarvestRegister.register') }} </h3>
       </div>
       <div class="content-form">
@@ -231,7 +231,7 @@
       width: 100%;
       display: flex;
       flex-direction: row;
-      justify-content: right;
+      justify-content: center;
     }
 
 </style>

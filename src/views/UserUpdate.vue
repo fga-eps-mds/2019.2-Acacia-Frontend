@@ -50,6 +50,8 @@
     import SignButton from '../components/input/SignButton.vue'
     import TopBar from '../components/layout/TopBar.vue'
     import DatePicker from '../components/input/DatePicker.vue'
+    import router from "@/router"
+
 
 
 export default {
@@ -107,6 +109,7 @@ export default {
             state.authRequest('users/profile/', 'PATCH', formData)
                 .then((response) => {
                     toasted.show(response).goAway(2000)
+                    router.push({name: 'dashboard'})
                 })
                 .catch((errors) => {
                     toasted.show(errors).goAway(2000)
@@ -152,6 +155,15 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/stylesheets/colors.scss";
 
+    .userupdate{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      margin-top: 0;
+      text-align: center;
+      background: white;
+    }
+
     .content-title {
         h3{
             font-weight: bold;
@@ -188,7 +200,7 @@ export default {
         margin-top: 40px;
         display: flex;
         flex-direction: row;
-        justify-content: flex-end;
+        justify-content: center;
         width: 100%;
     }
 

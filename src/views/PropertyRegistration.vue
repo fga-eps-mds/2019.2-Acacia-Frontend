@@ -12,8 +12,9 @@
       </div>
 
       <div class="content-form">
-        <TextField style = "padding-bottom: 10px"
+        <TextField 
           v-model="BRZipCode"
+          style="padding-bottom: 10px"
           label="CEP"
           color="#949090"
         />
@@ -56,6 +57,7 @@
       <div class="content-button">
         <RegisterButton
           class="mt-4"
+          buttonstyle="background: #376996;"
           label="Cadastrar"
           @action="registerProperty"
         />
@@ -346,11 +348,11 @@
 
 
   .content-button {
-    margin-top: 40px;
+    margin-top: 20px;
+    width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
-    width: 100%;
+    justify-content: center;
   }
 
   .content-form{
