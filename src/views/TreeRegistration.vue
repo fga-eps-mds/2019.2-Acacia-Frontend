@@ -30,7 +30,7 @@
               :label="$t('TreeRegister.number_tree')"
               @input="$v.number_of_tree.$touch()"
               @blur="$v.number_of_tree.$touch()"
-            />     
+            />
           </v-col>
           <v-col cols="6">
             <v-text-field
@@ -41,11 +41,11 @@
               :label="$t('TreeRegister.fruit_height')"
               @input="$v.height_fruit.$touch()"
               @blur="$v.height_fruit.$touch()"
-            />  
+            />
           </v-col>
         </v-row>
-        
-        <v-select 
+
+        <v-select
           v-model="months"
           attach
           chips
@@ -67,7 +67,7 @@
           :label="$t('TreeRegister.harvest_average')"
           @input="$v.haverst_for_year.$touch()"
           @blur="$v.haverst_for_year.$touch()"
-        />  
+        />
 
         <label style="display: flex; padding-top: 15px; margin-left: 5px; color: #949090">
           {{ $t('TreeRegister.property') }} </label>
@@ -126,7 +126,7 @@
         @action="register"
       />
     </div>
-    <Snackbar 
+    <Snackbar
       @reset="clearForm"
     />
   </div>
@@ -138,7 +138,7 @@
   import SignButton from '@/components/input/SignButton'
   import { required, numeric } from 'vuelidate/lib/validators'
   import Snackbar from '@/components/input/Snackbar'
-  
+
   export default {
     components: {
       TopBar,
@@ -164,7 +164,7 @@
         propertyCard: '',
       }
     },
-    
+
     validations: {
       tree_type: { required },
       number_of_tree: { required },
@@ -172,7 +172,7 @@
       months: { required },
       haverst_for_year: { required },
     },
-    
+
     computed: {
       icon(){
       return "chevron-right"
@@ -202,16 +202,16 @@
         const errors = []
         if (!this.$v.months.$dirty) return errors
          !this.$v.months.required && errors
-          .push('Fruinting Months must be filled.')
+          .push('Fruiting Months must be filled.')
         return errors
-      }, 
+      },
       haverst_for_year_errors () {
         const errors = []
         if (!this.$v.haverst_for_year.$dirty) return errors
          !this.$v.haverst_for_year.required && errors
-          .push('Haverst fo year must be filled')
+          .push('Harvest fo year must be filled')
         return errors
-      }, 
+      },
     },
     created() {
       let state = this.$store.state
@@ -238,8 +238,8 @@
         this.tree_types= [],
         this.month_items= [],
         this.propertyCard= ''
-      }, 
-      
+      },
+
       uploadImageSuccess(imageFile, imagePath){
         this.tree_picture = imageFile
         this.preview = imagePath
@@ -274,10 +274,18 @@
       },
       register(){
        this.$v.$touch()
-      
+
         if (this.$v.$invalid) {
           return
-        }  
+        }
+        else if (this.propertyCard === ""){
+          this.$store.commit('snackbar/showMessage', {
+            message: 'No property selected',
+            color: 'error',
+          })
+          return
+        }
+
         let data ={
           tree_type: this.tree_type,
           number_of_tree: this.number_of_tree,
