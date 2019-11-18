@@ -101,15 +101,11 @@ export default {
   methods: {
     formatDate (date) {
       if (!date) return null
-      console.log('formatando...')
-      console.log(this.dateLocal)
       if(this.type === 'date'){
-        console.log('oi')
         const [year, month, day] = date.split('-')
         return `${day}/${month}/${year}`
       } else{
         let month = new Date(date).getMonth()
-        console.log(month)
         return "January"
       }
     },
@@ -137,9 +133,9 @@ export default {
     }
 
     .container-date-picker {
-        font-size: 12px;
-        padding: 0px 65% 0px 20px;
-        margin: 1%;
+      font-size: 12px;
+      padding: 0px 70% 0px 0px;
+      margin: 1%;
     }
 
 </style>
