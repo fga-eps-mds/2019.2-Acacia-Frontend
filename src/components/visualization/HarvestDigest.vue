@@ -1,7 +1,8 @@
 <template>
   <div 
-    class="row p-2"
+    class="row p-2 digest-container"
     style="margin-right:0px"
+    @click="pushToRoute()"
   >
     <div class="col-3 icon-content">
       <img 
@@ -36,6 +37,14 @@ export default {
       },
       type: Object
     }
+  },
+
+  methods: {
+    pushToRoute() {
+      let route = 'harvest/' + this.harvest.pk + '/'
+      this.$router.push(route)
+      return
+    }
   }
 }
 </script>
@@ -50,5 +59,11 @@ export default {
     display: flex;
     flex-direction: column-reverse;
     justify-content: center;
+  }
+
+  .digest-container {
+    cursor: pointer;
+    margin-right: 0px;
+    width: 100%;
   }
 </style>

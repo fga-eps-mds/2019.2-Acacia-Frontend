@@ -28,21 +28,20 @@
               v-if="$store.state.getRefreshToken()"
             >
               <HarvestDigest
-                :harvest="{date: '25/05/19', status: 'Vai acontecer', min_volunteers: 4, max_volunteers: 10}"
+                :harvest="{date: '25/05/19', status: 'Vai acontecer', min_volunteers: 4, max_volunteers: 10, pk: 1}"
               />
               <v-divider />
 
               <HarvestDigest
-                :harvest="{date: '25/09/19', status: 'Cancelada', min_volunteers: 1, max_volunteers: 7}"
+                :harvest="{date: '25/09/19', status: 'Cancelada', min_volunteers: 1, max_volunteers: 7, pk: 2}"
               />
               <v-divider />
 
               <HarvestDigest
-                :harvest="{date: '25/11/19', status: 'Vai acontecer', min_volunteers: 8, max_volunteers: 15}"
+                :harvest="{date: '25/11/19', status: 'Vai acontecer', min_volunteers: 8, max_volunteers: 15, pk: 3}"
               />
               <v-divider />
             </div>
-
 
             <div
               v-else
@@ -59,6 +58,50 @@
               </div>
             </div>
           </div>
+
+          <!-- User's harvests -->
+          <div
+            v-else-if="n==2"
+          >
+            <h3 class="title-content roboto-regular"> 
+              Suas colheitas
+            </h3>
+            
+            <div
+              v-if="$store.state.getRefreshToken()"
+            >
+              <HarvestDigest
+                :harvest="{date: '25/05/19', status: 'Vai acontecer', min_volunteers: 4, max_volunteers: 10}"
+              />
+              <v-divider />
+
+              <HarvestDigest
+                :harvest="{date: '25/09/19', status: 'Cancelada', min_volunteers: 1, max_volunteers: 7}"
+              />
+              <v-divider />
+
+              <HarvestDigest
+                :harvest="{date: '25/11/19', status: 'Vai acontecer', min_volunteers: 8, max_volunteers: 15}"
+              />
+              <v-divider />
+            </div>
+
+            <div
+              v-else
+              class="message-content raleway-regular"
+            >
+              <div
+                class="centralize-container"
+              >
+                <h4 
+                  style="width: 90%"
+                > 
+                  Faça login para conseguir ter acesso a suas colheitas
+                </h4>
+              </div>
+            </div>
+          </div>
+
 
           <!-- Week's harvests -->
           <div v-else>
@@ -146,7 +189,7 @@ export default {
   },
   
   data: () => ({
-    length: 2,
+    length: 3,
     allHarvests: [],
   }),
 
@@ -220,7 +263,7 @@ export default {
         today.setTime(dayInMilissecond + today.valueOf());
       }
       return dateList
-    }
+    },
   },
 }
 </script>
