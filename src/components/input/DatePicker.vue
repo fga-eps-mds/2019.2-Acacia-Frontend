@@ -16,11 +16,13 @@
           v-on="on"
         />
       </template>
-      <v-date-picker 
+      <v-date-picker
         v-model="dateLocal"
+        :type="type"
         :locale="$t('DatePicker.locale')"
         color="#376996"
-        :min="today"
+        :min="today()"
+        :multiple="multiple"
         class="date-picker"
         scrollable
       >
@@ -58,10 +60,21 @@ export default {
     label: {
       type: String,
       default: ''
+    },
+    type: {
+      type: String,
+      default: 'date'
+    },
+    min: {
+      type: String,
+      default: undefined
+    },
+    multiple: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
-    today: new Date().toISOString().slice(0,10),
     modal: false,
   }),
   computed: {
@@ -74,18 +87,30 @@ export default {
       }
     },
     computedDateFormatted () {
-        return this.formatDate(this.date)
+        return this.formatDate(this.dateLocal)
     },
   },
   created() {
-    this.dateLocal = new Date().toISOString().substr(0, 10)
+    if(this.type === 'date'){
+      this.dateLocal = new Date().toISOString().substr(0, 10)
+    }
+    else{
+      this.dateLocal = ''
+    }
   },
   methods: {
     formatDate (date) {
       if (!date) return null
-
-      const [year, month, day] = date.split('-')
-      return `${day}/${month}/${year}`
+      if(this.type === 'date'){
+        const [year, month, day] = date.split('-')
+        return `${day}/${month}/${year}`
+      } else{
+        let month = new Date(date).getMonth()
+        return "January"
+      }
+    },
+    today (){
+      return this.min ? new Date().toISOString().slice(0,10) : undefined
     },
   },
 }
@@ -108,9 +133,9 @@ export default {
     }
 
     .container-date-picker {
-        font-size: 12px;
-        padding: 0px 65% 0px 20px;
-        margin: 1%;
+      font-size: 12px;
+      padding: 0px 70% 0px 0px;
+      margin: 1%;
     }
 
 </style>
