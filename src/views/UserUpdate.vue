@@ -9,29 +9,35 @@
         <h3> {{ $t('UserUpdate.edite_profile') }} </h3>
       </div>
       <div class="content-form">
-        <TextField
+        <v-text-field
+          ref="phone_number"
           v-model="phone_number"
-          class="mt-3"
+          class="textfield"
+          required
+          :error-messages="phone_number_errors"
           :label="$t('UserUpdate.telephone')"
-          color="#949090"
-          :placeholder="phone_number"
+          @input="$v.phone_number.$touch()"
+          @blur="$v.phone_number.$touch()"
         />
-        <TextField 
+        <v-text-field
+          ref="bio"
           v-model="bio"
-          class="mt-3"
+          class="textfield"
+          required
+          :error-messages="bio_errors"
           :label="$t('UserUpdate.bio')"
-          color="#949090"
-          :placeholder="bio"
+          @input="$v.bio.$touch()"
+          @blur="$v.bio.$touch()"
         />
         <DatePicker 
-          min="true"
           v-model="birthdate"
           :label="$t('UserUpdate.birthdate')"
+          min="true"
         />
         <div class="input">
           <ImageUpload
+            :labelname="$t('UserUpdate.profile_photo')"
             @upload-complete="uploadImageSuccess"
-            :labelName="$t('UserUpdate.profile_photo')"
           />
         </div>
       </div>
@@ -44,14 +50,16 @@
         />
       </div>
     </div>
+    <Snackbar @reset="clearForm" />
   </div>
 </template>
 
 <script>
     import ImageUpload from '../components/input/ImageUpload'
-    import TextField from '../components/input/TextField.vue'
     import SignButton from '../components/input/SignButton.vue'
+    import Snackbar from '@/components/input/Snackbar.vue'
     import TopBar from '../components/layout/TopBar.vue'
+    import { numeric, maxLength } from 'vuelidate/lib/validators'
     import DatePicker from '../components/input/DatePicker.vue'
     import router from "@/router"
 
@@ -62,10 +70,11 @@ export default {
     components: {
         ImageUpload,
         SignButton,
-        TextField,
+        Snackbar,
         TopBar,
         DatePicker,
     },
+
     data (){
         return{
             profileImage: null,
@@ -76,12 +85,44 @@ export default {
             birthdate: '',
             username: '',
             date: '',
+            size: true,
         }
     },
+
+    validations: {
+      phone_number: { numeric },
+      bio: { maxLength: maxLength(800) },
+    },
+
+    computed: {
+      phone_number_errors () {
+        const errors = []
+        if (!this.$v.phone_number.$dirty) return errors
+        !this.$v.phone_number.numeric && errors.push(this.$t('UserUpdate.requirePhoneNumber'))
+        return errors
+      },
+      bio_errors () {
+        const errors = []
+        if (!this.$v.bio.$dirty) return errors
+        !this.$v.phone_number.maxLength && errors.push(this.$t('UserUpdate.requireBio'))
+        return errors
+      },
+    },
+
     beforeMount(){
         this.uploadProfile()
     },
+
     methods: {
+
+        clearForm () {
+          this.$v.$reset()
+          this.profileImage= null
+          this.phone_number= ''
+          this.bio= ''
+          this.birthdate= ''
+        },
+
         uploadImageSuccess(imageFile, imagePath){
           this.profileImage = imageFile
           this.preview = imagePath
@@ -91,11 +132,7 @@ export default {
             this.profileImage = event
         },
 
-        updateProfile(){    
-          
-          if (!this.validateInput()) {
-            return
-          }
+        updateProfile(){   
 
           let formData = new FormData()
           if (this.profileImage !== null){
@@ -106,59 +143,58 @@ export default {
           formData.append("birthdate", this.birthdate)
 
           let state = this.$store.state
-          let toasted = this.$toasted
 
           state.authRequest('users/profile/', 'PATCH', formData)
             .then((response) => {
-              this.$toasted.show(this.$t('UserUpdate.updatedUser')).goAway(2000)
+              this.$store.commit('snackbar/showMessage', {
+                message: this.$t('UserUpdate.updatedUser'),
+                color: 'success',
+              })
               router.push({ name: 'dashboard' }) 
             })
             .catch((errors) => {
               console.log(errors)
               if (errors.response.data.bio) {
-                this.$toasted.show(errors.response.data.bio).goAway(2000);
+                this.$store.commit('snackbar/showMessage', {
+                  message: errors.response.data.bio,
+                  color: 'error',
+                })
               }
               if (errors.response.data.birthdate) {
-                this.$toasted.show(errors.response.data.birthdate).goAway(2000);
+                this.$store.commit('snackbar/showMessage', {
+                  message: errors.response.data.birthdate,
+                  color: 'error',
+                })
               }
               if (errors.response.data.phone_number) {
-                this.$toasted.show(errors.response.data.phone_number).goAway(2000);
+                this.$store.commit('snackbar/showMessage', {
+                  message: errors.response.data.phone_number,
+                  color: 'error',
+                })
               }
               if (errors.response.data.photo) {
-                this.$toasted.show(errors.response.data.photo).goAway(2000);
+                this.$store.commit('snackbar/showMessage', {
+                  message: errors.response.data.photo,
+                  color: 'error',
+                })
               }
             })
         },
 
-        validateInput(){
-            if(Number(this.phone_number) == NaN){
-              this.$toasted.show(this.$t('UserUpdate.requirePhoneNumber')).goAway(2000)
-              return false
-            }
-            if(this.bio.length > 800){
-              this.$toasted.show(this.$t('UserUpdate.requireBio')).goAway(2000)
-              return false
-            }
-            return true
-        },
-
         uploadProfile(){    
             let state = this.$store.state
-            let toasted = this.$toasted
 
             state.authRequest('users/profile/', 'GET')
-                .then((response) => {
-                    console.log(response)
-                    this.phone_number = response.data.phone_number
-                    this.bio = response.data.bio
-                    this.birthdate = response.data.birthdate
-                    this.date = this.birthdate
-                    this.username = response.data.username
-                    this.email = response.data.email
-                })
-                .catch((errors) => {
-                    toasted.show(errors).goAway(2000)
-                })
+              .then((response) => {
+                this.phone_number = response.data.phone_number
+                this.bio = response.data.bio
+                this.birthdate = response.data.birthdate
+                this.date = this.birthdate
+                this.username = response.data.username
+                this.email = response.data.email
+              })
+              .catch((errors) => {
+              })
         },
         
 
@@ -176,6 +212,11 @@ export default {
       margin-top: 0;
       text-align: center;
       background: white;
+    }
+
+    .textfield {
+      padding: 0px 20px;
+      margin: 1%;
     }
 
     .content-title {

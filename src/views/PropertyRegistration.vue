@@ -85,12 +85,12 @@
           </v-col>
         </v-row>
         
-      <div class="input">
-        <ImageUpload
-          @upload-complete="uploadImageSuccess"
-        />
-      </div>
-    </form>
+        <div class="input">
+          <ImageUpload
+            @upload-complete="uploadImageSuccess"
+          />
+        </div>
+      </form>
       <div class="property-button">
         <RegisterButton
           class="mt-4"

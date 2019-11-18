@@ -2,7 +2,7 @@
   <div class="upload">
     <div>
       <v-file-input
-        :label="labelName"
+        :label="labelname"
         accept="image/*"
         filled
         prepend-icon="mdi-camera"
@@ -15,19 +15,19 @@
 <script>
   export default {
     name:'ImageUpload',
+    props: {
+      labelname: {
+        default: "",
+        type: String
+      },
+    },
+
     data(){
       return {
         imageURL: {},
         file: null,
         imageFile: '',
       }
-    },
-
-    props: {
-      labelName: {
-        default: "",
-        type: String
-      },
     },
 
     methods: {
