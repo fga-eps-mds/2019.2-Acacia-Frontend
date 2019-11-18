@@ -3,7 +3,7 @@
     <span class="ml-2 "> {{ imageURL.name }}</span>
     <div>
       <v-file-input
-        :label="$t('TreeRegister.image')"
+        :label="labelName"
         accept="image/*"
         filled
         prepend-icon="mdi-camera"
@@ -23,6 +23,13 @@
         file: null,
         imageFile: '',
       }
+    },
+
+    props: {
+      labelName: {
+        default: "",
+        type: String
+      },
     },
 
     methods: {

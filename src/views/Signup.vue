@@ -60,39 +60,39 @@
     import axios from "axios";
 
 export default {
-      components: {
-      TopBar,
-      TextField,
-      SignButton
-    },
+  components: {
+    TopBar,
+    TextField,
+    SignButton
+  },
   data() {
     return {
       username: "",
-    email: "",
-    password: "",
-    confirm_password: ""
-  };
-},
+      email: "",
+      password: "",
+      confirm_password: ""
+    };
+  },
   methods: {
-      signup() {
+    signup() {
       if (!this.validateInput()) {
         return;
-  }
+      }
       let data = {
-      email: this.email,
-    username: this.username,
-    password: this.password,
-    confirm_password: this.confirm_password
-  };
+        email: this.email,
+        username: this.username,
+        password: this.password,
+        confirm_password: this.confirm_password
+      };
       let dataToken = {
-      email: this.email,
-    password: this.password
-  };
-  const baseURL = this.$store.state.baseURL;
-  axios
-    .post(baseURL + "users/signup/", data)
-        .then(() => {
+        email: this.email,
+        password: this.password
+      };
+      const baseURL = this.$store.state.baseURL;
       axios
+      .post(baseURL + "users/signup/", data)
+      .then(() => {
+        axios
         .post(baseURL + "users/token/", dataToken)
         .then(response => {
           this.$store.state.authUser(
@@ -103,56 +103,56 @@ export default {
             .show(this.$t("SignPages.positiveStatus"))
             .goAway(2000);
             router.push({ name: 'dashboard' })
+          })
+          .catch(() => {
+            router.push({ name: "signin" });
+          });
         })
-        .catch(() => {
-          router.push({ name: "signin" });
-        });
-})
         .catch(error => {
           if (error.response.data.email) {
-      this.$toasted.show(error.response.data.email).goAway(2000);
-  }
+            this.$toasted.show(error.response.data.email).goAway(2000);
+          }
           if (error.response.data.username) {
-      this.$toasted.show(error.response.data.username).goAway(2000);
-  }
+            this.$toasted.show(error.response.data.username).goAway(2000);
+          }
           if (error.response.data.password) {
-      this.$toasted.show(error.response.data.password).goAway(2000);
-  }
-});
-},
+            this.$toasted.show(error.response.data.password).goAway(2000);
+          }
+      });
+    },
     validateInput() {
       if (!this.username) {
-      this.$toasted.show(this.$t("SignPages.requireName")).goAway(2000);
-    return false;
-  }
+        this.$toasted.show(this.$t("SignPages.requireName")).goAway(2000);
+        return false;
+      }
       if (!this.email) {
-      this.$toasted.show(this.$t("SignPages.requireEmail")).goAway(2000);
-    return false;
-  }
+        this.$toasted.show(this.$t("SignPages.requireEmail")).goAway(2000);
+        return false;
+      }
       if (!this.password) {
-      this.$toasted.show(this.$t("SignPages.requirePassword")).goAway(2000);
-    return false;
-  }
+        this.$toasted.show(this.$t("SignPages.requirePassword")).goAway(2000);
+        return false;
+      }
       if (this.password.length < 8) {
-      this.$toasted
+        this.$toasted
         .show(this.$t("SignPages.requreValidPassword"))
         .goAway(2000);
-  return false;
-}
+        return false;
+      }
       if (this.confirm_password != this.password) {
-      this.$toasted
+        this.$toasted
         .show(this.$t("SignPages.requirePasswordCorrespondance"))
         .goAway(2000);
-  return false;
-}
-      let emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i
-      if (emailRegex.test(String(this.email).toLowerCase())) {
-      this.$toasted.show(this.$t("SignPages.requireValidEmail")).goAway(2000);
-    return false;
+        return false;
+      }
+        let emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i
+        if (emailRegex.test(String(this.email).toLowerCase())) {
+        this.$toasted.show(this.$t("SignPages.requireValidEmail")).goAway(2000);
+        return false;
+      }
+      return true;
+    }
   }
-  return true;
-}
-}
 };
 </script>
 
