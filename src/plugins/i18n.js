@@ -91,6 +91,10 @@ const messages = {
             subscribed: "Subscribed harvests",
             weekharvests: "Week harvests",
         },
+        TopBar: {
+            mensagePlus: "Register a property to register a harvest.",
+            buttonPlus: "Register"
+        }
     },
     'pt': {
           SignPages: {
@@ -179,6 +183,10 @@ const messages = {
             subscribed: "Colheitas inscritas",
             weekharvests: "Colheitas da semana",
         },
+        TopBar: {
+            mensagePlus: "Cadastre uma propriedade para cadastrar uma colheita.",
+            buttonPlus: "Cadastrar"
+        }
     },
 }
 

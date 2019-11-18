@@ -10,8 +10,9 @@
       </div>
 
       <div class="tree-form">
-        <v-select style="margin-left: 5px;"
+        <v-select 
           v-model="tree_type"
+          style="margin-left: 5px;"
           :items="tree_types"
           :label="$t('TreeRegister.type')"
         />
@@ -37,8 +38,9 @@
             />
           </v-col>
         </v-row>
-        <v-select style="margin-left: 5px;"
+        <v-select
           v-model="months"
+          style="margin-left: 5px;"
           :items="month_items"
           attach
           chips

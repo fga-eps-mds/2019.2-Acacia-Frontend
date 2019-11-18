@@ -21,6 +21,8 @@
       />
     </div>
     <ModalCard
+      :mensagefield="mensage"
+      :buttonlabel="button"
       :valuemodel="changeDialog"
     />
   </div>
@@ -50,6 +52,11 @@ export default {
       type: String
     },
   },
+
+  data: () => ({
+    button: '',
+    mensage: '',
+  }),
 
   computed: {
     iconDislay: function() {
@@ -87,11 +94,13 @@ export default {
             router.push({ name: 'harvestRegistration' })
           }
           else{
+            this.mensage=this.$t('TopBar.mensagePlus')
+            this.button=this.$t('TopBar.buttonPlus') 
             this.changeDialog = true
           }
         })
         .catch(error => {
-          console.log(error.response)
+          console.log(error)
         })
       
       }

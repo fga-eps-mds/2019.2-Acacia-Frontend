@@ -12,33 +12,38 @@
       </div>
 
       <div class="content-form">
-        <TextField style = "padding-bottom: 10px"
+        <TextField 
           v-model="BRZipCode"
+          style="padding-bottom: 10px"
           label="CEP"
           color="#949090"
           bordercolor="#949090"
         />
-        <SelectField style = "padding-bottom: 10px"
+        <SelectField 
           v-model="state"
+          style="padding-bottom: 10px"
           label="Estado"
           color="#949090"
           bordercolor="#C4C4C4"
           :items="brstates"
         />
-        <TextField style = "padding-bottom: 10px"
+        <TextField 
           v-model="city"
+          style="padding-bottom: 10px"
           label="Cidade"
           color="#949090"
           bordercolor="#C4C4C4"
         />
-        <TextField style = "padding-bottom: 10px"
+        <TextField 
           v-model="district"
+          style="padding-bottom: 10px"
           label="Bairro"
           color="#949090"
           bordercolor="#C4C4C4"
         />
-        <TextField style = "padding-bottom: 10px"
+        <TextField 
           v-model="address"
+          style="padding-bottom: 10px"
           label="Endereço"
           color="#949090"
           bordercolor="#C4C4C4"

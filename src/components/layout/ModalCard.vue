@@ -9,7 +9,7 @@
       <v-card-text 
         class="text-card"
       >
-        Cadastre uma propriedade para cadastrar uma colheita. 
+        {{ mensagefield }}
       </v-card-text>
 
       <v-divider />
@@ -18,7 +18,7 @@
         <SignButton
           buttonstyle="color: white"
           color="bg-color-primary"
-          label="Cadastrar"
+          :label="buttonlabel"
           class="content-button"
           @action="cadastrar"
         />
@@ -34,6 +34,16 @@ import router from '@/router'
 export default {
   components: {
     SignButton,
+  },
+  props: {
+    buttonlabel: {
+      default: "",
+      type: String,
+    },
+    mensagefield: {
+      default: "",
+      type: String,
+    },
   },
   computed:{
     changeModel: {
