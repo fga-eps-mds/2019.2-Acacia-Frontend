@@ -3,27 +3,27 @@
     v-model="changeModel"
     width="500"
   >
-  <v-card
-    class="content-card"
-  >
-    <v-card-text 
-      class="text-card"
+    <v-card
+      class="content-card"
     >
-      Cadastre uma propriedade para cadastrar uma colheita. 
-    </v-card-text>
+      <v-card-text 
+        class="text-card"
+      >
+        Cadastre uma propriedade para cadastrar uma colheita. 
+      </v-card-text>
 
-    <v-divider></v-divider>
+      <v-divider />
 
-    <v-card-actions>
-      <SignButton
-        buttonstyle="color: white"
-        color="bg-color-primary"
-        label="Cadastrar"
-        class="content-button"
-        @action="cadastrar"
-      />
-    </v-card-actions>
-  </v-card>
+      <v-card-actions>
+        <SignButton
+          buttonstyle="color: white"
+          color="bg-color-primary"
+          label="Cadastrar"
+          class="content-button"
+          @action="cadastrar"
+        />
+      </v-card-actions>
+    </v-card>
   </v-dialog>
 </template>
 
@@ -35,12 +35,6 @@ export default {
   components: {
     SignButton,
   },
-  methods: {
-    cadastrar() {
-      this.changeModel = false
-      router.push({ name: 'propertyRegistration' })   
-    }
-  },
   computed:{
     changeModel: {
       get: function() {
@@ -50,7 +44,13 @@ export default {
         this.$store.state.modalCardOn = value
       }
     }
-  }
+  },
+  methods: {
+    cadastrar() {
+      this.changeModel = false
+      router.push({ name: 'propertyRegistration' })   
+    }
+  },
 }
 </script>
 
