@@ -138,8 +138,6 @@
   import SignButton from '@/components/input/SignButton'
   import { required, numeric } from 'vuelidate/lib/validators'
   import Snackbar from '@/components/input/Snackbar'
-  import router from "@/router"
-  import axios from "axios"
   
   export default {
     components: {
@@ -183,41 +181,40 @@
         const errors = []
         if (!this.$v.tree_type.$dirty) return errors
         !this.$v.tree_type.required && errors
-          .push('Tree type cant be black!')
+          .push('Tree type must be filled!')
         return errors
       },
       number_of_tree_errors () {
         const errors = []
         if (!this.$v.number_of_tree.$dirty) return errors
         !this.$v.number_of_tree.required && errors
-          .push('Number of tree cant be black.')
+          .push('Number of tree must be filled.')
         return errors
       },
       height_fruit_errors () {
         const errors = []
         if (!this.$v.height_fruit.$dirty) return errors
          !this.$v.height_fruit.required && errors
-         .push('Height fruits cant be black.')
+         .push('Height fruits must be filled.')
         return errors
       },
       months_errors () {
         const errors = []
         if (!this.$v.months.$dirty) return errors
          !this.$v.months.required && errors
-          .push('Fruinting Months is required.')
+          .push('Fruinting Months must be filled.')
         return errors
       }, 
       haverst_for_year_errors () {
         const errors = []
         if (!this.$v.haverst_for_year.$dirty) return errors
          !this.$v.haverst_for_year.required && errors
-          .push('Haverst fo year cant be black')
+          .push('Haverst fo year must be filled')
         return errors
       }, 
     },
     created() {
       let state = this.$store.state
-      let toasted = this.$toasted
       state.authRequest("properties/", "GET")
       .then((response) => {
         let property_array = response.data
@@ -303,9 +300,11 @@
             state.authRequest('properties/' + this.propertyCard.pk + '/trees/' + tree_pk + '/harvest_months/',
                               "POST", month_data)
             .then((response) =>{
-              })
-            .catch((error) => {})
+              console.log(response)
+            })
+            .catch((error) => {console.log(error)})
           }
+          console.log(response)
           this.$store.commit('snackbar/showMessage', {
             message: 'Tree successfully registered!',
             color: 'success',
@@ -313,8 +312,9 @@
           this.$router.push({ name: 'dashboard' })
         })
         .catch((error) => {
+          console.log(error)
           this.$store.commit('snackbar/showMessage', {
-            message: 'Deu ruim',
+            message: 'There was a problem registering your tree',
             color: 'error',
           })
         })

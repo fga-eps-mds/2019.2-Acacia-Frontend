@@ -8,35 +8,41 @@
      
       <form class="signup-form">
         <v-text-field
-          v-model="username"
+          v-model.lazy="username"
           :error-messages="usernameErrors"
           label="Name"
           dark
           color="light-green accent-3"
+          clearable
           required
+          v-on:keydown="isUniqueUsername=''"
           @input="$v.username.$touch()"
           @blur="$v.username.$touch()"
         />
 
         <v-text-field
-          v-model="email"
+          v-model.lazy="email"
           :error-messages="emailErrors"
           label="E-mail"
           dark
           color="light-green accent-3"
+          clearable
           required
+          v-on:keydown="isUniqueEmail=''"
           @input="$v.email.$touch()"
           @blur="$v.email.$touch()"
         />
         
         <v-text-field
-          v-model="password"
+          v-model.lazy="password"
           :error-messages="passwordErrors"
           label="Password"
           dark
-          color="light-green accent-3"
-          type="password"
+          color="light-green accent-3"      
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="showPassword ? 'text' : 'password'"
           required
+          @click:append="showPassword = !showPassword"
           @input="$v.password.$touch()"
           @blur="$v.password.$touch()"
         />
@@ -45,10 +51,12 @@
           v-model="confirmPassword"
           :error-messages="confirmPasswordErrors"
           label="Confirm Password"
-          type="password"
           dark
           color="light-green accent-3"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="showPassword ? 'text' : 'password'"
           required
+          @click:append="showPassword = !showPassword"
           @input="$v.confirmPassword.$touch()"
           @blur="$v.confirmPassword.$touch()"
         />
@@ -71,9 +79,7 @@
   import SignButton from '@/components/input/SignButton.vue'
   import Snackbar from '@/components/input/Snackbar.vue'
   import { required, email, sameAs, minLength } from 'vuelidate/lib/validators'
-
-  import axios from "axios";
-
+  
   export default {
     components: {
     TopBar,
@@ -85,12 +91,28 @@
         username: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        showPassword: false,
+        confirmPassword: '',
+        isUniqueEmail: '',
+        isUniqueUsername: '',
       }
     },
     validations: {
-      username: { required },
-      email: { required, email },
+      username: { 
+        required, 
+        isUnique(){
+          if (this.isUniqueUsername === '') return true
+           else return false          
+        }
+      },  
+      email: { 
+        required, 
+        email,
+        isUnique(){
+          if (this.isUniqueEmail === '') return true
+          else return false  
+        }
+      },
       password: { required, minLength: minLength(8) },
       confirmPassword: { required, sameAsPassword: sameAs('password') },
     },
@@ -99,7 +121,9 @@
         const errors = []
         if (!this.$v.username.$dirty) return errors
         !this.$v.username.required && errors
-          .push('Name is required.')
+          .push('Name must be filled.')
+        !this.$v.username.isUnique && errors
+          .push('This username is already registered')
         return errors
       },
       emailErrors () {
@@ -108,14 +132,16 @@
         !this.$v.email.email && errors
           .push('Must be valid e-mail')
         !this.$v.email.required && errors
-          .push('E-mail is required')
+          .push('E-mail must be filled')
+        !this.$v.email.isUnique && errors
+          .push('This Email is already registered')
         return errors
       },
       passwordErrors () {
         const errors = []
         if (!this.$v.password.$dirty) return errors
         !this.$v.password.required && errors
-          .push('Password is required.')
+          .push('Password must be filled.')
         !this.$v.password.minLength && errors
           .push('Password must be minumum of 8 characters.')
         return errors
@@ -124,9 +150,9 @@
         const errors = []
         if (!this.$v.confirmPassword.$dirty) return errors
         !this.$v.confirmPassword.required && errors
-          .push(' Confirm Password is required.')
+          .push(' Confirm Password must be filled.')
         !this.$v.confirmPassword.sameAsPassword && errors
-          .push('Your password and confirmation password do not match.')
+          .push('Passwords must be identical.')
         return errors
       },
     },
@@ -137,11 +163,16 @@
         this.username = ''
         this.email = ''
         this.password = ''
-        this.confirmPassword = ''
+        this.confirmPassword = '',
+        this.isUniqueEmail = ''
+        this.isUniqueUsername = ''
+      },
+      clearError () {
+        this.isUniqueEmail = ''
+        this.isUniqueUsername = ''
       },
       signup() {
         this.$v.$touch();
-      
         if (this.$v.$invalid) {
           return
         }
@@ -155,37 +186,49 @@
           email: this.email,
           password: this.password
         }
-        const baseURL = this.$store.state.baseURL;
-        axios.post(baseURL + "users/signup/", data)
+        // const baseURL = this.$store.state.baseURL;
+        // axios.post(baseURL + "users/signup/", data)
+        
+        this.$http.post('users/signup/', data)
           .then(() => {
             this.$store.commit('snackbar/showMessage', {
-                message: 'Account successfully created',
+              message: this.$t('SignPages.positiveStatus'),
                 color: 'success',
             })
-
-            axios.post(baseURL + "users/token/", dataToken)
+            this.$http.post('users/token/', data)
               .then(response => {
-                this.$store.commit('snackbar/showMessage', {
-                  message: this.$t('SignPages.positiveStatus'),
-                  color: 'error',
-                })    
                 this.$store.state.authUser(
                   response.data["access"],
                   response.data["refresh"]
                 );
-                this.$router.push({ name: "dashboard" })
+                this.$store.commit('snackbar/showMessage', {
+                  message: 'Account successfully created',
+                  color: 'success',
+                })    
+                setTimeout(() => {
+                  this.clearForm
+                  this.$router.push({ name: "dashboard" })
+                }, 2000); 
               })
               .catch((error) => {
                 this.$store.commit('snackbar/showMessage', {
-                  message: '1There was a problem signing in to your account',
+                  message: 'There was a problem signing in to your account',
                   color: 'error',
                 })
-                this.$router.push({ name: "signin" })
+                setTimeout(() => {
+                  this.$router.push({ name: "signin" })
+                }, 2000); 
               })
           })
-          .catch((error) => {
+          .catch(error => {
+            if (error.response.data.email) {
+              this.isUniqueEmail = error.response.data.email[0]
+            } 
+            if (error.response.data.username) {
+              this.isUniqueUsername = error.response.data.username[0]
+            }
             this.$store.commit('snackbar/showMessage', {
-              message: '2There were problems creating your account',
+              message: 'There was a problem create account',
               color: 'error',
             })          
           })

@@ -19,6 +19,7 @@
           label="E-mail"
           dark
           color="light-green accent-3"
+          required
           @input="$v.email.$touch()"
           @blur="$v.email.$touch()"
         />
@@ -32,6 +33,7 @@
           color="light-green accent-3"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           :type="showPassword ? 'text' : 'password'"
+          required
           @click:append="showPassword = !showPassword"
           @input="$v.password.$touch()"
           @blur="$v.password.$touch()"
@@ -62,7 +64,7 @@
 <script>
 import TopBar from '@/components/layout/TopBar'
 import SignButton from '@/components/input/SignButton'
-import { email, minLength } from 'vuelidate/lib/validators'
+import { email, minLength, required } from 'vuelidate/lib/validators'
 import Snackbar from '@/components/input/Snackbar.vue'
 
 const touchMap = new WeakMap()
@@ -83,8 +85,8 @@ export default {
   },
   
   validations: {
-    email: { email },
-    password: { minLength: minLength(8) },
+    email: { required, email },
+    password: { required, minLength: minLength(8) },
   },
 
   computed: {
@@ -93,6 +95,8 @@ export default {
       if (!this.$v.email.$dirty) return errors
       !this.$v.email.email && errors
         .push('Must be valid e-mail')
+      !this.$v.email.required && errors
+        .push('Email must be filled.')
       return errors
     },
     passwordErrors () {
@@ -100,8 +104,10 @@ export default {
       if (!this.$v.password.$dirty) return errors
       !this.$v.password.minLength && errors
         .push('Password must be minumum of 8 characters.')
+      !this.$v.password.required && errors
+        .push('Password must be filled.')
       return errors
-    }
+    },
   },
 
   methods: {
@@ -110,7 +116,6 @@ export default {
       this.email = ''
       this.password = ''
     },
-
     delayTouch($v) {
       $v.$reset()
       if (touchMap.has($v)) {
@@ -128,26 +133,31 @@ export default {
         email: this.email,
         password: this.password
       }
-      let state = this.$store.state
-      
-      this.$store.state.noAuthRequest('users/token/', 'POST', data)
+             
+      this.$http.post('users/token/', data)
         .then((response) => {
+          this.$store.state.authUser(
+            response.data["access"],
+            response.data["refresh"]
+          );
           this.$store.commit('snackbar/showMessage', {
-            message: "Deu bom",
-            //message: this.$t('SignPages.positiveStatus'),
+            message: this.$t('SignPages.positiveStatus'),
             color: 'success',
-          })
-          this.$store.state.authUser(response.data['access'], response.data['refresh'])
-          this.$router.push({ name: 'dashboard' })
-          
+          })    
+          setTimeout(() => {
+            this.$router.push({ name: "dashboard" })
+          }, 2000); 
         })
-        .catch(() => {
+        .catch((error) => {
           this.$store.commit('snackbar/showMessage', {
-            message: "teste catch",
-            // message: this.$t('SignPages.negativeStatus'),
+            message: this.$t('SignPages.negativeStatus'),
             color: 'error',
           })
-          router.push({ name: "signin" })
+        })
+        .finally(() => {
+          setTimeout(() => {
+             this.clearForm()
+          }, 2000)
         })
     },
   }

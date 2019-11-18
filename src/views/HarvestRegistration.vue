@@ -134,7 +134,6 @@
         !this.$v.min_volunteers.minValue && errors.push('minimum 2 volunteers.')
         !this.$v.min_volunteers.required && errors.push('Minimum Volunteers is required.')
         return errors
-        return errors
       },
       max_volunteersErrors () {
         const errors = []

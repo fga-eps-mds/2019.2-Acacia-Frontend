@@ -1,6 +1,5 @@
 <template>
   <div class="upload">
-    <!-- <span class="ml-2 "> {{ imageURL.name }}</span> -->
     <div>
       <v-file-input
         :label="$t('TreeRegister.image')"

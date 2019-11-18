@@ -122,7 +122,6 @@
 
 <script>
   import TopBar from '../components/layout/TopBar'
-  import TextField from '../components/input/TextField'
   import SelectField from '../components/input/SelectField'
   import RegisterButton from '../components/input/RegisterButton'
   import ImageUpload from '../components/input/ImageUpload'
@@ -174,37 +173,37 @@
         const errors = []
         if (!this.$v.type_of_address.$dirty) return errors
         !this.$v.type_of_address.required && errors
-          .push('type of address cant be black.!')
+          .push('type of address must be filled.')
         return errors
       },
       BRZipCode_errors () {
         const errors = []
         if (!this.$v.BRZipCode.$dirty) return errors
-        !this.$v.BRZipCode.required && errors.push('Zip Code cant be black.')
+        !this.$v.BRZipCode.required && errors.push('Zip Code must be filled.')
         return errors
       },
       city_errors () {
         const errors = []
         if (!this.$v.city.$dirty) return errors
-        !this.$v.city.required && errors.push('City cant be black.')
+        !this.$v.city.required && errors.push('City must be filled.')
         return errors
       },
       state_errors () {
         const errors = []
         if (!this.$v.state.$dirty) return errors
-        !this.$v.state.required && errors.push('State cant be black.')
+        !this.$v.state.required && errors.push('State must be filled.')
         return errors
       },
       district_errors () {
         const errors = []
         if (!this.$v.district.$dirty) return errors
-         !this.$v.district.required && errors.push('District cant be black.')
+         !this.$v.district.required && errors.push('District must be filled.')
         return errors
       },
       address_errors () {
         const errors = []
         if (!this.$v.address.$dirty) return errors
-         !this.$v.address.required && errors.push('Address cant be black.')
+         !this.$v.address.required && errors.push('Address must be filled.')
         return errors
       },      
 
@@ -240,17 +239,14 @@
           type_of_address: this.type_of_address,
         }
 
-
         let state = this.$store.state
-        let toasted = this.$toasted
-
         state.authRequest("properties/", "POST", data)
         .then((response) => {
-            this.$store.commit('snackbar/showMessage', {
-                message: 'Property successfully registered!',
+          this.$store.commit('snackbar/showMessage', {
+            message: 'Property successfully registered!',
                 color: 'success',
             })
-          this.$router.push({ name: 'home'})
+          this.$router.push({ name: 'dashboard'})
         })
         .catch((error) => {
             this.$store.commit('snackbar/showMessage', {
