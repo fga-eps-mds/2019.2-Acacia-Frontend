@@ -115,6 +115,7 @@
       </form>
       <div class="input">
         <ImageUpload
+          :labelName="$t('TreeRegister.image')"
           @upload-complete="uploadImageSuccess"
         />
       </div>

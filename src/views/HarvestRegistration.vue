@@ -4,9 +4,9 @@
       iconleft="chevron-left"
       color="color-primary"
     />
-    <div class="content-container">
-      <div class="content-title raleway-thin">
-        <h3> {{ $t('HarvestRegister.register') }} </h3>
+    <div class="harvest-container">
+      <div class="harvest-title raleway-thin">
+        <a> {{ $t('HarvestRegister.register') }} </a>
       </div>
 
       <form class="harvest-form">
@@ -14,15 +14,12 @@
           v-model="date"
           min="true"
           :label="$t('HarvestRegister.date')"
-          picked="today"
         />
 
         <v-text-field
           v-model="description"
-          class="mt-3"
-          :label="$t('HarvestRegister.description')"
-          color="#949090"
           :error-messages="descriptionErrors"
+          label="Description"
           required
           @input="$v.description.$touch()"
           @blur="$v.description.$touch()"
@@ -30,9 +27,7 @@
 
         <v-text-field
           v-model="equipment"
-          class="mt-3"
-          :label="$t('HarvestRegister.equipment')"
-          color="#949090"
+          label="Equipment"
         />
         <v-row>
           <v-col
@@ -97,7 +92,6 @@
   import StringList from '@/components/input/StringList'
   import Snackbar from '@/components/input/Snackbar.vue'
   import { required, minValue, maxValue } from 'vuelidate/lib/validators'
-
   export default {
     components: {
       TopBar,
@@ -106,7 +100,6 @@
       StringList,
       Snackbar,
     },
-
     data() {
       return {
         date: '',
@@ -118,14 +111,12 @@
         rules: [],
       }
     },
-
     validations: {
       date: { required },
       description: { required },
       min_volunteers: { required, minValue: minValue(2) },
       max_volunteers: { maxValue: maxValue(20) },
     },
-
     computed: {
       descriptionErrors () {
         const errors = []
@@ -158,7 +149,6 @@
         this.status= ''
         this.rules= []
       },
-
       delayTouch($v) {
         $v.$reset()
         if (touchMap.has($v)) {
@@ -166,19 +156,15 @@
         }
         touchMap.set($v, setTimeout($v.$touch, 1000))
       },
-
       registerHarvest(){
         this.$v.$touch()
-
         if (this.$v.$invalid) {
           return
         }
         let rules = []
-
         for (let i = 0; i < this.rules.length; i++) {
           rules.push({"description" : this.rules[i]})
         }
-
         let data = {
           date: this.date,
           description: this.description,
@@ -188,7 +174,6 @@
           status: 'Open',
           rules: rules
         }
-
         this.$store.state.authRequest('harvests', 'POST', data)
           .then((response) => {
             this.$store.commit('snackbar/showMessage', {
@@ -210,59 +195,57 @@
 </script>
 
 <style scoped lang="scss">
-  @import "../assets/stylesheets/colors.scss";
-  
-  .volunteer-quantity{
-    padding: 10px 15px;
-  }
-
-  .harvest-form {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    margin-top: 0;
-    text-align: center;
-    background: white;
-  }
-
-  .content-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: auto;
-    height: auto;
-    margin-top: 80px;
-    background: white;
-  }
-
-  .content-title {
-    width: 100%;
-    padding: 0px 25px;
-    margin-bottom: 10%;
-    color: $color-primary;
-    display: flex;
-    justify-content: left;
-  }
-
-  .content-button {
-    margin-top: 20px;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-  
-  .harvest {
-    display: flex;
-    height: 100vh;
-    align-items: flex-start;
-    justify-content: center;
-    background: white;
-  }
-
-  .harvest-button {
-    margin-top: 20px;
-  }
-
+@import "../assets/stylesheets/colors.scss";
+.harvest {
+  display: flex;
+  height: 100vh;
+  align-items: flex-start;
+  justify-content: center;
+  background: white;
+}
+.harvest-container{
+  width: 100%;
+  max-width:500px;
+  margin: 1px;
+}
+.harvest-title {
+  width: 100%;
+  padding: 0px 25px;
+  margin-top: 20%;
+  margin-bottom: 20%;
+  display: flex;
+  justify-content: left;
+  font-size: 30px;
+  font-weight: bold;
+  color: $color-primary-text-title;
+}
+.harvest-form {
+  width: 100%;
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.harvest-button {
+  margin-top: 20px;
+}
+// -----------------------
+.text-label{
+  color: $color-secundary-text;
+  padding: 15px 1% 0px 1% !important;
+  text-align: left;
+  font-size: 90%;
+}
+.status{
+  padding: 0px 20px;
+}
+.number-volunteers{
+  font-weight: bold;
+  font-size: 90%;
+  color: $color-secundary-text;
+  padding: 20px 0px 0px 0px;
+}
+.volunteer-quantity{
+  padding: 10px 15px;
+}
 </style>

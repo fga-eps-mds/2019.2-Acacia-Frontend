@@ -2,7 +2,7 @@
   <div class="upload">
     <div>
       <v-file-input
-        :label="$t('TreeRegister.image')"
+        :label="labelName"
         accept="image/*"
         filled
         prepend-icon="mdi-camera"
@@ -22,6 +22,14 @@
         imageFile: '',
       }
     },
+
+    props: {
+      labelName: {
+        default: "",
+        type: String
+      },
+    },
+
     methods: {
       addImage(file){
         let fr = new FileReader()

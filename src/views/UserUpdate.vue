@@ -6,31 +6,34 @@
     />
     <div class="content-container">
       <div class="content-title">
-        <h3> Editar conta </h3>
+        <h3> {{ $t('UserUpdate.edite_profile') }} </h3>
       </div>
       <div class="content-form">
-        <PhotoUpload
-          style="display:none"
-          @action="onFileSelected" 
-        />
         <TextField
           v-model="phone_number"
           class="mt-3"
-          label="Telefone"
+          :label="$t('UserUpdate.telephone')"
           color="#949090"
           :placeholder="phone_number"
         />
         <TextField 
           v-model="bio"
           class="mt-3"
-          label="Bio"
+          :label="$t('UserUpdate.bio')"
           color="#949090"
           :placeholder="bio"
         />
         <DatePicker 
+          min="true"
           v-model="birthdate"
-          :label="'Aniversário'"
+          :label="$t('UserUpdate.birthdate')"
         />
+        <div class="input">
+          <ImageUpload
+            @upload-complete="uploadImageSuccess"
+            :labelName="$t('UserUpdate.profile_photo')"
+          />
+        </div>
       </div>
       <div class="content-button">
         <SignButton 
@@ -45,7 +48,7 @@
 </template>
 
 <script>
-    import PhotoUpload from '../components/input/PhotoUpload.vue'
+    import ImageUpload from '../components/input/ImageUpload'
     import TextField from '../components/input/TextField.vue'
     import SignButton from '../components/input/SignButton.vue'
     import TopBar from '../components/layout/TopBar.vue'
@@ -57,7 +60,7 @@
 export default {
 
     components: {
-        PhotoUpload,
+        ImageUpload,
         SignButton,
         TextField,
         TopBar,
@@ -69,6 +72,7 @@ export default {
             email: '',
             phone_number: '',
             bio: '',
+            preview: {},
             birthdate: '',
             username: '',
             date: '',
@@ -78,54 +82,65 @@ export default {
         this.uploadProfile()
     },
     methods: {
+        uploadImageSuccess(imageFile, imagePath){
+          this.profileImage = imageFile
+          this.preview = imagePath
+        },
+
         onFileSelected(event){
             this.profileImage = event
         },
 
-        setDate() {
-            this.birthdate = this.date
-            this.birthdate = this.birthdate.substr(0 , 10)
-            console.log(this.birthdate)
-        },
+        updateProfile(){    
+          
+          if (!this.validateInput()) {
+            return
+          }
 
-        
-        getLimitDate() { // Return the current day in ISO 8601
-            let today = new Date()
-            return (today.getFullYear() - 14) + '-' + (today.getMonth()+1) + '-' + today.getDate()
-        },
+          let formData = new FormData()
+          if (this.profileImage !== null){
+            formData.append('photo', this.profileImage, this.preview.name)
+          }
+          formData.append("phone_number", Number(this.phone_number))
+          formData.append("bio", this.bio)
+          formData.append("birthdate", this.birthdate)
 
+          let state = this.$store.state
+          let toasted = this.$toasted
 
-        updateProfile(){     
-            
-            let formData = new FormData()
-            formData.append("photo", this.profileImage)
-            formData.append("phone_number", this.phone_number)
-            formData.append("bio", this.bio)
-            formData.append("birthdate", this.birthdate)
-
-            let state = this.$store.state
-            let toasted = this.$toasted
-
-            state.authRequest('users/profile/', 'PATCH', formData)
-                .then((response) => {
-                    toasted.show(response).goAway(2000)
-                    router.push({name: 'dashboard'})
-                })
-                .catch((errors) => {
-                    toasted.show(errors).goAway(2000)
-                })
+          state.authRequest('users/profile/', 'PATCH', formData)
+            .then((response) => {
+              this.$toasted.show(this.$t('UserUpdate.updatedUser')).goAway(2000)
+              router.push({ name: 'dashboard' }) 
+            })
+            .catch((errors) => {
+              console.log(errors)
+              if (errors.response.data.bio) {
+                this.$toasted.show(errors.response.data.bio).goAway(2000);
+              }
+              if (errors.response.data.birthdate) {
+                this.$toasted.show(errors.response.data.birthdate).goAway(2000);
+              }
+              if (errors.response.data.phone_number) {
+                this.$toasted.show(errors.response.data.phone_number).goAway(2000);
+              }
+              if (errors.response.data.photo) {
+                this.$toasted.show(errors.response.data.photo).goAway(2000);
+              }
+            })
         },
 
         validateInput(){
-            let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/igm
-            if (!this.email.match(emailRegex)) {
-                this.$toasted.show('Email digitado não é válido').goAway(2000)
-                return false
+            if(Number(this.phone_number) == NaN){
+              this.$toasted.show(this.$t('UserUpdate.requirePhoneNumber')).goAway(2000)
+              return false
+            }
+            if(this.bio.length > 800){
+              this.$toasted.show(this.$t('UserUpdate.requireBio')).goAway(2000)
+              return false
             }
             return true
         },
-
-
 
         uploadProfile(){    
             let state = this.$store.state
@@ -136,7 +151,6 @@ export default {
                     console.log(response)
                     this.phone_number = response.data.phone_number
                     this.bio = response.data.bio
-                    this.profileImage = response.data.photo
                     this.birthdate = response.data.birthdate
                     this.date = this.birthdate
                     this.username = response.data.username
@@ -174,6 +188,10 @@ export default {
         color: $color-primary;
         display: flex;
         justify-content: left; 
+    }
+
+    .input{
+      padding: 0px 20px;
     }
 
     .user-update{
