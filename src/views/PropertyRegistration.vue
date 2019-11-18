@@ -1,11 +1,11 @@
 <template>
   <div class="property">
-    <TopBar 
+    <TopBar
       iconleft="chevron-left"
       color="#2D9CDB"
     />
     <v-card>
-      <div class="property-container">
+      <div class="content-container">
         <div class="property-title">
           <a> Register property </a>
         </div>
@@ -22,8 +22,8 @@
                 @input="$v.BRZipCode.$touch()"
                 @blur="$v.BRZipCode.$touch()"
               />
-            </v-col>   
-            <v-col cols="6"> 
+            </v-col>
+            <v-col cols="6">
               <v-autocomplete
                 v-model="type_of_address"
                 required
@@ -33,9 +33,9 @@
                 @input="$v.type_of_address.$touch()"
                 @blur="$v.type_of_address.$touch()"
               />
-            </v-col>   
-          </v-row> 
-          
+            </v-col>
+          </v-row>
+
           <v-text-field
             ref="address"
             v-model="address"
@@ -45,7 +45,7 @@
             @input="$v.address.$touch()"
             @blur="$v.address.$touch()"
           />
-          
+
           <v-text-field
             ref="district"
             v-model="district"
@@ -85,38 +85,24 @@
               />
             </v-col>
           </v-row>
-        </form>
-        <div class="image-container ">
-          <v-row 
-            align="center" 
-            justify="center"
-          >
-            <v-img
-              :src="preview.path"
-              lazy-src="preview.path"
-              aspect-ratio="1"
-              max-width="330"
-              max-height="200"
-              class="grey lighten-2"
-            />
-          </v-row>
-        </div> 
+
         <div class="input">
           <ImageUpload
-            @upload-complete="uploadImageSuccess"    
-          />   
+            @upload-complete="uploadImageSuccess"
+          />
         </div>
+      </form>
 
         <div class="property-button">
           <RegisterButton
-            class="mt-4" 
-            label="Cadastrar" 
+            class="mt-4"
+            label="Cadastrar"
             @action="registerProperty"
-          />        
+          />
         </div>
       </div>
     </v-card>
-    <Snackbar @reset="clearForm" />    
+    <Snackbar @reset="clearForm" />
   </div>
 </template>
 
@@ -146,17 +132,17 @@
         address: '',
         tree_picture: null,
         preview: {},
-        brstates: ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 
-        'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 
+        brstates: ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF',
+        'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR',
         'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'],
         adrchoises: [
-          'Apartment', 
-          'House', 
-          'Farm', 
+          'Apartment',
+          'House',
+          'Farm',
           'Other'
         ]
       }
-      
+
     },
 
     validations: {
@@ -205,7 +191,7 @@
         if (!this.$v.address.$dirty) return errors
          !this.$v.address.required && errors.push('Address must be filled.')
         return errors
-      },      
+      },
 
     },
     methods: {
@@ -217,8 +203,8 @@
         this.city= ''
         this.district= ''
         this.address= ''
-      }, 
-      
+      },
+
       uploadImageSuccess(imageFile, imagePath){
           this.tree_picture = imageFile
           this.preview = imagePath
@@ -226,10 +212,10 @@
 
       registerProperty(){
         this.$v.$touch()
-      
+
         if (this.$v.$invalid) {
           return
-        }  
+        }
         let data = {
           BRZipCode: this.BRZipCode,
           state: this.state,
@@ -269,10 +255,14 @@
   align-items: center;
   justify-content: center;
 }
-.property-container{
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  max-width:500px;
-  margin: 1px;
+  height: 100%;
+  background-image: none;
 }
 
 .property-title {
@@ -299,7 +289,7 @@
   margin-bottom: 25px;
   color: $color-default-text;
   font-family: RobotoBold;
- 
+
 }
 
 .image-container {
