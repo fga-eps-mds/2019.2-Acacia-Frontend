@@ -12,6 +12,7 @@
       <form class="tree-form">
         <v-autocomplete
           v-model="tree_type"
+          style="margin-left: 5px;"
           :items="tree_types"
           :error-messages="tree_type_errors"
           :label="$t('TreeRegister.type')"
@@ -114,6 +115,7 @@
       </form>
       <div class="input">
         <ImageUpload
+          :labelName="$t('TreeRegister.image')"
           @upload-complete="uploadImageSuccess"
         />
       </div>

@@ -8,6 +8,7 @@ import CalendarPage from '@/views/CalendarPage'
 import PropertyRegistration from '@/views/PropertyRegistration'
 import HarvestRegistration from '@/views/HarvestRegistration'
 import TreeRegistration from '@/views/TreeRegistration'
+import UserUpdate from '@/views/UserUpdate'
 import Dashboard from '@/views/Dashboard'
 import store from './store'
 import HarvestView from '@/views/HarvestView'
@@ -82,6 +83,12 @@ export default new Router({
           name: 'harvestView',
           component: HarvestView,
           props: true,
+        },
+        {
+          path: '/user/update',
+          name: 'userupdate',
+          component: UserUpdate,
+          beforeEnter: ifAuthenticated,
         },
     ]
 })

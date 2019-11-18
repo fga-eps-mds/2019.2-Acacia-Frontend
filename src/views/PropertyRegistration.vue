@@ -4,104 +4,101 @@
       iconleft="chevron-left"
       color="#2D9CDB"
     />
-    <v-card>
-      <div class="content-container">
-        <div class="property-title">
-          <a> Register property </a>
-        </div>
-        <form class="property-form">
-          <v-row>
-            <v-col cols="6">
-              <v-text-field
-                ref="BRZipCode"
-                v-model="BRZipCode"
-                type="number"
-                required
-                :error-messages="BRZipCode_errors"
-                label="ZIP Code"
-                @input="$v.BRZipCode.$touch()"
-                @blur="$v.BRZipCode.$touch()"
-              />
-            </v-col>
-            <v-col cols="6">
-              <v-autocomplete
-                v-model="type_of_address"
-                required
-                :error-messages="type_of_address_errors"
-                :items="adrchoises"
-                label="Type of address"
-                @input="$v.type_of_address.$touch()"
-                @blur="$v.type_of_address.$touch()"
-              />
-            </v-col>
-          </v-row>
+    <div class="content-container">
+      <div class="property-title">
+        <a> Register property </a>
+      </div>
+      <form class="property-form">
+        <v-row>
+          <v-col cols="6">
+            <v-text-field
+              ref="BRZipCode"
+              v-model="BRZipCode"
+              type="number"
+              required
+              :error-messages="BRZipCode_errors"
+              label="ZIP Code"
+              @input="$v.BRZipCode.$touch()"
+              @blur="$v.BRZipCode.$touch()"
+            />
+          </v-col>
+          <v-col cols="6">
+            <v-autocomplete
+              v-model="type_of_address"
+              required
+              :error-messages="type_of_address_errors"
+              :items="adrchoises"
+              label="Type of address"
+              @input="$v.type_of_address.$touch()"
+              @blur="$v.type_of_address.$touch()"
+            />
+          </v-col>
+        </v-row>
 
-          <v-text-field
-            ref="address"
-            v-model="address"
-            required
-            :error-messages="address_errors"
-            label="Address"
-            @input="$v.address.$touch()"
-            @blur="$v.address.$touch()"
-          />
+        <v-text-field
+          ref="address"
+          v-model="address"
+          required
+          :error-messages="address_errors"
+          label="Address"
+          @input="$v.address.$touch()"
+          @blur="$v.address.$touch()"
+        />
+        <v-text-field
+          ref="district"
+          v-model="district"
+          required
+          :error-messages="district_errors"
+          label="District"
+          @input="$v.district.$touch()"
+          @blur="$v.district.$touch()"
+        />
 
-          <v-text-field
-            ref="district"
-            v-model="district"
-            required
-            :error-messages="district_errors"
-            label="District"
-            @input="$v.district.$touch()"
-            @blur="$v.district.$touch()"
-          />
+        <v-row>
+          <v-col
+            cols="6"
+          >
+            <v-text-field
+              ref="city"
+              v-model="city"
+              required
+              :error-messages="city_errors"
+              label="City"
+              @input="$v.city.$touch()"
+              @blur="$v.city.$touch()"
+            />
+          </v-col>
 
-          <v-row>
-            <v-col
-              cols="6"
-            >
-              <v-text-field
-                ref="city"
-                v-model="city"
-                required
-                :error-messages="city_errors"
-                label="City"
-                @input="$v.city.$touch()"
-                @blur="$v.city.$touch()"
-              />
-            </v-col>
-            <v-col
-              cols="6"
-            >
-              <v-autocomplete
-                ref="state"
-                v-model="state"
-                required
-                :items="brstates"
-                label="State"
-                :error-messages="state_errors"
-                @input="$v.state.$touch()"
-                @blur="$v.state.$touch()"
-              />
-            </v-col>
-          </v-row>
-
+          <v-col
+            cols="6"
+          >
+            <v-autocomplete
+              ref="state"
+              v-model="state"
+              required
+              :items="brstates"
+              label="State"
+              :error-messages="state_errors"
+              @input="$v.state.$touch()"
+              @blur="$v.state.$touch()"
+            />
+          </v-col>
+        </v-row>
+        
         <div class="input">
           <ImageUpload
             @upload-complete="uploadImageSuccess"
           />
         </div>
       </form>
-
-        <div class="property-button">
-          <RegisterButton
-            class="mt-4"
-            label="Cadastrar"
-            @action="registerProperty"
-          />
-        </div>
+      <div class="property-button">
+        <RegisterButton
+          class="mt-4"
+          label="Cadastrar"
+          @action="registerProperty"
+        />
       </div>
-    </v-card>
+    </div>
     <Snackbar @reset="clearForm" />
   </div>
 </template>
