@@ -1,7 +1,15 @@
 <template>
   <div>
-    <TopBar iconleft="chevron-left" iconright="comment" class="top-bar"/>
-    <div v-if="!harvestFound" class="container mt-5">
+    <TopBar iconleft="chevron-left" class="top-bar"/>
+    <div v-if="!getResponseReceived"> 
+      <v-progress-circular
+        :size="80"
+        color="primary"
+        style="margin-top: 200px"
+        indeterminate
+      ></v-progress-circular>
+    </div>
+    <div v-else-if="!harvestFound" class="container mt-5">
       <h1 class="raleway-regular mt-5">{{ $t('HarvestView.harvestNotFound') }}</h1>
       <SignButton 
         label="Dashboard"
@@ -114,7 +122,11 @@ export default {
           this.harvest = response.data;
           this.getProperty()
         })
-        .catch(() => {});
+        .catch(() => {
+        })
+        .finally(() => {
+          this.getResponseReceived = true
+        })
     },
     getProperty() {
       this.$store.state
@@ -141,6 +153,7 @@ export default {
   data() {
     return {
       harvestFound: false,
+      getResponseReceived: false,
       harvest: {},
       property: {},
     };
