@@ -1,28 +1,34 @@
 <template>
-  <div class="harvest-form">
+  <div class="harvest">
     <TopBar
       iconleft="chevron-left"
       color="color-primary"
-      style="background-color: white"
     />
     <div class="content-container">
-      <div class="content-title">
+      <div class="content-title raleway-thin">
         <h3> {{ $t('HarvestRegister.register') }} </h3>
       </div>
-      <div class="content-form">
+
+      <form class="harvest-form">
         <DatePicker
           v-model="date"
           min="true"
           :label="$t('HarvestRegister.date')"
           picked="today"
         />
-        <TextField
+
+        <v-text-field
           v-model="description"
           class="mt-3"
           :label="$t('HarvestRegister.description')"
           color="#949090"
+          :error-messages="descriptionErrors"
+          required
+          @input="$v.description.$touch()"
+          @blur="$v.description.$touch()"
         />
-        <TextField
+
+        <v-text-field
           v-model="equipment"
           class="mt-3"
           :label="$t('HarvestRegister.equipment')"
@@ -31,7 +37,7 @@
         <v-row>
           <v-col
             cols="12"
-            class="roboto-light color-secundary-text number-volunteers"
+            class="label-volunteers"
           >
             {{ $t('HarvestRegister.volunteerNumber') }}
           </v-col>
@@ -39,40 +45,39 @@
             cols="6"
             class="volunteer-quantity"
           >
-            <TextField
+            <v-text-field
               v-model="min_volunteers"
-              color="#949090"
-              bordercolor="#C4C4C4"
+              :error-messages="min_volunteersErrors"
+              label="Minimum"
               type="number"
-              :placeholder="$t('HarvestRegister.minimum')"
-              :placeholder-black="true"
+              required
+              @input="$v.min_volunteers.$touch()"
+              @blur="$v.min_volunteers.$touch()"
             />
           </v-col>
           <v-col
             cols="6"
             class="volunteer-quantity"
           >
-            <TextField
+            <v-text-field
               v-model="max_volunteers"
-              color="#949090"
-              bordercolor="#C4C4C4"
+              :error-messages="max_volunteersErrors"
+              label="Maximum"
               type="number"
-              :placeholder="$t('HarvestRegister.maximum')"
-              :placeholder-black="true"
+              required
+
+              @input="$v.max_volunteers.$touch()"
+              @blur="$v.max_volunteers.$touch()"
+            />
+          </v-col>
+          <v-col cols="12">
+            <StringList
+              v-model="rules"
             />
           </v-col>
         </v-row>
-        <div style="padding: 0px 20px">
-          <div class="col-12 text-color-default text-label">
-            {{ $t('HarvestRegister.rules') }}
-          </div>
-          <StringList
-            v-model="rules"
-            class="container"
-          />
-        </div>
-      </div>
-      <div class="content-button">
+      </form>
+      <div class="harvest-button">
         <SignButton
           :label="$t('HarvestRegister.creation')"
           padding="small"
@@ -81,24 +86,27 @@
         />
       </div>
     </div>
+    <Snackbar @reset="clearForm" />
   </div>
 </template>
 
 <script>
   import TopBar from '@/components/layout/TopBar'
-  import TextField from '@/components/input/TextField'
   import SignButton from '@/components/input/SignButton'
   import DatePicker from '@/components/input/DatePicker'
   import StringList from '@/components/input/StringList'
-  import router from "@/router"
+  import Snackbar from '@/components/input/Snackbar.vue'
+  import { required, minValue, maxValue } from 'vuelidate/lib/validators'
+
   export default {
     components: {
       TopBar,
-      TextField,
       SignButton,
       DatePicker,
       StringList,
+      Snackbar,
     },
+
     data() {
       return {
         date: '',
@@ -110,12 +118,61 @@
         rules: [],
       }
     },
+
+    validations: {
+      date: { required },
+      description: { required },
+      min_volunteers: { required, minValue: minValue(2) },
+      max_volunteers: { maxValue: maxValue(20) },
+    },
+
+    computed: {
+      descriptionErrors () {
+        const errors = []
+        if (!this.$v.description.$dirty) return errors
+        !this.$v.description.required && errors.push('Description is required.')
+        return errors
+      },
+      min_volunteersErrors () {
+        const errors = []
+        if (!this.$v.min_volunteers.$dirty) return errors
+        !this.$v.min_volunteers.minValue && errors.push('minimum 2 volunteers.')
+        !this.$v.min_volunteers.required && errors.push('Minimum Volunteers is required.')
+        return errors
+      },
+      max_volunteersErrors () {
+        const errors = []
+        if (!this.$v.max_volunteers.$dirty) return errors
+        !this.$v.max_volunteers.maxValue && errors.push('maximum 20 volunteers.')
+        return errors
+      },
+    },
     methods: {
+      clearForm () {
+        this.$v.$reset()
+        this.date= ''
+        this.description= ''
+        this.equipment= ''
+        this.max_volunteers= null
+        this.min_volunteers= null
+        this.status= ''
+        this.rules= []
+      },
+
+      delayTouch($v) {
+        $v.$reset()
+        if (touchMap.has($v)) {
+          clearTimeout(touchMap.get($v))
+        }
+        touchMap.set($v, setTimeout($v.$touch, 1000))
+      },
+
       registerHarvest(){
-        if (!this.validateInput()) {
+        this.$v.$touch()
+
+        if (this.$v.$invalid) {
           return
         }
-
         let rules = []
 
         for (let i = 0; i < this.rules.length; i++) {
@@ -134,104 +191,78 @@
 
         this.$store.state.authRequest('harvests', 'POST', data)
           .then((response) => {
-            this.$toasted.show('Colheita cadastrada').goAway(2000)
-            router.push({name: 'home'})
+            this.$store.commit('snackbar/showMessage', {
+                message: 'harvest successfully registered',
+                color: 'success',
+            })
+            this.$router.push({name: 'dashboard'})
           })
           .catch((error) => {
-            this.$toasted.show('Algum erro aconteceu, tente de novo').goAway(2000)
+            console.log(error)
+            this.$store.commit('snackbar/showMessage', {
+              message: 'There was a problem registering your harvest',
+              color: 'error',
+            })
           })
-      },
-
-      validateInput(){
-        if (!this.date) {
-          this.$toasted.show('Insira a data').goAway(2000)
-          return false
         }
-        if (!this.min_volunteers) {
-          this.$toasted.show('Insira o número minimo de voluntários').goAway(2000)
-          return false
-        }
-        if (!this.max_volunteers) {
-          this.$toasted.show('Insira o número máximo de voluntários').goAway(2000)
-          return false
-        }
-        if (parseInt(this.min_volunteers) > parseInt(this.max_volunteers)) {
-          this.$toasted.show('Insira corretamente o número de voluntários').goAway(2000)
-          return false
-        }
-        if (this.rules.length > 10) {
-          this.$toasted.show('Diminua o número de regras da colheita').goAway(2000)
-          return false
-        }
-        return true
-      },
-    }
+      }
   }
 </script>
 
 <style scoped lang="scss">
-@import "../assets/stylesheets/colors.scss";
+  @import "../assets/stylesheets/colors.scss";
+  
+  .volunteer-quantity{
+    padding: 10px 15px;
+  }
 
-    .text-label{
-      color: $color-secundary-text;
-      padding: 15px 1% 0px 1% !important;
-      text-align: left;
-      font-size: 90%;
-    }
+  .harvest-form {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    margin-top: 0;
+    text-align: center;
+    background: white;
+  }
 
-    .status{
-      padding: 0px 20px;
-    }
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    margin-top: 80px;
+    background: white;
+  }
 
-    .number-volunteers{
-      font-weight: bold;
-      font-size: 90%;
-  		color: $color-secundary-text;
-      padding: 20px 0px 0px 0px;
-    }
+  .content-title {
+    width: 100%;
+    padding: 0px 25px;
+    margin-bottom: 10%;
+    color: $color-primary;
+    display: flex;
+    justify-content: left;
+  }
 
-    .volunteer-quantity{
-      padding: 10px 15px;
-    }
+  .content-button {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  .harvest {
+    display: flex;
+    height: 100vh;
+    align-items: flex-start;
+    justify-content: center;
+    background: white;
+  }
 
-    .harvest-form {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      margin-top: 0;
-      text-align: center;
-      background: white;
-    }
-
-    .content-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: auto;
-      height: auto;
-      margin-top: 80px;
-      background: white;
-    }
-
-    .content-title {
-      h3{
-        font-weight: bold;
-      }
-      width: 100%;
-      padding: 0px 25px;
-      margin-bottom: 10%;
-      color: $color-primary;
-      display: flex;
-      justify-content: left;
-    }
-
-    .content-button {
-      margin-top: 20px;
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-    }
+  .harvest-button {
+    margin-top: 20px;
+  }
 
 </style>

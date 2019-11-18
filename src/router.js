@@ -49,6 +49,7 @@ export default new Router({
       path: '/signup',
       name: 'signup',
       component: Signup,
+      beforeEnter: ifNotAuthenticated,
     },
     {
       name: 'propertyRegistration',
@@ -75,13 +76,14 @@ export default new Router({
     {
       path: '/user/update',
       name: 'userupdate',
-      component: UserUpdate
+      component: UserUpdate,
+      beforeEnter: ifAuthenticated,
     },
     {
-        name: 'treeRegistration',
-        path: '/tree/registration',
-        component: TreeRegistration,
-        beforeEnter: ifAuthenticated,
+      name: 'treeRegistration',
+      path: '/tree/registration',
+      component: TreeRegistration,
+      beforeEnter: ifAuthenticated,
     },
   ]
 })

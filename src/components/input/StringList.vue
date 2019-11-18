@@ -6,10 +6,13 @@
           cols="10"
           class="p-0"
         >
-          <TextField 
+          <v-text-field
             v-model="textfield"
-            color="#949090"
-            bordercolor="#C4C4C4" 
+            :error-messages="textfieldErrors"
+            label="Rules"
+            required
+            @input="$v.textfield.$touch()"
+            @blur="$v.textfield.$touch()"
           />
         </v-col>
         <v-col 
@@ -49,11 +52,8 @@
 </template>
 
 <script>
-import TextField from '@/components/input/TextField'
+import { required } from 'vuelidate/lib/validators'
 export default {
-  components: {
-    TextField,
-  },
   model: {
     prop: 'list',
     event: 'textfield-change'
@@ -66,10 +66,19 @@ export default {
   },
   data() {
     return {
-    textfield: ''
+    textfield: '',
     }
   },
+  validations: {
+    textfield: { required },
+  },
   computed: {
+    textfieldErrors () {
+      const errors = []
+      if (!this.$v.textfield.$dirty) return errors
+      !this.$v.textfield.required && errors.push('You must type something to add a new item!.')
+      return errors
+    },
     listLocal: {
       get: function() {
         return this.variable
@@ -80,13 +89,21 @@ export default {
     },
   },
   methods: {
+    clearForm() {
+        this.$v.$reset()
+        this.textfield = ''
+    },
     addNewListElementAndSaveLast() {
-      if (!this.textfield) {
-        this.$toasted.show('You must type something to add a new item!').goAway(2000)
+      this.$v.$touch()
+      
+      if (this.$v.$invalid) {
         return
       }
+
       this.list.push(this.textfield)
+      this.$v.$reset()
       this.textfield = ''
+      
     },
     eraseListElement(index) {
       this.list.splice(index, 1)
@@ -97,14 +114,11 @@ export default {
 
 <style lang="scss" scoped>
   @import "../../assets/stylesheets/colors.scss";
-
     #stringlist{
-      padding: 8px 0px !important;
+      padding: 3px 15px !important;
     }
-
     .icon{
       font-size:15px;
       color: $color-primary !important;
     }
-
 </style>

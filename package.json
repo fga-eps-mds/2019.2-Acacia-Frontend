@@ -35,6 +35,7 @@
     "vue-material-year-calendar": "^1.2.4",
     "vue-router": "^3.1.3",
     "vue-toasted": "^1.1.27",
+    "vuelidate": "^0.7.4",
     "vuetify": "^2.1.0",
     "vuex": "^3.1.1"
   },
@@ -54,15 +55,15 @@
     "eslint": "^5.16.0",
     "eslint-plugin-eslint-plugin": "^2.1.0",
     "eslint-plugin-vue": "^5.2.3",
-    "sass": "^1.19.0",
-    "sass-loader": "^8.0.0",
-    "vue-cli-plugin-vuetify": "^1.1.1",
-    "vue-template-compiler": "^2.6.10",
-    "vuetify-loader": "^1.3.0",
     "jest": "^22.4.3",
     "moxios": "^0.4.0",
+    "sass": "^1.19.0",
+    "sass-loader": "^8.0.0",
     "sinon": "^7.5.0",
-    "vue-jest": "^3.0.5"
+    "vue-cli-plugin-vuetify": "^1.1.1",
+    "vue-jest": "^3.0.5",
+    "vue-template-compiler": "^2.6.10",
+    "vuetify-loader": "^1.3.0"
   },
   "eslintConfig": {
     "root": true,

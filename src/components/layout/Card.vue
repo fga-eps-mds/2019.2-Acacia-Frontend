@@ -189,7 +189,6 @@ export default {
           this.validateList()
         })
         .catch(error => {
-          console.log(error)
         })
     },
     validateList() {

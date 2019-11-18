@@ -3,16 +3,19 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+/* Axios configuration */
+import './plugins/axios'
+
 /* Vuetify configuration */
 import vuetify from './plugins/vuetify';
+
+/* Vue Vuelidate configuration */
+import Vuelidate from 'vuelidate'
+Vue.use(Vuelidate)
 
 /* Vue Cookie configuration */
 import VueCookie from 'vue-cookie'
 Vue.use(VueCookie)
-
-/* Vue Toasted configuration */
-import Toasted from 'vue-toasted'
-Vue.use(Toasted)
 
 /* i18n configuration (internationalization) */
 import i18n from '@/plugins/i18n'
@@ -24,7 +27,7 @@ Vue.use(FlagIcon)
 import VCalendar from 'v-calendar';
 
 Vue.use(VCalendar, {
-  componentPrefix: 'vc',
+    componentPrefix: 'vc',
 });
 
 /* Boostrap configuration */
@@ -45,6 +48,7 @@ import Datepicker from 'vuejs-datepicker'
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('datepicker', Datepicker)
+
 
 Vue.config.productionTip = false
 
