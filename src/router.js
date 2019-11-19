@@ -11,6 +11,7 @@ import TreeRegistration from '@/views/TreeRegistration'
 import UserUpdate from '@/views/UserUpdate'
 import Dashboard from '@/views/Dashboard'
 import store from './store'
+import HarvestView from '@/views/HarvestView'
 
 const ifNotAuthenticated = (to, from, next) => {
     if (!store.getters.isAuthenticated) {
@@ -32,58 +33,62 @@ const ifAuthenticated = (to, from, next) => {
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
-  routes: [
-    {
-      path: '/',
-      name: 'landingpage',
-      component: LadingPage,
-    },
-    {
-      path: '/signin',
-      name: 'signin',
-      component: Signin,
-      beforeEnter: ifNotAuthenticated,
-    },
-    {
-      path: '/signup',
-      name: 'signup',
-      component: Signup,
-      beforeEnter: ifNotAuthenticated,
-    },
-    {
-      name: 'propertyRegistration',
-      path: '/property/registration',
-      component: PropertyRegistration,
-      beforeEnter: ifAuthenticated,
-    },
-    {
-      name: 'harvestRegistration',
-      path: '/harvest/registration',
-      component: HarvestRegistration,
-      beforeEnter: ifAuthenticated,
-    },
-    {
-      name: 'calendar',
-      path: '/calendar/',
-      component: CalendarPage,
-    },
-    {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: Dashboard,
-    },
-    {
-      path: '/user/update',
-      name: 'userupdate',
-      component: UserUpdate,
-      beforeEnter: ifAuthenticated,
-    },
-    {
-      name: 'treeRegistration',
-      path: '/tree/registration',
-      component: TreeRegistration,
-      beforeEnter: ifAuthenticated,
-    },
-  ]
+    mode: 'history',
+    routes: [{
+            path: '/',
+            name: 'landingpage',
+            component: LadingPage,
+        },
+        {
+            path: '/signin',
+            name: 'signin',
+            component: Signin,
+            beforeEnter: ifNotAuthenticated,
+        },
+        {
+            path: '/signup',
+            name: 'signup',
+            component: Signup,
+        },
+        {
+            name: 'propertyRegistration',
+            path: '/property/registration',
+            component: PropertyRegistration,
+            beforeEnter: ifAuthenticated,
+        },
+        {
+            name: 'harvestRegistration',
+            path: '/harvest/registration',
+            component: HarvestRegistration,
+            beforeEnter: ifAuthenticated,
+        },
+        {
+            name: 'calendar',
+            path: '/calendar/',
+            component: CalendarPage,
+        },
+        {
+            path: '/dashboard',
+            name: 'dashboard',
+            component: Dashboard,
+        },
+        {
+            name: 'treeRegistration',
+            path: '/tree/registration',
+            component: TreeRegistration,
+            beforeEnter: ifAuthenticated,
+        },
+        {
+          path: '/harvest/:property_id/:harvest_id',
+          name: 'harvestView',
+          component: HarvestView,
+          props: true,
+        },
+        {
+          path: '/user/update',
+          name: 'userupdate',
+          component: UserUpdate,
+          beforeEnter: ifAuthenticated,
+        },
+    ]
 })

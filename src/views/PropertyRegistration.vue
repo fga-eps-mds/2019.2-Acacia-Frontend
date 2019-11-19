@@ -109,7 +109,7 @@
   import RegisterButton from '../components/input/RegisterButton'
   import ImageUpload from '../components/input/ImageUpload'
   import Snackbar from '@/components/input/Snackbar.vue'
-  import { required, numeric } from 'vuelidate/lib/validators'
+  import { required, numeric, minLength, maxLength } from 'vuelidate/lib/validators'
 
   export default {
     components: {
@@ -144,7 +144,7 @@
 
     validations: {
       type_of_address: { required },
-      BRZipCode: { required },
+      BRZipCode: { required, minLength: minLength(8), maxLength: maxLength(8)  },
       city: { required },
       district: { required },
       address: { required },
@@ -163,6 +163,8 @@
         const errors = []
         if (!this.$v.BRZipCode.$dirty) return errors
         !this.$v.BRZipCode.required && errors.push('Zip Code must be filled.')
+        !this.$v.BRZipCode.minLength && errors.push('Zip Code must have 8 digits')
+        !this.$v.BRZipCode.maxLength && errors.push('Zip Code must have 8 digits')
         return errors
       },
       city_errors () {
