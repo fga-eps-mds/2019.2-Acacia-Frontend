@@ -25,7 +25,7 @@
         ></v-select>
         <DatePicker
           v-model="date"
-          min="true"
+          v-bind:min="true"
           :label="$t('HarvestRegister.date')"
         />
         <v-text-field
@@ -199,7 +199,7 @@
         }
         let rulelist = this.rules
         this.$store.state.authRequest(
-            'properties/' + this.selectedProperty + '/harvests/', 
+            'properties/' + this.selectedProperty + '/harvests/',
             'POST', data)
           .then((response) => {
             let ruleURL = 'properties/' + this.selectedProperty + '/harvests/' + response.data.pk + '/rules/'
@@ -236,14 +236,14 @@
               this.$store.commit('snackbar/showMessage', {
                 message: 'You need a property to register a harvest into',
                 color: 'error',
-              })  
+              })
             }
           })
           .catch((error) => {
             this.$store.commit('snackbar/showMessage', {
               message: 'An error has ocurred finding your properties',
               color: 'success',
-              })  
+              })
           })
       },
     }

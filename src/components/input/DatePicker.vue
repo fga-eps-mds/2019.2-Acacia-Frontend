@@ -21,8 +21,8 @@
         :type="type"
         :locale="$t('DatePicker.locale')"
         color="#376996"
-        :min="validateQuant() ? today() : ''"
-        :max="validateQuant() ? '' : today()"
+        :min="this.min ? today() : ''"
+        :max="this.max ? today() : ''"
         :multiple="multiple"
         class="date-picker"
         scrollable
@@ -71,8 +71,12 @@ export default {
       default: 'date'
     },
     min: {
-      type: String,
-      default: undefined
+      type: Boolean,
+      default: false
+    },
+    max: {
+      type: Boolean,
+      default: false
     },
     multiple: {
       type: Boolean,
@@ -117,14 +121,6 @@ export default {
     today (){
       return this.min ? new Date().toISOString().slice(0,10) : undefined
     },
-    validateQuant() {
-      if (this.picked == 'today'){
-        return true
-      }
-      else {
-        return false
-      }
-    }
   },
 }
 </script>
