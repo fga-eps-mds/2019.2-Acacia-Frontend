@@ -2,6 +2,7 @@
   <div
     class="digest-content"
     id="digest-content"
+    @click="pushToRoute()"
   >
     <div
       id="image-content"
@@ -32,7 +33,7 @@
           class="description-items"
           style="color:#B3B5BA"
         >
-          <b> {{ this.$t('HarvestDigest.volunteer') }}: </b> {{ harvest.max_volunteers }}
+          <b> MAX {{ this.$t('HarvestDigest.volunteer') }}: </b> {{ harvest.max_volunteers }}
         </a>
         <a
           class="description-items"
@@ -151,6 +152,6 @@ export default {
   }
 
   .description-items {
-    font-size: 12px;
+    font-size: 10px;
   }
 </style>

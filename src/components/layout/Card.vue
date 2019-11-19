@@ -57,7 +57,7 @@
               v-if="$store.state.getRefreshToken()"
             >
               <HarvestDigest
-                :harvest="{date: '25/05/19', status: 'Open', min_volunteers: 4, max_volunteers: 10, pk: 1}"
+                :harvest="{date: '25/05/19', status: 'Open', min_volunteers: 100, max_volunteers: 103, pk: 1}"
               />
               <v-divider />
 
@@ -72,7 +72,7 @@
               <v-divider />
 
               <HarvestDigest
-                :harvest="{date: '25/11/19', status: 'Cancelled', min_volunteers: 8, max_volunteers: 15, pk: 3}"
+                :harvest="{date: '25/11/19', status: 'Cancelled', min_volunteers: 8, max_volunteers: 15, pk: 4}"
               />
               <v-divider />
             </div>
@@ -92,7 +92,6 @@
               </div>
             </div>
           </div>
-
 
           <!-- Week's harvests -->
           <div v-else>
@@ -296,8 +295,4 @@ export default {
   .sheet-contailer {
     overflow: auto;
   }
-/*
-  .sheet-contailer::-webkit-scrollbar{
-    width: 0px !important;
-  }*/
 </style>
