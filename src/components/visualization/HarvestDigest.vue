@@ -12,7 +12,8 @@
       >
     </div>
     <div 
-      class="description-content col-9 roboto-regular "
+      class="description-content col-9 roboto-regular text-dark"
+      style="text-decoration: none"
     >
       <h6>Titulo</h6>
 

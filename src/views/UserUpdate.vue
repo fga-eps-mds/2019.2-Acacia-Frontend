@@ -1,6 +1,6 @@
 <template>
   <div class="userupdate">
-    <TopBar 
+    <TopBar
       :iconleft="'chevron-left'"
       color="#56a3a6"
     />
@@ -29,10 +29,10 @@
           @input="$v.bio.$touch()"
           @blur="$v.bio.$touch()"
         />
-        <DatePicker 
+        <DatePicker
           v-model="birthdate"
           :label="$t('UserUpdate.birthdate')"
-          min="true"
+          v-bind:max="true"
         />
         <div class="input">
           <ImageUpload
@@ -42,7 +42,7 @@
         </div>
       </div>
       <div class="content-button">
-        <SignButton 
+        <SignButton
           color="#56a3a6"
           class="mt-5"
           :label="'Salvar'"
@@ -132,7 +132,7 @@ export default {
             this.profileImage = event
         },
 
-        updateProfile(){   
+        updateProfile(){
 
           let formData = new FormData()
           if (this.profileImage !== null){
@@ -150,7 +150,7 @@ export default {
                 message: this.$t('UserUpdate.updatedUser'),
                 color: 'success',
               })
-              router.push({ name: 'dashboard' }) 
+              router.push({ name: 'dashboard' })
             })
             .catch((errors) => {
               console.log(errors)
@@ -181,7 +181,7 @@ export default {
             })
         },
 
-        uploadProfile(){    
+        uploadProfile(){
             let state = this.$store.state
 
             state.authRequest('users/profile/', 'GET')
@@ -196,7 +196,7 @@ export default {
               .catch((errors) => {
               })
         },
-        
+
 
     },
 }
@@ -228,7 +228,7 @@ export default {
         margin-bottom: 10%;
         color: $color-primary;
         display: flex;
-        justify-content: left; 
+        justify-content: left;
     }
 
     .input{

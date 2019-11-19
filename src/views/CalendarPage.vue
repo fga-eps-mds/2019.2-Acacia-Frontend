@@ -203,6 +203,7 @@ export default {
       if(!(day.id in this.dates_info)) {
         return;
       }
+
       let colheitas = this.dates_info[day.id]['colheitas'];
       this.selectedDay = day.id;
       

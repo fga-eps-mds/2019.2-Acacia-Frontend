@@ -92,6 +92,19 @@ const messages = {
             subscribed: "Subscribed harvests",
             weekharvests: "Week harvests",
         },
+        HarvestView: {
+            placeholderTitle: "Harvest",
+            harvestNotFound: "Harvest was not found",
+            owner: "Owner",
+            leader: "Leader",
+            where: "Where",
+            when: "When",
+            volunteers: "Volunteers",
+            minimum: "Maximum",
+            maximum: "Minimum",
+            rules: "Rules and Guidelines",
+            info: "Harvest Information"
+        },
         ProfilePage: {
             username: "Username",
             phoneNumber: "Phone number",
@@ -205,6 +218,19 @@ const messages = {
             noharvest: "Nenhuma colheita foi encontrada essa semana",
             subscribed: "Colheitas inscritas",
             weekharvests: "Colheitas da semana",
+        },
+        HarvestView: {
+            placeholderTitle: "Colheita",
+            harvestNotFound: "Colheita não foi encontrada",
+            owner: "Proprietário",
+            leader: "Líder",
+            where: "Onde",
+            when: "Quando",
+            volunteers: "Voluntários",
+            minimum: "Mínimo",
+            maximum: "Máximo",
+            rules: "Regras e Avisos",
+            info: "Informações de colheita"
         },
         UserUpdate: {
             profile_photo: "Adicione uma foto",

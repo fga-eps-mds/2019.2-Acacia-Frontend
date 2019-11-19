@@ -8,14 +8,26 @@
       <div class="harvest-title raleway-thin">
         <a> {{ $t('HarvestRegister.register') }} </a>
       </div>
-
+      <div class="content-form">
       <form class="harvest-form">
+        <v-select
+          :items="properties.map((property) => { return {
+            pk: property.pk,
+            address: property.address
+          }})"
+          label="Select a property"
+          item-text="address"
+          item-value="pk"
+          color="white"
+          dense
+          outlined
+          v-model="selectedProperty"
+        ></v-select>
         <DatePicker
           v-model="date"
-          min="true"
+          v-bind:min="true"
           :label="$t('HarvestRegister.date')"
         />
-
         <v-text-field
           v-model="description"
           :error-messages="descriptionErrors"
@@ -65,7 +77,7 @@
               @blur="$v.max_volunteers.$touch()"
             />
           </v-col>
-          <v-col cols="12">
+          <v-col cols="12" class="pl-4 pr-4">
             <StringList
               v-model="rules"
             />
@@ -81,7 +93,8 @@
         />
       </div>
     </div>
-    <Snackbar @reset="clearForm" />
+    </div>
+    <Snackbar @reset="clearForm"/>
   </div>
 </template>
 
@@ -92,6 +105,8 @@
   import StringList from '@/components/input/StringList'
   import Snackbar from '@/components/input/Snackbar.vue'
   import { required, minValue, maxValue } from 'vuelidate/lib/validators'
+  import router from '@/router'
+
   export default {
     components: {
       TopBar,
@@ -109,15 +124,27 @@
         min_volunteers: null,
         status: '',
         rules: [],
+        properties: [],
+        selectedProperty: '',
       }
+    },
+    created() {
+      this.getUserProperties();
     },
     validations: {
       date: { required },
       description: { required },
-      min_volunteers: { required, minValue: minValue(2) },
-      max_volunteers: { maxValue: maxValue(20) },
+      selectedProperty: { required },
+      min_volunteers: { required, minValue: minValue(0) },
+      max_volunteers: { maxValue: maxValue(100) },
     },
     computed: {
+      selectedPropertyErrors() {
+        const errors = []
+        if (!this.$v.selectedProperty.$dirty) return errors
+        !this.$v.selectedProperty.required && errors.push('Select a property.')
+        return errors
+      },
       descriptionErrors () {
         const errors = []
         if (!this.$v.description.$dirty) return errors
@@ -148,6 +175,7 @@
         this.min_volunteers= null
         this.status= ''
         this.rules= []
+        this.selectedProperty = null
       },
       delayTouch($v) {
         $v.$reset()
@@ -161,10 +189,6 @@
         if (this.$v.$invalid) {
           return
         }
-        let rules = []
-        for (let i = 0; i < this.rules.length; i++) {
-          rules.push({"description" : this.rules[i]})
-        }
         let data = {
           date: this.date,
           description: this.description,
@@ -172,15 +196,29 @@
           max_volunteers: this.max_volunteers,
           min_volunteers: this.min_volunteers,
           status: 'Open',
-          rules: rules
         }
-        this.$store.state.authRequest('harvests', 'POST', data)
+        let rulelist = this.rules
+        this.$store.state.authRequest(
+            'properties/' + this.selectedProperty + '/harvests/',
+            'POST', data)
           .then((response) => {
+            let ruleURL = 'properties/' + this.selectedProperty + '/harvests/' + response.data.pk + '/rules/'
+            for (let i = 0; i < rulelist.length; i++) {
+              let data = {
+                description: rulelist[i]
+              }
+              this.$store.state.authRequest(ruleURL, "POST", data )
+                .then(() => {})
+                .catch(() => {})
+            }
             this.$store.commit('snackbar/showMessage', {
-                message: 'harvest successfully registered',
-                color: 'success',
+                message: 'Harvest registered!',
+                  color: 'success',
+              })
+            router.push({
+              path:
+                '/harvest/' + this.selectedProperty + '/' + response.data.pk + '/'
             })
-            this.$router.push({name: 'dashboard'})
           })
           .catch((error) => {
             console.log(error)
@@ -189,8 +227,26 @@
               color: 'error',
             })
           })
-        }
-      }
+      },
+      getUserProperties() {
+        this.$store.state.authRequest('properties/', 'GET')
+          .then((response) => {
+            this.properties = response.data
+            if (this.properties.length == 0) {
+              this.$store.commit('snackbar/showMessage', {
+                message: 'You need a property to register a harvest into',
+                color: 'error',
+              })
+            }
+          })
+          .catch((error) => {
+            this.$store.commit('snackbar/showMessage', {
+              message: 'An error has ocurred finding your properties',
+              color: 'success',
+              })
+          })
+      },
+    }
   }
 </script>
 
@@ -229,7 +285,6 @@
 .harvest-button {
   margin-top: 20px;
 }
-// -----------------------
 .text-label{
   color: $color-secundary-text;
   padding: 15px 1% 0px 1% !important;
