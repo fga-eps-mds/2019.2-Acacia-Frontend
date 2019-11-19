@@ -307,7 +307,7 @@
           // after tree is created, creates harvest_months objects
           for (var i = 0; i < this.months.length; i++) {
             let month_data = {'harvest_month': this.months[i]}
-            state.authRequest('properties/' + this.propertyCard.pk + '/trees/' + tree_pk + '/harvest_months/',
+            state.authRequest('properties/' + this.propertyCard.pk + '/trees/' + tree_pk + '/months/',
                               "POST", month_data)
             .then((response) =>{
               console.log(response)
