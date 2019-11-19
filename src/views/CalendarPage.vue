@@ -152,10 +152,27 @@ export default {
     },
   },
 
+  watch: {
+    currentPage: function (val) {
+      let state = this.$store.state
+
+      const route = 'monthly_harvest/' + val.year + '/' + val.month
+      console.log(route)
+
+      state.authRequest(route, 'GET')
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((errors) => {
+          console.log(errors.response)
+        })
+
+    }
+  },
+
   methods: {
 
     select() {
-      console.log(this.currentPage)
       if (this.iconBottomBar == "chevron-up") {
         this.height = "height-60";
         this.iconBottomBar = "chevron-down";
