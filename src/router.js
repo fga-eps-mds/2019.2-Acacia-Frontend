@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 import Signin from '@/views/Signin'
 import Signup from '@/views/Signup'
-import LadingPage from '@/views/LandingPage'
+import LandingPage from '@/views/LandingPage'
 import CalendarPage from '@/views/CalendarPage'
 import PropertyRegistration from '@/views/PropertyRegistration'
 import HarvestRegistration from '@/views/HarvestRegistration'
