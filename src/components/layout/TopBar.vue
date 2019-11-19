@@ -36,8 +36,11 @@ export default {
       type: String
     },
   },
-
   computed: {
+    componentStyle() { 	
+        let componentColor = `color:${this.color};`
+        return componentColor
+    },
     iconDislay: {
       get: function() {
         return this.$store.state.sideBarOn
@@ -46,7 +49,6 @@ export default {
       },
     }
   },
-
   methods: {
     selectLeft() {
       if (this.iconleft == "chevron-left") {

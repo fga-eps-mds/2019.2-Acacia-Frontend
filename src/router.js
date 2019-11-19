@@ -8,6 +8,7 @@ import CalendarPage from '@/views/CalendarPage'
 import PropertyRegistration from '@/views/PropertyRegistration'
 import HarvestRegistration from '@/views/HarvestRegistration'
 import TreeRegistration from '@/views/TreeRegistration'
+import UserUpdate from '@/views/UserUpdate'
 import Dashboard from '@/views/Dashboard'
 import Property from '@/views/Property'
 import store from './store'
@@ -49,6 +50,7 @@ export default new Router({
       path: '/signup',
       name: 'signup',
       component: Signup,
+      beforeEnter: ifNotAuthenticated,
     },
     {
       path: '/property/registration',
@@ -76,6 +78,11 @@ export default new Router({
       path: '/property/:pk',
       name: 'property',
       component: Property,
+    },
+    {
+      path: '/user/update',
+      name: 'userupdate',
+      component: UserUpdate,
       beforeEnter: ifAuthenticated,
     },
     {

@@ -1,195 +1,282 @@
 <template>
   <div class="signup gradient">
     <TopBar :iconleft="'chevron-left'" />
-    <div class="content-container">
-      <div class="content-title">
-        <a style="font-size: 40px">{{ $t('SignPages.createAccount') }}</a>
+    <div class="signup-container">
+      <div class="signup-title raleway-thin">
+        <a>{{ $t('SignPages.createAccount') }}</a>
       </div>
-      <div class="content-form">
-        <TextField
-          v-model="username"
-          color="white"
-          bordercolor="white"
-          :label="this.$t('SignPages.name')"
-        />
-        <TextField
-          v-model="email"
-          class="mt-2"
-          color="white"
-          bordercolor="white"
-          :label="this.$t('SignPages.email')"
-        />
-        <TextField
-          v-model="password"
-          class="mt-3"
-          color="white"
-          bordercolor="white"
-          type="password"
-          :label="this.$t('SignPages.password')"
+     
+      <form class="signup-form">
+        <v-text-field
+          v-model.lazy="username"
+          :error-messages="usernameErrors"
+          label="Name"
+          dark
+          color="light-green accent-3"
+          clearable
+          required
+          @keydown="isUniqueUsername=''"
+          @input="$v.username.$touch()"
+          @blur="$v.username.$touch()"
         />
 
-        <TextField
-          v-model="confirm_password"
-          color="white"
-          class="mt-3"
-          bordercolor="white"
-          type="password"
-          :label="this.$t('SignPages.confirmPassword')"
+        <v-text-field
+          v-model.lazy="email"
+          :error-messages="emailErrors"
+          label="E-mail"
+          dark
+          color="light-green accent-3"
+          clearable
+          required
+          @keydown="isUniqueEmail=''"
+          @input="$v.email.$touch()"
+          @blur="$v.email.$touch()"
         />
-      </div>
-      <div class="content-button">
+        
+        <v-text-field
+          v-model.lazy="password"
+          :error-messages="passwordErrors"
+          label="Password"
+          dark
+          color="light-green accent-3"      
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="showPassword ? 'text' : 'password'"
+          required
+          @click:append="showPassword = !showPassword"
+          @input="$v.password.$touch()"
+          @blur="$v.password.$touch()"
+        />
+
+        <v-text-field
+          v-model="confirmPassword"
+          :error-messages="confirmPasswordErrors"
+          label="Confirm Password"
+          dark
+          color="light-green accent-3"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="showPassword ? 'text' : 'password'"
+          required
+          @click:append="showPassword = !showPassword"
+          @input="$v.confirmPassword.$touch()"
+          @blur="$v.confirmPassword.$touch()"
+        />
+      </form>
+        
+      <div class="signup-button">
         <SignButton
           class="mt-4"
           :label="this.$t('SignPages.createAccount')"
           @action="signup"
         />
       </div>
+      <Snackbar @reset="clearForm" />
     </div>
   </div>
 </template>
 
-  <script>
-    import TopBar from "@/components/layout/TopBar";
-    import TextField from "@/components/input/TextField";
-    import SignButton from "@/components/input/SignButton";
-
-    /* Local scripts imports */
-    import router from "@/router";
-
-    /* External library */
-    import axios from "axios";
-
-export default {
-      components: {
-      TopBar,
-      TextField,
-      SignButton
+<script>
+  import TopBar from '@/components/layout/TopBar.vue'
+  import SignButton from '@/components/input/SignButton.vue'
+  import Snackbar from '@/components/input/Snackbar.vue'
+  import { required, email, sameAs, minLength } from 'vuelidate/lib/validators'
+  
+  export default {
+    components: {
+    TopBar,
+    SignButton,
+    Snackbar,
     },
-  data() {
-    return {
-      username: "",
-    email: "",
-    password: "",
-    confirm_password: ""
-  };
-},
-  methods: {
+    data() {
+      return {
+        username: '',
+        email: '',
+        password: '',
+        showPassword: false,
+        confirmPassword: '',
+        isUniqueEmail: '',
+        isUniqueUsername: '',
+      }
+    },
+    validations: {
+      username: { 
+        required, 
+        isUnique(){
+          if (this.isUniqueUsername === '') return true
+           else return false          
+        }
+      },  
+      email: { 
+        required, 
+        email,
+        isUnique(){
+          if (this.isUniqueEmail === '') return true
+          else return false  
+        }
+      },
+      password: { required, minLength: minLength(8) },
+      confirmPassword: { required, sameAsPassword: sameAs('password') },
+    },
+    computed: {
+      usernameErrors () {
+        const errors = []
+        if (!this.$v.username.$dirty) return errors
+        !this.$v.username.required && errors
+          .push('Name must be filled.')
+        !this.$v.username.isUnique && errors
+          .push('This username is already registered')
+        return errors
+      },
+      emailErrors () {
+        const errors = []
+        if (!this.$v.email.$dirty) return errors
+        !this.$v.email.email && errors
+          .push('Must be valid e-mail')
+        !this.$v.email.required && errors
+          .push('E-mail must be filled')
+        !this.$v.email.isUnique && errors
+          .push('This Email is already registered')
+        return errors
+      },
+      passwordErrors () {
+        const errors = []
+        if (!this.$v.password.$dirty) return errors
+        !this.$v.password.required && errors
+          .push('Password must be filled.')
+        !this.$v.password.minLength && errors
+          .push('Password must be minumum of 8 characters.')
+        return errors
+      },
+      confirmPasswordErrors () {
+        const errors = []
+        if (!this.$v.confirmPassword.$dirty) return errors
+        !this.$v.confirmPassword.required && errors
+          .push(' Confirm Password must be filled.')
+        !this.$v.confirmPassword.sameAsPassword && errors
+          .push('Passwords must be identical.')
+        return errors
+      },
+    },
+    
+    methods: {
+      clearForm () {
+        this.$v.$reset()
+        this.username = ''
+        this.email = ''
+        this.password = ''
+        this.confirmPassword = '',
+        this.isUniqueEmail = ''
+        this.isUniqueUsername = ''
+      },
+      clearError () {
+        this.isUniqueEmail = ''
+        this.isUniqueUsername = ''
+      },
       signup() {
-      if (!this.validateInput()) {
-        return;
+        this.$v.$touch();
+        if (this.$v.$invalid) {
+          return
+        }
+        let data = {
+          email: this.email,
+          username: this.username,
+          password: this.password,
+          confirm_password: this.confirmPassword
+        }
+        let dataToken = {
+          email: this.email,
+          password: this.password
+        }
+        // const baseURL = this.$store.state.baseURL;
+        // axios.post(baseURL + "users/signup/", data)
+        
+        this.$http.post('users/signup/', data)
+          .then(() => {
+            this.$store.commit('snackbar/showMessage', {
+              message: this.$t('SignPages.positiveStatus'),
+                color: 'success',
+            })
+            this.$http.post('users/token/', data)
+              .then(response => {
+                this.$store.state.authUser(
+                  response.data["access"],
+                  response.data["refresh"]
+                );
+                this.$store.commit('snackbar/showMessage', {
+                  message: 'Account successfully created',
+                  color: 'success',
+                })    
+                setTimeout(() => {
+                  this.clearForm
+                  this.$router.push({ name: "dashboard" })
+                }, 2000); 
+              })
+              .catch((error) => {
+                this.$store.commit('snackbar/showMessage', {
+                  message: 'There was a problem signing in to your account',
+                  color: 'error',
+                })
+                setTimeout(() => {
+                  this.$router.push({ name: "signin" })
+                }, 2000); 
+              })
+          })
+          .catch(error => {
+            if (error.response.data.email) {
+              this.isUniqueEmail = error.response.data.email[0]
+            } 
+            if (error.response.data.username) {
+              this.isUniqueUsername = error.response.data.username[0]
+            }
+            this.$store.commit('snackbar/showMessage', {
+              message: 'There was a problem create account',
+              color: 'error',
+            })          
+          })
+      },
+    },  
   }
-      let data = {
-      email: this.email,
-    username: this.username,
-    password: this.password,
-    confirm_password: this.confirm_password
-  };
-      let dataToken = {
-      email: this.email,
-    password: this.password
-  };
-  const baseURL = this.$store.state.baseURL;
-  axios
-    .post(baseURL + "users/signup/", data)
-        .then(() => {
-      axios
-        .post(baseURL + "users/token/", dataToken)
-        .then(response => {
-          this.$store.state.authUser(
-            response.data["access"],
-            response.data["refresh"]
-          );
-          this.$toasted
-            .show(this.$t("SignPages.positiveStatus"))
-            .goAway(2000);
-            router.push({ name: 'dashboard' })
-        })
-        .catch(() => {
-          router.push({ name: "signin" });
-        });
-})
-        .catch(error => {
-          if (error.response.data.email) {
-      this.$toasted.show(error.response.data.email).goAway(2000);
-  }
-          if (error.response.data.username) {
-      this.$toasted.show(error.response.data.username).goAway(2000);
-  }
-          if (error.response.data.password) {
-      this.$toasted.show(error.response.data.password).goAway(2000);
-  }
-});
-},
-    validateInput() {
-      if (!this.username) {
-      this.$toasted.show(this.$t("SignPages.requireName")).goAway(2000);
-    return false;
-  }
-      if (!this.email) {
-      this.$toasted.show(this.$t("SignPages.requireEmail")).goAway(2000);
-    return false;
-  }
-      if (!this.password) {
-      this.$toasted.show(this.$t("SignPages.requirePassword")).goAway(2000);
-    return false;
-  }
-      if (this.password.length < 8) {
-      this.$toasted
-        .show(this.$t("SignPages.requreValidPassword"))
-        .goAway(2000);
-  return false;
-}
-      if (this.confirm_password != this.password) {
-      this.$toasted
-        .show(this.$t("SignPages.requirePasswordCorrespondance"))
-        .goAway(2000);
-  return false;
-}
-      let emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i
-      if (emailRegex.test(String(this.email).toLowerCase())) {
-      this.$toasted.show(this.$t("SignPages.requireValidEmail")).goAway(2000);
-    return false;
-  }
-  return true;
-}
-}
-};
 </script>
 
 <style lang="scss" scoped>
 
 @import "../assets/stylesheets/colors.scss";
 
-.content-button {
-  margin-top: 90px;
+.signup {
+  display: flex;
+  height: 100vh;
+  align-items: flex-start;
+  justify-content: center;
 }
 
-.content-title {
+.signup-container{
+  width: 100%;
+  max-width:500px;
+  margin: 1px;
+}
+
+.signup-title {
   width: 100%;
   padding: 0px 25px;
+  margin-top: 20%;
   margin-bottom: 20%;
-  color: $color-default-text;
   display: flex;
   justify-content: left;
+  font-size: 35px;
+  font-weight: bold;
+  color: $color-default-text;
 }
 
-.content-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.signup-form {
   width: 100%;
-  height: 100%;
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
-.signup {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  margin-top: 0;
-  text-align: center;
+.signup-button {
+  margin-top: 90px;
 }
-
 .gradient {
   background-image: linear-gradient(
     180deg,

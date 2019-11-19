@@ -21,7 +21,8 @@
         :type="type"
         :locale="$t('DatePicker.locale')"
         color="#376996"
-        :min="today()"
+        :min="validateQuant() ? today() : ''"
+        :max="validateQuant() ? '' : today()"
         :multiple="multiple"
         class="date-picker"
         scrollable
@@ -58,6 +59,10 @@ export default {
       default: ''
     },
     label: {
+      type: String,
+      default: ''
+    },
+    picked: {
       type: String,
       default: ''
     },
@@ -101,21 +106,25 @@ export default {
   methods: {
     formatDate (date) {
       if (!date) return null
-      console.log('formatando...')
-      console.log(this.dateLocal)
       if(this.type === 'date'){
-        console.log('oi')
         const [year, month, day] = date.split('-')
         return `${day}/${month}/${year}`
       } else{
         let month = new Date(date).getMonth()
-        console.log(month)
         return "January"
       }
     },
     today (){
       return this.min ? new Date().toISOString().slice(0,10) : undefined
     },
+    validateQuant() {
+      if (this.picked == 'today'){
+        return true
+      }
+      else {
+        return false
+      }
+    }
   },
 }
 </script>
@@ -124,22 +133,22 @@ export default {
     @import "../../assets/stylesheets/colors.scss";
 
     .date-picker-button {
-        margin: 0px 5px 5px 0px;
-        font-size: 12px;
-        color: white;
-        padding: 0px 12px !important;
-        border-radius: 10px !important;
-        background-color: $color-primary;
+      color: white !important;
+      font-size: 12px;
+      margin: 0px 5px 5px 0px;
+      padding: 0px 12px !important;
+      border-radius: 10px !important;
+      background-color: $color-primary;
     }
 
     .date-picker {
-        border-radius: 12px !important;
+      border-radius: 12px !important;
     }
 
     .container-date-picker {
-        font-size: 12px;
-        padding: 0px 65% 0px 20px;
-        margin: 1%;
+      font-size: 12px;
+      padding: 10px 65% 0px 20px;
+      margin: 1%;
     }
 
 </style>
