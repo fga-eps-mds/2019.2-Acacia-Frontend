@@ -9,7 +9,7 @@
     "build-prod": "vue-cli-service build --mode production",
     "start": "node server.js",
     "lint": "eslint --fix \"src/**/*.{js,vue}\"",
-    "test:unit": "vue-cli-service test:unit "
+    "test:unit": "vue-cli-service test:unit --passWithNoTests"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
