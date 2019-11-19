@@ -8,6 +8,7 @@
         >
           <v-text-field
             v-model="textfield"
+            class="mt-0"
             :error-messages="textfieldErrors"
             label="Rules"
             required
@@ -21,7 +22,7 @@
         >
           <font-awesome-icon
             icon="plus" 
-            class="icon"
+            class="icon mt-5"
             @click="addNewListElementAndSaveLast"
           />
         </v-col>
@@ -31,7 +32,7 @@
       <div 
         v-for="(item, index) in list" 
         :key="item"
-        class="row border-bottom m-1" 
+        class="row border-bottom m-1 p-0 ml-0 mr-0" 
       >
         <div 
           class="col-10 text-left" 

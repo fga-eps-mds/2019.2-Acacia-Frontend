@@ -40,7 +40,6 @@
               <HarvestDigest
                 :harvest="{date: '25/11/19', status: 'Vai acontecer', min_volunteers: 8, max_volunteers: 15}"
               />
-              <v-divider />
             </div>
 
 
@@ -87,7 +86,9 @@
                 v-for="(harvest, index) in allHarvests"
                 :key="harvest.date"
               >
-                <HarvestDigest :harvest="harvest" />
+                <a :href="'/harvest/' + harvest.property_id + '/' + harvest.pk">
+                  <HarvestDigest :harvest="harvest" />
+                </a>
                 <v-divider v-if="index != allHarvests.length - 1" />
               </div>
             </div>
@@ -185,41 +186,20 @@ export default {
     getAllHarvests() {
       this.$store.state.noAuthRequest('harvests/', 'GET')
         .then(response => {
-          this.allHarvests = response.data
-          this.validateList()
+          this.allHarvests = 
+            Object
+              .keys(response.data)
+              .map(i => response.data[i])
+          this.allHarvests.sort(
+            (a, b) => {
+              a = new Date(a.date)
+              b = new Date(b.date)
+              return  a.getTime() - b.getTime()
+            }
+          )
         })
-        .catch(error => {
-        })
+        .catch(() => {})
     },
-    validateList() {
-      // Check if date is out of bounds (front end validation)
-      let filtered = []
-      let dateList = this.generateWeeksDaysList()
-      this.allHarvests.forEach( harvest => {
-        let found = false;
-        dateList.forEach( validDate => {
-          if (validDate == harvest.date) {
-            found = true;
-          }
-        });
-        if (found) {
-          filtered.push(harvest);
-        }
-      })
-      this.allHarvests = filtered;
-    },
-    generateWeeksDaysList() {
-      // Generates a list of the current and the next six days as ISO strings
-      let dateList = [];
-      let today = new Date();
-      let dayInMilissecond = 1000 * 60 * 60 * 24;
-      for (let i = 0; i < 7; i++) {
-        let dateString = today.toISOString().slice(0,10)
-        dateList.push(today.toISOString().slice(0,10))
-        today.setTime(dayInMilissecond + today.valueOf());
-      }
-      return dateList
-    }
   },
 }
 </script>
