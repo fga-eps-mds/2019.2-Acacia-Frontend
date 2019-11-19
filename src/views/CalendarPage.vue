@@ -11,6 +11,7 @@
         id="calendar"
         locale="pt-BR"
         :attributes="atributos"
+        :from-page.sync="currentPage"
         @dayclick="dayClicked"
       />
 
@@ -74,6 +75,7 @@ export default {
 
   data() {
     return {
+      currentPage: null,
       selectedDay: null,
       height: "height-100",
       iconBottomBar: "chevron-up",
@@ -117,6 +119,7 @@ export default {
   },
   
   computed: {
+
     hideCards: function () {
       return {
         'display-none': this.iconBottomBar === "chevron-up"
@@ -152,7 +155,7 @@ export default {
   methods: {
 
     select() {
-
+      console.log(this.currentPage)
       if (this.iconBottomBar == "chevron-up") {
         this.height = "height-60";
         this.iconBottomBar = "chevron-down";
@@ -184,7 +187,6 @@ export default {
 
     allHarvest() {
       let harvest = []
-
       for(var[day, colheitas] of Object.entries(this.dates_info)) {
         for(var[key, colheita] of Object.entries(colheitas)) {
           for(var[desc, info] of Object.entries(colheita)) {
