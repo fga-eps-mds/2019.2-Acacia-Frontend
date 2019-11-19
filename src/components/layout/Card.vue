@@ -70,7 +70,7 @@
                 :harvest="{date: '25/11/19', status: 'Done', min_volunteers: 8, max_volunteers: 15, pk: 3}"
               />
               <v-divider />
-
+              
               <HarvestDigest
                 :harvest="{date: '25/11/19', status: 'Cancelled', min_volunteers: 8, max_volunteers: 15, pk: 4}"
               />
@@ -120,7 +120,9 @@
                 v-for="(harvest, index) in allHarvests"
                 :key="harvest.date"
               >
-                <HarvestDigest :harvest="harvest" />
+                <a :href="'/harvest/' + harvest.property_id + '/' + harvest.pk">
+                  <HarvestDigest :harvest="harvest" />
+                </a>
                 <v-divider v-if="index != allHarvests.length - 1" />
               </div>
             </div>
@@ -218,12 +220,19 @@ export default {
     getAllHarvests() {
       this.$store.state.noAuthRequest('harvests/', 'GET')
         .then(response => {
-          this.allHarvests = response.data
-          this.validateList()
+          this.allHarvests = 
+            Object
+              .keys(response.data)
+              .map(i => response.data[i])
+          this.allHarvests.sort(
+            (a, b) => {
+              a = new Date(a.date)
+              b = new Date(b.date)
+              return  a.getTime() - b.getTime()
+            }
+          )
         })
-        .catch(error => {
-          console.log(error)
-        })
+        .catch(() => {})
     },
     validateList() {
       // Check if date is out of bounds (front end validation)

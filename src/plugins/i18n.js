@@ -20,7 +20,7 @@ const messages = {
             requirePasswordCorrespondance: "Passwords must match",
             requireEmail: "Type your email",
             requirePassword: "Type your password",
-            requreValidPassword: "Type a password with at least 8 chararcters",
+            requireValidPassword: "Type a password with at least 8 chararcters",
             requireValidEmail: "Type a valid email"
         },
         RootPage: {
@@ -92,6 +92,36 @@ const messages = {
             subscribed: "Subscribed harvests",
             weekharvests: "Week harvests",
         },
+        HarvestView: {
+            placeholderTitle: "Harvest",
+            harvestNotFound: "Harvest was not found",
+            owner: "Owner",
+            leader: "Leader",
+            where: "Where",
+            when: "When",
+            volunteers: "Volunteers",
+            minimum: "Maximum",
+            maximum: "Minimum",
+            rules: "Rules and Guidelines",
+            info: "Harvest Information"
+        },
+        ProfilePage: {
+            username: "Username",
+            phoneNumber: "Phone number",
+            bio: "Bio",
+            birthdate: "Birthdate",
+            email: "Email",
+        },
+        UserUpdate: {
+            profile_photo: "Upload your photo",
+            edite_profile: "Profile Update",
+            birthdate: "Birthdate",
+            telephone: "Phone number",
+            bio: "Bio",
+            requirePhoneNumber: 'Phone number field accept just numbers',
+            requireBio: 'Bio field must be less than 800 characters',
+            updatedUser: 'User is up to date'
+        }
     },
     'pt': {
           SignPages: {
@@ -109,7 +139,7 @@ const messages = {
             requirePasswordCorrespondance: "As senhas devem ser iguais",
             requireEmail: "Digite seu email",
             requirePassword: "Digite sua senha",
-            requreValidPassword: "Digite uma senha com, ao menos, 8 caracteres",
+            requireValidPassword: "Digite uma senha com, ao menos, 8 caracteres",
             requireValidEmail: "Digite um email válido"
         },
         RootPage: {
@@ -157,6 +187,14 @@ const messages = {
           cancel: "Cancelar",
           confirm: "Confirmar"
         },
+
+        ProfilePage: {
+            username: "Nome de usuário",
+            phoneNumber: "Número de telefone",
+            bio: "Bio",
+            birthdate: "Data de nascimento",
+            email: "Email",
+        },
         Dashboard: {
             weekly: "Semanal",
             jan: "Janeiro",
@@ -181,6 +219,29 @@ const messages = {
             subscribed: "Colheitas inscritas",
             weekharvests: "Colheitas da semana",
         },
+        HarvestView: {
+            placeholderTitle: "Colheita",
+            harvestNotFound: "Colheita não foi encontrada",
+            owner: "Proprietário",
+            leader: "Líder",
+            where: "Onde",
+            when: "Quando",
+            volunteers: "Voluntários",
+            minimum: "Mínimo",
+            maximum: "Máximo",
+            rules: "Regras e Avisos",
+            info: "Informações de colheita"
+        },
+        UserUpdate: {
+            profile_photo: "Adicione uma foto",
+            edite_profile: "Editar Conta",
+            birthdate: "Aniversário",
+            telephone: "Telefone",
+            bio: "Bio",
+            requirePhoneNumber: 'O campo telefone só aceita números',
+            requireBio: 'O campo deve ter no máximo 800 caracteres',
+            updatedUser: 'Dados do usuário atualizados'
+        }
     },
 }
 

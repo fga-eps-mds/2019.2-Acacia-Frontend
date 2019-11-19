@@ -41,19 +41,19 @@
             <font-awesome-icon
               v-if="colheita.nome != colheitaCard"
               icon="chevron-right"
-              style="color: purple;"
+              style="color: #376996;"
             /> 
             <font-awesome-icon
               v-if="colheita.nome === colheitaCard"
               icon="chevron-down"
-              style="color: purple;"
+              style="color: #376996;"
             />         
           </div>
           <div 
             v-if="colheita.nome === colheitaCard"
             class="contentCard"
           >
-            <p class="cardTitle">
+            <p class="cardDescription">
               {{ colheita.descricao }}
             </p>
           </div>     
@@ -149,7 +149,6 @@ export default {
     },
   },
 
-
   methods: {
 
     select() {
@@ -205,7 +204,6 @@ export default {
         return;
       }
 
-      // console.log(this.dates_info[day.id]['colheitas']);
       let colheitas = this.dates_info[day.id]['colheitas'];
       this.selectedDay = day.id;
       
@@ -220,7 +218,7 @@ export default {
 @import "../assets/stylesheets/colors.scss";
 
   ul{
-    color: purple;
+    color: #376996;
   }
 
   .detail-highlight {
@@ -245,6 +243,14 @@ export default {
 
   .display-none {
     display: none;
+  }
+
+  .cardDescription{
+    margin: 0;
+    color: $color-primary-text;
+    margin-right: 5%;
+    text-align: left;
+    font-size: 90%;
   }
 
   .content-container {

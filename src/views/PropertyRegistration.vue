@@ -1,58 +1,97 @@
-
 <template>
-  <div class="property-form">
+  <div class="property">
     <TopBar
       iconleft="chevron-left"
       color="#2D9CDB"
     />
-
     <div class="content-container">
-      <div class="content-title">
-        <h3> Cadastrar propriedade </h3>
+      <div class="property-title">
+        <a> Register property </a>
       </div>
+      <form class="property-form">
+        <v-row>
+          <v-col cols="6">
+            <v-text-field
+              ref="BRZipCode"
+              v-model="BRZipCode"
+              type="number"
+              required
+              :error-messages="BRZipCode_errors"
+              label="ZIP Code"
+              @input="$v.BRZipCode.$touch()"
+              @blur="$v.BRZipCode.$touch()"
+            />
+          </v-col>
+          <v-col cols="6">
+            <v-autocomplete
+              v-model="type_of_address"
+              required
+              :error-messages="type_of_address_errors"
+              :items="adrchoises"
+              label="Type of address"
+              @input="$v.type_of_address.$touch()"
+              @blur="$v.type_of_address.$touch()"
+            />
+          </v-col>
+        </v-row>
 
-      <div class="content-form">
-        <TextField style = "padding-bottom: 10px"
-          v-model="BRZipCode"
-          label="CEP"
-          color="#949090"
-          bordercolor="#949090"
-        />
-        <SelectField style = "padding-bottom: 10px"
-          v-model="state"
-          label="Estado"
-          color="#949090"
-          bordercolor="#C4C4C4"
-          :items="brstates"
-        />
-        <TextField style = "padding-bottom: 10px"
-          v-model="city"
-          label="Cidade"
-          color="#949090"
-          bordercolor="#C4C4C4"
-        />
-        <TextField style = "padding-bottom: 10px"
-          v-model="district"
-          label="Bairro"
-          color="#949090"
-          bordercolor="#C4C4C4"
-        />
-        <TextField style = "padding-bottom: 10px"
+        <v-text-field
+          ref="address"
           v-model="address"
-          label="Endereço"
-          color="#949090"
-          bordercolor="#C4C4C4"
+          required
+          :error-messages="address_errors"
+          label="Address"
+          @input="$v.address.$touch()"
+          @blur="$v.address.$touch()"
         />
-        <SelectField
-          v-model="type_of_address"
-          label="Tipo de moradia"
-          color="#949090"
-          bordercolor="#C4C4C4"
-          :items="adrchoises"
+        <v-text-field
+          ref="district"
+          v-model="district"
+          required
+          :error-messages="district_errors"
+          label="District"
+          @input="$v.district.$touch()"
+          @blur="$v.district.$touch()"
         />
-      </div>
 
-      <div class="content-button">
+        <v-row>
+          <v-col
+            cols="6"
+          >
+            <v-text-field
+              ref="city"
+              v-model="city"
+              required
+              :error-messages="city_errors"
+              label="City"
+              @input="$v.city.$touch()"
+              @blur="$v.city.$touch()"
+            />
+          </v-col>
+
+          <v-col
+            cols="6"
+          >
+            <v-autocomplete
+              ref="state"
+              v-model="state"
+              required
+              :items="brstates"
+              label="State"
+              :error-messages="state_errors"
+              @input="$v.state.$touch()"
+              @blur="$v.state.$touch()"
+            />
+          </v-col>
+        </v-row>
+        
+        <div class="input">
+          <ImageUpload
+            @upload-complete="uploadImageSuccess"
+          />
+        </div>
+      </form>
+      <div class="property-button">
         <RegisterButton
           class="mt-4"
           label="Cadastrar"
@@ -60,68 +99,26 @@
         />
       </div>
     </div>
+    <Snackbar @reset="clearForm" />
   </div>
 </template>
 
 <script>
   import TopBar from '../components/layout/TopBar'
-  import TextField from '../components/input/TextField'
   import SelectField from '../components/input/SelectField'
   import RegisterButton from '../components/input/RegisterButton'
+  import ImageUpload from '../components/input/ImageUpload'
+  import Snackbar from '@/components/input/Snackbar.vue'
+  import { required, numeric, minLength, maxLength } from 'vuelidate/lib/validators'
 
   export default {
     components: {
       TopBar,
-      TextField,
-      SelectField,
       RegisterButton,
+      ImageUpload,
+      Snackbar,
+      ImageUpload,
     },
-
-    props: {
-      brstates: {
-          type: Array,
-          default: function() { return [
-            {name: "Acre", id: 1 },
-            {name: "Alagoas", id: 2 },
-            {name: "Amapá", id: 3 },
-            {name: "Amazonas", id: 4 },
-            {name: "Bahia", id: 5 },
-            {name: "Ceará", id: 6 },
-            {name: "Distrito Federal", id: 7 },
-            {name: "Espírito Santo", id: 8 },
-            {name: "Goiás", id: 9 },
-            {name: "Maranhão", id: 10 },
-            {name: "Mato Grosso", id: 11 },
-            {name: "Mato Grosso do Sul", id: 12 },
-            {name: "Minas Gerais", id: 13 },
-            {name: "Pará", id: 14 },
-            {name: "Paraíba", id: 15 },
-            {name: "Paraná", id: 16 },
-            {name: "Pernambuco", id: 17 },
-            {name: "Piauí", id: 18 },
-            {name: "Rio de Janeiro", id: 19 },
-            {name: "Rio Grande do Norte", id: 20 },
-            {name: "Rio Grande do Sul", id: 21 },
-            {name: "Rondônia", id: 22 },
-            {name: "Roraima", id: 23 },
-            {name: "Santa Catarina", id: 24 },
-            {name: "São Paulo", id: 25 },
-            {name: "Sergipe", id: 26 },
-            {name: "Tocantins", id: 27 },
-        ]},
-      },
-
-      adrchoises: {
-        type: Array,
-        default: function () { return [
-          {name: "Apartamento", id: 1 },
-          {name: "Casa", id: 2 },
-          {name: "Fazenda", id: 3 },
-          {name: "Outro", id: 4 },
-        ]},
-      },
-    },
-
     data() {
       return {
         type_of_address: '',
@@ -130,113 +127,95 @@
         city: '',
         district: '',
         address: '',
+        tree_picture: null,
+        preview: {},
+        brstates: ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF',
+        'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR',
+        'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'],
+        adrchoises: [
+          'Apartment',
+          'House',
+          'Farm',
+          'Other'
+        ]
       }
+
     },
 
+    validations: {
+      type_of_address: { required },
+      BRZipCode: { required, minLength: minLength(8), maxLength: maxLength(8)  },
+      city: { required },
+      district: { required },
+      address: { required },
+      state: { required },
+    },
+
+    computed: {
+      type_of_address_errors () {
+        const errors = []
+        if (!this.$v.type_of_address.$dirty) return errors
+        !this.$v.type_of_address.required && errors
+          .push('type of address must be filled.')
+        return errors
+      },
+      BRZipCode_errors () {
+        const errors = []
+        if (!this.$v.BRZipCode.$dirty) return errors
+        !this.$v.BRZipCode.required && errors.push('Zip Code must be filled.')
+        !this.$v.BRZipCode.minLength && errors.push('Zip Code must have 8 digits')
+        !this.$v.BRZipCode.maxLength && errors.push('Zip Code must have 8 digits')
+        return errors
+      },
+      city_errors () {
+        const errors = []
+        if (!this.$v.city.$dirty) return errors
+        !this.$v.city.required && errors.push('City must be filled.')
+        return errors
+      },
+      state_errors () {
+        const errors = []
+        if (!this.$v.state.$dirty) return errors
+        !this.$v.state.required && errors.push('State must be filled.')
+        return errors
+      },
+      district_errors () {
+        const errors = []
+        if (!this.$v.district.$dirty) return errors
+         !this.$v.district.required && errors.push('District must be filled.')
+        return errors
+      },
+      address_errors () {
+        const errors = []
+        if (!this.$v.address.$dirty) return errors
+         !this.$v.address.required && errors.push('Address must be filled.')
+        return errors
+      },
+
+    },
     methods: {
+      clearForm () {
+        this.$v.$reset(),
+        this.type_of_address= ''
+        this.BRZipCode= ''
+        this.state= ''
+        this.city= ''
+        this.district= ''
+        this.address= ''
+      },
+
+      uploadImageSuccess(imageFile, imagePath){
+          this.tree_picture = imageFile
+          this.preview = imagePath
+      },
+
       registerProperty(){
-        if (!this.validateInput()) {
+        this.$v.$touch()
+
+        if (this.$v.$invalid) {
           return
         }
-
-        // Code snipet to update the value of 'type_of_address'
-        if (this.type_of_address == "Apartamento") {
-          this.type_of_address = "Apartment"
-
-        } else if (this.type_of_address == "Casa") {
-          this.type_of_address = "House"
-
-        } else if (this.type_of_address == "Fazenda") {
-          this.type_of_address = "Farm"
-
-        } else if (this.type_of_address == "Outro") {
-          this.type_of_address = "Other"
-        }
-
-        // Code snipet to update the value of 'state'
-        if (this.state == "Acre") {
-          this.state = "AC"
-
-        } else if (this.state == "Alagoas") {
-          this.state = "AL"
-
-        } else if (this.state == "Amapá") {
-          this.state = "AP"
-
-        } else if (this.state == "Amazonas") {
-          this.state = "AM"
-
-        } else if (this.state == "Bahia") {
-          this.state = "BA"
-
-        } else if (this.state == "Ceará") {
-          this.state = "CE"
-
-        } else if (this.state == "Distrito Federal") {
-          this.state = "DF"
-
-        } else if (this.state == "Espírito Santo") {
-          this.state = "ES"
-
-        } else if (this.state == "Goiás") {
-          this.state = "GO"
-
-        } else if (this.state == "Maranhão") {
-          this.state = "MA"
-
-        } else if (this.state == "Mato Grosso") {
-          this.state = "MT"
-
-        } else if (this.state == "Mato Grosso do Sul") {
-          this.state = "MS"
-
-        } else if (this.state == "Minas Gerais") {
-          this.state = "MG"
-
-        } else if (this.state == "Pará") {
-          this.state = "PA"
-
-        } else if (this.state == "Paraíba") {
-          this.state = "PB"
-
-        } else if (this.state == "Paraná") {
-          this.state = "PR"
-
-        } else if (this.state == "Pernambuco") {
-          this.state = "PE"
-
-        } else if (this.state == "Piauí") {
-          this.state = "PI"
-
-        } else if (this.state == "Rio de Janeiro") {
-          this.state = "RJ"
-
-        } else if (this.state == "Rio Grande do Norte") {
-          this.state = "RN"
-
-        } else if (this.state == "Rio Grande do Sul") {
-          this.state = "RS"
-
-        } else if (this.state == "Rondônia") {
-          this.state = "RO"
-
-        } else if (this.state == "Roraima") {
-          this.state = "RR"
-
-        } else if (this.state == "Santa Catarina") {
-          this.state = "SC"
-
-        } else if (this.state == "São Paulo") {
-          this.state = "SP"
-
-        } else if (this.state == "Sergipe") {
-          this.state = "SE"
-
-        } else if (this.state == "Tocantins") {
-          this.state = "TO"
-        }
-
-          let data = {
+        let data = {
           BRZipCode: this.BRZipCode,
           state: this.state,
           city: this.city,
@@ -246,63 +225,20 @@
         }
 
         let state = this.$store.state
-        let toasted = this.$toasted
-
         state.authRequest("properties/", "POST", data)
         .then((response) => {
-          toasted.show('Propriedade cadastrada com sucesso').goAway(2000)
-          this.$router.push({ name: 'dashboard' })
+          this.$store.commit('snackbar/showMessage', {
+            message: 'Property successfully registered!',
+                color: 'success',
+            })
+          this.$router.push({ name: 'dashboard'})
         })
         .catch((error) => {
-          if(error.response.data.BRZipCode){
-            this.$toasted.show(error.response.data.BRZipCode).goAway(2000)
-          }
-          if(error.response.data.state){
-            this.$toasted.show(error.response.data.state).goAway(2000)
-          }
-          if(error.response.data.city){
-            this.$toasted.show(error.response.data.city).goAway(2000)
-          }
-          if(error.response.data.district){
-            this.$toasted.show(error.response.data.district).goAway(2000)
-          }
-          if(error.response.data.address){
-            this.$toasted.show(error.response.data.address).goAway(2000)
-          }
-          if(error.response.data.type_of_address){
-            this.$toasted.show(error.response.data.type_of_address).goAway(2000)
-          }
+            this.$store.commit('snackbar/showMessage', {
+              message: 'There was a problem registering your property',
+              color: 'error',
+            })
         })
-
-      },
-
-      validateInput(){
-        if (!this.BRZipCode) {
-          this.$toasted.show('Insira seu CEP').goAway(2000)
-          return false
-        }
-
-        if (!this.state) {
-          this.$toasted.show('Selecione um estado').goAway(2000)
-          return false
-        }
-
-        if (!this.city) {
-          this.$toasted.show('Insira uma cidade').goAway(2000)
-          return false
-        }
-
-        if (!this.district) {
-          this.$toasted.show('Insira um bairro').goAway(2000)
-          return false
-        }
-
-        if (!this.address) {
-          this.$toasted.show('Insira um endereço').goAway(2000)
-          return false
-        }
-
-        return true
       },
     }
   }
@@ -312,40 +248,78 @@
 <style scoped lang="scss">
 @import "../assets/stylesheets/colors.scss";
 
-  .property-form {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    margin-top: 0;
-    text-align: center;
-  }
+.property{
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-image: none;
+}
 
-  .content-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    background-image: none;
-  }
+.property-title {
+  width: 100%;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  display: flex;
+  justify-content: left;
+  font-size: 28px;
+  color: #2D9CDB;
+}
 
-  .content-title {
-    width: 100%;
-    padding: 0px 25px;
-    margin-bottom: 10%;
-    color: #2D9CDB;
-    display: flex;
-    justify-content: left;
-  }
+.property-form {
+  width: 100%;
+  padding-right: 40px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
+}
 
+.property-button {
+  margin-top: 5px;
+  margin-bottom: 25px;
+  color: $color-default-text;
+  font-family: RobotoBold;
 
-  .content-button {
-    margin-top: 40px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    width: 100%;
-  }
+}
 
+.image-container {
+  max-width: auto;
+  max-height: 250px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-left: 10px;
+  border-radius: 5px;
+  box-sizing: border-box;
+
+  border: 1px dashed #D6D6D6;
+  border-radius: 4px;
+  background-color: white;
+
+}.input{
+  padding-right: 35px;
+  padding-left: 10px;
+  padding-top: 5px;
+}
+
+img{
+  max-width: 100%;
+  height: auto;
+}
+
+.gradient {
+  background-image: linear-gradient(
+    180deg,
+    rgba(86, 163, 166, 1),
+    rgba(75, 125, 170, 105)
+  );
+}
 </style>
