@@ -18,7 +18,7 @@
           max-height="300"
           class="sheet-contailer"
         >
-          <!-- User's harvests -->
+          <!---->
           <div v-if="n == 1">
             <h3 class="title-content roboto-regular"> 
               {{ subHarvests }} 
@@ -56,25 +56,15 @@
             <div
               v-if="$store.state.getRefreshToken()"
             >
-              <HarvestDigest
-                :harvest="{date: '25/05/19', status: 'Open', min_volunteers: 100, max_volunteers: 103, pk: 1}"
-              />
-              <v-divider />
-
-              <HarvestDigest
-                :harvest="{date: '25/09/19', status: 'Enough', min_volunteers: 1, max_volunteers: 7, pk: 2}"
-              />
-              <v-divider />
-
-              <HarvestDigest
-                :harvest="{date: '25/11/19', status: 'Done', min_volunteers: 8, max_volunteers: 15, pk: 3}"
-              />
-              <v-divider />
-              
-              <HarvestDigest
-                :harvest="{date: '25/11/19', status: 'Cancelled', min_volunteers: 8, max_volunteers: 15, pk: 4}"
-              />
-              <v-divider />
+              <div
+                v-for="(harvest, index) in userHarvests"
+                :key="index"
+              >
+                <HarvestDigest
+                  :harvest="harvest"
+                />
+                <v-divider v-if="index < userHarvests.length"/>              
+              </div>
             </div>
 
             <div
@@ -118,11 +108,9 @@
             >
               <div
                 v-for="(harvest, index) in allHarvests"
-                :key="harvest.date"
+                :key="harvest.pk"
               >
-                <a :href="'/harvest/' + harvest.property_id + '/' + harvest.pk">
-                  <HarvestDigest :harvest="harvest" />
-                </a>
+                <HarvestDigest :harvest="harvest" />
                 <v-divider v-if="index != allHarvests.length - 1" />
               </div>
             </div>
@@ -183,6 +171,8 @@ export default {
   data: () => ({
     length: 3,
     allHarvests: [],
+    userProperties: [],
+    userHarvests: [],
   }),
 
   computed: {
@@ -214,6 +204,7 @@ export default {
 
   created() {
     this.getAllHarvests();
+    this.getUserHarvests();
   },
 
   methods: {
@@ -233,6 +224,23 @@ export default {
           )
         })
         .catch(() => {})
+    },
+    getUserHarvests() {
+      let properties
+      let harvests
+
+      this.$store.state.authRequest('properties/', 'GET')
+        .then(response => {
+          this.userProperties = response.data
+          for (properties of this.userProperties) {
+            for (harvests of properties.harvests) {
+              this.userHarvests.push(harvests)
+            }
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
     validateList() {
       // Check if date is out of bounds (front end validation)

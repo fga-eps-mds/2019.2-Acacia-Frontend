@@ -117,7 +117,7 @@ export default {
 
   methods: {
     pushToRoute() {
-      let route = 'harvest/' + this.harvest.pk + '/'
+      let route = '/harvest/' + this.harvest.property_id + '/' + this.harvest.pk + '/'
       this.$router.push(route)
       return
     }
