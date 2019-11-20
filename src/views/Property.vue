@@ -93,9 +93,10 @@
         v-if="propertyHarvests.length>0"
       >
         <v-list-item
-          v-for="n in propertyHarvests.length"
-          :key="n"
-          :value="n"
+          v-for="(n, index) in propertyHarvests.length"
+          :key="index"
+          :value="index"
+          :href="'/harvest/' + propertyHarvests[index].property_id + '/' + propertyHarvests[index].pk"
         >
           <v-list-item-icon>
             <v-icon
@@ -105,7 +106,9 @@
               mdi-checkbox-blank-circle
             </v-icon>
           </v-list-item-icon>
-          <v-list-item-content>Colheita</v-list-item-content>
+          <v-list-item-content> 
+            {{ propertyHarvests[index].description }} ({{ propertyHarvests[index].date }})
+          </v-list-item-content>
         </v-list-item>
       </v-list>
       <v-list
@@ -175,10 +178,10 @@
 
     computed: {
       treeRoute: function() {
-        return 'properties/' + this.$route.params.pk.toString() + '/trees'
+        return 'properties/' + this.$route.params.pk.toString() + '/trees/'
       },
       harvestRoute: function() {
-        return 'properties/' + this.$route.params.pk.toString() + '/harvests'
+        return 'properties/' + this.$route.params.pk.toString() + '/harvests/'
       }
     },
 

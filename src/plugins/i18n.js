@@ -95,6 +95,7 @@ const messages = {
         PropertyView: {
             trees: 'Trees',
             harvests: 'Harvests',
+            harvest: "Harvest",
             notrees: "No tree was found",
             noharvests: "No harvest was found"
         },
@@ -252,6 +253,7 @@ const messages = {
         PropertyView: {
             trees: 'Árvores',
             harvests: 'Colheitas',
+            harvest: "Colheita",
             notrees: "Nenhuma árvore encontrada",
             noharvests: "Nenhuma colheita encontrada"
         },

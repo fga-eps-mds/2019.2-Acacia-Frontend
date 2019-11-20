@@ -180,16 +180,6 @@ export default {
     TopBar,
     SignButton
   },
-  props: {
-    harvestId: {
-      type: String,
-      default: "-1"
-    },
-    propertyId: {
-      type: String,
-      default: "-1"
-    }
-  },
   data() {
     return {
       harvestFound: false,
@@ -207,7 +197,7 @@ export default {
     },
     getHarvest() {
       this.$store.state
-        .authRequest("properties/" + this.propertyId + "/harvests/" + this.harvestId + '/', "GET")
+        .authRequest("properties/" + this.$route.params.property_id + "/harvests/" + this.$route.params.harvest_id + '/', "GET")
         .then(response => {
           this.harvestFound = true;
           this.harvest = response.data;
@@ -221,7 +211,7 @@ export default {
     },
     getProperty() {
       this.$store.state
-        .authRequest("properties/" + this.propertyId, "GET")
+        .authRequest("properties/" + this.$route.params.property_id, "GET")
         .then(response => {
           this.property = response.data;
         })
