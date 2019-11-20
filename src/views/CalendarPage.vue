@@ -27,31 +27,36 @@
     <div 
       :class="hideCards"
     >
-      <ul>
         <li 
           v-for="colheita in colheitas" 
           :key="colheita.id"
         >
           <div 
             class="carBody"
-            @click="selectCard(colheita.date)"
+            @click="selectCard(colheita.pk)"
           >
             <p class="cardTitle">
-              {{ colheita.date }}
+              Colheita dia: {{ colheita.date }}
+            </p>
+            <p class="cardTitle">
+              max: {{ colheita.min_volunteers }}
+            </p>
+            <p class="cardTitle">
+              max: {{ colheita.max_volunteers }}
             </p>
             <font-awesome-icon
-              v-if="colheita.date != colheitaCard"
+              v-if="colheita.pk != colheitaCard"
               icon="chevron-right"
               style="color: #376996;"
             /> 
             <font-awesome-icon
-              v-if="colheita.date === colheitaCard"
+              v-if="colheita.pk === colheitaCard"
               icon="chevron-down"
               style="color: #376996;"
             />         
           </div>
           <div 
-            v-if="colheita.date === colheitaCard"
+            v-if="colheita.pk === colheitaCard"
             class="contentCard"
           >
             <p class="cardDescription">
@@ -59,7 +64,6 @@
             </p>
           </div>     
         </li>
-      </ul>
     </div>
   </div>
 </template>
@@ -72,6 +76,7 @@ export default {
   components: {
     TopBar,
   },
+
 
   data() {
     return {
@@ -147,9 +152,17 @@ export default {
 
   methods: {
 
+    activeShadow (val) {
+      if(val === this.colheitaCard){
+        return true
+      }
+      return false
+    },
+
     select() {
       if (this.iconBottomBar == "chevron-up") {
         this.selectedDay = null;
+        this.colheitaCard = "";
         this.height = "height-60";
         this.iconBottomBar = "chevron-down";
       }
@@ -203,13 +216,14 @@ export default {
 <style lang="scss">
 @import "../assets/stylesheets/colors.scss";
 
-  ul{
-    color: #376996;
-  }
-
   .detail-highlight {
     margin-bottom: 30%;
     transition-duration: 0.4s;
+  }
+
+  .contentCard {
+    padding: 3% 5%;
+    background: #f0f0f0;
   }
 
   .highlight {
@@ -232,9 +246,8 @@ export default {
   }
 
   .cardDescription{
-    margin: 0;
+    margin: 0px !important;
     color: $color-primary-text;
-    margin-right: 5%;
     text-align: left;
     font-size: 90%;
   }
@@ -264,11 +277,12 @@ export default {
 
   .cardTitle{
     margin: 0;
+    font-size: 80%;
     color: $color-primary-text;
   }
 
   .carBody {
-    padding: 5%;
+    padding: 5% 5% 0% 5%;
     display: flex;
     justify-content: space-between;
   }
