@@ -34,28 +34,28 @@
         >
           <div 
             class="carBody"
-            @click="selectCard(colheita.nome)"
+            @click="selectCard(colheita.date)"
           >
             <p class="cardTitle">
-              {{ colheita.nome }}
+              {{ colheita.date }}
             </p>
             <font-awesome-icon
-              v-if="colheita.nome != colheitaCard"
+              v-if="colheita.date != colheitaCard"
               icon="chevron-right"
               style="color: #376996;"
             /> 
             <font-awesome-icon
-              v-if="colheita.nome === colheitaCard"
+              v-if="colheita.date === colheitaCard"
               icon="chevron-down"
               style="color: #376996;"
             />         
           </div>
           <div 
-            v-if="colheita.nome === colheitaCard"
+            v-if="colheita.date === colheitaCard"
             class="contentCard"
           >
             <p class="cardDescription">
-              {{ colheita.descricao }}
+              {{ colheita.description }}
             </p>
           </div>     
         </li>
@@ -81,40 +81,10 @@ export default {
       iconBottomBar: "chevron-up",
       iconCard: "chevron-right",
       colheitaCard: "",
-
-      dates: [
-        new Date(2019, 10, 1),
-        new Date(2019, 10, 2),
-      ],
-
-      dates_info: {
-        '2019-11-02': {
-          colheitas: [
-            {
-              descricao: 'Leo lindo é sensacional, imagina com Durvilhoso que é gado',
-              nome: 'Babadeira',
-            },
-
-            {
-              descricao: 'Leolindo345 é sensacional, imagina com Durvilhoso123 que é gado',
-              nome: 'Pisadeira',
-            },
-          ]
-        },
-        '2019-11-01': {
-          colheitas: [
-            {
-              descricao: 'Leo linxfghjfghsfdhsddo é sensacional, imagina com Durvilhoso que é gado',
-              nome: 'Babdfgfdgadeira',
-            },
-
-            {
-              descricao: 'Leolindo345 é srthfghsfhsfsensacional, imagina com Durvilhoso123 que é gado',
-              nome: 'Pisadedfgdfira',
-            },
-          ]
-        }
-      },
+      harvest: [],
+      dates: [],
+      datesInfo: [],
+      datesSelect: {},
     }
   },
   
@@ -128,9 +98,10 @@ export default {
 
     colheitas: function() {
       if(!this.selectedDay){
-        return this.allHarvest()
+        return this.harvest
       }
-      return this.dates_info[this.selectedDay]['colheitas']
+      
+      return this.datesInfo
     },
 
     atributos: function() {
@@ -157,11 +128,15 @@ export default {
       let state = this.$store.state
 
       const route = 'monthly_harvest/' + val.year + '/' + val.month
-      console.log(route)
 
       state.authRequest(route, 'GET')
         .then((response) => {
           console.log(response)
+          this.harvest = response.data
+          for(var[day_harvest, harvest] of Object.entries(this.harvest)) {
+            this.dates.push(harvest.date)
+            this.datesSelect[harvest.date] = harvest
+          }
         })
         .catch((errors) => {
           console.log(errors.response)
@@ -174,6 +149,7 @@ export default {
 
     select() {
       if (this.iconBottomBar == "chevron-up") {
+        this.selectedDay = null;
         this.height = "height-60";
         this.iconBottomBar = "chevron-down";
       }
@@ -202,28 +178,19 @@ export default {
       }
     },
 
-    allHarvest() {
-      let harvest = []
-      for(var[day, colheitas] of Object.entries(this.dates_info)) {
-        for(var[key, colheita] of Object.entries(colheitas)) {
-          for(var[desc, info] of Object.entries(colheita)) {
-            harvest.push(info)
-          }
-        }
-      }
-
-      return harvest;
-
-    },
-
 
     dayClicked(day) {
 
-      if(!(day.id in this.dates_info)) {
+      this.datesInfo = []
+
+      if(!(day.id in this.datesSelect)) {
         return;
       }
 
-      let colheitas = this.dates_info[day.id]['colheitas'];
+      for(var[day_harvest, harvest] of Object.entries(this.harvest)) {
+        if(harvest.date === day.id) this.datesInfo.push(harvest)
+      }
+
       this.selectedDay = day.id;
       
       this.height = "height-60";
