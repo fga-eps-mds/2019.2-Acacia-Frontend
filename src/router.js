@@ -55,12 +55,14 @@ export default new Router({
             path: '/property/registration',
             component: PropertyRegistration,
             beforeEnter: ifAuthenticated,
+            props: true,
         },
         {
             name: 'harvestRegistration',
             path: '/harvest/registration',
             component: HarvestRegistration,
             beforeEnter: ifAuthenticated,
+            props: true,
         },
         {
             name: 'calendar',
