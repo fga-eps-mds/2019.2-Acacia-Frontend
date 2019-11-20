@@ -60,8 +60,27 @@
             class="contentCard"
           >
             <p class="cardDescription">
-              {{ colheita.description }}
+              <b>Descrição:</b> {{ colheita.description }}
             </p>
+            <p 
+              class="cardDescription"
+            >
+              <b>Regras:</b>
+            </p>
+            <p 
+              class="cardDescription"
+              v-for="rule in colheita.rules"
+              :key="rule.id"
+            >
+              - {{ rule.description }}
+            </p>
+            <SignButton
+              buttonstyle="color: #376996" 
+              color="bg-color-default"
+              label="Ver mais informações" 
+              class="content-button" 
+              @action="moreInformation(colheita)"
+            />
           </div>     
         </li>
     </div>
@@ -70,11 +89,14 @@
 
 <script>
 import TopBar from '@/components/layout/TopBar'
+import SignButton from '@/components/input/SignButton'
+import router from '@/router'
 
 export default {
 
   components: {
     TopBar,
+    SignButton
   },
 
 
@@ -151,6 +173,10 @@ export default {
   },
 
   methods: {
+
+    moreInformation(val){
+      router.push({ path: '/harvest/' + val.property_id + '/' + val.pk })
+    },
 
     activeShadow (val) {
       if(val === this.colheitaCard){
@@ -250,6 +276,7 @@ export default {
     color: $color-primary-text;
     text-align: left;
     font-size: 90%;
+    font-size: 70%;
   }
 
   .content-container {
