@@ -35,6 +35,7 @@
             class="carBody"
             @click="selectCard(colheita.pk)"
           >
+
             <p class="cardTitle">
               Colheita dia: {{ colheita.date }}
             </p>
@@ -59,24 +60,28 @@
             v-if="colheita.pk === colheitaCard"
             class="contentCard"
           >
-            <p class="cardDescription">
-              <b>Descrição:</b> {{ colheita.description }}
-            </p>
-            <p 
-              class="cardDescription"
+            <div
+              class="contentCardText" 
             >
-              <b>Regras:</b>
-            </p>
-            <p 
-              class="cardDescription"
-              v-for="rule in colheita.rules"
-              :key="rule.id"
-            >
-              - {{ rule.description }}
-            </p>
+              <p class="cardDescription">
+                <b>Descrição:</b> {{ colheita.description }}
+              </p>
+              <p 
+                class="cardDescription"
+              >
+                <b>Regras:</b>
+              </p>
+              <p 
+                class="cardDescription"
+                v-for="rule in colheita.rules"
+                :key="rule.id"
+              >
+                - {{ rule.description }}
+              </p>
+            </div>
             <SignButton
-              buttonstyle="color: #376996" 
-              color="bg-color-default"
+              buttonstyle="color: #ffffff" 
+              color="bg-color-primary"
               label="Ver mais informações" 
               class="content-button" 
               @action="moreInformation(colheita)"
@@ -342,6 +347,15 @@ export default {
     padding: 20px;
     display: flex;
     justify-content: center;
+  }
+
+  .content-button {
+    font-size: 70%;
+    padding: 0px !important;
+  }
+
+  .contentCardText {
+    padding: 12px 0px;
   }
 
 </style>
