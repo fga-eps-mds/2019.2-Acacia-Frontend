@@ -77,8 +77,8 @@
                 @blur="$v.max_volunteers.$touch()"
               />
             </v-col>
-            <v-col
-              cols="12"
+            <v-col 
+              cols="12" 
               class="pl-4 pr-4"
             >
               <StringList
