@@ -28,121 +28,127 @@
       v-if="colheitas.length > 0"
       :class="hideCards"
     >
-        <li 
-          v-for="colheita in colheitas" 
-          :key="colheita.id"
+      <li 
+        v-for="colheita in colheitas" 
+        :key="colheita.id"
+      >
+        <div 
+          class="carBody"
+          @click="selectCard(colheita.pk)"
         >
-          <div 
-            class="carBody"
-            @click="selectCard(colheita.pk)"
+          <div
+            id="harvestTitle"
+            class="harvestTitle"
+          >
+            <v-icon
+              style="margin-bottom:20px"
+              size="16"
+              color="#EF476F"
+            >
+              mdi-checkbox-blank-circle
+            </v-icon>
+            <p 
+              class="cardTitle"
+              style="margin-left:15px"
+            >
+              <b>
+                {{ $t('Calendar.harvest') }}
+              </b>
+            </p>
+          </div>
+
+          <p class="cardTitle">
+            ({{ colheita.date }})
+          </p>
+    
+          <font-awesome-icon
+            v-if="colheita.pk != colheitaCard"
+            icon="chevron-right"
+            style="color: #376996;"
+          /> 
+          <font-awesome-icon
+            v-if="colheita.pk === colheitaCard"
+            icon="chevron-down"
+            style="color: #376996;"
+          />         
+        </div>
+        <div 
+          v-if="colheita.pk === colheitaCard"
+          class="contentCard"
+        >
+          <div
+            class="contentCardText" 
           >
             <div
-              id="harvestTitle"
-              class="harvestTitle"
+              id="volunteerContent"
             >
-              <v-icon
-                style="margin-bottom:20px"
-                size="16"
-                color="#EF476F"
-              >
-                mdi-checkbox-blank-circle
-              </v-icon>
-              <p 
-                class="cardTitle"
-                style="margin-left:15px"
-              >
+              <p class="cardDescription raleway-bold">
                 <b> 
-                  Colheita 
+                  {{ $t('Calendar.volunteers') }}
                 </b>
               </p>
+              <div
+                class="descriptionItem minMaxContent"
+              >
+                <p class="cardDescription">
+                  {{ $t('Calendar.minimum') }} {{ colheita.min_volunteers }}
+                </p>
+                <p class="cardDescription">
+                  {{ $t('Calendar.maximum') }} {{ colheita.max_volunteers }}
+                </p>
+              </div>
             </div>
 
-            <p class="cardTitle">
-              ({{ colheita.date }})
-            </p>
-    
-            <font-awesome-icon
-              v-if="colheita.pk != colheitaCard"
-              icon="chevron-right"
-              style="color: #376996;"
-            /> 
-            <font-awesome-icon
-              v-if="colheita.pk === colheitaCard"
-              icon="chevron-down"
-              style="color: #376996;"
-            />         
-          </div>
-          <div 
-            v-if="colheita.pk === colheitaCard"
-            class="contentCard"
-          >
             <div
-              class="contentCardText" 
+              id="descriptionContent"
+              style="margin-top:15px"
             >
+              <p class="cardDescription raleway-bold">
+                <b>
+                  {{ $t('Calendar.description') }}
+                </b>
+              </p>
               <div
-                id="volunteerContent"
+                class="descriptionItem"
               >
-                <p class="cardDescription raleway-bold">
-                  <b>Voluntários:</b>
+                <p class="cardDescription">
+                  {{ colheita.description }}
                 </p>
-                <div
-                  class="descriptionItem minMaxContent"
-                >
-                  <p class="cardDescription">
-                    Mínimo: {{ colheita.min_volunteers }}
-                  </p>
-                  <p class="cardDescription">
-                    Máximo: {{ colheita.max_volunteers }}
-                  </p>
-                </div>
-              </div>
-
-              <div
-                id="descriptionContent"
-                style="margin-top:15px"
-              >
-                <p class="cardDescription raleway-bold">
-                  <b>Descrição:</b>
-                </p>
-                <div
-                  class="descriptionItem"
-                >
-                  <p class="cardDescription">
-                    {{ colheita.description }}
-                  </p>
-                </div>
-              </div>
-              
-              <div
-                id="rulesContent"
-                style="margin-top:15px"
-              >
-                <p class="cardDescription raleway-bold">
-                  <b>Regras:</b>
-                </p>
-                <div
-                  class="descriptionItem"
-                >
-                  <p 
-                    class="cardDescription"
-                    v-for="rule in colheita.rules"
-                    :key="rule.id"
-                  >
-                    - {{ rule.description }}
-                  </p>
-                </div>
               </div>
             </div>
+              
+            <div
+              id="rulesContent"
+              style="margin-top:15px"
+            >
+              <p class="cardDescription raleway-bold">
+                <b>
+                  {{ $t('Calendar.rules') }}
+                </b>
+              </p>
+              <div
+                class="descriptionItem"
+              >
+                <p 
+                  v-for="rule in colheita.rules"
+                  :key="rule.id"
+                  class="cardDescription"
+                >
+                  - {{ rule.description }}
+                </p>
+              </div>
+            </div>
+          </div>
 
-            <SignButton
-              buttonstyle="color: #ffffff" 
-              color="bg-color-primary"
-              label="Ver mais informações" 
-              class="content-button" 
-              @action="moreInformation(colheita)"
-            />
-          </div>     
-        </li>
+          <SignButton
+            buttonstyle="color: #ffffff" 
+            color="bg-color-primary"
+            :label="$t('Calendar.about')" 
+            class="content-button" 
+            @action="moreInformation(colheita)"
+          />
+        </div>     
+      </li>
     </div>
 
     <div
@@ -158,7 +164,7 @@
           <h3
             class="raleway-regular"
           > 
-            Nenhuma colheita foi encontrada neste mês
+            {{ $t('Calendar.hoharvest') }}
           </h3>
         </div>
       </div>

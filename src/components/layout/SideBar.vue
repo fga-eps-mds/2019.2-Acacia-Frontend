@@ -21,7 +21,7 @@
 
         <v-list-item-content>
           <v-list-item-title class="white--text">
-            Username
+            {{ username }}
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -199,6 +199,7 @@ export default {
         {title: 'Português', flagicon: 'br', language: 'pt'},
         {title: 'English', flagicon: 'ca', language: 'en'},
       ],
+      username: '',
     }
   },
   computed: {
@@ -252,6 +253,11 @@ export default {
       },
     },
   },
+
+  mounted() {
+    this.getUsername();
+  },
+
   methods: {
     logout() {
       if (this.$store.state.getRefreshToken()) {
@@ -261,6 +267,15 @@ export default {
     },
     changeLocale(locale){
       this.$store.state.setUserLanguage(locale)
+    },
+    getUsername(){
+      this.$store.state.authRequest('users/profile/', 'GET')
+      .then(response =>{
+        this.username = response.data.username
+      })
+      .catch(error => {
+        console.log(error)
+      })
     },
   }
 }

@@ -121,7 +121,17 @@ const messages = {
             requirePhoneNumber: 'Phone number field accept just numbers',
             requireBio: 'Bio field must be less than 800 characters',
             updatedUser: 'User is up to date'
-        }
+        },
+        Calendar: {
+            harvest: "Harvest",
+            volunteers: "Volunteers:",
+            minimum: "Minimum:",
+            maximum: "Maximum:",
+            description: "Description:",
+            rules: "Rules:",
+            about: "About this harvest",
+            hoharvest: "No harvest was found this month"
+        },
     },
     'pt': {
           SignPages: {
@@ -241,7 +251,17 @@ const messages = {
             requirePhoneNumber: 'O campo telefone só aceita números',
             requireBio: 'O campo deve ter no máximo 800 caracteres',
             updatedUser: 'Dados do usuário atualizados'
-        }
+        },
+        Calendar: {
+            harvest: "Colheita",
+            volunteers: "Voluntários:",
+            minimum: "Mínimo:",
+            maximum: "Máximo:",
+            description: "Descrição:",
+            rules: "Regras:",
+            about: "Sobre esta colheita",
+            hoharvest: "Nenhuma colheita foi encontrada neste mês"
+        },
     },
 }
 

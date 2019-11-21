@@ -11,9 +11,9 @@
             :error-messages="textfieldErrors"
             label="Rules"
             required
+            class="mt-0"
             @input="$v.textfield.$touch()"
             @blur="$v.textfield.$touch()"
-            class="mt-0"
           />
         </v-col>
         <v-col 
