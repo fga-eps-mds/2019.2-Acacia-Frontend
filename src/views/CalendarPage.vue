@@ -24,7 +24,8 @@
       </div>
     </div>
     
-    <div 
+    <div
+      v-if="colheitas.length > 0"
       :class="hideCards"
     >
         <li 
@@ -35,16 +36,31 @@
             class="carBody"
             @click="selectCard(colheita.pk)"
           >
+            <div
+              id="harvestTitle"
+              class="harvestTitle"
+            >
+              <v-icon
+                style="margin-bottom:20px"
+                size="16"
+                color="#EF476F"
+              >
+                mdi-checkbox-blank-circle
+              </v-icon>
+              <p 
+                class="cardTitle"
+                style="margin-left:15px"
+              >
+                <b> 
+                  Colheita 
+                </b>
+              </p>
+            </div>
 
             <p class="cardTitle">
-              Colheita dia: {{ colheita.date }}
+              ({{ colheita.date }})
             </p>
-            <p class="cardTitle">
-              max: {{ colheita.min_volunteers }}
-            </p>
-            <p class="cardTitle">
-              max: {{ colheita.max_volunteers }}
-            </p>
+    
             <font-awesome-icon
               v-if="colheita.pk != colheitaCard"
               icon="chevron-right"
@@ -63,22 +79,61 @@
             <div
               class="contentCardText" 
             >
-              <p class="cardDescription">
-                <b>Descrição:</b> {{ colheita.description }}
-              </p>
-              <p 
-                class="cardDescription"
+              <div
+                id="volunteerContent"
               >
-                <b>Regras:</b>
-              </p>
-              <p 
-                class="cardDescription"
-                v-for="rule in colheita.rules"
-                :key="rule.id"
+                <p class="cardDescription raleway-bold">
+                  <b>Voluntários:</b>
+                </p>
+                <div
+                  class="descriptionItem minMaxContent"
+                >
+                  <p class="cardDescription">
+                    Mínimo: {{ colheita.min_volunteers }}
+                  </p>
+                  <p class="cardDescription">
+                    Máximo: {{ colheita.max_volunteers }}
+                  </p>
+                </div>
+              </div>
+
+              <div
+                id="descriptionContent"
+                style="margin-top:15px"
               >
-                - {{ rule.description }}
-              </p>
+                <p class="cardDescription raleway-bold">
+                  <b>Descrição:</b>
+                </p>
+                <div
+                  class="descriptionItem"
+                >
+                  <p class="cardDescription">
+                    {{ colheita.description }}
+                  </p>
+                </div>
+              </div>
+              
+              <div
+                id="rulesContent"
+                style="margin-top:15px"
+              >
+                <p class="cardDescription raleway-bold">
+                  <b>Regras:</b>
+                </p>
+                <div
+                  class="descriptionItem"
+                >
+                  <p 
+                    class="cardDescription"
+                    v-for="rule in colheita.rules"
+                    :key="rule.id"
+                  >
+                    - {{ rule.description }}
+                  </p>
+                </div>
+              </div>
             </div>
+
             <SignButton
               buttonstyle="color: #ffffff" 
               color="bg-color-primary"
@@ -88,6 +143,25 @@
             />
           </div>     
         </li>
+    </div>
+
+    <div
+      v-else
+      :class="hideCards"
+    >
+      <div
+        class="centralize-content" 
+      >
+        <div
+          class="centralize-message"
+        >
+          <h3
+            class="raleway-regular"
+          > 
+            Nenhuma colheita foi encontrada neste mês
+          </h3>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -163,7 +237,6 @@ export default {
 
       state.authRequest(route, 'GET')
         .then((response) => {
-          console.log(response)
           this.harvest = response.data
           for(var[day_harvest, harvest] of Object.entries(this.harvest)) {
             this.dates.push(harvest.date)
@@ -316,6 +389,7 @@ export default {
   .carBody {
     padding: 5% 5% 0% 5%;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
   }
 
@@ -352,10 +426,43 @@ export default {
   .content-button {
     font-size: 70%;
     padding: 0px !important;
+    margin-top: 5px;
   }
 
   .contentCardText {
     padding: 12px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
+  .descriptionItem {
+    width: 75%;
+    margin-left: 30px;
+  }
+
+  .minMaxContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .centralize-content {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .centralize-message {
+    text-align: justify;
+    margin-top: 40px;
+    width: 80%;
+  }
+
+  .harvestTitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
 </style>
