@@ -30,10 +30,10 @@ export default {
       message: 'Sem mensagens',
       color: 'success',
       mode: '',
-      timeout: 5000,
+      timeout: 4000,
       x: 'right',
       y: 'top',
-      absolute: false,
+      absolute: true,
     }
   },
  

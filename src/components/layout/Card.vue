@@ -21,28 +21,41 @@
           <!-- User's harvests -->
           <div v-if="n == 1">
             <h3 class="title-content roboto-regular"> 
-              {{ subHarvests }} 
+              {{ $t('HarvestDigest.userProperties') }} 
             </h3>
-            
-            <div
-              v-if="$store.state.getRefreshToken()"
-            >
-              <HarvestDigest
-                :harvest="{date: '25/05/19', status: 'Vai acontecer', min_volunteers: 4, max_volunteers: 10}"
-              />
-              <v-divider />
-
-              <HarvestDigest
-                :harvest="{date: '25/09/19', status: 'Cancelada', min_volunteers: 1, max_volunteers: 7}"
-              />
-              <v-divider />
-
-              <HarvestDigest
-                :harvest="{date: '25/11/19', status: 'Vai acontecer', min_volunteers: 8, max_volunteers: 15}"
-              />
+            <div v-if="$store.state.getRefreshToken()">
+              <div v-if="!propertiesGet">
+                <v-progress-circular
+                  :size="50"
+                  color="primary"
+                  indeterminate
+                  class="mt-5"
+                ></v-progress-circular>
+              </div>
+              <div v-else-if="userProperties.length == 0">
+                <div
+                  class="centralize-container"
+                >
+                  <h4
+                    style="width:90%"
+                    class="message-content raleway-regular"
+                  > 
+                    {{ $t('HarvestDigest.noProperties') }} 
+                  </h4> 
+                </div>
+              </div>
+              <div v-else> 
+                <div
+                  v-for="(property, index) in userProperties"
+                  :key="property.address"
+                >
+                  <a :href="'/property/' + property.pk + '/'">
+                    <PropertyDigest :property="property" />
+                  </a>
+                  <v-divider v-if="index != userProperties.length - 1" />
+                </div>
+              </div>
             </div>
-
-
             <div
               v-else
               class="message-content raleway-regular"
@@ -64,8 +77,16 @@
             <h3 class="title-content roboto-regular"> 
               {{ weekHarvests }}
             </h3>
+            <div v-if="!harvestGet">
+              <v-progress-circular
+                :size="50"
+                color="primary"
+                indeterminate
+                class="mt-5"
+              ></v-progress-circular>
+            </div>
             <div
-              v-if="allHarvests.length == 0"
+              v-else-if="allHarvests.length == 0"
               class="message-content raleway-regular"
             >
               <div
@@ -126,12 +147,14 @@
 
 <script>
 import HarvestDigest from '@/components/visualization/HarvestDigest'
+import PropertyDigest from '@/components/visualization/PropertyDigest'
 
 export default {
   name: 'CardComponent',
   
   components: {
     HarvestDigest,
+    PropertyDigest
   },
 
   model: {
@@ -149,6 +172,9 @@ export default {
   data: () => ({
     length: 2,
     allHarvests: [],
+    userProperties: [],
+    propertiesGet: false,
+    harvestGet: false
   }),
 
   computed: {
@@ -160,25 +186,22 @@ export default {
         this.$emit("window-change", value);
       },
     },
-
     subHarvests: function() {
       return this.$t('HarvestDigest.subscribed')
     },
-
     weekHarvests: function() {
       return this.$t('HarvestDigest.weekharvests')
     },
-
     signinMessage: function() {
       return this.$t('HarvestDigest.message')
     },
-
     noHarvest: function() {
       return this.$t('HarvestDigest.noharvest')
     },
   },
 
   created() {
+    this.getUserProperties();
     this.getAllHarvests();
   },
 
@@ -198,7 +221,33 @@ export default {
             }
           )
         })
-        .catch(() => {})
+        .catch(() => {
+          this.$store.commit('snackbar/showMessage', {
+            message: 'An error has ocurred searching for harvests',
+            color: 'error',
+            })
+        })
+        .finally(() => {
+          this.harvestGet = true
+        })
+    },
+    getUserProperties() {
+      this.$store.state.authRequest('properties/', 'GET')
+        .then((response) => {
+          this.userProperties = 
+            Object
+              .keys(response.data)
+              .map(i => response.data[i])
+        })
+        .catch((error) => {
+          this.$store.commit('snackbar/showMessage', {
+            message: 'An error has ocurred searching for your properties',
+            color: 'error',
+            })
+        })
+        .finally(() => {
+          this.propertiesGet = true
+        })
     },
   },
 }

@@ -56,12 +56,14 @@ export default new Router({
     path: '/property/registration',
     component: PropertyRegistration,
     beforeEnter: ifAuthenticated,
+    props: true,
   },
   {
     name: 'harvestRegistration',
     path: '/harvest/registration',
     component: HarvestRegistration,
     beforeEnter: ifAuthenticated,
+    props: true,
   },
   {
     name: 'calendar',
@@ -78,6 +80,7 @@ export default new Router({
     path: '/tree/registration',
     component: TreeRegistration,
     beforeEnter: ifAuthenticated,
+    props: true,
   },
   {
     path: '/harvest/:property_id/:harvest_id',
