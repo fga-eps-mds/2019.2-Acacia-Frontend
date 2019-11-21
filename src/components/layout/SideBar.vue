@@ -3,7 +3,6 @@
     v-model="sideNav"
     absolute
     temporary
-    color="#56A3A6"
     class="navigation-drawer"
   >
     <div
@@ -15,7 +14,7 @@
             large
             color="#ffffff"
           >
-            mdi-account-outline
+            mdi-account
           </v-icon>
         </v-list-item-avatar>
 
@@ -287,6 +286,12 @@ export default {
     z-index: 101 !important;
     height: 100vh;
     position: fixed;
+    background-image: linear-gradient(
+      45deg,
+      rgba(86, 163, 166, 1),
+      rgba(75, 125, 170, 85),
+      rgba(75, 125, 170, 105)
+    );
   }
 
 </style>

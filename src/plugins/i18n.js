@@ -220,7 +220,7 @@ const messages = {
             opendata: "Dados Abertos",
             signin: "Entrar",
             signup: "Registrar",
-            languages: "Linguagens",
+            languages: "Idiomas",
             exit: "Sair",
         },
         DatePicker: {
