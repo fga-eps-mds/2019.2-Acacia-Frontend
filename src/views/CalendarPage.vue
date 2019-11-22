@@ -24,70 +24,150 @@
       </div>
     </div>
     
-    <div 
+    <div
+      v-if="colheitas.length > 0"
       :class="hideCards"
     >
-        <li 
-          v-for="colheita in colheitas" 
-          :key="colheita.id"
+      <li 
+        v-for="colheita in colheitas" 
+        :key="colheita.id"
+      >
+        <div 
+          class="carBody"
+          @click="selectCard(colheita.pk)"
         >
-          <div 
-            class="carBody"
-            @click="selectCard(colheita.pk)"
+          <div
+            id="harvestTitle"
+            class="harvestTitle"
           >
-
-            <p class="cardTitle">
-              Colheita dia: {{ colheita.date }}
+            <v-icon
+              style="margin-bottom:20px"
+              size="16"
+              color="#EF476F"
+            >
+              mdi-checkbox-blank-circle
+            </v-icon>
+            <p 
+              class="cardTitle"
+              style="margin-left:15px"
+            >
+              <b>
+                {{ $t('Calendar.harvest') }}
+              </b>
             </p>
-            <p class="cardTitle">
-              max: {{ colheita.min_volunteers }}
-            </p>
-            <p class="cardTitle">
-              max: {{ colheita.max_volunteers }}
-            </p>
-            <font-awesome-icon
-              v-if="colheita.pk != colheitaCard"
-              icon="chevron-right"
-              style="color: #376996;"
-            /> 
-            <font-awesome-icon
-              v-if="colheita.pk === colheitaCard"
-              icon="chevron-down"
-              style="color: #376996;"
-            />         
           </div>
-          <div 
+
+          <p class="cardTitle">
+            ({{ colheita.date }})
+          </p>
+    
+          <font-awesome-icon
+            v-if="colheita.pk != colheitaCard"
+            icon="chevron-right"
+            style="color: #376996;"
+          /> 
+          <font-awesome-icon
             v-if="colheita.pk === colheitaCard"
-            class="contentCard"
+            icon="chevron-down"
+            style="color: #376996;"
+          />         
+        </div>
+        <div 
+          v-if="colheita.pk === colheitaCard"
+          class="contentCard"
+        >
+          <div
+            class="contentCardText" 
           >
             <div
-              class="contentCardText" 
+              id="volunteerContent"
             >
-              <p class="cardDescription">
-                <b>Descrição:</b> {{ colheita.description }}
+              <p class="cardDescription raleway-bold">
+                <b> 
+                  {{ $t('Calendar.volunteers') }}
+                </b>
               </p>
-              <p 
-                class="cardDescription"
+              <div
+                class="descriptionItem minMaxContent"
               >
-                <b>Regras:</b>
-              </p>
-              <p 
-                class="cardDescription"
-                v-for="rule in colheita.rules"
-                :key="rule.id"
-              >
-                - {{ rule.description }}
-              </p>
+                <p class="cardDescription">
+                  {{ $t('Calendar.minimum') }} {{ colheita.min_volunteers }}
+                </p>
+                <p class="cardDescription">
+                  {{ $t('Calendar.maximum') }} {{ colheita.max_volunteers }}
+                </p>
+              </div>
             </div>
-            <SignButton
-              buttonstyle="color: #ffffff" 
-              color="bg-color-primary"
-              label="Ver mais informações" 
-              class="content-button" 
-              @action="moreInformation(colheita)"
-            />
-          </div>     
-        </li>
+
+            <div
+              id="descriptionContent"
+              style="margin-top:15px"
+            >
+              <p class="cardDescription raleway-bold">
+                <b>
+                  {{ $t('Calendar.description') }}
+                </b>
+              </p>
+              <div
+                class="descriptionItem"
+              >
+                <p class="cardDescription">
+                  {{ colheita.description }}
+                </p>
+              </div>
+            </div>
+              
+            <div
+              id="rulesContent"
+              style="margin-top:15px"
+            >
+              <p class="cardDescription raleway-bold">
+                <b>
+                  {{ $t('Calendar.rules') }}
+                </b>
+              </p>
+              <div
+                class="descriptionItem"
+              >
+                <p 
+                  v-for="rule in colheita.rules"
+                  :key="rule.id"
+                  class="cardDescription"
+                >
+                  - {{ rule.description }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <SignButton
+            buttonstyle="color: #ffffff" 
+            color="bg-color-primary"
+            :label="$t('Calendar.about')" 
+            class="content-button" 
+            @action="moreInformation(colheita)"
+          />
+        </div>     
+      </li>
+    </div>
+
+    <div
+      v-else
+      :class="hideCards"
+    >
+      <div
+        class="centralize-content" 
+      >
+        <div
+          class="centralize-message"
+        >
+          <h3
+            class="raleway-regular"
+          > 
+            {{ $t('Calendar.hoharvest') }}
+          </h3>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -158,7 +238,6 @@ export default {
 
       state.authRequest(route, 'GET')
         .then((response) => {
-          console.log(response)
           this.harvest = response.data
           for(var[day_harvest, harvest] of Object.entries(this.harvest)) {
             this.dates.push(harvest.date)
@@ -306,6 +385,7 @@ export default {
   .carBody {
     padding: 5% 5% 0% 5%;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
   }
 
@@ -342,10 +422,43 @@ export default {
   .content-button {
     font-size: 60%;
     padding: 0px !important;
+    margin-top: 5px;
   }
 
   .contentCardText {
     padding: 12px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
+  .descriptionItem {
+    width: 75%;
+    margin-left: 30px;
+  }
+
+  .minMaxContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .centralize-content {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .centralize-message {
+    text-align: justify;
+    margin-top: 40px;
+    width: 80%;
+  }
+
+  .harvestTitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
 </style>
