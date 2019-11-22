@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Docker login
-      run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASS}}
+      run: docker login --username=${{secrets.DOCKER_USER}} --password=${{secrets.DOCKER_PASS}}
     - name: Docker build
       run: docker build -t acaciaelis/acacia:node-staging .
     - name: Docker push
