@@ -15,7 +15,7 @@
           color="light-green accent-3"
           clearable
           required
-          v-on:keydown="isUniqueUsername=''"
+          @keydown="isUniqueUsername=''"
           @input="$v.username.$touch()"
           @blur="$v.username.$touch()"
         />
@@ -28,7 +28,7 @@
           color="light-green accent-3"
           clearable
           required
-          v-on:keydown="isUniqueEmail=''"
+          @keydown="isUniqueEmail=''"
           @input="$v.email.$touch()"
           @blur="$v.email.$touch()"
         />

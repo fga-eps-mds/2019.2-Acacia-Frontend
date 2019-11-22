@@ -73,10 +73,6 @@
               {{ profileTranslation }}
             </v-list-item-title>
 
-            <v-list-item-title v-else-if="item.title=='opendata'">
-              {{ openDataTranslation }}
-            </v-list-item-title>
-
             <v-list-item-title v-else-if="item.title=='properties'">
               {{ propertiesTranslation }}
             </v-list-item-title>
@@ -182,7 +178,6 @@ export default {
     return {
       navItemsAuth: [
         {title: 'profile', icon: 'mdi-account-outline', link: '/profile'},
-        {title: 'opendata', icon: 'mdi-shape-circle-plus', link: '/public-data'},
         {title: 'properties', icon: 'mdi-home', link: '/property'},
         {title: 'harvests', icon: 'mdi-sprout', link: '/harvest'},
         {title: 'calendar', icon: 'mdi-calendar-blank-outline', link: '/calendar'},
@@ -191,7 +186,6 @@ export default {
       navItemsNotAuth: [
         {title: 'dashboard', icon: 'mdi-view-dashboard-outline', link: '/dashboard'},
         {title: 'calendar', icon: 'mdi-calendar-blank-outline', link: '/calendar'},
-        {title: 'opendata', icon: 'mdi-shape-circle-plus', link: '/public-data'},
         {title: 'signin', icon: 'mdi-login', link: '/signin'},
         {title: 'signup', icon: 'mdi-account-plus', link: '/signup'},
       ],
@@ -204,10 +198,6 @@ export default {
   computed: {
     profileTranslation: function() {
       return this.$t('SideBar.profile')
-    },
-
-    openDataTranslation: function() {
-      return this.$t('SideBar.opendata')
     },
 
     propertiesTranslation: function() {

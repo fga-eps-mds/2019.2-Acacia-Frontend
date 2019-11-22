@@ -140,16 +140,11 @@ export default {
       let attrs = [{
         highlight: {
           color: 'yellow',
-          class: 'detail-highlight'
+          class: 'highlight'
         },
 
         dates: this.dates,
       }]
-
-      if (this.iconBottomBar == "chevron-up") {
-        attrs[0]['highlight'].class = 'highlight'
-        return attrs
-      }
 
       return attrs
     },
@@ -247,18 +242,13 @@ export default {
 <style lang="scss">
 @import "../assets/stylesheets/colors.scss";
 
-  .detail-highlight {
-    margin-bottom: 30%;
-    transition-duration: 0.4s;
-  }
-
   .contentCard {
     padding: 3% 5%;
     background: #f0f0f0;
   }
 
   .highlight {
-    margin-bottom: 120%;
+    margin-bottom: auto;
     transition-duration: 0.4s;
   }
 
@@ -350,7 +340,7 @@ export default {
   }
 
   .content-button {
-    font-size: 70%;
+    font-size: 60%;
     padding: 0px !important;
   }
 
