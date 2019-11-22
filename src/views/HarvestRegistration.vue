@@ -109,6 +109,7 @@
   import Snackbar from '@/components/input/Snackbar.vue'
   import { required, minValue, maxValue } from 'vuelidate/lib/validators'
   import router from '@/router'
+  import PropertyRegistration from '@/views/PropertyRegistration'
 
   export default {
     components: {
@@ -130,6 +131,30 @@
         properties: [],
         selectedProperty: '',
       }
+    },
+    props: {
+      newProperty: {
+        type: Boolean,
+        default: false
+      }
+    },
+    created() {
+      this.getUserProperties();
+    },
+    mounted() {
+      if (this.newProperty) {
+        this.$store.commit('snackbar/showMessage', {
+            message: 'You may now register a harvest',
+              color: 'success',
+          })
+      }
+    },
+    validations: {
+      date: { required },
+      description: { required },
+      selectedProperty: { required },
+      min_volunteers: { required, minValue: minValue(0) },
+      max_volunteers: { maxValue: maxValue(100) },
     },
     computed: {
       selectedPropertyErrors() {
@@ -239,6 +264,10 @@
               this.$store.commit('snackbar/showMessage', {
                 message: 'You need a property to register a harvest into',
                 color: 'error',
+              })
+              router.push({
+                name: 'propertyRegistration',
+                params: { harvestReg: true }
               })
             }
           })

@@ -7,7 +7,7 @@
       <img 
         style="width:70px; height:70px;" 
         class="rounded-circle" 
-        src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fgeographical.co.uk%2Fmedia%2Fk2%2Fitems%2Fcache%2Fbca1dd559f75f65255fb90327f144139_XL.jpg&f=1&nofb=1" 
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Clarence_Burgin_House_Quincy_MA_01.jpg/1200px-Clarence_Burgin_House_Quincy_MA_01.jpg" 
         alt=""
       >
     </div>
@@ -15,22 +15,22 @@
       class="description-content col-9 roboto-regular text-dark"
       style="text-decoration: none"
     >
-      <h6>Titulo de colheita</h6>
-      <b>{{ this.$t('HarvestDigest.date') }}:</b>  {{ harvest.date }}
+      <b>{{ $t('PropertyDigest.address') }}:</b>  
+      {{ property.address }}, 
+      {{ property.city }} - {{ property.state }}
       <br>
-      <b>Status:</b> {{ $t('HarvestDigest.' + harvest.status.toLowerCase()) }}
+      <b>{{ $t('PropertyDigest.type') }}:</b> {{ $t('PropertyDigest.' + property.type_of_address.toLowerCase() ) }}
       <br>
-      <b>{{ this.$t('HarvestDigest.volunteer') }}:</b> {{ harvest.min_volunteers }} 
-      {{ this.$t('HarvestDigest.to') }} {{ harvest.max_volunteers }}
+      <b>{{ $t('PropertyDigest.zipcode') }}:</b> {{ property.BRZipCode }}
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "HarvestDigest",
+  name: "PropertyDigest",
   props: {
-    harvest: {
+    property: {
       default: function() {
         return {}
       },
