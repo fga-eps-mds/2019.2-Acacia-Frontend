@@ -32,7 +32,7 @@
         <DatePicker
           v-model="birthdate"
           :label="$t('UserUpdate.birthdate')"
-          v-bind:max="true"
+          :max="true"
         />
         <div class="input">
           <ImageUpload

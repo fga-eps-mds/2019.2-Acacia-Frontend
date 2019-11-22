@@ -26,8 +26,7 @@
             
             <div
               v-if="$store.state.getRefreshToken()"
-            >
-            </div>
+            />
 
             <div
               v-else
@@ -63,7 +62,7 @@
                 <HarvestDigest
                   :harvest="harvest"
                 />
-                <v-divider v-if="index < userHarvests.length"/>              
+                <v-divider v-if="index < userHarvests.length" />              
               </div>
             </div>
 

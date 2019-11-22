@@ -9,92 +9,95 @@
         <a> {{ $t('HarvestRegister.register') }} </a>
       </div>
       <div class="content-form">
-      <form class="harvest-form">
-        <v-select
-          :items="properties.map((property) => { return {
-            pk: property.pk,
-            address: property.address
-          }})"
-          label="Select a property"
-          item-text="address"
-          item-value="pk"
-          color="white"
-          dense
-          outlined
-          v-model="selectedProperty"
-        ></v-select>
-        <DatePicker
-          v-model="date"
-          v-bind:min="true"
-          :label="$t('HarvestRegister.date')"
-        />
-        <v-text-field
-          v-model="description"
-          :error-messages="descriptionErrors"
-          label="Description"
-          required
-          @input="$v.description.$touch()"
-          @blur="$v.description.$touch()"
-        />
+        <form class="harvest-form">
+          <v-select
+            v-model="selectedProperty"
+            :items="properties.map((property) => { return {
+              pk: property.pk,
+              address: property.address
+            }})"
+            label="Select a property"
+            item-text="address"
+            item-value="pk"
+            color="white"
+            dense
+            outlined
+          />
+          <DatePicker
+            v-model="date"
+            :min="true"
+            :label="$t('HarvestRegister.date')"
+          />
+          <v-text-field
+            v-model="description"
+            :error-messages="descriptionErrors"
+            label="Description"
+            required
+            @input="$v.description.$touch()"
+            @blur="$v.description.$touch()"
+          />
 
-        <v-text-field
-          v-model="equipment"
-          label="Equipment"
-        />
-        <v-row>
-          <v-col
-            cols="12"
-            class="label-volunteers"
-          >
-            {{ $t('HarvestRegister.volunteerNumber') }}
-          </v-col>
-          <v-col
-            cols="6"
-            class="volunteer-quantity"
-          >
-            <v-text-field
-              v-model="min_volunteers"
-              :error-messages="min_volunteersErrors"
-              label="Minimum"
-              type="number"
-              required
-              @input="$v.min_volunteers.$touch()"
-              @blur="$v.min_volunteers.$touch()"
-            />
-          </v-col>
-          <v-col
-            cols="6"
-            class="volunteer-quantity"
-          >
-            <v-text-field
-              v-model="max_volunteers"
-              :error-messages="max_volunteersErrors"
-              label="Maximum"
-              type="number"
-              required
+          <v-text-field
+            v-model="equipment"
+            label="Equipment"
+          />
+          <v-row>
+            <v-col
+              cols="12"
+              class="label-volunteers"
+            >
+              {{ $t('HarvestRegister.volunteerNumber') }}
+            </v-col>
+            <v-col
+              cols="6"
+              class="volunteer-quantity"
+            >
+              <v-text-field
+                v-model="min_volunteers"
+                :error-messages="min_volunteersErrors"
+                label="Minimum"
+                type="number"
+                required
+                @input="$v.min_volunteers.$touch()"
+                @blur="$v.min_volunteers.$touch()"
+              />
+            </v-col>
+            <v-col
+              cols="6"
+              class="volunteer-quantity"
+            >
+              <v-text-field
+                v-model="max_volunteers"
+                :error-messages="max_volunteersErrors"
+                label="Maximum"
+                type="number"
+                required
 
-              @input="$v.max_volunteers.$touch()"
-              @blur="$v.max_volunteers.$touch()"
-            />
-          </v-col>
-          <v-col cols="12" class="pl-4 pr-4">
-            <StringList
-              v-model="rules"
-            />
-          </v-col>
-        </v-row>
-      </form>
-      <div class="harvest-button">
-        <SignButton
-          :label="$t('HarvestRegister.creation')"
-          padding="small"
-          direction="right"
-          @action="registerHarvest"
-        />
+                @input="$v.max_volunteers.$touch()"
+                @blur="$v.max_volunteers.$touch()"
+              />
+            </v-col>
+            <v-col
+              cols="12"
+              class="pl-4 pr-4"
+            >
+              <StringList
+                v-model="rules"
+              />
+            </v-col>
+          </v-row>
+        </form>
+        <div class="harvest-button">
+          <SignButton
+            :label="$t('HarvestRegister.creation')"
+            padding="small"
+            direction="right"
+            @action="registerHarvest"
+          />
+        </div>
       </div>
     </div>
-    </div>
-    <Snackbar @reset="clearForm"/>
+    <Snackbar @reset="clearForm" />
   </div>
 </template>
 
@@ -127,16 +130,6 @@
         selectedProperty: '',
       }
     },
-    created() {
-      this.getUserProperties();
-    },
-    validations: {
-      date: { required },
-      description: { required },
-      selectedProperty: { required },
-      min_volunteers: { required, minValue: minValue(0) },
-      max_volunteers: { maxValue: maxValue(100) },
-    },
     computed: {
       selectedPropertyErrors() {
         const errors = []
@@ -163,6 +156,16 @@
         !this.$v.max_volunteers.maxValue && errors.push('maximum 20 volunteers.')
         return errors
       },
+    },
+    created() {
+      this.getUserProperties();
+    },
+    validations: {
+      date: { required },
+      description: { required },
+      selectedProperty: { required },
+      min_volunteers: { required, minValue: minValue(0) },
+      max_volunteers: { maxValue: maxValue(100) },
     },
     methods: {
       clearForm () {

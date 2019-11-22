@@ -1,7 +1,7 @@
 <template>
   <div
-    class="digest-content"
     id="digest-content"
+    class="digest-content"
     @click="pushToRoute()"
   >
     <div
@@ -19,8 +19,8 @@
     </div>
 
     <div
-      class="harvest-content"
       id="harvest-content"
+      class="harvest-content"
     >
       <b
         style="font-size:15px"
@@ -29,8 +29,8 @@
       </b>
 
       <div
-        class="description-content"
         id="description-content"
+        class="description-content"
       >
         <a
           class="description-items"
@@ -46,8 +46,8 @@
         </a>  
       </div>
       <div
-        class="description-content"
         id="description-content"
+        class="description-content"
         style="width:75% !important;"
       >
         <a
@@ -58,41 +58,41 @@
         </a>
 
         <v-icon
+          v-if="harvest.status=='Done'"
           size="13"
           color="#44D102"
-          v-if="harvest.status=='Done'"
         >
           mdi-check
         </v-icon>
 
         <v-icon
+          v-else-if="harvest.status=='Cancelled'"
           size="13"
           color="#EF476F"
-          v-else-if="harvest.status=='Cancelled'"
         >
           mdi-close
         </v-icon>
 
         <v-icon
+          v-else-if="harvest.status=='Open'"
           size="13"
           color="#56A3A6"
-          v-else-if="harvest.status=='Open'"
         >
           mdi-sprout
         </v-icon>
 
         <v-icon
+          v-else-if="harvest.status=='Enough'"
           size="13"
           color="#FFE600"
-          v-else-if="harvest.status=='Enough'"
         >
           mdi-alert
         </v-icon>
 
         <a
+          v-else
           class="description-items"
           style="color:red"
-          v-else
         >
           Lula Livre
         </a>
