@@ -8,10 +8,10 @@
         >
           <v-text-field
             v-model="textfield"
+            class="mt-0"
             :error-messages="textfieldErrors"
             label="Rules"
             required
-            class="mt-0"
             @input="$v.textfield.$touch()"
             @blur="$v.textfield.$touch()"
           />

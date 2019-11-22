@@ -112,12 +112,19 @@
   import { required, numeric, minLength, maxLength } from 'vuelidate/lib/validators'
 
   export default {
+    name: 'PropertyRegistation',
     components: {
       TopBar,
       RegisterButton,
       ImageUpload,
       Snackbar,
       ImageUpload,
+    },
+    props: {
+      harvestReg: {
+        type: Boolean,
+        default: false
+      }
     },
     data() {
       return {
@@ -139,18 +146,7 @@
           'Other'
         ]
       }
-
     },
-
-    validations: {
-      type_of_address: { required },
-      BRZipCode: { required, minLength: minLength(8), maxLength: maxLength(8)  },
-      city: { required },
-      district: { required },
-      address: { required },
-      state: { required },
-    },
-
     computed: {
       type_of_address_errors () {
         const errors = []
@@ -191,7 +187,23 @@
          !this.$v.address.required && errors.push('Address must be filled.')
         return errors
       },
-
+    },
+    mounted() {
+      if (this.harvestReg) {
+        console.log(this.harvestReg)
+        this.$store.commit('snackbar/showMessage', {
+              message: 'You must have a property to create a harvest',
+              color: 'info',
+            })
+      }
+    },
+    validations: {
+      type_of_address: { required },
+      BRZipCode: { required, minLength: minLength(8), maxLength: maxLength(8)  },
+      city: { required },
+      district: { required },
+      address: { required },
+      state: { required },
     },
     methods: {
       clearForm () {
@@ -203,12 +215,10 @@
         this.district= ''
         this.address= ''
       },
-
       uploadImageSuccess(imageFile, imagePath){
           this.tree_picture = imageFile
           this.preview = imagePath
       },
-
       registerProperty(){
         this.$v.$touch()
 
@@ -231,7 +241,11 @@
             message: 'Property successfully registered!',
                 color: 'success',
             })
-          this.$router.push({ name: 'dashboard'})
+          if (this.harvestReg) {
+            this.$router.push({ name: 'harvestRegistration', params: { newProperty: true } })
+          } else {
+            this.$router.push({ name: 'dashboard'})
+          }
         })
         .catch((error) => {
             this.$store.commit('snackbar/showMessage', {
@@ -242,7 +256,6 @@
       },
     }
   }
-
 </script>
 
 <style scoped lang="scss">

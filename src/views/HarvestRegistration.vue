@@ -78,7 +78,7 @@
               />
             </v-col>
             <v-col
-              cols="12"
+              cols="12" 
               class="pl-4 pr-4"
             >
               <StringList
@@ -109,6 +109,8 @@
   import Snackbar from '@/components/input/Snackbar.vue'
   import { required, minValue, maxValue } from 'vuelidate/lib/validators'
   import router from '@/router'
+  import PropertyRegistration from '@/views/PropertyRegistration'
+
   export default {
     components: {
       TopBar,
@@ -116,6 +118,12 @@
       DatePicker,
       StringList,
       Snackbar,
+    },
+    props: {
+      newProperty: {
+        type: Boolean,
+        default: false
+      }
     },
     data() {
       return {
@@ -156,6 +164,14 @@
         !this.$v.max_volunteers.maxValue && errors.push('maximum 20 volunteers.')
         return errors
       },
+    },
+    mounted() {
+      if (this.newProperty) {
+        this.$store.commit('snackbar/showMessage', {
+            message: 'You may now register a harvest',
+              color: 'success',
+          })
+      }
     },
     created() {
       this.getUserProperties();
@@ -238,6 +254,10 @@
               this.$store.commit('snackbar/showMessage', {
                 message: 'You need a property to register a harvest into',
                 color: 'error',
+              })
+              router.push({
+                name: 'propertyRegistration',
+                params: { harvestReg: true }
               })
             }
           })

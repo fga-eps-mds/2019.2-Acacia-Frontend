@@ -218,7 +218,7 @@ export default {
 @import "../assets/stylesheets/colors.scss";
 
   ul{
-    color: #376996;
+    color: $color-primary;
   }
 
   .detail-highlight {
