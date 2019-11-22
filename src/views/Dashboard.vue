@@ -30,7 +30,7 @@
     <div
       class="p-3 card-container"
     >
-      <Card
+      <HarvestCard
         v-model="window"
       />
     </div>
@@ -41,14 +41,14 @@
 /* Component imports */
 import router from '@/router'
 import WeeklyCard from '@/components/layout/WeeklyCard'
-import Card from '@/components/layout/Card'
+import HarvestCard from '@/components/layout/HarvestCard'
 import TopBar from '@/components/layout/TopBar'
 
 export default {
   name: 'Home',
   components: {
     WeeklyCard,
-    Card,
+    HarvestCard,
     TopBar,
   },
   

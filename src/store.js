@@ -15,6 +15,7 @@ export default new Vuex.Store({
   },
   state: {
     sideBarOn: false,
+    modalCardOn: false,
     defaultLanguage: 'en',
     baseURL: API_URL,
 

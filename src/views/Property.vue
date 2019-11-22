@@ -9,6 +9,7 @@
     >
       <TopBar 
         iconleft="bars"
+        iconright="home"
         color="color-default-text"
         style="background-color: rgba(6, 6, 6, 0)"
       />
