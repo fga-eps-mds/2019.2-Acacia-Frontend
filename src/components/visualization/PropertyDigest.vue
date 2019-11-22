@@ -4,24 +4,28 @@
     style="margin-right:0px"
   >
     <div class="col-3 icon-content">
-      <img 
-        style="width:70px; height:70px;" 
-        class="rounded-circle" 
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Clarence_Burgin_House_Quincy_MA_01.jpg/1200px-Clarence_Burgin_House_Quincy_MA_01.jpg" 
-        alt=""
-      >
+      <v-avatar size="60"  color="#56A3A6">
+        <img 
+          style="width:70px; height:70px;" 
+          class="rounded-circle" 
+          src="@/assets/images/logo.svg" 
+          alt=""
+        >
+      </v-avatar>  
     </div>
     <div 
-      class="description-content col-9 roboto-regular text-dark"
-      style="text-decoration: none"
+      class="col-9 roboto-regular text-dark"
+      style="text-align: left"
     >
-      <b>{{ $t('PropertyDigest.address') }}:</b>  
-      {{ property.address }}, 
-      {{ property.city }} - {{ property.state }}
-      <br>
-      <b>{{ $t('PropertyDigest.type') }}:</b> {{ $t('PropertyDigest.' + property.type_of_address.toLowerCase() ) }}
-      <br>
-      <b>{{ $t('PropertyDigest.zipcode') }}:</b> {{ property.BRZipCode }}
+      <font color="#B3B5BA">
+        <b>{{ $t('PropertyDigest.address') }}:</b>  
+        {{ property.address }}, 
+        {{ property.city }} - {{ property.state }}
+        <br>
+        <b>{{ $t('PropertyDigest.type') }}:</b> {{ $t('PropertyDigest.' + property.type_of_address.toLowerCase() ) }}
+        <br>
+        <b>{{ $t('PropertyDigest.zipcode') }}:</b> {{ property.BRZipCode }}
+      </font>
     </div>
   </div>
 </template>
