@@ -43,7 +43,7 @@
             <v-icon
               style="margin-bottom:20px"
               size="16"
-              color="#EF476F"
+              color="#ffd131"
             >
               mdi-checkbox-blank-circle
             </v-icon>
@@ -218,12 +218,12 @@ export default {
 
     atributos: function() {
       let attrs = [{
+        dates: this.dates,
+        
         highlight: {
           color: 'yellow',
           class: 'highlight'
         },
-
-        dates: this.dates,
       }]
 
       return attrs
@@ -411,6 +411,10 @@ export default {
 
   .vc-svg-icon{
     color: white !important;
+  }
+
+  .vc-day-content{
+    margin: 0 !important;
   }
 
   #container-bottom-bar {
