@@ -7,9 +7,12 @@
     <div
       id="image-content"
     >
-      <v-avatar size="60">
+      <v-avatar 
+        size="60"
+        color="#56A3A6"
+      >
         <img
-          :src="image"
+          src="@/assets/images/logo.svg"
           alt=""
         >
       </v-avatar>
@@ -107,11 +110,6 @@ export default {
         return {}
       },
       type: Object
-    },
-
-    image: {
-      default: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fgeographical.co.uk%2Fmedia%2Fk2%2Fitems%2Fcache%2Fbca1dd559f75f65255fb90327f144139_XL.jpg&f=1&nofb=1',
-      type: String,
     },
   },
 
