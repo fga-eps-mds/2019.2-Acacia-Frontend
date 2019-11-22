@@ -71,11 +71,10 @@ export default {
       }
     },
   },
-
   methods: {
     selectLeft() {
       if (this.iconleft == "chevron-left") {
-        this.$router.go(-1);
+        window.history.length>1 ? this.$router.go(-1) : this.$router.push('/')  
       } else if (this.iconleft == "bars") {
         this.$store.state.sideBarOn = true
       }
@@ -84,8 +83,8 @@ export default {
       if (this.iconright == "pen") {
         // The edit feature will be implemented here
       }
-      else if (this.iconright == "comment-alt") {
-        // The chat feature will be implemented here
+      else if (this.iconright == "home") {
+        router.push({ name: 'dashboard' })
       }
       else if (this.iconright == "plus") {
         this.$store.state.authRequest('properties/', 'GET')

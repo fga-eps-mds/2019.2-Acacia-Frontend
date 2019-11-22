@@ -57,9 +57,7 @@ export default {
                 axios.post('/upload', formData);
 
             } catch(err){
-                console.log(err);
-              }
-            // axios.post('/api', { file: this.file})
+            }
         }
     }
 

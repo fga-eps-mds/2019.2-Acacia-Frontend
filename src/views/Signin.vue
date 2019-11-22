@@ -1,40 +1,55 @@
+ 
 <template>
   <div class="signin gradient">
     <TopBar 
       iconleft="chevron-left"
     />
-    <div class="content-container">
+    <div class="signin-container">
       <img 
         width="45%" 
         class="max-width-500 mb-4" 
         src="../assets/images/logo.svg"
       >
-      <TextField 
-        v-model="email" 
-        class="mt-5"
-        texticon="user"
-        color="white"
-        bordercolor="white"
-        :placeholder="this.$t('SignPages.email').toLowerCase()"
-      />
-      <TextField 
-        v-model="password" 
-        class="mt-5" 
-        texticon="lock"
-        color="white"
-        bordercolor="white"
-        type="password"
-        :placeholder="this.$t('SignPages.password').toLowerCase()" 
-      />
+      <form class="signin-form">
+        <v-text-field 
+          v-model="email"
+          class="mt-10"
+          prepend-icon="mdi-account"
+          :error-messages="emailErrors"
+          label="E-mail"
+          dark
+          color="light-green accent-3"
+          required
+          @input="$v.email.$touch()"
+          @blur="$v.email.$touch()"
+        />
+        <v-text-field 
+          v-model="password"
+          class="mt-3"
+          :error-messages="passwordErrors"
+          prepend-icon="mdi-lock"
+          label="Senha"
+          dark
+          color="light-green accent-3"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="showPassword ? 'text' : 'password'"
+          required
+          @click:append="showPassword = !showPassword"
+          @input="$v.password.$touch()"
+          @blur="$v.password.$touch()"
+        />
+      </form>
+
       <SignButton 
+        class="signin-button"
         :label="this.$t('SignPages.login')" 
-        class="mt-5" 
         @action="login"
       />
     </div>
+    <Snackbar @reset="clearForm" />
     <div
       href="/signup"
-      class="signup-button fixed-bottom"
+      class="fixed-bottom"
     >
       <a
         href="/signup"
@@ -47,69 +62,104 @@
 </template>
 
 <script>
-import TextField from '@/components/input/TextField'
 import TopBar from '@/components/layout/TopBar'
 import SignButton from '@/components/input/SignButton'
+import { email, minLength, required } from 'vuelidate/lib/validators'
+import Snackbar from '@/components/input/Snackbar.vue'
 
-/* Local scripts imports */
-import router from '@/router'
+const touchMap = new WeakMap()
 
 export default {
 	components: {
-		TextField,
 		TopBar,
-		SignButton
-	},
+    SignButton,
+    Snackbar,
+  },
+  
 	data() {
 		return {
 			email: '',
-			password: ''
+      password: '',
+      showPassword: false
 		}
-	},
+  },
+  
+  validations: {
+    email: { required, email },
+    password: { required, minLength: minLength(8) },
+  },
+
+  computed: {
+    emailErrors () {
+      const errors = []
+      if (!this.$v.email.$dirty) return errors
+      !this.$v.email.email && errors
+        .push('Must be valid e-mail')
+      !this.$v.email.required && errors
+        .push('Email must be filled.')
+      return errors
+    },
+    passwordErrors () {
+      const errors = []
+      if (!this.$v.password.$dirty) return errors
+      !this.$v.password.minLength && errors
+        .push('Password must be minumum of 8 characters.')
+      !this.$v.password.required && errors
+        .push('Password must be filled.')
+      return errors
+    },
+  },
+
   methods: {
+    clearForm () {
+      this.$v.$reset()
+      this.email = ''
+      this.password = ''
+    },
+    delayTouch($v) {
+      $v.$reset()
+      if (touchMap.has($v)) {
+        clearTimeout(touchMap.get($v))
+      }
+      touchMap.set($v, setTimeout($v.$touch, 1000))
+    },
+
     login() {
-      if (!this.validateInput()) {
+      this.$v.$touch();
+      if (this.$v.$invalid) {
         return
       }
-
       let data = {
         email: this.email,
         password: this.password
       }
-
-      let state = this.$store.state
-      let toasted = this.$toasted
-
-      state.noAuthRequest('users/token/', 'POST', data)
+             
+      this.$http.post('users/token/', data)
         .then((response) => {
-          toasted.show(this.$t('SignPages.positiveStatus')).goAway(2000)
-          state.authUser(response.data['access'], response.data['refresh'])
-          router.push({ name: 'dashboard' })
+          this.$store.state.authUser(
+            response.data["access"],
+            response.data["refresh"]
+          );
+          this.$store.commit('snackbar/showMessage', {
+            message: this.$t('SignPages.positiveStatus'),
+            color: 'success',
+          })    
+          setTimeout(() => {
+            this.$router.push({ name: "dashboard" })
+          }, 2000); 
         })
-        .catch(() => {
-          toasted.show(this.$t('SignPages.negativeStatus')).goAway(2000)
+        .catch((error) => {
+          this.$store.commit('snackbar/showMessage', {
+            message: this.$t('SignPages.negativeStatus'),
+            color: 'error',
+          })
+        })
+        .finally(() => {
+          setTimeout(() => {
+             this.clearForm()
+          }, 2000)
         })
     },
-    validateInput() {
-      if (!this.email) {
-        this.$toasted.show(this.$t('SignPages.requireEmail')).goAway(2000)
-        return false
-      }
-      if (!this.password) {
-        this.$toasted.show(this.$t('SignPages.requirePassword')).goAway(2000)
-        return false
-      }
-      if (this.password.length < 8) {
-        this.$toasted.show(this.$t('SignPages.requreValidPassword')).goAway(2000)
-        return false
-      }
-      let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/igm
-      if (!this.email.match(emailRegex)) {
-        this.$toasted.show(this.$t('SignPages.requireValidEmail')).goAway(2000)
-        return false
-      }
-      return true
-    }
   }
 }
 </script>
@@ -117,45 +167,66 @@ export default {
 <style scoped lang="scss">
 @import "../assets/stylesheets/colors.scss";
 
-	.max-width-500 {
-		max-width: 400px;
-	}
-	.signup-button {
-		margin: auto;
-		height: 6%;
-		width: 100%;
-		background-color: $color-primary;
-		margin-bottom: 0;
-		position: absolute;
-		color: $color-default-text;
-		font-family: RobotoBold;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-	.content-container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		height: 100%;
-	}
-	.signin {
-		width: 100%;
-		height: 100%;
-		position: absolute;
-		margin-top: 0;
-		text-align: center;
-	}
-  .button-link {
-    color: $color-default-text;
-		font-family: RobotoBold;
-    font-size: 130%;
-    text-decoration: none;
-  }
-	.gradient {
-		background-image: linear-gradient(180deg, rgba(86, 163, 166, 1), rgba(75, 125, 170, 105));
-	}
+.max-width-500 {
+    max-width: 400px;
+}
+
+.signin {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.signin-container{
+  width: 100%;
+  max-width:500px;
+  margin: 1px;
+}
+
+.signin-title {
+  width: 100%;
+  padding: 0px 25px;
+  margin-top: 40%;
+  margin-bottom: 20%;
+  display: flex;
+  justify-content: left;
+  font-size: 35px;
+  font-weight: bold;
+  color: $color-default-text;
+}
+
+.signin-form {
+  width: 100%;
+  padding-right: 40px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.signin-button {
+  margin-top: 70px;
+  margin-bottom: 0;
+  color: $color-default-text;
+  font-family: RobotoBold;
+}
+
+.button-link {
+  background-color: $color-primary;
+  color: $color-default-text;
+  font-family: RobotoBold;
+  font-size: 130%;
+  text-decoration: none;
+  display: block;
+  padding: 2.5%;
+}
+
+.gradient {
+  background-image: linear-gradient(
+    180deg,
+    rgba(86, 163, 166, 1),
+    rgba(75, 125, 170, 105)
+  );
+}
+
 </style>
