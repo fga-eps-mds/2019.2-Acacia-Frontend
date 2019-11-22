@@ -91,6 +91,9 @@ const messages = {
             noharvest: "No harvests were found this week",
             subscribed: "Subscribed harvests",
             weekharvests: "Week harvests",
+            yourharvests: "Your harvests",
+            accessharvests: "Sign in get access to your harvests",
+            harvest: "Harvest",
         },
         HarvestView: {
             placeholderTitle: "Harvest",
@@ -218,6 +221,9 @@ const messages = {
             noharvest: "Nenhuma colheita foi encontrada essa semana",
             subscribed: "Colheitas inscritas",
             weekharvests: "Colheitas da semana",
+            yourharvests: "Suas colheitas",
+            accessharvests: "Entre para ter acesso às suas colheitas",
+            harvest: "Colheita",
         },
         HarvestView: {
             placeholderTitle: "Colheita",

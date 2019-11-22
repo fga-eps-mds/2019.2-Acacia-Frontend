@@ -25,7 +25,7 @@
       <b
         style="font-size:15px"
       > 
-        Colheita
+        {{ $t('HarvestDigest.harvest') }}
       </b>
 
       <div

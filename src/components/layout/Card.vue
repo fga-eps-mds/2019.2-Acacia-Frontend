@@ -50,7 +50,7 @@
             v-else-if="n==2"
           >
             <h3 class="title-content roboto-regular"> 
-              Suas colheitas
+              {{ $t('HarvestDigest.yourharvests') }}
             </h3>
             
             <div
@@ -77,7 +77,7 @@
                 <h4 
                   style="width: 90%"
                 > 
-                  Faça login para conseguir ter acesso a suas colheitas
+                  {{ $t('HarvestDigest.accessharvests') }}
                 </h4>
               </div>
             </div>
