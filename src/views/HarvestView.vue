@@ -3,6 +3,7 @@
     <TopBar 
       iconleft="chevron-left" 
       class="top-bar"
+      iconright="home"
     />
     <div v-if="!getResponseReceived"> 
       <v-progress-circular

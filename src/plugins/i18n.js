@@ -57,7 +57,6 @@ const messages = {
             properties: "My Properties",
             profile: "My Profile",
             harvests: "Harvests",
-            opendata: "Open Data",
             signin: "Sign in",
             signup: "Sign up",
             languages: "Languages",
@@ -109,6 +108,10 @@ const messages = {
           district: "District",
           zipcode: "ZIP",
           type: "Type",
+        },
+        TopBar: {
+            mensagePlus: "Register a property to register a harvest.",
+            buttonPlus: "Register"
         },
         PropertyView: {
             trees: 'Trees',
@@ -225,7 +228,6 @@ const messages = {
             properties: "Minhas Propriedades",
             profile: "Meu Perfil",
             harvests: "Colheitas",
-            opendata: "Dados Abertos",
             signin: "Entrar",
             signup: "Registrar",
             languages: "Linguagens",
@@ -285,6 +287,10 @@ const messages = {
           district: "Bairro",
           zipcode: "CEP",
           type: "Tipo",
+        },
+        TopBar: {
+            mensagePlus: "Cadastre uma propriedade para cadastrar uma colheita.",
+            buttonPlus: "Cadastrar"
         },
         PropertyView: {
             trees: 'Árvores',
