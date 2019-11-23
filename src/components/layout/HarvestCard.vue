@@ -75,8 +75,20 @@
 
 
           <!-- User's harvests -->
+          <div v-else-if="userHarvests.length == 0">
+            <div
+              class="centralize-container"
+            >
+              <h4
+                style="width:90%"
+                class="message-content raleway-regular"
+              > 
+                {{ $t('HarvestDigest.noUserHarvests') }} 
+              </h4> 
+            </div>
+          </div>          
           <div
-            v-else-if="n==2"
+            v-else-if="n>0"
           >
             <h3 class="title-content roboto-regular"> 
               {{ $t('HarvestDigest.yourharvests') }}
