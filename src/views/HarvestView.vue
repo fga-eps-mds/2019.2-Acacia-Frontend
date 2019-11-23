@@ -27,7 +27,7 @@
         @action="goToDashboard"
       />
     </div>
-    <div 
+    <div
       v-else
       class="harvest-view-body"
     >
@@ -36,7 +36,7 @@
         <h4 class="roboto-regular text-white text-left">
           {{ harvest.title ? harvest.title : $t('HarvestView.placeholderTitle') }}
         </h4>
-        <div 
+        <div
           style="font-size: 0.8em"
           class="mt-3 mb-3"
         >

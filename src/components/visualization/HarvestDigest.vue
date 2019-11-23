@@ -1,27 +1,102 @@
 <template>
-  <div 
-    class="row p-2"
-    style="margin-right:0px"
+  <div
+    id="digest-content"
+    class="digest-content"
+    @click="pushToRoute()"
   >
-    <div class="col-3 icon-content">
-      <img 
-        style="width:70px; height:70px;" 
-        class="rounded-circle" 
-        src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fgeographical.co.uk%2Fmedia%2Fk2%2Fitems%2Fcache%2Fbca1dd559f75f65255fb90327f144139_XL.jpg&f=1&nofb=1" 
-        alt=""
-      >
-    </div>
-    <div 
-      class="description-content col-9 roboto-regular text-dark"
-      style="text-decoration: none"
+    <div
+      id="image-content"
     >
-      <h6>Titulo de colheita</h6>
-      <b>{{ this.$t('HarvestDigest.date') }}:</b>  {{ harvest.date }}
-      <br>
-      <b>Status:</b> {{ $t('HarvestDigest.' + harvest.status.toLowerCase()) }}
-      <br>
-      <b>{{ this.$t('HarvestDigest.volunteer') }}:</b> {{ harvest.min_volunteers }} 
-      {{ this.$t('HarvestDigest.to') }} {{ harvest.max_volunteers }}
+      <v-avatar 
+        size="60"
+        color="#56A3A6"
+      >
+        <img
+          src="@/assets/images/logo.svg"
+          alt=""
+        >
+      </v-avatar>
+    </div>
+
+    <div
+      id="harvest-content"
+      class="harvest-content"
+    >
+      <b
+        style="font-size:15px"
+      > 
+        {{ $t('HarvestDigest.harvest') }}
+      </b>
+
+      <div
+        id="description-content"
+        class="description-content"
+      >
+        <a
+          class="description-items"
+          style="color:#000000"
+        >
+          <b> MAX {{ this.$t('HarvestDigest.volunteer') }}: </b> {{ harvest.max_volunteers }}
+        </a>
+        <a
+          class="description-items"
+          style="color:#000000"
+        >
+          <b> MIN {{ this.$t('HarvestDigest.volunteer') }}: </b> {{ harvest.min_volunteers }}
+        </a>  
+      </div>
+      <div
+        id="description-content"
+        class="description-content"
+        style="width:75% !important;"
+      >
+        <a
+          class="description-items"
+          style="color:#000000"
+        >
+          <b> {{ this.$t('HarvestDigest.date') }}: </b> {{ harvest.date }}
+        </a>
+
+        <v-icon
+          v-if="harvest.status=='Done'"
+          size="13"
+          color="#44D102"
+        >
+          mdi-check
+        </v-icon>
+
+        <v-icon
+          v-else-if="harvest.status=='Cancelled'"
+          size="13"
+          color="#EF476F"
+        >
+          mdi-close
+        </v-icon>
+
+        <v-icon
+          v-else-if="harvest.status=='Open'"
+          size="13"
+          color="#56A3A6"
+        >
+          mdi-sprout
+        </v-icon>
+
+        <v-icon
+          v-else-if="harvest.status=='Enough'"
+          size="13"
+          color="#FFE600"
+        >
+          mdi-alert
+        </v-icon>
+
+        <a
+          v-else
+          class="description-items"
+          style="color:red"
+        >
+          Lula Livre
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -35,20 +110,46 @@ export default {
         return {}
       },
       type: Object
+    },
+  },
+
+  methods: {
+    pushToRoute() {
+      let route = '/harvest/' + this.harvest.property_id + '/' + this.harvest.pk + '/'
+      this.$router.push(route)
+      return
     }
   }
 }
 </script>
 
 <style>
-  .description-content {
-    text-align: left;
-    font-size: 15px;
+  .digest-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; 
+    cursor: pointer;
+    margin-right: 0px;
+    width: 100%;
   }
 
-  .icon-content {
+  .harvest-content {
     display: flex;
-    flex-direction: column-reverse;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: left;
+    margin-left: 15px;
+    width: 70%;
+  }
+
+  .description-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .description-items {
+    font-size: 10px;
   }
 </style>

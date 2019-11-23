@@ -16,13 +16,14 @@
         <v-sheet
           min-height="200"
           max-height="300"
-          style="overflow:auto"
+          class="sheet-contailer"
         >
-          <!-- User's harvests -->
+          <!-- User's properties -->
           <div v-if="n == 1">
             <h3 class="title-content roboto-regular"> 
               {{ $t('HarvestDigest.userProperties') }} 
             </h3>
+
             <div v-if="$store.state.getRefreshToken()">
               <div v-if="!propertiesGet">
                 <v-progress-circular
@@ -30,7 +31,7 @@
                   color="primary"
                   indeterminate
                   class="mt-5"
-                ></v-progress-circular>
+                />
               </div>
               <div v-else-if="userProperties.length == 0">
                 <div
@@ -55,7 +56,7 @@
                   <v-divider v-if="index != userProperties.length - 1" />
                 </div>
               </div>
-            </div>
+            </div>            
             <div
               v-else
               class="message-content raleway-regular"
@@ -66,7 +67,64 @@
                 <h4 
                   style="width: 90%"
                 > 
-                  {{ signinMessage }} 
+                  {{ $t('HarvestDigest.accessproperties') }}
+                </h4>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- User's harvests -->
+          <div
+            v-else-if="n==2"
+          >
+            <h3 class="title-content roboto-regular"> 
+              {{ $t('HarvestDigest.yourharvests') }}
+            </h3>
+            
+            <div
+              v-if="$store.state.getRefreshToken()"
+            >
+              <div
+                v-if="userHarvests.length > 0"
+              >
+                <div
+                  v-for="(harvest, index) in userHarvests"
+                  :key="index"
+                >
+                  <HarvestDigest
+                    :harvest="harvest"
+                  />
+                  <v-divider v-if="index < userHarvests.length" />              
+                </div>
+              </div>
+              <div
+                v-else
+                class="message-content raleway-regular"
+              >
+                <div
+                  class="centralize-container"
+                >
+                  <h4 
+                    style="width: 90%"
+                  > 
+                    {{ $t('HarvestDigest.noUserHarvests') }}
+                  </h4>
+                </div>
+              </div>
+            </div>
+
+            <div
+              v-else
+              class="message-content raleway-regular"
+            >
+              <div
+                class="centralize-container"
+              >
+                <h4 
+                  style="width: 90%"
+                > 
+                  {{ $t('HarvestDigest.accessharvests') }}
                 </h4>
               </div>
             </div>
@@ -83,7 +141,7 @@
                 color="primary"
                 indeterminate
                 class="mt-5"
-              ></v-progress-circular>
+              />
             </div>
             <div
               v-else-if="allHarvests.length == 0"
@@ -105,11 +163,9 @@
             >
               <div
                 v-for="(harvest, index) in allHarvests"
-                :key="harvest.date"
+                :key="harvest.pk"
               >
-                <a :href="'/harvest/' + harvest.property_id + '/' + harvest.pk">
-                  <HarvestDigest :harvest="harvest" />
-                </a>
+                <HarvestDigest :harvest="harvest" />
                 <v-divider v-if="index != allHarvests.length - 1" />
               </div>
             </div>
@@ -148,7 +204,6 @@
 <script>
 import HarvestDigest from '@/components/visualization/HarvestDigest'
 import PropertyDigest from '@/components/visualization/PropertyDigest'
-
 export default {
   name: 'CardComponent',
   
@@ -156,12 +211,10 @@ export default {
     HarvestDigest,
     PropertyDigest
   },
-
   model: {
     prop: "window",
     event: "window-change",
   },
-
   props: {
     window: {
       default: 0,
@@ -170,13 +223,13 @@ export default {
   },
   
   data: () => ({
-    length: 2,
+    length: 3,
     allHarvests: [],
     userProperties: [],
+    userHarvests: [],
     propertiesGet: false,
     harvestGet: false
   }),
-
   computed: {
     localwindow: {
       get: function() {
@@ -199,12 +252,11 @@ export default {
       return this.$t('HarvestDigest.noharvest')
     },
   },
-
   created() {
     this.getUserProperties();
     this.getAllHarvests();
+    this.getUserHarvests();
   },
-
   methods: {
     getAllHarvests() {
       this.$store.state.noAuthRequest('harvests/', 'GET')
@@ -249,41 +301,84 @@ export default {
           this.propertiesGet = true
         })
     },
+    getUserHarvests() {
+      let properties
+      let harvests
+      this.$store.state.authRequest('properties/', 'GET')
+        .then(response => {
+          this.userProperties = response.data
+          for (properties of this.userProperties) {
+            for (harvests of properties.harvests) {
+              this.userHarvests.push(harvests)
+            }
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    validateList() {
+      // Check if date is out of bounds (front end validation)
+      let filtered = []
+      let dateList = this.generateWeeksDaysList()
+      this.allHarvests.forEach( harvest => {
+        let found = false;
+        dateList.forEach( validDate => {
+          if (validDate == harvest.date) {
+            found = true;
+          }
+        });
+        if (found) {
+          filtered.push(harvest);
+        }
+      })
+      this.allHarvests = filtered;
+    },
+    generateWeeksDaysList() {
+      // Generates a list of the current and the next six days as ISO strings
+      let dateList = [];
+      let today = new Date();
+      let dayInMilissecond = 1000 * 60 * 60 * 24;
+      for (let i = 0; i < 7; i++) {
+        let dateString = today.toISOString().slice(0,10)
+        dateList.push(today.toISOString().slice(0,10))
+        today.setTime(dayInMilissecond + today.valueOf());
+      }
+      return dateList
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-
   .card-container {
     padding-bottom: 15px;
     overflow: auto;
     border-radius: 12px;
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
   }
-
   .title-content {
     text-align: left;
     color: #2D9CDB;
     margin-left: 5px;
     margin-top: 10px;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
   }
-
   .v-btn--icon.v-size--default {
     height: 20px;
     width: 20px;
   }
-
   .message-content {
     text-align: justify;
     margin-top: 25px;
   }
-
   .centralize-container {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
+  }
+  .sheet-contailer {
+    overflow: auto;
   }
 </style>

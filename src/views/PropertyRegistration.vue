@@ -279,8 +279,9 @@
 
 .property-title {
   width: 100%;
-  padding: 0px 25px;
-  margin-bottom: 20%;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  margin-left: 15%;
   display: flex;
   justify-content: left;
   font-size: 30px;
