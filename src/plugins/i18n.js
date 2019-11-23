@@ -91,6 +91,11 @@ const messages = {
             noharvest: "No harvests were found this week",
             subscribed: "Subscribed harvests",
             weekharvests: "Week harvests",
+            yourharvests: "Your harvests",
+            noUserHarvests:"No harvest associated with your account was found",
+            accessharvests: "Sign in to get access to your harvests",
+            accessproperties: "Sign in to get access to your properties",
+            harvest: "Harvest",
             noProperties: "No property associated with your account was found",
             userProperties: "Your properties",
             done: "Done",
@@ -174,7 +179,26 @@ const messages = {
             requirePhoneNumber: 'Phone number field accept just numbers',
             requireBio: 'Bio field must be less than 800 characters',
             updatedUser: 'User is up to date'
-        }
+        },
+        Calendar: {
+            harvest: "Harvest",
+            volunteers: "Volunteers:",
+            minimum: "Minimum:",
+            maximum: "Maximum:",
+            description: "Description:",
+            rules: "Rules:",
+            about: "About this harvest",
+            hoharvest: "No harvest was found this month"
+        },
+        PropertyRegister: {
+            register: "Property Registration",
+            zipCode: "ZIP Code",
+            addressType: "Type of address",
+            address: "Address",
+            district: "District",
+            city: "City",
+            state: "State",
+        },
     },
     'pt': {
         SignPages: {
@@ -232,7 +256,7 @@ const messages = {
             newHarvest: "Adicionar Colheita",
             signin: "Entrar",
             signup: "Registrar",
-            languages: "Linguagens",
+            languages: "Idiomas",
             exit: "Sair",
         },
         DatePicker: {
@@ -271,7 +295,12 @@ const messages = {
             noharvest: "Nenhuma colheita foi encontrada essa semana",
             subscribed: "Colheitas inscritas",
             weekharvests: "Colheitas da semana",
-            noProperties: "Nenhuma propriedade sua foi encontrada",
+            yourharvests: "Suas colheitas",
+            noUserHarvests: "Nenhuma colheita associada à sua conta foi encontrada",
+            accessharvests: "Entre para ter acesso às suas colheitas",
+            accessproperties: "Entre para ter acesso às suas proprieades",
+            harvest: "Colheita",
+            noProperties: "Nenhuma propriedade foi encontrada",
             userProperties: "Suas propriedades",
             done: "Feita",
             cancelled: "Cancelada",
@@ -347,7 +376,26 @@ const messages = {
             requirePhoneNumber: 'O campo telefone só aceita números',
             requireBio: 'O campo deve ter no máximo 800 caracteres',
             updatedUser: 'Dados do usuário atualizados'
-        }
+        },
+        Calendar: {
+            harvest: "Colheita",
+            volunteers: "Voluntários:",
+            minimum: "Mínimo:",
+            maximum: "Máximo:",
+            description: "Descrição:",
+            rules: "Regras:",
+            about: "Sobre esta colheita",
+            hoharvest: "Nenhuma colheita foi encontrada neste mês"
+        },
+        PropertyRegister: {
+            register: "Cadastrar propriedade",
+            zipCode: "CEP",
+            addressType: "Tipo de domicilio",
+            address: "Endereço",
+            district: "Bairro",
+            city: "Cidade",
+            state: "Estado",
+        },
     },
 }
 

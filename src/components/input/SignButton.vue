@@ -46,7 +46,7 @@ export default {
 
     button{
         background-color: $color-primary;
-        padding: 8px 65px;
+        padding: 2% 15%;
         font-size: 120%;
 
         font-family: RalewayBold;
