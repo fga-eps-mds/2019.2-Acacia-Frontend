@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - master
-      - release/*
-      - feature/179-continuous-deploy
 
 jobs:
   deploy:
