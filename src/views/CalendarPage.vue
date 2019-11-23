@@ -205,6 +205,7 @@ export default {
       iconCard: "chevron-right",
       colheitaCard: "",
       harvest: [],
+      beforeToday: [],
       dates: [],
       datesInfo: [],
       datesSelect: {},
@@ -233,8 +234,14 @@ export default {
         dates: this.dates,
         
         highlight: {
-          color: 'yellow',
           class: 'highlight',
+        },
+      },
+      {
+        dates: this.beforeToday,
+        
+        highlight: {
+          class: 'before-highlight',
         },
       }]
 
@@ -253,8 +260,12 @@ export default {
         .then((response) => {
           this.harvest = response.data
           for(var[day_harvest, harvest] of Object.entries(this.harvest)) {
-            console.log(harvest)
-            this.dates.push(harvest.date)
+            if(harvest.status === 'Open'){
+              this.dates.push(harvest.date)
+            }
+            else{
+              this.beforeToday.push(harvest.date)
+            }
             this.datesSelect[harvest.date] = harvest
           }
         })
@@ -341,6 +352,13 @@ export default {
   }
 
   .highlight {
+    background-color: #ffd131 !important;
+    margin-bottom: auto;
+    transition-duration: 0.4s;
+  }
+
+  .before-highlight {
+    background-color: #ef476f !important;
     margin-bottom: auto;
     transition-duration: 0.4s;
   }
