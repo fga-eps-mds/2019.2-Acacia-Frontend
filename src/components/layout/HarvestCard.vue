@@ -76,6 +76,9 @@
 
           <!-- User's harvests -->
           <div v-else-if="userHarvests.length == 0">
+            <h3 class="title-content roboto-regular"> 
+              {{ $t('HarvestDigest.yourharvests') }}
+            </h3>
             <div
               class="centralize-container"
             >
