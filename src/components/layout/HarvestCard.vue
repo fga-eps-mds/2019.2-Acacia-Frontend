@@ -48,13 +48,13 @@
               </div>
               <div v-else> 
                 <div
-                  v-for="(property, index) in userProperties"
+                  v-for="property in userProperties"
                   :key="property.address"
                 >
                   <a :href="'/property/' + property.pk + '/'">
                     <PropertyDigest :property="property" />
                   </a>
-                  <v-divider v-if="index != userProperties.length - 1" />
+                  <v-divider/>
                 </div>
               </div>
             </div>            
@@ -71,6 +71,24 @@
                   {{ $t('HarvestDigest.accessproperties') }}
                 </h4>
               </div>
+            </div>
+            <div
+              class="justify-right"
+            >
+              <v-btn 
+                class="mt-1 mr-1"
+                fab
+                right
+                small
+                dark 
+                color="#56a3a6"
+                href="/property/registration"
+                style="margin-bottom:15px"
+              >
+                <v-icon> 
+                  mdi-plus
+                </v-icon>
+              </v-btn>
             </div>
           </div>
 
@@ -197,20 +215,6 @@
             </v-icon>
           </v-btn>
         </v-item>
-        <v-btn 
-          class="mt-1 mr-1"
-          fab
-          fixed
-          right
-          small
-          dark 
-          color="#56a3a6"
-          href="/property/registration"
-        >
-          <v-icon> 
-            mdi-plus
-          </v-icon>
-        </v-btn>
       </v-item-group>
     </v-card-actions>
   </v-card>
@@ -396,5 +400,11 @@ export default {
   }
   .sheet-contailer {
     overflow: auto;
+  }
+  .justify-right {
+    width: 95%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
   }
 </style>
