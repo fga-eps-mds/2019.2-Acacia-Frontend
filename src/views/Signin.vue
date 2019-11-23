@@ -218,6 +218,7 @@ export default {
   font-size: 130%;
   text-decoration: none;
   display: block;
+  padding: 2.5%;
 }
 
 .gradient {

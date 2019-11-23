@@ -21,8 +21,8 @@
         :type="type"
         :locale="$t('DatePicker.locale')"
         color="#376996"
-        :min="this.min ? today() : ''"
-        :max="this.max ? today() : ''"
+        :min="min ? today() : ''"
+        :max="max ? today() : ''"
         :multiple="multiple"
         class="date-picker"
         scrollable

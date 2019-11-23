@@ -10,18 +10,34 @@
       :class="color"
       @click="selectLeft"
     />
-    
-    <font-awesome-icon
-      v-if="iconright"
-      :icon="iconright"
-      :class="color"
-      @click="selectRight"
+    <div
+      :style="$store.state.getRefreshToken() ? 'display:inline' : 'display:none'"
+    >
+      <font-awesome-icon
+        v-if="iconright"
+        :icon="iconright"
+        :class="color"
+        @click="selectRight"
+      />
+    </div>
+    <ModalCard
+      :mensagefield="mensage"
+      :buttonlabel="button"
+      :valuemodel="changeDialog"
     />
   </div>
 </template>
 
 <script>
+import ModalCard from '@/components/layout/ModalCard'
+import router from '@/router'
+
 export default {
+
+  components: {
+    ModalCard
+  },
+
   props: {
     iconleft: {
       default: "",
@@ -36,23 +52,29 @@ export default {
       type: String
     },
   },
+
+  data: () => ({
+    button: '',
+    mensage: '',
+  }),
+
   computed: {
-    componentStyle() { 	
-        let componentColor = `color:${this.color};`
-        return componentColor
+    iconDislay: function() {
+      return this.$store.state.sideBarOn
     },
-    iconDislay: {
+    changeDialog: {
       get: function() {
-        return this.$store.state.sideBarOn
+        return this.$store.state.modalCardOn
       },
       set: function(value) {
-      },
-    }
+        this.$store.state.modalCardOn = value
+      }
+    },
   },
   methods: {
     selectLeft() {
       if (this.iconleft == "chevron-left") {
-        this.$router.go(-1);
+        window.history.length>1 ? this.$router.go(-1) : this.$router.push('/')  
       } else if (this.iconleft == "bars") {
         this.$store.state.sideBarOn = true
       }
@@ -60,12 +82,28 @@ export default {
     selectRight() {
       if (this.iconright == "pen") {
         // The edit feature will be implemented here
-      } else if (this.iconright == "comment-alt") {
-        // The chat feature will be implemented here
-      } else if (this.iconright == "plus") {
-        // The add feature will be implemented here
       }
-    }
+      else if (this.iconright == "home") {
+        router.push({ name: 'dashboard' })
+      }
+      else if (this.iconright == "plus") {
+        this.$store.state.authRequest('properties/', 'GET')
+        .then(response => {
+          if(response.data != 0){
+            router.push({ name: 'harvestRegistration' })
+          }
+          else{
+            this.mensage=this.$t('TopBar.mensagePlus')
+            this.button=this.$t('TopBar.buttonPlus') 
+            this.changeDialog = true
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      
+      }
+    },
   }
 };
 </script>

@@ -8,12 +8,12 @@
         >
           <v-text-field
             v-model="textfield"
+            class="mt-0"
             :error-messages="textfieldErrors"
             label="Rules"
             required
             @input="$v.textfield.$touch()"
             @blur="$v.textfield.$touch()"
-            class="mt-0"
           />
         </v-col>
         <v-col 
