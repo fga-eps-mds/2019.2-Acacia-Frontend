@@ -376,8 +376,8 @@ const messages = {
             hoharvest: "Nenhuma colheita foi encontrada neste mês"
         },
         PropertyRegister: {
-            register: "Cadastrar propriedadeProperty Registration",
-            zipCode: "CPE",
+            register: "Cadastrar propriedade",
+            zipCode: "CEP",
             addressType: "Tipo de domicilio",
             address: "Endereço",
             district: "Bairro",
