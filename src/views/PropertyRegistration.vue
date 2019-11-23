@@ -281,7 +281,7 @@
   width: 100%;
   margin-top: 60px;
   margin-bottom: 20px;
-  margin-left: 20px;
+  margin-left: 15%;
   display: flex;
   justify-content: left;
   font-size: 28px;

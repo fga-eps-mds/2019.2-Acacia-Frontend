@@ -4,7 +4,10 @@
     style="margin-right:0px"
   >
     <div class="col-3 icon-content">
-      <v-avatar size="60"  color="#56A3A6">
+      <v-avatar 
+        size="60"
+        color="#376996"
+      >
         <img 
           style="width:70px; height:70px;" 
           class="rounded-circle" 
@@ -17,7 +20,7 @@
       class="col-9 roboto-regular text-dark"
       style="text-align: left"
     >
-      <font color="#B3B5BA">
+      <font color="#000000">
         <b>{{ $t('PropertyDigest.address') }}:</b>  
         {{ property.address }}, 
         {{ property.city }} - {{ property.state }}
