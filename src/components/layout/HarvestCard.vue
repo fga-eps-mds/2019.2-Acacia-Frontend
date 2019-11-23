@@ -15,7 +15,7 @@
       >
         <v-sheet
           min-height="200"
-          max-height="300"
+          max-height="330"
           style="overflow:auto"
         >
           <!-- User's harvests -->
@@ -140,12 +140,28 @@
             </v-icon>
           </v-btn>
         </v-item>
+          <v-btn 
+            class="mt-1 mr-1"
+            fab
+            fixed
+            right
+            small
+            dark 
+            color="#56a3a6"
+            href="/harvest/registration"
+          >
+            <v-icon 
+            > 
+              mdi-plus
+            </v-icon>
+          </v-btn>
       </v-item-group>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
+
 import HarvestDigest from '@/components/visualization/HarvestDigest'
 import PropertyDigest from '@/components/visualization/PropertyDigest'
 
