@@ -81,6 +81,10 @@
               {{ harvestsTranslation }}
             </v-list-item-title>
 
+            <v-list-item-title v-else-if="item.title=='newHarvest'">
+              {{ newHarvestTranslation }}
+            </v-list-item-title>
+
             <v-list-item-title v-else-if="item.title=='calendar'">
               {{ calendarTranslation }}
             </v-list-item-title>
@@ -180,6 +184,7 @@ export default {
         {title: 'profile', icon: 'mdi-account-outline', link: '/profile'},
         {title: 'properties', icon: 'mdi-home', link: '/property'},
         {title: 'harvests', icon: 'mdi-sprout', link: '/harvest'},
+        {title: 'newHarvest', icon: 'mdi-plus-box', link: '/harvest/registration'},
         {title: 'calendar', icon: 'mdi-calendar-blank-outline', link: '/calendar'},
         {title: 'dashboard', icon: 'mdi-view-dashboard-outline', link: '/dashboard'},
       ],
@@ -206,6 +211,10 @@ export default {
 
     harvestsTranslation: function() {
       return this.$t('SideBar.harvests')
+    },
+
+    newHarvestTranslation: function() {
+      return this.$t('SideBar.newHarvest')
     },
 
     calendarTranslation: function() {

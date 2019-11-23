@@ -37,7 +37,7 @@ const messages = {
             rules: "Rules",
             creation: "Register",
         },
-        TreeRegister:{
+        TreeRegister: {
             fruit_height: "Fruits average height",
             image: "Tree image file",
             months: "Tree fruinting months",
@@ -57,6 +57,7 @@ const messages = {
             properties: "My Properties",
             profile: "My Profile",
             harvests: "Harvests",
+            newHarvest: "Add Harvest",
             signin: "Sign in",
             signup: "Sign up",
             languages: "Languages",
@@ -98,16 +99,16 @@ const messages = {
             enough: "Enough volunteers",
         },
         PropertyDigest: {
-          address: "Address",
-          house: "House",
-          apartment: "Apartment",
-          farm: "Farm",
-          other: "Other",
-          state: "State",
-          city: "City",
-          district: "District",
-          zipcode: "ZIP",
-          type: "Type",
+            address: "Address",
+            house: "House",
+            apartment: "Apartment",
+            farm: "Farm",
+            other: "Other",
+            state: "State",
+            city: "City",
+            district: "District",
+            zipcode: "ZIP",
+            type: "Type",
         },
         TopBar: {
             mensagePlus: "Register a property to register a harvest.",
@@ -176,7 +177,7 @@ const messages = {
         }
     },
     'pt': {
-          SignPages: {
+        SignPages: {
             name: "Nome",
             email: "Email",
             password: "Senha",
@@ -208,7 +209,7 @@ const messages = {
             rules: " Regras da colheita",
             creation: "Cadastrar",
         },
-        TreeRegister:{
+        TreeRegister: {
             fruit_height: "Altura média dos frutos",
             image: "Arquivo de Imagem da árvore",
             months: "Meses da frutificação da árvore",
@@ -228,15 +229,16 @@ const messages = {
             properties: "Minhas Propriedades",
             profile: "Meu Perfil",
             harvests: "Colheitas",
+            newHarvest: "Adicionar Colheita",
             signin: "Entrar",
             signup: "Registrar",
             languages: "Linguagens",
             exit: "Sair",
         },
         DatePicker: {
-          locale: "pt-br",
-          cancel: "Cancelar",
-          confirm: "Confirmar"
+            locale: "pt-br",
+            cancel: "Cancelar",
+            confirm: "Confirmar"
         },
 
         ProfilePage: {
@@ -277,16 +279,16 @@ const messages = {
             enough: "Voluntários suficientes",
         },
         PropertyDigest: {
-          address: "Endereço",
-          house: "Casa",
-          apartment: "Apartamento",
-          farm: "Fazenda",
-          other: "Outro",
-          state: "Estado",
-          city: "Cidade",
-          district: "Bairro",
-          zipcode: "CEP",
-          type: "Tipo",
+            address: "Endereço",
+            house: "Casa",
+            apartment: "Apartamento",
+            farm: "Fazenda",
+            other: "Outro",
+            state: "Estado",
+            city: "Cidade",
+            district: "Bairro",
+            zipcode: "CEP",
+            type: "Tipo",
         },
         TopBar: {
             mensagePlus: "Cadastre uma propriedade para cadastrar uma colheita.",
