@@ -20,7 +20,7 @@
       class="col-9 roboto-regular text-dark"
       style="text-align: left"
     >
-      <font color="#B3B5BA">
+      <font color="#949090">
         <b>{{ $t('PropertyDigest.address') }}:</b>  
         {{ property.address }}, 
         {{ property.city }} - {{ property.state }}

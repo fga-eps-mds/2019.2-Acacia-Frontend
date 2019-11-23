@@ -34,13 +34,13 @@
       >
         <a
           class="description-items"
-          style="color:#B3B5BA"
+          style="color:#949090"
         >
           <b> MAX {{ this.$t('HarvestDigest.volunteer') }}: </b> {{ harvest.max_volunteers }}
         </a>
         <a
           class="description-items"
-          style="color:#B3B5BA"
+          style="color:#949090"
         >
           <b> MIN {{ this.$t('HarvestDigest.volunteer') }}: </b> {{ harvest.min_volunteers }}
         </a>  
@@ -52,7 +52,7 @@
       >
         <a
           class="description-items"
-          style="color:#B3B5BA"
+          style="color:#949090"
         >
           <b> {{ this.$t('HarvestDigest.date') }}: </b> {{ harvest.date }}
         </a>
