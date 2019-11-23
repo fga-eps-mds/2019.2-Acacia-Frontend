@@ -75,23 +75,8 @@
 
 
           <!-- User's harvests -->
-          <div v-else-if="userHarvests.length == 0">
-            <h3 class="title-content roboto-regular"> 
-              {{ $t('HarvestDigest.yourharvests') }}
-            </h3>
-            <div
-              class="centralize-container"
-            >
-              <h4
-                style="width:90%"
-                class="message-content raleway-regular"
-              > 
-                {{ $t('HarvestDigest.noUserHarvests') }} 
-              </h4> 
-            </div>
-          </div>          
           <div
-            v-else-if="n>0"
+            v-else-if="n==2"
           >
             <h3 class="title-content roboto-regular"> 
               {{ $t('HarvestDigest.yourharvests') }}
@@ -123,7 +108,7 @@
                   <h4 
                     style="width: 90%"
                   > 
-                    {{ $t('PropertyView.noharvests') }}
+                    {{ $t('HarvestDigest.noUserHarvests') }}
                   </h4>
                 </div>
               </div>
@@ -219,7 +204,6 @@
 <script>
 import HarvestDigest from '@/components/visualization/HarvestDigest'
 import PropertyDigest from '@/components/visualization/PropertyDigest'
-
 export default {
   name: 'CardComponent',
   
@@ -227,12 +211,10 @@ export default {
     HarvestDigest,
     PropertyDigest
   },
-
   model: {
     prop: "window",
     event: "window-change",
   },
-
   props: {
     window: {
       default: 0,
@@ -248,7 +230,6 @@ export default {
     propertiesGet: false,
     harvestGet: false
   }),
-
   computed: {
     localwindow: {
       get: function() {
@@ -271,13 +252,11 @@ export default {
       return this.$t('HarvestDigest.noharvest')
     },
   },
-
   created() {
     this.getUserProperties();
     this.getAllHarvests();
     this.getUserHarvests();
   },
-
   methods: {
     getAllHarvests() {
       this.$store.state.noAuthRequest('harvests/', 'GET')
@@ -325,7 +304,6 @@ export default {
     getUserHarvests() {
       let properties
       let harvests
-
       this.$store.state.authRequest('properties/', 'GET')
         .then(response => {
           this.userProperties = response.data
@@ -373,14 +351,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
   .card-container {
     padding-bottom: 15px;
     overflow: auto;
     border-radius: 12px;
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
   }
-
   .title-content {
     text-align: left;
     color: #2D9CDB;
@@ -388,24 +364,20 @@ export default {
     margin-top: 10px;
     margin-bottom: 20px;
   }
-
   .v-btn--icon.v-size--default {
     height: 20px;
     width: 20px;
   }
-
   .message-content {
     text-align: justify;
     margin-top: 25px;
   }
-
   .centralize-container {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
   }
-
   .sheet-contailer {
     overflow: auto;
   }

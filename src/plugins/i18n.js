@@ -275,7 +275,7 @@ const messages = {
             subscribed: "Colheitas inscritas",
             weekharvests: "Colheitas da semana",
             yourharvests: "Suas colheitas",
-            noUserHarvests: "Nenhuma colheita foi encontrada",
+            noUserHarvests: "Nenhuma colheita associada à sua conta foi encontrada",
             accessharvests: "Entre para ter acesso às suas colheitas",
             accessproperties: "Entre para ter acesso às suas proprieades",
             harvest: "Colheita",
