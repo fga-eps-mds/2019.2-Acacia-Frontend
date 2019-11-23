@@ -5,8 +5,8 @@
       color="#2D9CDB"
     />
     <div class="content-container">
-      <div class="property-title">
-        <a> Register property </a>
+      <div class="property-title raleway-thin">
+        <a> {{ $t('PropertyRegister.register') }} </a>
       </div>
       <form class="property-form">
         <v-row>
@@ -17,7 +17,7 @@
               type="number"
               required
               :error-messages="BRZipCode_errors"
-              label="ZIP Code"
+              :label="$t('PropertyRegister.zipCode')"
               @input="$v.BRZipCode.$touch()"
               @blur="$v.BRZipCode.$touch()"
             />
@@ -28,7 +28,7 @@
               required
               :error-messages="type_of_address_errors"
               :items="adrchoises"
-              label="Type of address"
+              :label="$t('PropertyRegister.addressType')"
               @input="$v.type_of_address.$touch()"
               @blur="$v.type_of_address.$touch()"
             />
@@ -40,7 +40,7 @@
           v-model="address"
           required
           :error-messages="address_errors"
-          label="Address"
+          :label="$t('PropertyRegister.address')"
           @input="$v.address.$touch()"
           @blur="$v.address.$touch()"
         />
@@ -49,7 +49,7 @@
           v-model="district"
           required
           :error-messages="district_errors"
-          label="District"
+          :label="$t('PropertyRegister.district')"
           @input="$v.district.$touch()"
           @blur="$v.district.$touch()"
         />
@@ -63,7 +63,7 @@
               v-model="city"
               required
               :error-messages="city_errors"
-              label="City"
+              :label="$t('PropertyRegister.city')"
               @input="$v.city.$touch()"
               @blur="$v.city.$touch()"
             />
@@ -77,7 +77,7 @@
               v-model="state"
               required
               :items="brstates"
-              label="State"
+              :label="$t('PropertyRegister.state')"
               :error-messages="state_errors"
               @input="$v.state.$touch()"
               @blur="$v.state.$touch()"
@@ -120,6 +120,12 @@
       Snackbar,
       ImageUpload,
     },
+    props: {
+      harvestReg: {
+        type: Boolean,
+        default: false
+      }
+    },
     data() {
       return {
         type_of_address: '',
@@ -140,29 +146,6 @@
           'Other'
         ]
       }
-    },
-    props: {
-      harvestReg: {
-        type: Boolean,
-        default: false
-      }
-    },
-    mounted() {
-      if (this.harvestReg) {
-        console.log(this.harvestReg)
-        this.$store.commit('snackbar/showMessage', {
-              message: 'You must have a property to create a harvest',
-              color: 'info',
-            })
-      }
-    },
-    validations: {
-      type_of_address: { required },
-      BRZipCode: { required, minLength: minLength(8), maxLength: maxLength(8)  },
-      city: { required },
-      district: { required },
-      address: { required },
-      state: { required },
     },
     computed: {
       type_of_address_errors () {
@@ -195,15 +178,32 @@
       district_errors () {
         const errors = []
         if (!this.$v.district.$dirty) return errors
-         !this.$v.district.required && errors.push('District must be filled.')
+          !this.$v.district.required && errors.push('District must be filled.')
         return errors
       },
       address_errors () {
         const errors = []
         if (!this.$v.address.$dirty) return errors
-         !this.$v.address.required && errors.push('Address must be filled.')
+          !this.$v.address.required && errors.push('Address must be filled.')
         return errors
       },
+    },
+    mounted() {
+      if (this.harvestReg) {
+        console.log(this.harvestReg)
+        this.$store.commit('snackbar/showMessage', {
+              message: 'You must have a property to create a harvest',
+              color: 'info',
+            })
+      }
+    },
+    validations: {
+      type_of_address: { required },
+      BRZipCode: { required, minLength: minLength(8), maxLength: maxLength(8)  },
+      city: { required },
+      district: { required },
+      address: { required },
+      state: { required },
     },
     methods: {
       clearForm () {
@@ -279,13 +279,13 @@
 
 .property-title {
   width: 100%;
-  margin-top: 60px;
-  margin-bottom: 20px;
-  margin-left: 20px;
+  padding: 0px 25px;
+  margin-bottom: 20%;
   display: flex;
   justify-content: left;
-  font-size: 28px;
-  color: #2D9CDB;
+  font-size: 30px;
+  font-weight: bold;
+  color: $color-primary-text-title;
 }
 
 .property-form {

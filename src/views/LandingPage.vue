@@ -128,6 +128,7 @@ export default {
   }
 
   .container-button {
+    font-size: 150%;
     padding-top: 25%;
   }
 

@@ -12,6 +12,7 @@
         locale="pt-BR"
         :attributes="atributos"
         :from-page.sync="currentPage"
+        :available-dates="{ start: new Date(), end: null }"
         @dayclick="dayClicked"
       />
 
@@ -41,9 +42,18 @@
             class="harvestTitle"
           >
             <v-icon
+              v-if="colheita.status === 'Open'"
               style="margin-bottom:20px"
               size="16"
               color="#ffd131"
+            >
+              mdi-checkbox-blank-circle
+            </v-icon>
+            <v-icon
+              v-else
+              style="margin-bottom:20px"
+              size="16"
+              color="#ef476f"
             >
               mdi-checkbox-blank-circle
             </v-icon>
@@ -141,6 +151,7 @@
           </div>
 
           <SignButton
+            v-if="colheita.status === 'Open'"
             buttonstyle="color: #ffffff" 
             color="bg-color-primary"
             :label="$t('Calendar.about')" 
@@ -217,16 +228,18 @@ export default {
     },
 
     atributos: function() {
+      
       let attrs = [{
         dates: this.dates,
         
         highlight: {
           color: 'yellow',
-          class: 'highlight'
+          class: 'highlight',
         },
       }]
 
       return attrs
+
     },
   },
 
@@ -240,6 +253,7 @@ export default {
         .then((response) => {
           this.harvest = response.data
           for(var[day_harvest, harvest] of Object.entries(this.harvest)) {
+            console.log(harvest)
             this.dates.push(harvest.date)
             this.datesSelect[harvest.date] = harvest
           }

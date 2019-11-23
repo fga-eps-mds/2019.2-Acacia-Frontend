@@ -184,6 +184,15 @@ const messages = {
             about: "About this harvest",
             hoharvest: "No harvest was found this month"
         },
+        PropertyRegister: {
+            register: "Property Registration",
+            zipCode: "ZIP Code",
+            addressType: "Type of address",
+            address: "Address",
+            district: "District",
+            city: "City",
+            state: "State",
+        },
     },
     'pt': {
           SignPages: {
@@ -365,6 +374,15 @@ const messages = {
             rules: "Regras:",
             about: "Sobre esta colheita",
             hoharvest: "Nenhuma colheita foi encontrada neste mês"
+        },
+        PropertyRegister: {
+            register: "Cadastrar propriedadeProperty Registration",
+            zipCode: "CPE",
+            addressType: "Tipo de domicilio",
+            address: "Endereço",
+            district: "Bairro",
+            city: "Cidade",
+            state: "Estado",
         },
     },
 }
