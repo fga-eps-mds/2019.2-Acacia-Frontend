@@ -71,16 +71,12 @@
               {{ profileTranslation }}
             </v-list-item-title>
 
-            <v-list-item-title v-else-if="item.title=='properties'">
-              {{ propertiesTranslation }}
-            </v-list-item-title>
-
-            <v-list-item-title v-else-if="item.title=='harvests'">
-              {{ harvestsTranslation }}
-            </v-list-item-title>
-
             <v-list-item-title v-else-if="item.title=='newHarvest'">
               {{ newHarvestTranslation }}
+            </v-list-item-title>
+
+            <v-list-item-title v-else-if="item.title=='newTree'">
+              {{ newTreetranslation }}
             </v-list-item-title>
 
             <v-list-item-title v-else-if="item.title=='calendar'">
@@ -182,10 +178,8 @@ export default {
   data() {
     return {
       navItemsAuth: [
-        {title: 'profile', icon: 'mdi-account-outline', link: '/profile'},
-        {title: 'properties', icon: 'mdi-home', link: '/property'},
-        {title: 'harvests', icon: 'mdi-sprout', link: '/harvest'},
-        {title: 'newHarvest', icon: 'mdi-plus-box', link: '/harvest/registration'},
+        {title: 'newHarvest', icon: 'mdi-sprout', link: '/harvest'},
+        {title: 'newTree', icon: 'mdi-tree', link: '/property'},
         {title: 'calendar', icon: 'mdi-calendar-blank-outline', link: '/calendar'},
         {title: 'dashboard', icon: 'mdi-view-dashboard-outline', link: '/dashboard'},
       ],
@@ -207,16 +201,12 @@ export default {
       return this.$t('SideBar.profile')
     },
 
-    propertiesTranslation: function() {
-      return this.$t('SideBar.properties')
-    },
-
-    harvestsTranslation: function() {
-      return this.$t('SideBar.harvests')
-    },
-
     newHarvestTranslation: function() {
       return this.$t('SideBar.newHarvest')
+    },
+
+    newTreetranslation: function() {
+      return this.$t('SideBar.newTree')      
     },
 
     calendarTranslation: function() {
