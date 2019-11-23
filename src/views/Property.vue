@@ -45,6 +45,22 @@
           <h3>
             {{ this.$t('PropertyView.trees') }}
           </h3>
+          <v-btn
+            class="bg-color"
+            fab
+            fixed
+            right
+            x-small
+            rounded
+            style="margin: 5px 40px 0 0"
+            href="/tree/registration"
+          >
+            <v-icon
+              color="white"
+            >
+              mdi-plus
+            </v-icon>
+          </v-btn>
         </div>
 
         <div
@@ -75,7 +91,6 @@
         </div>
       </div>    
     </div>
-
     <div
       id="footer-content"
       class="footer-content"

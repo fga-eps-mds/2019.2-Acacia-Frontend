@@ -21,7 +21,7 @@
 
         <v-list-item-content>
           <v-list-item-title class="white--text">
-            Username
+            {{ username }}
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -44,7 +44,6 @@
     <v-divider
       class="white"
     />
-
     <v-list dense>
       <v-list-item
         v-for="item in ($store.state.getRefreshToken() ? navItemsAuth : navItemsNotAuth)"
@@ -178,6 +177,9 @@
 <script>
 export default {
   name: "SideBar",
+  created() {
+    this.getUsername()
+  },
   data() {
     return {
       navItemsAuth: [
@@ -198,6 +200,7 @@ export default {
         {title: 'Português', flagicon: 'br', language: 'pt'},
         {title: 'English', flagicon: 'ca', language: 'en'},
       ],
+      username: 'Username',
     }
   },
   computed: {
@@ -251,7 +254,14 @@ export default {
       },
     },
   },
+
   methods: {
+    async getUsername(){
+      const res = await this.$store.state.authRequest('users/profile/', 'GET')
+      if (res.data){
+        this.username = res.data.username
+      }
+    },
     logout() {
       if (this.$store.state.getRefreshToken()) {
         this.$store.state.logoutUser()
@@ -261,7 +271,7 @@ export default {
     changeLocale(locale){
       this.$store.state.setUserLanguage(locale)
     },
-  }
+  },
 }
 </script>
 

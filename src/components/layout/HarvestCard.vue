@@ -30,7 +30,7 @@
                   color="primary"
                   indeterminate
                   class="mt-5"
-                ></v-progress-circular>
+                />
               </div>
               <div v-else-if="userProperties.length == 0">
                 <div
@@ -83,7 +83,7 @@
                 color="primary"
                 indeterminate
                 class="mt-5"
-              ></v-progress-circular>
+              />
             </div>
             <div
               v-else-if="allHarvests.length == 0"
@@ -140,21 +140,20 @@
             </v-icon>
           </v-btn>
         </v-item>
-          <v-btn 
-            class="mt-1 mr-1"
-            fab
-            fixed
-            right
-            small
-            dark 
-            color="#56a3a6"
-            href="/harvest/registration"
-          >
-            <v-icon 
-            > 
-              mdi-plus
-            </v-icon>
-          </v-btn>
+        <v-btn 
+          class="mt-1 mr-1"
+          fab
+          fixed
+          right
+          small
+          dark 
+          color="#56a3a6"
+          href="/property/registration"
+        >
+          <v-icon> 
+            mdi-plus
+          </v-icon>
+        </v-btn>
       </v-item-group>
     </v-card-actions>
   </v-card>
