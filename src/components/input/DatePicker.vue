@@ -143,8 +143,7 @@ export default {
 
     .container-date-picker {
       font-size: 12px;
-      padding: 10px 65% 0px 20px;
-      margin: 1%;
+      padding: 10px 65% 0px 0px;
     }
 
 </style>

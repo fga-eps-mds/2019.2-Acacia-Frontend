@@ -1,7 +1,12 @@
 <template>
   <div class="home">
-    <h1 class="raleway-bold"> {{ $t('RootPage.title') }} </h1>
-    <SignButton :label="$t('SignPages.logout')" @action="logout"/>
+    <h1 class="raleway-bold">
+      {{ $t('RootPage.title') }}
+    </h1>
+    <SignButton
+      :label="$t('SignPages.logout')"
+      @action="logout"
+    />
     <div>
       <button 
         v-for="entry in languages" 
@@ -10,11 +15,10 @@
       >
         <flag 
           :iso="entry.flag" 
-          v-bind:squared=false 
+          :squared="false" 
         />
 
-        {{entry.title}}
-
+        {{ entry.title }}
       </button>
     </div>
   </div>
@@ -24,7 +28,7 @@
 import SignButton from '@/components/input/SignButton'
 import router from '@/router'
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
     SignButton,
   },

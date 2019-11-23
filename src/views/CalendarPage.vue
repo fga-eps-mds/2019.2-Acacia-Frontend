@@ -11,6 +11,8 @@
         id="calendar"
         locale="pt-BR"
         :attributes="atributos"
+        :from-page.sync="currentPage"
+        :available-dates="{ start: new Date(), end: null }"
         @dayclick="dayClicked"
       />
 
@@ -23,100 +25,195 @@
       </div>
     </div>
     
-    <div 
+    <div
+      v-if="colheitas.length > 0"
       :class="hideCards"
     >
-      <ul>
-        <li 
-          v-for="colheita in colheitas" 
-          :key="colheita.id"
+      <li 
+        v-for="colheita in colheitas" 
+        :key="colheita.id"
+      >
+        <div 
+          class="carBody"
+          @click="selectCard(colheita.pk)"
         >
-          <div 
-            class="carBody"
-            @click="selectCard(colheita.nome)"
+          <div
+            id="harvestTitle"
+            class="harvestTitle"
           >
-            <p class="cardTitle">
-              {{ colheita.nome }}
+            <v-icon
+              v-if="colheita.status === 'Open'"
+              style="margin-bottom:20px"
+              size="16"
+              color="#ffd131"
+            >
+              mdi-checkbox-blank-circle
+            </v-icon>
+            <v-icon
+              v-else
+              style="margin-bottom:20px"
+              size="16"
+              color="#ef476f"
+            >
+              mdi-checkbox-blank-circle
+            </v-icon>
+            <p 
+              class="cardTitle"
+              style="margin-left:15px"
+            >
+              <b>
+                {{ $t('Calendar.harvest') }}
+              </b>
             </p>
-            <font-awesome-icon
-              v-if="colheita.nome != colheitaCard"
-              icon="chevron-right"
-              style="color: #376996;"
-            /> 
-            <font-awesome-icon
-              v-if="colheita.nome === colheitaCard"
-              icon="chevron-down"
-              style="color: #376996;"
-            />         
           </div>
-          <div 
-            v-if="colheita.nome === colheitaCard"
-            class="contentCard"
+
+          <p class="cardTitle">
+            ({{ colheita.date }})
+          </p>
+    
+          <font-awesome-icon
+            v-if="colheita.pk != colheitaCard"
+            icon="chevron-right"
+            style="color: #376996;"
+          /> 
+          <font-awesome-icon
+            v-if="colheita.pk === colheitaCard"
+            icon="chevron-down"
+            style="color: #376996;"
+          />         
+        </div>
+        <div 
+          v-if="colheita.pk === colheitaCard"
+          class="contentCard"
+        >
+          <div
+            class="contentCardText" 
           >
-            <p class="cardDescription">
-              {{ colheita.descricao }}
-            </p>
-          </div>     
-        </li>
-      </ul>
+            <div
+              id="volunteerContent"
+            >
+              <p class="cardDescription raleway-bold">
+                <b> 
+                  {{ $t('Calendar.volunteers') }}
+                </b>
+              </p>
+              <div
+                class="descriptionItem minMaxContent"
+              >
+                <p class="cardDescription">
+                  {{ $t('Calendar.minimum') }} {{ colheita.min_volunteers }}
+                </p>
+                <p class="cardDescription">
+                  {{ $t('Calendar.maximum') }} {{ colheita.max_volunteers }}
+                </p>
+              </div>
+            </div>
+
+            <div
+              id="descriptionContent"
+              style="margin-top:15px"
+            >
+              <p class="cardDescription raleway-bold">
+                <b>
+                  {{ $t('Calendar.description') }}
+                </b>
+              </p>
+              <div
+                class="descriptionItem"
+              >
+                <p class="cardDescription">
+                  {{ colheita.description }}
+                </p>
+              </div>
+            </div>
+              
+            <div
+              id="rulesContent"
+              style="margin-top:15px"
+            >
+              <p class="cardDescription raleway-bold">
+                <b>
+                  {{ $t('Calendar.rules') }}
+                </b>
+              </p>
+              <div
+                class="descriptionItem"
+              >
+                <p 
+                  v-for="rule in colheita.rules"
+                  :key="rule.id"
+                  class="cardDescription"
+                >
+                  - {{ rule.description }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <SignButton
+            v-if="colheita.status === 'Open'"
+            buttonstyle="color: #ffffff" 
+            color="bg-color-primary"
+            :label="$t('Calendar.about')" 
+            class="content-button" 
+            @action="moreInformation(colheita)"
+          />
+        </div>     
+      </li>
+    </div>
+
+    <div
+      v-else
+      :class="hideCards"
+    >
+      <div
+        class="centralize-content" 
+      >
+        <div
+          class="centralize-message"
+        >
+          <h3
+            class="raleway-regular"
+          > 
+            {{ $t('Calendar.hoharvest') }}
+          </h3>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import TopBar from '@/components/layout/TopBar'
+import SignButton from '@/components/input/SignButton'
+import router from '@/router'
 
 export default {
 
   components: {
     TopBar,
+    SignButton
   },
+
 
   data() {
     return {
+      currentPage: null,
       selectedDay: null,
       height: "height-100",
       iconBottomBar: "chevron-up",
       iconCard: "chevron-right",
       colheitaCard: "",
-
-      dates: [
-        new Date(2019, 10, 1),
-        new Date(2019, 10, 2),
-      ],
-
-      dates_info: {
-        '2019-11-02': {
-          colheitas: [
-            {
-              descricao: 'Leo lindo é sensacional, imagina com Durvilhoso que é gado',
-              nome: 'Babadeira',
-            },
-
-            {
-              descricao: 'Leolindo345 é sensacional, imagina com Durvilhoso123 que é gado',
-              nome: 'Pisadeira',
-            },
-          ]
-        },
-        '2019-11-01': {
-          colheitas: [
-            {
-              descricao: 'Leo linxfghjfghsfdhsddo é sensacional, imagina com Durvilhoso que é gado',
-              nome: 'Babdfgfdgadeira',
-            },
-
-            {
-              descricao: 'Leolindo345 é srthfghsfhsfsensacional, imagina com Durvilhoso123 que é gado',
-              nome: 'Pisadedfgdfira',
-            },
-          ]
-        }
-      },
+      harvest: [],
+      beforeToday: [],
+      dates: [],
+      datesInfo: [],
+      datesSelect: {},
     }
   },
   
   computed: {
+
     hideCards: function () {
       return {
         'display-none': this.iconBottomBar === "chevron-up"
@@ -125,35 +222,77 @@ export default {
 
     colheitas: function() {
       if(!this.selectedDay){
-        return this.allHarvest()
+        return this.harvest
       }
-      return this.dates_info[this.selectedDay]['colheitas']
+      
+      return this.datesInfo
     },
 
     atributos: function() {
+      
       let attrs = [{
-        highlight: {
-          color: 'yellow',
-          class: 'detail-highlight'
-        },
-
         dates: this.dates,
+        
+        highlight: {
+          class: 'highlight',
+        },
+      },
+      {
+        dates: this.beforeToday,
+        
+        highlight: {
+          class: 'before-highlight',
+        },
       }]
 
-      if (this.iconBottomBar == "chevron-up") {
-        attrs[0]['highlight'].class = 'highlight'
-        return attrs
-      }
-
       return attrs
+
     },
+  },
+
+  watch: {
+    currentPage: function (val) {
+      let state = this.$store.state
+
+      const route = 'monthly_harvest/' + val.year + '/' + val.month
+
+      state.authRequest(route, 'GET')
+        .then((response) => {
+          this.harvest = response.data
+          for(var[day_harvest, harvest] of Object.entries(this.harvest)) {
+            if(harvest.status === 'Open'){
+              this.dates.push(harvest.date)
+            }
+            else{
+              this.beforeToday.push(harvest.date)
+            }
+            this.datesSelect[harvest.date] = harvest
+          }
+        })
+        .catch((errors) => {
+          console.log(errors.response)
+        })
+
+    }
   },
 
   methods: {
 
-    select() {
+    moreInformation(val){
+      router.push({ path: '/harvest/' + val.property_id + '/' + val.pk })
+    },
 
+    activeShadow (val) {
+      if(val === this.colheitaCard){
+        return true
+      }
+      return false
+    },
+
+    select() {
       if (this.iconBottomBar == "chevron-up") {
+        this.selectedDay = null;
+        this.colheitaCard = "";
         this.height = "height-60";
         this.iconBottomBar = "chevron-down";
       }
@@ -182,29 +321,19 @@ export default {
       }
     },
 
-    allHarvest() {
-      let harvest = []
-
-      for(var[day, colheitas] of Object.entries(this.dates_info)) {
-        for(var[key, colheita] of Object.entries(colheitas)) {
-          for(var[desc, info] of Object.entries(colheita)) {
-            harvest.push(info)
-          }
-        }
-      }
-
-      return harvest;
-
-    },
-
 
     dayClicked(day) {
 
-      if(!(day.id in this.dates_info)) {
+      this.datesInfo = []
+
+      if(!(day.id in this.datesSelect)) {
         return;
       }
 
-      let colheitas = this.dates_info[day.id]['colheitas'];
+      for(var[day_harvest, harvest] of Object.entries(this.harvest)) {
+        if(harvest.date === day.id) this.datesInfo.push(harvest)
+      }
+
       this.selectedDay = day.id;
       
       this.height = "height-60";
@@ -217,17 +346,20 @@ export default {
 <style lang="scss">
 @import "../assets/stylesheets/colors.scss";
 
-  ul{
-    color: $color-primary;
-  }
-
-  .detail-highlight {
-    margin-bottom: 30%;
-    transition-duration: 0.4s;
+  .contentCard {
+    padding: 3% 5%;
+    background: #f0f0f0;
   }
 
   .highlight {
-    margin-bottom: 120%;
+    background-color: #ffd131 !important;
+    margin-bottom: auto;
+    transition-duration: 0.4s;
+  }
+
+  .before-highlight {
+    background-color: #ef476f !important;
+    margin-bottom: auto;
     transition-duration: 0.4s;
   }
 
@@ -246,11 +378,11 @@ export default {
   }
 
   .cardDescription{
-    margin: 0;
+    margin: 0px !important;
     color: $color-primary-text;
-    margin-right: 5%;
     text-align: left;
     font-size: 90%;
+    font-size: 70%;
   }
 
   .content-container {
@@ -278,12 +410,14 @@ export default {
 
   .cardTitle{
     margin: 0;
+    font-size: 80%;
     color: $color-primary-text;
   }
 
   .carBody {
-    padding: 5%;
+    padding: 5% 5% 0% 5%;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
   }
 
@@ -311,10 +445,56 @@ export default {
     color: white !important;
   }
 
+  .vc-day-content{
+    margin: 0 !important;
+  }
+
   #container-bottom-bar {
     padding: 20px;
     display: flex;
     justify-content: center;
   }
 
+  .content-button {
+    font-size: 60%;
+    padding: 0px !important;
+    margin-top: 5px;
+  }
+
+  .contentCardText {
+    padding: 12px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .descriptionItem {
+    width: 75%;
+    margin-left: 30px;
+  }
+
+  .minMaxContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .centralize-content {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .centralize-message {
+    text-align: justify;
+    margin-top: 40px;
+    width: 80%;
+  }
+
+  .harvestTitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
 </style>
