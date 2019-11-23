@@ -86,13 +86,31 @@
               v-if="$store.state.getRefreshToken()"
             >
               <div
-                v-for="(harvest, index) in userHarvests"
-                :key="index"
+                v-if="userHarvests.length > 0"
               >
-                <HarvestDigest
-                  :harvest="harvest"
-                />
-                <v-divider v-if="index < userHarvests.length" />              
+                <div
+                  v-for="(harvest, index) in userHarvests"
+                  :key="index"
+                >
+                  <HarvestDigest
+                    :harvest="harvest"
+                  />
+                  <v-divider v-if="index < userHarvests.length" />              
+                </div>
+              </div>
+              <div
+                v-else
+                class="message-content raleway-regular"
+              >
+                <div
+                  class="centralize-container"
+                >
+                  <h4 
+                    style="width: 90%"
+                  > 
+                    {{ $t('PropertyView.noharvests') }}
+                  </h4>
+                </div>
               </div>
             </div>
 
