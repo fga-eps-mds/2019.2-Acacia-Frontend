@@ -172,9 +172,6 @@
 <script>
 export default {
   name: "SideBar",
-  created() {
-    this.getUsername()
-  },
   data() {
     return {
       navItemsAuth: [
@@ -243,11 +240,12 @@ export default {
       },
     },
   },
-
   mounted() {
-    this.getUsername();
+    this.getUsername()
   },
-
+  created() {
+    this.getUsername()
+  },
   methods: {
     async getUsername(){
       const res = await this.$store.state.authRequest('users/profile/', 'GET')
@@ -263,15 +261,6 @@ export default {
     },
     changeLocale(locale){
       this.$store.state.setUserLanguage(locale)
-    },
-    getUsername(){
-      this.$store.state.authRequest('users/profile/', 'GET')
-      .then(response =>{
-        this.username = response.data.username
-      })
-      .catch(error => {
-        console.log(error)
-      })
     },
   }
 }

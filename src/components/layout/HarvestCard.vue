@@ -54,7 +54,7 @@
                   <a :href="'/property/' + property.pk + '/'">
                     <PropertyDigest :property="property" />
                   </a>
-                  <v-divider/>
+                  <v-divider />
                 </div>
               </div>
             </div>            
