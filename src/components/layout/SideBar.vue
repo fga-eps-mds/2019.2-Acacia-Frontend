@@ -175,8 +175,8 @@ export default {
   data() {
     return {
       navItemsAuth: [
-        {title: 'newHarvest', icon: 'mdi-sprout', link: '/harvest'},
-        {title: 'newTree', icon: 'mdi-tree', link: '/property'},
+        {title: 'newHarvest', icon: 'mdi-sprout', link: '/harvest/registration'},
+        {title: 'newTree', icon: 'mdi-tree', link: '/tree/registration'},
         {title: 'calendar', icon: 'mdi-calendar-blank-outline', link: '/calendar'},
         {title: 'dashboard', icon: 'mdi-view-dashboard-outline', link: '/dashboard'},
       ],
