@@ -257,8 +257,8 @@
 .signup-title {
   width: 100%;
   padding: 0px 25px;
-  margin-top: 20%;
-  margin-bottom: 20%;
+  margin-top: 15%;
+  margin-bottom: 15%;
   display: flex;
   justify-content: left;
   font-size: 35px;
@@ -275,7 +275,9 @@
 }
 
 .signup-button {
-  margin-top: 90px;
+  margin-top: 5%;
+  padding-bottom: 30px;
+  margin-bottom: auto;
 }
 .gradient {
   background-image: linear-gradient(

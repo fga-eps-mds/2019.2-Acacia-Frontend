@@ -43,7 +43,6 @@
     <v-divider
       class="white"
     />
-
     <v-list dense>
       <v-list-item
         v-for="item in ($store.state.getRefreshToken() ? navItemsAuth : navItemsNotAuth)"
@@ -72,12 +71,12 @@
               {{ profileTranslation }}
             </v-list-item-title>
 
-            <v-list-item-title v-else-if="item.title=='properties'">
-              {{ propertiesTranslation }}
+            <v-list-item-title v-else-if="item.title=='newHarvest'">
+              {{ newHarvestTranslation }}
             </v-list-item-title>
 
-            <v-list-item-title v-else-if="item.title=='harvests'">
-              {{ harvestsTranslation }}
+            <v-list-item-title v-else-if="item.title=='newTree'">
+              {{ newTreetranslation }}
             </v-list-item-title>
 
             <v-list-item-title v-else-if="item.title=='calendar'">
@@ -176,9 +175,8 @@ export default {
   data() {
     return {
       navItemsAuth: [
-        {title: 'profile', icon: 'mdi-account-outline', link: '/profile'},
-        {title: 'properties', icon: 'mdi-home', link: '/property'},
-        {title: 'harvests', icon: 'mdi-sprout', link: '/harvest'},
+        {title: 'newHarvest', icon: 'mdi-sprout', link: '/harvest/registration'},
+        {title: 'newTree', icon: 'mdi-tree', link: '/tree/registration'},
         {title: 'calendar', icon: 'mdi-calendar-blank-outline', link: '/calendar'},
         {title: 'dashboard', icon: 'mdi-view-dashboard-outline', link: '/dashboard'},
       ],
@@ -200,12 +198,12 @@ export default {
       return this.$t('SideBar.profile')
     },
 
-    propertiesTranslation: function() {
-      return this.$t('SideBar.properties')
+    newHarvestTranslation: function() {
+      return this.$t('SideBar.newHarvest')
     },
 
-    harvestsTranslation: function() {
-      return this.$t('SideBar.harvests')
+    newTreetranslation: function() {
+      return this.$t('SideBar.newTree')      
     },
 
     calendarTranslation: function() {
@@ -242,12 +240,19 @@ export default {
       },
     },
   },
-
   mounted() {
-    this.getUsername();
+    this.getUsername()
   },
-
+  created() {
+    this.getUsername()
+  },
   methods: {
+    async getUsername(){
+      const res = await this.$store.state.authRequest('users/profile/', 'GET')
+      if (res.data){
+        this.username = res.data.username
+      }
+    },
     logout() {
       if (this.$store.state.getRefreshToken()) {
         this.$store.state.logoutUser()
@@ -256,15 +261,6 @@ export default {
     },
     changeLocale(locale){
       this.$store.state.setUserLanguage(locale)
-    },
-    getUsername(){
-      this.$store.state.authRequest('users/profile/', 'GET')
-      .then(response =>{
-        this.username = response.data.username
-      })
-      .catch(error => {
-        console.log(error)
-      })
     },
   }
 }

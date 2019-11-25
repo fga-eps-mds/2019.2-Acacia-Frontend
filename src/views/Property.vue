@@ -75,7 +75,6 @@
         </div>
       </div>    
     </div>
-
     <div
       id="footer-content"
       class="footer-content"
