@@ -280,9 +280,8 @@ export default {
   },
   methods: {
     getAllHarvests() {
-      this.$store.state.noAuthRequest('harvests/', 'GET')
+      this.$store.state.noAuthRequest('weekly_harvests/', 'GET')
         .then(response => {
-          this.harvestGet = true
           this.allHarvests = 
             Object
               .keys(response.data)
@@ -300,6 +299,9 @@ export default {
             message: 'An error has ocurred searching for harvests',
             color: 'error',
             })
+        })
+        .finally(() => {
+          this.harvestGet = true
         })
     },
     getUserProperties() {
