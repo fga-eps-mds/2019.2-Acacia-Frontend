@@ -73,6 +73,7 @@
               </div>
             </div>
             <div
+              v-if="$store.state.getRefreshToken()"
               class="justify-right"
             >
               <v-btn 
@@ -281,6 +282,7 @@ export default {
     getAllHarvests() {
       this.$store.state.noAuthRequest('harvests/', 'GET')
         .then(response => {
+          this.harvestGet = true
           this.allHarvests = 
             Object
               .keys(response.data)
@@ -298,9 +300,6 @@ export default {
             message: 'An error has ocurred searching for harvests',
             color: 'error',
             })
-        })
-        .finally(() => {
-          this.harvestGet = true
         })
     },
     getUserProperties() {
