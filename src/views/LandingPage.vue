@@ -84,7 +84,7 @@ import TopBar from '@/components/layout/TopBar'
 import BottomBar from '@/components/layout/BottomBar'
 import SignButton from '@/components/input/SignButton'
 import router from '@/router'
-
+console.log("VUE_APP_MODE = "+process.env.VUE_APP_MODE)
 export default {
   components: {
     TopBar,
@@ -128,6 +128,7 @@ export default {
   }
 
   .container-button {
+    font-size: 150%;
     padding-top: 25%;
   }
 

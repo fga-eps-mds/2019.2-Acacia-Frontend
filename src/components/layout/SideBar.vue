@@ -3,7 +3,6 @@
     v-model="sideNav"
     absolute
     temporary
-    color="#56A3A6"
     class="navigation-drawer"
   >
     <div
@@ -15,13 +14,13 @@
             large
             color="#ffffff"
           >
-            mdi-account-outline
+            mdi-account
           </v-icon>
         </v-list-item-avatar>
 
         <v-list-item-content>
           <v-list-item-title class="white--text">
-            Username
+            {{ username }}
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -44,7 +43,6 @@
     <v-divider
       class="white"
     />
-
     <v-list dense>
       <v-list-item
         v-for="item in ($store.state.getRefreshToken() ? navItemsAuth : navItemsNotAuth)"
@@ -73,16 +71,12 @@
               {{ profileTranslation }}
             </v-list-item-title>
 
-            <v-list-item-title v-else-if="item.title=='opendata'">
-              {{ openDataTranslation }}
+            <v-list-item-title v-else-if="item.title=='newHarvest'">
+              {{ newHarvestTranslation }}
             </v-list-item-title>
 
-            <v-list-item-title v-else-if="item.title=='properties'">
-              {{ propertiesTranslation }}
-            </v-list-item-title>
-
-            <v-list-item-title v-else-if="item.title=='harvests'">
-              {{ harvestsTranslation }}
+            <v-list-item-title v-else-if="item.title=='newTree'">
+              {{ newTreetranslation }}
             </v-list-item-title>
 
             <v-list-item-title v-else-if="item.title=='calendar'">
@@ -181,17 +175,14 @@ export default {
   data() {
     return {
       navItemsAuth: [
-        {title: 'profile', icon: 'mdi-account-outline', link: '/profile'},
-        {title: 'opendata', icon: 'mdi-shape-circle-plus', link: '/public-data'},
-        {title: 'properties', icon: 'mdi-home', link: '/property'},
-        {title: 'harvests', icon: 'mdi-sprout', link: '/harvest'},
+        {title: 'newHarvest', icon: 'mdi-sprout', link: '/harvest/registration'},
+        {title: 'newTree', icon: 'mdi-tree', link: '/tree/registration'},
         {title: 'calendar', icon: 'mdi-calendar-blank-outline', link: '/calendar'},
         {title: 'dashboard', icon: 'mdi-view-dashboard-outline', link: '/dashboard'},
       ],
       navItemsNotAuth: [
         {title: 'dashboard', icon: 'mdi-view-dashboard-outline', link: '/dashboard'},
         {title: 'calendar', icon: 'mdi-calendar-blank-outline', link: '/calendar'},
-        {title: 'opendata', icon: 'mdi-shape-circle-plus', link: '/public-data'},
         {title: 'signin', icon: 'mdi-login', link: '/signin'},
         {title: 'signup', icon: 'mdi-account-plus', link: '/signup'},
       ],
@@ -199,6 +190,7 @@ export default {
         {title: 'Português', flagicon: 'br', language: 'pt'},
         {title: 'English', flagicon: 'ca', language: 'en'},
       ],
+      username: '',
     }
   },
   computed: {
@@ -206,16 +198,12 @@ export default {
       return this.$t('SideBar.profile')
     },
 
-    openDataTranslation: function() {
-      return this.$t('SideBar.opendata')
+    newHarvestTranslation: function() {
+      return this.$t('SideBar.newHarvest')
     },
 
-    propertiesTranslation: function() {
-      return this.$t('SideBar.properties')
-    },
-
-    harvestsTranslation: function() {
-      return this.$t('SideBar.harvests')
+    newTreetranslation: function() {
+      return this.$t('SideBar.newTree')      
     },
 
     calendarTranslation: function() {
@@ -252,7 +240,19 @@ export default {
       },
     },
   },
+  mounted() {
+    this.getUsername()
+  },
+  created() {
+    this.getUsername()
+  },
   methods: {
+    async getUsername(){
+      const res = await this.$store.state.authRequest('users/profile/', 'GET')
+      if (res.data){
+        this.username = res.data.username
+      }
+    },
     logout() {
       if (this.$store.state.getRefreshToken()) {
         this.$store.state.logoutUser()
@@ -272,6 +272,12 @@ export default {
     z-index: 101 !important;
     height: 100vh;
     position: fixed;
+    background-image: linear-gradient(
+      45deg,
+      rgba(86, 163, 166, 1),
+      rgba(75, 125, 170, 85),
+      rgba(75, 125, 170, 105)
+    );
   }
 
 </style>

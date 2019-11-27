@@ -1,0 +1,19 @@
+version: '3'
+services:
+  node-staging:
+    container_name: node-staging
+    image: acaciaelis/acacia:node-staging
+    command: sh -c "npm run build-stage && npm start"
+    ports:
+    - "8080:8080"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  node-production:
+    container_name: node-production
+    image: acaciaelis/acacia:node-prod
+    command: sh -c "npm run build-prod && npm start"
+    ports:
+    - "8081:8080"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"

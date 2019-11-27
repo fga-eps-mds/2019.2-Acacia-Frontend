@@ -4,20 +4,23 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
+import snackbar from '@/store/snackbar.js'
 import i18n from '@/plugins/i18n.js'
 import { API_URL } from './config'
 
 export default new Vuex.Store({
+  modules: { snackbar },
   getters: {
-    isAuthenticated: state => !!state.getAccessToken()
+    isAuthenticated: state => !!state.getRefreshToken()
   },
   state: {
     sideBarOn: false,
+    modalCardOn: false,
     defaultLanguage: 'en',
     baseURL: API_URL,
 
     /* === Resolves user language based on backend user, cookies and defaults to defaultLanguage === */
-    resolveUserLanguage: function() {
+    resolveUserLanguage: function () {
       let resolvedUserLanguage = Vue.cookie.get('resolved-user-language')
       if (resolvedUserLanguage) {
         i18n.locale = resolvedUserLanguage
@@ -52,21 +55,19 @@ export default new Vuex.Store({
       /* It doesn't really matter if the user is not logged in, fails graciously */
       if (state.userTokensPresent()) {
         state.authRequest('users/prefered-language', 'PATCH', {
-          'chosen_language' : lang
+          'chosen_language': lang
         })
-        .then(() => {})
-        .catch(() => {})
+          .then(() => { })
+          .catch(() => { })
       }
     },
 
-    /* === Returns true if both access and refresh token are present in cookies === */
-    userTokensPresent: function() {
+    /* === Token getters === */
+    userTokensPresent: function () {
       return !!(this.getAccessToken() && this.getRefreshToken())
     },
-
-    /* === Token getters === */
-    getAccessToken: () => { return Vue.cookie.get('access-token') },
-    getRefreshToken: () => { return Vue.cookie.get('refresh-token') },
+    getAccessToken: () => { return Vue.cookie.get('access-token') || '' },
+    getRefreshToken: () => { return Vue.cookie.get('refresh-token') || '' },
 
     /* === Token setters === */
     setAccessToken: (accessToken) => Vue.cookie.set('access-token', accessToken, { expires: '5m' }),
@@ -82,6 +83,7 @@ export default new Vuex.Store({
               store.setAccessToken(response.data['access']);
               resolveBase();
             } else {
+              store.setRefreshToken(null)
               rejectBase();
             }
           })
@@ -126,6 +128,29 @@ export default new Vuex.Store({
     //    else [THIS IS THE SAME AS response, BUT THE SERVER RETURNED AN ERROR INSTEAD OF A 2xx MESSAGE]
     //  })
 
+    /* === Access Token test function === */
+    testAndRefreshAccessToken: function () {
+      let url = this.baseURL + 'users/token/test-access-token/'
+      let store = this
+      return new Promise(function (resolveBase, rejectBase) {
+        const config = {
+          'headers': { 'Authorization': "Bearer " + store.getAccessToken() }
+        }
+        axios.get(url, config)
+          .then(() => {
+            resolveBase();
+          })
+          .catch(() => {
+            store.accessTokenRefresh()
+              .then(() => {
+                resolveBase();
+              })
+              .catch(() => {
+                rejectBase();
+              })
+          })
+      })
+    },
     // Do a request with a no authentication required
     // In case method is not valid, returns {}
     noAuthRequest: function (path, method = "GET", data = {}) {
@@ -165,7 +190,7 @@ export default new Vuex.Store({
       let store = this
       if (url.substr(-1) != '/') { url += '/' }
       return new Promise(function (resolveBase, rejectBase) {
-        if (!store.userTokensPresent()) {
+        if (!store.getRefreshToken()) {
           rejectBase();
         } else {
           store.testAndRefreshAccessToken()
@@ -193,7 +218,7 @@ export default new Vuex.Store({
                     }
                   })
                   .catch(response => rejectBase(response))
-              } else if (method.toLowerCase()==="patch" || method.toLowerCase() ==="put") {
+              } else if (method.toLowerCase() === "patch" || method.toLowerCase() === "put") {
                 axios.patch(url, data, { headers: headers })
                   .then(response => {
                     if (response.status.toString()[0] == 2) {
@@ -211,7 +236,6 @@ export default new Vuex.Store({
         }
       })
     },
-
     /* === Setters and getters for cookie languege === */
     setCookieLanguage: (lang) => Vue.cookie.set('prefered-language', lang),
     getCookieLanguage: () => { return Vue.cookie.get('prefered-language') },
@@ -228,8 +252,6 @@ export default new Vuex.Store({
       Vue.cookie.delete('refresh-token')
     },
   },
-  mutations: {
-  },
-  actions: {
-  }
+  mutations: {},
+  actions: {}
 })
