@@ -41,4 +41,5 @@ Execução do conteiner:
 
 `docker-compose up`
 
-Após esses passos a aplicação deverá estar acessível em [localhost:8080](localhost:8080)
+Após esses passos a aplicação deverá estar acessível em [localhost:8080](localhost:8080) ou [0.0.0.0:8080](0.0.0.0:8080)
+()
